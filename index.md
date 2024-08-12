@@ -14,6 +14,7 @@ Use of the shell is fundamental to using a wide range of other powerful tools
 and computing resources (including "high-performance computing" supercomputers).
 These lessons will start you on a path towards using these resources effectively.
 
+
 > ## Prerequisites {.prereq}
 >
 > This lesson guides you through the basics of file systems and the
@@ -27,8 +28,15 @@ These lessons will start you on a path towards using these resources effectively
 
 > ## Getting ready {.getready}
 > 
-> You need to access Katana
+> We will be using the Katana server. A very simple way to access Katana is to 
+> use the 'Katana OnDemand' version. Please navigate to the following link:
 >
+> [Katana On Demand](https://kod.restech.unsw.edu.au/)
+>
+> And click on the 'Katana Terminal' button. 
+>
+> You can get more support for Katana OnDemand [here](https://docs.restech.unsw.edu.au/using_katana/ondemand/)
+> 
 > You need to download some files to follow this lesson:
 >
 > 1. Make a new folder in your Desktop called `shell-novice`.

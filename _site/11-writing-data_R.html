@@ -1,113 +1,182 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="generator" content="pandoc">
-    <title>Writing Data</title>
-    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css" />
-    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap-theme.css" />
-    <link rel="stylesheet" type="text/css" href="css/swc.css" />
-    <link rel="alternate" type="application/rss+xml" title="Bioinformatics Honours 2024" href="https://github.com/liz-fernandez/UNSW_Honours_Bioinfo_2024/"/>
-    <meta charset="UTF-8" />
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-  </head>
-  <body class="lesson">
-    <div class="container card">
-      <div class="banner">
-        <a href="https://liz-fernandez.github.io/Honours_Bioinfo_2024/" title="Honours Bioinformatics Course 2024">
-          <img alt="Logo UNSW" src="img/unsw_logo.jpg" />
-        </a>
-      </div>
-      <article>
-      <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-                    <h1 class="title">Writing Data</h1>
-          <p>::::::::::::::::::::::::::::::::::::::: objectives</p>
+<p>::::::::::::::::::::::::::::::::::::::: objectives</p>
+
 <ul>
-<li>To be able to write out plots and data from R.</li>
+  <li>To be able to write out plots and data from R.</li>
 </ul>
+
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+
 <p>:::::::::::::::::::::::::::::::::::::::: questions</p>
+
 <ul>
-<li>How can I save plots and data created in R?</li>
+  <li>How can I save plots and data created in R?</li>
 </ul>
+
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p><code>{r, include=FALSE} library(&quot;ggplot2&quot;) gapminder &lt;- read.csv(&quot;data/gapminder_data.csv&quot;, header = TRUE) dir.create(&quot;cleaned-data&quot;)</code></p>
-<h2 id="saving-plots">Saving plots</h2>
-<p>You have already seen how to save the most recent plot you create in <code>ggplot2</code>, using the command <code>ggsave</code>. As a refresher:</p>
-<p><code>{r, eval=FALSE} ggsave(&quot;My_most_recent_plot.pdf&quot;)</code></p>
-<p>You can save a plot from within RStudio using the ‘Export’ button in the ‘Plot’ window. This will give you the option of saving as a .pdf or as .png, .jpg or other image formats.</p>
-<p>Sometimes you will want to save plots without creating them in the ‘Plot’ window first. Perhaps you want to make a pdf document with multiple pages: each one a different plot, for example. Or perhaps you’re looping through multiple subsets of a file, plotting data from each subset, and you want to save each plot, but obviously can’t stop the loop to click ‘Export’ for each one.</p>
-<p>In this case you can use a more flexible approach. The function <code>pdf</code> creates a new pdf device. You can control the size and resolution using the arguments to this function.</p>
-<p>```{r, eval=FALSE} pdf(“Life_Exp_vs_time.pdf”, width=12, height=4) ggplot(data=gapminder, aes(x=year, y=lifeExp, colour=country)) + geom_line() + theme(legend.position = “none”)</p>
+
+<p>```{r, include=FALSE}
+library(“ggplot2”)
+gapminder &lt;- read.csv(“data/gapminder_data.csv”, header = TRUE)
+dir.create(“cleaned-data”)</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+## Saving plots
+
+You have already seen how to save the most recent plot you create in `ggplot2`,
+using the command `ggsave`. As a refresher:
+
+```{r, eval=FALSE}
+ggsave("My_most_recent_plot.pdf")
+</code></pre></div></div>
+
+<p>You can save a plot from within RStudio using the ‘Export’ button
+in the ‘Plot’ window. This will give you the option of saving as a
+.pdf or as .png, .jpg or other image formats.</p>
+
+<p>Sometimes you will want to save plots without creating them in the
+‘Plot’ window first. Perhaps you want to make a pdf document with
+multiple pages: each one a different plot, for example. Or perhaps
+you’re looping through multiple subsets of a file, plotting data from
+each subset, and you want to save each plot, but obviously can’t stop
+the loop to click ‘Export’ for each one.</p>
+
+<p>In this case you can use a more flexible approach. The function
+<code class="language-plaintext highlighter-rouge">pdf</code> creates a new pdf device. You can control the size and resolution
+using the arguments to this function.</p>
+
+<p>```{r, eval=FALSE}
+pdf(“Life_Exp_vs_time.pdf”, width=12, height=4)
+ggplot(data=gapminder, aes(x=year, y=lifeExp, colour=country)) +
+  geom_line() +
+  theme(legend.position = “none”)</p>
+
 <h1 id="you-then-have-to-make-sure-to-turn-off-the-pdf-device">You then have to make sure to turn off the pdf device!</h1>
-<p>dev.off() ```</p>
-<p>Open up this document and have a look.</p>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
-<h2 id="challenge-1">Challenge 1</h2>
-<p>Rewrite your ‘pdf’ command to print a second page in the pdf, showing a facet plot (hint: use <code>facet_grid</code>) of the same data with one panel per continent.</p>
-<p>::::::::::::::: solution</p>
-<h2 id="solution-to-challenge-1">Solution to challenge 1</h2>
-<p><code>{r, eval=FALSE} pdf(&quot;Life_Exp_vs_time.pdf&quot;, width = 12, height = 4) p &lt;- ggplot(data = gapminder, aes(x = year, y = lifeExp, colour = country)) +   geom_line() +   theme(legend.position = &quot;none&quot;) p p + facet_grid(~continent) dev.off()</code></p>
+
+<p>dev.off()</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+Open up this document and have a look.
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## Challenge 1
+
+Rewrite your 'pdf' command to print a second
+page in the pdf, showing a facet plot (hint: use `facet_grid`)
+of the same data with one panel per continent.
+
+:::::::::::::::  solution
+
+## Solution to challenge 1
+
+```{r, eval=FALSE}
+pdf("Life_Exp_vs_time.pdf", width = 12, height = 4)
+p &lt;- ggplot(data = gapminder, aes(x = year, y = lifeExp, colour = country)) +
+  geom_line() +
+  theme(legend.position = "none")
+p
+p + facet_grid(~continent)
+dev.off()
+</code></pre></div></div>
+
 <p>:::::::::::::::::::::::::</p>
+
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>The commands <code>jpeg</code>, <code>png</code> etc. are used similarly to produce documents in different formats.</p>
+
+<p>The commands <code class="language-plaintext highlighter-rouge">jpeg</code>, <code class="language-plaintext highlighter-rouge">png</code> etc. are used similarly to produce
+documents in different formats.</p>
+
 <h2 id="writing-data">Writing data</h2>
+
 <p>At some point, you’ll also want to write out data from R.</p>
-<p>We can use the <code>write.table</code> function for this, which is very similar to <code>read.table</code> from before.</p>
-<p>Let’s create a data-cleaning script, for this analysis, we only want to focus on the gapminder data for Australia:</p>
-<pre class="{r}"><code>aust_subset &lt;- gapminder[gapminder$country == &quot;Australia&quot;,]
+
+<p>We can use the <code class="language-plaintext highlighter-rouge">write.table</code> function for this, which is
+very similar to <code class="language-plaintext highlighter-rouge">read.table</code> from before.</p>
+
+<p>Let’s create a data-cleaning script, for this analysis, we
+only want to focus on the gapminder data for Australia:</p>
+
+<pre><code class="language-{r}">aust_subset &lt;- gapminder[gapminder$country == "Australia",]
 
 write.table(aust_subset,
-  file=&quot;cleaned-data/gapminder-aus.csv&quot;,
-  sep=&quot;,&quot;
-)</code></pre>
-<p>Let’s switch back to the shell to take a look at the data to make sure it looks OK:</p>
-<p><code>{r, engine=&quot;bash&quot;} head cleaned-data/gapminder-aus.csv</code></p>
-<p>Hmm, that’s not quite what we wanted. Where did all these quotation marks come from? Also the row numbers are meaningless.</p>
-<p>Let’s look at the help file to work out how to change this behaviour.</p>
-<p><code>{r, eval=FALSE} ?write.table</code></p>
-<p>By default R will wrap character vectors with quotation marks when writing out to file. It will also write out the row and column names.</p>
+  file="cleaned-data/gapminder-aus.csv",
+  sep=","
+)
+</code></pre>
+
+<p>Let’s switch back to the shell to take a look at the data to make sure it looks
+OK:</p>
+
+<p>```{r, engine=”bash”}
+head cleaned-data/gapminder-aus.csv</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+Hmm, that's not quite what we wanted. Where did all these
+quotation marks come from? Also the row numbers are
+meaningless.
+
+Let's look at the help file to work out how to change this
+behaviour.
+
+```{r, eval=FALSE}
+?write.table
+</code></pre></div></div>
+
+<p>By default R will wrap character vectors with quotation marks
+when writing out to file. It will also write out the row and
+column names.</p>
+
 <p>Let’s fix this:</p>
-<pre class="{r}"><code>write.table(
-  gapminder[gapminder$country == &quot;Australia&quot;,],
-  file=&quot;cleaned-data/gapminder-aus.csv&quot;,
-  sep=&quot;,&quot;, quote=FALSE, row.names=FALSE
-)</code></pre>
+
+<pre><code class="language-{r}">write.table(
+  gapminder[gapminder$country == "Australia",],
+  file="cleaned-data/gapminder-aus.csv",
+  sep=",", quote=FALSE, row.names=FALSE
+)
+</code></pre>
+
 <p>Now lets look at the data again using our shell skills:</p>
-<p><code>{r, engine=&quot;bash&quot;} head cleaned-data/gapminder-aus.csv</code></p>
-<p>That looks better!</p>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
-<h2 id="challenge-2">Challenge 2</h2>
-<p>Write a data-cleaning script file that subsets the gapminder data to include only data points collected since 1990.</p>
-<p>Use this script to write out the new subset to a file in the <code>cleaned-data/</code> directory.</p>
-<p>::::::::::::::: solution</p>
-<h2 id="solution-to-challenge-2">Solution to challenge 2</h2>
-<p><code>{r, eval=FALSE} write.table(   gapminder[gapminder$year &gt; 1990, ],   file = &quot;cleaned-data/gapminder-after1990.csv&quot;,   sep = &quot;,&quot;, quote = FALSE, row.names = FALSE )</code></p>
+
+<p>```{r, engine=”bash”}
+head cleaned-data/gapminder-aus.csv</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+That looks better!
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## Challenge 2
+
+Write a data-cleaning script file that subsets the gapminder
+data to include only data points collected since 1990.
+
+Use this script to write out the new subset to a file
+in the `cleaned-data/` directory.
+
+:::::::::::::::  solution
+
+## Solution to challenge 2
+
+```{r, eval=FALSE}
+write.table(
+  gapminder[gapminder$year &gt; 1990, ],
+  file = "cleaned-data/gapminder-after1990.csv",
+  sep = ",", quote = FALSE, row.names = FALSE
+)
+</code></pre></div></div>
+
 <p>:::::::::::::::::::::::::</p>
+
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p><code>{r, echo=FALSE} # We remove after rendering the lesson, because we don't want this in the lesson # repository unlink(&quot;cleaned-data&quot;, recursive=TRUE)</code></p>
+
+<p>```{r, echo=FALSE}</p>
+<h1 id="we-remove-after-rendering-the-lesson-because-we-dont-want-this-in-the-lesson">We remove after rendering the lesson, because we don’t want this in the lesson</h1>
+<h1 id="repository">repository</h1>
+<p>unlink(“cleaned-data”, recursive=TRUE)
+```</p>
+
 <p>:::::::::::::::::::::::::::::::::::::::: keypoints</p>
+
 <ul>
-<li>Save plots from RStudio using the ‘Export’ button.</li>
-<li>Use <code>write.table</code> to save tabular data.</li>
+  <li>Save plots from RStudio using the ‘Export’ button.</li>
+  <li>Use <code class="language-plaintext highlighter-rouge">write.table</code> to save tabular data.</li>
 </ul>
+
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-        </div>
-      </div>
-      </article>
-      <div class="footer">
-        <a class="label swc-blue-bg" href="mailto:s.fernandez_valverde@unsw.edu.au">Contact</a>
-      </div>
-    </div>
-    <!-- Javascript placed at the end of the document so the pages load faster -->
-    <script src="http://software-carpentry.org/v5/js/jquery-1.9.1.min.js"></script>
-    <script src="css/bootstrap/bootstrap-js/bootstrap.js"></script>
-    <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
-  </body>
-</html>
+

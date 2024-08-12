@@ -1,194 +1,303 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="generator" content="pandoc">
-    <title>Python Fundamentals</title>
-    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css" />
-    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap-theme.css" />
-    <link rel="stylesheet" type="text/css" href="css/swc.css" />
-    <link rel="alternate" type="application/rss+xml" title="Bioinformatics Honours 2024" href="https://github.com/liz-fernandez/UNSW_Honours_Bioinfo_2024/"/>
-    <meta charset="UTF-8" />
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-  </head>
-  <body class="lesson">
-    <div class="container card">
-      <div class="banner">
-        <a href="https://liz-fernandez.github.io/Honours_Bioinfo_2024/" title="Honours Bioinformatics Course 2024">
-          <img alt="Logo UNSW" src="img/unsw_logo.jpg" />
-        </a>
-      </div>
-      <article>
-      <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-                    <h1 class="title">Python Fundamentals</h1>
-          <p>::::::::::::::::::::::::::::::::::::::: objectives</p>
+<p>::::::::::::::::::::::::::::::::::::::: objectives</p>
+
 <ul>
-<li>Assign values to variables.</li>
+  <li>Assign values to variables.</li>
 </ul>
+
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+
 <p>:::::::::::::::::::::::::::::::::::::::: questions</p>
+
 <ul>
-<li>What basic data types can I work with in Python?</li>
-<li>How can I create a new variable in Python?</li>
-<li>How do I use a function?</li>
-<li>Can I change the value associated with a variable after I create it?</li>
+  <li>What basic data types can I work with in Python?</li>
+  <li>How can I create a new variable in Python?</li>
+  <li>How do I use a function?</li>
+  <li>Can I change the value associated with a variable after I create it?</li>
 </ul>
+
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+
 <h2 id="variables">Variables</h2>
+
 <p>Any Python interpreter can be used as a calculator:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="dv">3</span> <span class="op">+</span> <span class="dv">5</span> <span class="op">*</span> <span class="dv">4</span></code></pre></div>
-<pre class="output"><code>23</code></pre>
-<p>This is great but not very interesting. To do anything useful with data, we need to assign its value to a <em>variable</em>. In Python, we can <a href="../learners/reference.md#assign">assign</a> a value to a <a href="../learners/reference.md#variable">variable</a>, using the equals sign <code>=</code>. For example, we can track the weight of a patient who weighs 60 kilograms by assigning the value <code>60</code> to a variable <code>weight_kg</code>:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">weight_kg <span class="op">=</span> <span class="dv">60</span></code></pre></div>
-<p>From now on, whenever we use <code>weight_kg</code>, Python will substitute the value we assigned to it. In layperson’s terms, <strong>a variable is a name for a value</strong>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">3</span> <span class="o">+</span> <span class="mi">5</span> <span class="o">*</span> <span class="mi">4</span>
+</code></pre></div></div>
+
+<pre><code class="language-output">23
+</code></pre>
+
+<p>This is great but not very interesting.
+To do anything useful with data, we need to assign its value to a <em>variable</em>.
+In Python, we can <a href="../learners/reference.md#assign">assign</a> a value to a
+<a href="../learners/reference.md#variable">variable</a>, using the equals sign <code class="language-plaintext highlighter-rouge">=</code>.
+For example, we can track the weight of a patient who weighs 60 kilograms by
+assigning the value <code class="language-plaintext highlighter-rouge">60</code> to a variable <code class="language-plaintext highlighter-rouge">weight_kg</code>:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">weight_kg</span> <span class="o">=</span> <span class="mi">60</span>
+</code></pre></div></div>
+
+<p>From now on, whenever we use <code class="language-plaintext highlighter-rouge">weight_kg</code>, Python will substitute the value we assigned to
+it. In layperson’s terms, <strong>a variable is a name for a value</strong>.</p>
+
 <p>In Python, variable names:</p>
+
 <ul>
-<li>can include letters, digits, and underscores</li>
-<li>cannot start with a digit</li>
-<li>are <a href="../learners/reference.md#case-sensitive">case sensitive</a>.</li>
+  <li>can include letters, digits, and underscores</li>
+  <li>cannot start with a digit</li>
+  <li>are <a href="../learners/reference.md#case-sensitive">case sensitive</a>.</li>
 </ul>
+
 <p>This means that, for example:</p>
+
 <ul>
-<li><code>weight0</code> is a valid variable name, whereas <code>0weight</code> is not</li>
-<li><code>weight</code> and <code>Weight</code> are different variables</li>
+  <li><code class="language-plaintext highlighter-rouge">weight0</code> is a valid variable name, whereas <code class="language-plaintext highlighter-rouge">0weight</code> is not</li>
+  <li><code class="language-plaintext highlighter-rouge">weight</code> and <code class="language-plaintext highlighter-rouge">Weight</code> are different variables</li>
 </ul>
+
 <h2 id="types-of-data">Types of data</h2>
+
 <p>Python knows various types of data. Three common ones are:</p>
+
 <ul>
-<li>integer numbers</li>
-<li>floating point numbers, and</li>
-<li>strings.</li>
+  <li>integer numbers</li>
+  <li>floating point numbers, and</li>
+  <li>strings.</li>
 </ul>
-<p>In the example above, variable <code>weight_kg</code> has an integer value of <code>60</code>. If we want to more precisely track the weight of our patient, we can use a floating point value by executing:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">weight_kg <span class="op">=</span> <span class="fl">60.3</span></code></pre></div>
-<p>To create a string, we add single or double quotes around some text. To identify and track a patient throughout our study, we can assign each person a unique identifier by storing it in a string:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">patient_id <span class="op">=</span> <span class="st">&#39;001&#39;</span></code></pre></div>
+
+<p>In the example above, variable <code class="language-plaintext highlighter-rouge">weight_kg</code> has an integer value of <code class="language-plaintext highlighter-rouge">60</code>.
+If we want to more precisely track the weight of our patient,
+we can use a floating point value by executing:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">weight_kg</span> <span class="o">=</span> <span class="mf">60.3</span>
+</code></pre></div></div>
+
+<p>To create a string, we add single or double quotes around some text.
+To identify and track a patient throughout our study,
+we can assign each person a unique identifier by storing it in a string:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">patient_id</span> <span class="o">=</span> <span class="s">'001'</span>
+</code></pre></div></div>
+
 <h2 id="using-variables-in-python">Using Variables in Python</h2>
-<p>Once we have data stored with variable names, we can make use of it in calculations. We may want to store our patient’s weight in pounds as well as kilograms:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">weight_lb <span class="op">=</span> <span class="fl">2.2</span> <span class="op">*</span> weight_kg</code></pre></div>
+
+<p>Once we have data stored with variable names, we can make use of it in calculations.
+We may want to store our patient’s weight in pounds as well as kilograms:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">weight_lb</span> <span class="o">=</span> <span class="mf">2.2</span> <span class="o">*</span> <span class="n">weight_kg</span>
+</code></pre></div></div>
+
 <p>We might decide to add a prefix to our patient identifier:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">patient_id <span class="op">=</span> <span class="st">&#39;inflam_&#39;</span> <span class="op">+</span> patient_id</code></pre></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">patient_id</span> <span class="o">=</span> <span class="s">'inflam_'</span> <span class="o">+</span> <span class="n">patient_id</span>
+</code></pre></div></div>
+
 <h2 id="built-in-python-functions">Built-in Python functions</h2>
-<p>To carry out common tasks with data and variables in Python, the language provides us with several built-in <a href="../learners/reference.md#function">functions</a>. To display information to the screen, we use the <code>print</code> function:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(weight_lb)
-<span class="bu">print</span>(patient_id)</code></pre></div>
-<pre class="output"><code>132.66
-inflam_001</code></pre>
-<p>When we want to make use of a function, referred to as calling the function, we follow its name by parentheses. The parentheses are important: if you leave them off, the function doesn’t actually run! Sometimes you will include values or variables inside the parentheses for the function to use. In the case of <code>print</code>, we use the parentheses to tell the function what value we want to display. We will learn more about how functions work and how to create our own in later episodes.</p>
-<p>We can display multiple things at once using only one <code>print</code> call:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(patient_id, <span class="st">&#39;weight in kilograms:&#39;</span>, weight_kg)</code></pre></div>
-<pre class="output"><code>inflam_001 weight in kilograms: 60.3</code></pre>
-<p>We can also call a function inside of another <a href="../learners/reference.md#function-call">function call</a>. For example, Python has a built-in function called <code>type</code> that tells you a value’s data type:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(<span class="bu">type</span>(<span class="fl">60.3</span>))
-<span class="bu">print</span>(<span class="bu">type</span>(patient_id))</code></pre></div>
-<pre class="output"><code>&lt;class &#39;float&#39;&gt;
-&lt;class &#39;str&#39;&gt;</code></pre>
-<p>Moreover, we can do arithmetic with variables right inside the <code>print</code> function:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(<span class="st">&#39;weight in pounds:&#39;</span>, <span class="fl">2.2</span> <span class="op">*</span> weight_kg)</code></pre></div>
-<pre class="output"><code>weight in pounds: 132.66</code></pre>
-<p>The above command, however, did not change the value of <code>weight_kg</code>:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(weight_kg)</code></pre></div>
-<pre class="output"><code>60.3</code></pre>
-<p>To change the value of the <code>weight_kg</code> variable, we have to <strong>assign</strong> <code>weight_kg</code> a new value using the equals <code>=</code> sign:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">weight_kg <span class="op">=</span> <span class="fl">65.0</span>
-<span class="bu">print</span>(<span class="st">&#39;weight in kilograms is now:&#39;</span>, weight_kg)</code></pre></div>
-<pre class="output"><code>weight in kilograms is now: 65.0</code></pre>
-<p>::::::::::::::::::::::::::::::::::::::::: callout</p>
+
+<p>To carry out common tasks with data and variables in Python,
+the language provides us with several built-in <a href="../learners/reference.md#function">functions</a>.
+To display information to the screen, we use the <code class="language-plaintext highlighter-rouge">print</code> function:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="n">weight_lb</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">patient_id</span><span class="p">)</span>
+</code></pre></div></div>
+
+<pre><code class="language-output">132.66
+inflam_001
+</code></pre>
+
+<p>When we want to make use of a function, referred to as calling the function,
+we follow its name by parentheses. The parentheses are important:
+if you leave them off, the function doesn’t actually run!
+Sometimes you will include values or variables inside the parentheses for the function to use.
+In the case of <code class="language-plaintext highlighter-rouge">print</code>,
+we use the parentheses to tell the function what value we want to display.
+We will learn more about how functions work and how to create our own in later episodes.</p>
+
+<p>We can display multiple things at once using only one <code class="language-plaintext highlighter-rouge">print</code> call:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="n">patient_id</span><span class="p">,</span> <span class="s">'weight in kilograms:'</span><span class="p">,</span> <span class="n">weight_kg</span><span class="p">)</span>
+</code></pre></div></div>
+
+<pre><code class="language-output">inflam_001 weight in kilograms: 60.3
+</code></pre>
+
+<p>We can also call a function inside of another
+<a href="../learners/reference.md#function-call">function call</a>.
+For example, Python has a built-in function called <code class="language-plaintext highlighter-rouge">type</code> that tells you a value’s data type:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="mf">60.3</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">patient_id</span><span class="p">))</span>
+</code></pre></div></div>
+
+<pre><code class="language-output">&lt;class 'float'&gt;
+&lt;class 'str'&gt;
+</code></pre>
+
+<p>Moreover, we can do arithmetic with variables right inside the <code class="language-plaintext highlighter-rouge">print</code> function:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="s">'weight in pounds:'</span><span class="p">,</span> <span class="mf">2.2</span> <span class="o">*</span> <span class="n">weight_kg</span><span class="p">)</span>
+</code></pre></div></div>
+
+<pre><code class="language-output">weight in pounds: 132.66
+</code></pre>
+
+<p>The above command, however, did not change the value of <code class="language-plaintext highlighter-rouge">weight_kg</code>:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="n">weight_kg</span><span class="p">)</span>
+</code></pre></div></div>
+
+<pre><code class="language-output">60.3
+</code></pre>
+
+<p>To change the value of the <code class="language-plaintext highlighter-rouge">weight_kg</code> variable, we have to
+<strong>assign</strong> <code class="language-plaintext highlighter-rouge">weight_kg</code> a new value using the equals <code class="language-plaintext highlighter-rouge">=</code> sign:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">weight_kg</span> <span class="o">=</span> <span class="mf">65.0</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'weight in kilograms is now:'</span><span class="p">,</span> <span class="n">weight_kg</span><span class="p">)</span>
+</code></pre></div></div>
+
+<pre><code class="language-output">weight in kilograms is now: 65.0
+</code></pre>
+
+<p>:::::::::::::::::::::::::::::::::::::::::  callout</p>
+
 <h2 id="variables-as-sticky-notes">Variables as Sticky Notes</h2>
-<p>A variable in Python is analogous to a sticky note with a name written on it: assigning a value to a variable is like putting that sticky note on a particular value.</p>
-<div class="figure">
-<img src="fig/python-sticky-note-variables-01.svg" alt="Value of 65.0 with weight_kg label stuck on it" />
 
-</div>
-<p>Using this analogy, we can investigate how assigning a value to one variable does <strong>not</strong> change values of other, seemingly related, variables. For example, let’s store the subject’s weight in pounds in its own variable:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co"># There are 2.2 pounds per kilogram</span>
-weight_lb <span class="op">=</span> <span class="fl">2.2</span> <span class="op">*</span> weight_kg
-<span class="bu">print</span>(<span class="st">&#39;weight in kilograms:&#39;</span>, weight_kg, <span class="st">&#39;and in pounds:&#39;</span>, weight_lb)</code></pre></div>
-<pre class="output"><code>weight in kilograms: 65.0 and in pounds: 143.0</code></pre>
-<p>Everything in a line of code following the ‘#’ symbol is a <a href="../learners/reference.md#comment">comment</a> that is ignored by Python. Comments allow programmers to leave explanatory notes for other programmers or their future selves.</p>
-<div class="figure">
-<img src="fig/python-sticky-note-variables-02.svg" alt="Value of 65.0 with weight_kg label stuck on it, and value of 143.0 with weight_lb label stuck on it" />
+<p>A variable in Python is analogous to a sticky note with a name written on it:
+assigning a value to a variable is like putting that sticky note on a particular value.</p>
 
-</div>
-<p>Similar to above, the expression <code>2.2 * weight_kg</code> is evaluated to <code>143.0</code>, and then this value is assigned to the variable <code>weight_lb</code> (i.e. the sticky note <code>weight_lb</code> is placed on <code>143.0</code>). At this point, each variable is “stuck” to completely distinct and unrelated values.</p>
-<p>Let’s now change <code>weight_kg</code>:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">weight_kg <span class="op">=</span> <span class="fl">100.0</span>
-<span class="bu">print</span>(<span class="st">&#39;weight in kilograms is now:&#39;</span>, weight_kg, <span class="st">&#39;and weight in pounds is still:&#39;</span>, weight_lb)</code></pre></div>
-<pre class="output"><code>weight in kilograms is now: 100.0 and weight in pounds is still: 143.0</code></pre>
-<div class="figure">
-<img src="fig/python-sticky-note-variables-03.svg" alt="Value of 100.0 with label weight_kg stuck on it, and value of 143.0 with label weight_lbstuck on it" />
+<p><img src="fig/python-sticky-note-variables-01.svg" alt="" />{alt=’Value of 65.0 with weight_kg label stuck on it’}</p>
 
-</div>
-<p>Since <code>weight_lb</code> doesn’t “remember” where its value comes from, it is not updated when we change <code>weight_kg</code>.</p>
+<p>Using this analogy, we can investigate how assigning a value to one variable
+does <strong>not</strong> change values of other, seemingly related, variables.  For
+example, let’s store the subject’s weight in pounds in its own variable:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># There are 2.2 pounds per kilogram
+</span><span class="n">weight_lb</span> <span class="o">=</span> <span class="mf">2.2</span> <span class="o">*</span> <span class="n">weight_kg</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'weight in kilograms:'</span><span class="p">,</span> <span class="n">weight_kg</span><span class="p">,</span> <span class="s">'and in pounds:'</span><span class="p">,</span> <span class="n">weight_lb</span><span class="p">)</span>
+</code></pre></div></div>
+
+<pre><code class="language-output">weight in kilograms: 65.0 and in pounds: 143.0
+</code></pre>
+
+<p>Everything in a line of code following the ‘#’ symbol is a
+<a href="../learners/reference.md#comment">comment</a> that is ignored by Python.
+Comments allow programmers to leave explanatory notes for other
+programmers or their future selves.</p>
+
+<p><img src="fig/python-sticky-note-variables-02.svg" alt="" />{alt=’Value of 65.0 with weight_kg label stuck on it, and value of 143.0 with weight_lb label stuck on it’}</p>
+
+<p>Similar to above, the expression <code class="language-plaintext highlighter-rouge">2.2 * weight_kg</code> is evaluated to <code class="language-plaintext highlighter-rouge">143.0</code>,
+and then this value is assigned to the variable <code class="language-plaintext highlighter-rouge">weight_lb</code> (i.e. the sticky
+note <code class="language-plaintext highlighter-rouge">weight_lb</code> is placed on <code class="language-plaintext highlighter-rouge">143.0</code>). At this point, each variable is
+“stuck” to completely distinct and unrelated values.</p>
+
+<p>Let’s now change <code class="language-plaintext highlighter-rouge">weight_kg</code>:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">weight_kg</span> <span class="o">=</span> <span class="mf">100.0</span>
+<span class="k">print</span><span class="p">(</span><span class="s">'weight in kilograms is now:'</span><span class="p">,</span> <span class="n">weight_kg</span><span class="p">,</span> <span class="s">'and weight in pounds is still:'</span><span class="p">,</span> <span class="n">weight_lb</span><span class="p">)</span>
+</code></pre></div></div>
+
+<pre><code class="language-output">weight in kilograms is now: 100.0 and weight in pounds is still: 143.0
+</code></pre>
+
+<p><img src="fig/python-sticky-note-variables-03.svg" alt="" />{alt=’Value of 100.0 with label weight_kg stuck on it, and value of 143.0 with label weight_lbstuck on it’}</p>
+
+<p>Since <code class="language-plaintext highlighter-rouge">weight_lb</code> doesn’t “remember” where its value comes from,
+it is not updated when we change <code class="language-plaintext highlighter-rouge">weight_kg</code>.</p>
+
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
+
+<p>:::::::::::::::::::::::::::::::::::::::  challenge</p>
+
 <h2 id="check-your-understanding">Check Your Understanding</h2>
-<p>What values do the variables <code>mass</code> and <code>age</code> have after each of the following statements? Test your answer by executing the lines.</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">mass <span class="op">=</span> <span class="fl">47.5</span>
-age <span class="op">=</span> <span class="dv">122</span>
-mass <span class="op">=</span> mass <span class="op">*</span> <span class="fl">2.0</span>
-age <span class="op">=</span> age <span class="op">-</span> <span class="dv">20</span></code></pre></div>
-<p>::::::::::::::: solution</p>
+
+<p>What values do the variables <code class="language-plaintext highlighter-rouge">mass</code> and <code class="language-plaintext highlighter-rouge">age</code> have after each of the following statements?
+Test your answer by executing the lines.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mass</span> <span class="o">=</span> <span class="mf">47.5</span>
+<span class="n">age</span> <span class="o">=</span> <span class="mi">122</span>
+<span class="n">mass</span> <span class="o">=</span> <span class="n">mass</span> <span class="o">*</span> <span class="mf">2.0</span>
+<span class="n">age</span> <span class="o">=</span> <span class="n">age</span> <span class="o">-</span> <span class="mi">20</span>
+</code></pre></div></div>
+
+<p>:::::::::::::::  solution</p>
+
 <h2 id="solution">Solution</h2>
-<pre class="output"><code>`mass` holds a value of 47.5, `age` does not exist
+
+<pre><code class="language-output">`mass` holds a value of 47.5, `age` does not exist
 `mass` still holds a value of 47.5, `age` holds a value of 122
-`mass` now has a value of 95.0, `age`&#39;s value is still 122
-`mass` still has a value of 95.0, `age` now holds 102</code></pre>
+`mass` now has a value of 95.0, `age`'s value is still 122
+`mass` still has a value of 95.0, `age` now holds 102
+</code></pre>
+
 <p>:::::::::::::::::::::::::</p>
+
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
+
+<p>:::::::::::::::::::::::::::::::::::::::  challenge</p>
+
 <h2 id="sorting-out-references">Sorting Out References</h2>
-<p>Python allows you to assign multiple values to multiple variables in one line by separating the variables and values with commas. What does the following program print out?</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">first, second <span class="op">=</span> <span class="st">&#39;Grace&#39;</span>, <span class="st">&#39;Hopper&#39;</span>
-third, fourth <span class="op">=</span> second, first
-<span class="bu">print</span>(third, fourth)</code></pre></div>
-<p>::::::::::::::: solution</p>
+
+<p>Python allows you to assign multiple values to multiple variables in one line by separating
+the variables and values with commas. What does the following program print out?</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">first</span><span class="p">,</span> <span class="n">second</span> <span class="o">=</span> <span class="s">'Grace'</span><span class="p">,</span> <span class="s">'Hopper'</span>
+<span class="n">third</span><span class="p">,</span> <span class="n">fourth</span> <span class="o">=</span> <span class="n">second</span><span class="p">,</span> <span class="n">first</span>
+<span class="k">print</span><span class="p">(</span><span class="n">third</span><span class="p">,</span> <span class="n">fourth</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>:::::::::::::::  solution</p>
+
 <h2 id="solution-1">Solution</h2>
-<pre class="output"><code>Hopper Grace</code></pre>
+
+<pre><code class="language-output">Hopper Grace
+</code></pre>
+
 <p>:::::::::::::::::::::::::</p>
+
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
+
+<p>:::::::::::::::::::::::::::::::::::::::  challenge</p>
+
 <h2 id="seeing-data-types">Seeing Data Types</h2>
+
 <p>What are the data types of the following variables?</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">planet <span class="op">=</span> <span class="st">&#39;Earth&#39;</span>
-apples <span class="op">=</span> <span class="dv">5</span>
-distance <span class="op">=</span> <span class="fl">10.5</span></code></pre></div>
-<p>::::::::::::::: solution</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">planet</span> <span class="o">=</span> <span class="s">'Earth'</span>
+<span class="n">apples</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">distance</span> <span class="o">=</span> <span class="mf">10.5</span>
+</code></pre></div></div>
+
+<p>:::::::::::::::  solution</p>
+
 <h2 id="solution-2">Solution</h2>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(<span class="bu">type</span>(planet))
-<span class="bu">print</span>(<span class="bu">type</span>(apples))
-<span class="bu">print</span>(<span class="bu">type</span>(distance))</code></pre></div>
-<pre class="output"><code>&lt;class &#39;str&#39;&gt;
-&lt;class &#39;int&#39;&gt;
-&lt;class &#39;float&#39;&gt;</code></pre>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">planet</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">apples</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">distance</span><span class="p">))</span>
+</code></pre></div></div>
+
+<pre><code class="language-output">&lt;class 'str'&gt;
+&lt;class 'int'&gt;
+&lt;class 'float'&gt;
+</code></pre>
+
 <p>:::::::::::::::::::::::::</p>
+
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+
 <p>:::::::::::::::::::::::::::::::::::::::: keypoints</p>
+
 <ul>
-<li>Basic data types in Python include integers, strings, and floating-point numbers.</li>
-<li>Use <code>variable = value</code> to assign a value to a variable in order to record it in memory.</li>
-<li>Variables are created on demand whenever a value is assigned to them.</li>
-<li>Use <code>print(something)</code> to display the value of <code>something</code>.</li>
-<li>Use <code># some kind of explanation</code> to add comments to programs.</li>
-<li>Built-in functions are always available to use.</li>
+  <li>Basic data types in Python include integers, strings, and floating-point numbers.</li>
+  <li>Use <code class="language-plaintext highlighter-rouge">variable = value</code> to assign a value to a variable in order to record it in memory.</li>
+  <li>Variables are created on demand whenever a value is assigned to them.</li>
+  <li>Use <code class="language-plaintext highlighter-rouge">print(something)</code> to display the value of <code class="language-plaintext highlighter-rouge">something</code>.</li>
+  <li>Use <code class="language-plaintext highlighter-rouge"># some kind of explanation</code> to add comments to programs.</li>
+  <li>Built-in functions are always available to use.</li>
 </ul>
+
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-        </div>
-      </div>
-      </article>
-      <div class="footer">
-        <a class="label swc-blue-bg" href="mailto:s.fernandez_valverde@unsw.edu.au">Contact</a>
-      </div>
-    </div>
-    <!-- Javascript placed at the end of the document so the pages load faster -->
-    <script src="http://software-carpentry.org/v5/js/jquery-1.9.1.min.js"></script>
-    <script src="css/bootstrap/bootstrap-js/bootstrap.js"></script>
-    <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
-  </body>
-</html>
+
