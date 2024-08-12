@@ -29,69 +29,79 @@ These lessons will start you on a path towards using these resources effectively
 > ## Getting ready {.getready}
 > 
 > We will be using the Katana server. A very simple way to access Katana is to 
-> use the 'Katana OnDemand' version. Please navigate to the following link:
+> use the 'Katana OnDemand' version. 
 >
+> 1. Navigate to the following link:
 > [Katana On Demand](https://kod.restech.unsw.edu.au/)
->
-> And click on the 'Katana Terminal' button. 
->
-> You can get more support for Katana OnDemand [here](https://docs.restech.unsw.edu.au/using_katana/ondemand/)
-> 
-> You need to download some files to follow this lesson:
->
-> 1. Make a new folder in your Desktop called `shell-novice`.
-> 2. Download [shell-novice-data.zip](./shell-novice-data.zip) and move the file to this folder.
-> 3. If it's not unzipped yet, double-click on it to unzip it. You should end up with a new folder called `data`.
-> 4. You can access this folder from the Unix shell with:
->
-> ~~~ {.input}
-> $ cd && cd Desktop/shell-novice/data
+> 2. Click on the 'FastX Desktop' button. 
+> 3. Click on the 'Launch' button. 
+> 4. Click on the 'Connect to FastX Desktop' button. 
+> 5. Double click on the folder named 'yourzID's Home'
+> 5. Make a new folder in your Desktop called 'Bioinfo_Course' and double click it.
+> 6. Download data-shell-dir.zip by opening and internet browser and navigating to the following url:
+> [https://liz-fernandez.github.io/Honours_Bioinfo_2024/DATA/data-shell-dir.zip](https://liz-fernandez.github.io/Honours_Bioinfo_2024/DATA/data-shell-dir.zip)
+> 7. Move the 'data-shell-dir.zip' file inside the 'Bioinfo_Course' folder.
+> 8. Close your FastX Desktop browser tab. 
+> 9. Click the red 'Delete' button. 
+> 10. Navigate back to the [Katana OnDemand Dashboard](https://kod.restech.unsw.edu.au/pun/sys/dashboard) and click
+>     on the 'Katana Terminal' button. 
+> 11. Navigate to 'Bioinfo_Course' and decompress the file by copying the following lines and pasting them into the
+>     terminal:
+> ~~~{.bash} 
+> cd Bionfo_Course/
+> unzip data-shell-dir.zip
+> cd data-shell/
 > ~~~
+> 
+> You are now ready to start! 
+> 
+> You can get more support for Katana OnDemand [here](https://docs.restech.unsw.edu.au/using_katana/ondemand/)
+>
 
 ## Topics
 
 ### Week 1 - Linux Shell
 
-1.  [Introducing the Shell](00-intro_Shell.html)
-2.  [Files and Directories](01-filedir_Shell.html)
-3.  [Creating Things](02-create_Shell.html)
-4.  [Pipes and Filters](03-pipefilter_Shell.html)
-5.  [Loops](04-loop_Shell.html)
-6.  [Shell Scripts](05-script_Shell.html)
-7.  [Finding Things](06-find_Shell.html)
+1.  [Introducing the Shell]()
+2.  [Files and Directories]()
+3.  [Creating Things]()
+4.  [Pipes and Filters]()
+5.  [Loops]()
+6.  [Shell Scripts]()
+7.  [Finding Things]()
 
 ### Week 2 - Introduction to Python
 
-1.  [Python fundamentals](01-intro_Python.html)
-2.  [Analyzing Patient Data](02-numpy_Python.html)
-3.  [Visualising Tabular Data](03-matplotlib_Python.html)
-4.  [Storing Multiple Values in Lists](04-lists_Python.html)
-5.  [Repeating Actions with Loops](05-loop_Python.html)
-6.  [Analyzing Data from Multiple Files](06-files_Python.html)
-7.  [Making Choices](07-cond_Python.html)
-8.  [Creating Functions](08-func_Python.html)
-9.  [Errors and Exceptions](09-errors_Python.html)
-10. [Defensive Programming](10-defensive_Python.html)
-11. [Debugging](11-debugging_Python.html)
-12. [Command-Line Programs](12-chtmlline_Python.html)
+1.  [Python fundamentals]()
+2.  [Analyzing Patient Data]()
+3.  [Visualising Tabular Data]()
+4.  [Storing Multiple Values in Lists]()
+5.  [Repeating Actions with Loops]()
+6.  [Analyzing Data from Multiple Files]()
+7.  [Making Choices]()
+8.  [Creating Functions]()
+9.  [Errors and Exceptions]()
+10. [Defensive Programming]()
+11. [Debugging]()
+12. [Command-Line Programs]()
 
 ### Week 3 - Introduction to R
 
-1.  [Introduction to R and RStudio](01-rstudio-intro_R.html)
-2.  [Project Management With RStudio](02-project-intro_R.html)
-3.  [Seeking Help](03-seeking-help_R.html)
-4.  [Data Structures](04-data-structures-part1_R.html)
-5.  [Exploring Data Frames](05-data-structures-part2_R.html)
-6.  [Subsetting Data](06-data-subsetting_R.html)
-7.  [Control Flow](07-control-flow_R.html)
-8.  [Creating Publication-Quality Graphics with ggplot2](08-plot-ggplot2_R.html)
-9.  [Vectorization](09-vectorization_R.html)
-10. [Functions Explained](10-functions_R.html)
-11. [Writing Data](11-writing-data_R.html)
-12. [Data Frame Manipulation with dplyr](12-dplyr_R.html)
-13. [Data Frame Manipulation with tidyr](13-tidyr_R.html)
-14. [Producing Reports With knitr](14-knitr-markdown_R.html)
-15. [Writing Good Software](15-wrap-up_R.html)
+1.  [Introduction to R and RStudio]()
+2.  [Project Management With RStudio]()
+3.  [Seeking Help]()
+4.  [Data Structures]()
+5.  [Exploring Data Frames]()
+6.  [Subsetting Data]()
+7.  [Control Flow]()
+8.  [Creating Publication-Quality Graphics with ggplot2]()
+9.  [Vectorization]()
+10. [Functions Explained]()
+11. [Writing Data]()
+12. [Data Frame Manipulation with dplyr]()
+13. [Data Frame Manipulation with tidyr]()
+14. [Producing Reports With knitr]()
+15. [Writing Good Software]()
 
 ## Other Resources
 
