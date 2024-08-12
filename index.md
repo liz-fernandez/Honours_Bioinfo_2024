@@ -2,6 +2,7 @@
 layout: page
 title: BABS Honours Bioinformatics Course 2024
 ---
+
 The Unix shell has been around longer than most of its users have been alive.
 It has survived so long because it's a power tool
 that allows people to do complex things with just a few keystrokes.
@@ -25,6 +26,8 @@ These lessons will start you on a path towards using these resources effectively
 > and scripts, you probably won't learn much from this lesson.
 
 > ## Getting ready {.getready}
+> 
+> You need to access Katana
 >
 > You need to download some files to follow this lesson:
 >
