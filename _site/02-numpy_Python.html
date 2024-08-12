@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="generator" content="pandoc">
+    <title>Analyzing Patient Data</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="css/swc.css" />
+    <link rel="alternate" type="application/rss+xml" title="Bioinformatics Honours 2024" href="https://github.com/liz-fernandez/UNSW_Honours_Bioinfo_2024/"/>
+    <meta charset="UTF-8" />
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body class="lesson">
+    <div class="container card">
+      <div class="banner">
+        <a href="https://liz-fernandez.github.io/Honours_Bioinfo_2024/" title="Honours Bioinformatics Course 2024">
+          <img alt="Logo UNSW" src="img/unsw_logo.jpg" />
+        </a>
+      </div>
+      <article>
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+                    <h1 class="title">Analyzing Patient Data</h1>
+          <p>::::::::::::::::::::::::::::::::::::::: objectives</p>
+<ul>
+<li>Explain what a library is and what libraries are used for.</li>
+<li>Import a Python library and use the functions it contains.</li>
+<li>Read tabular data from a file into a program.</li>
+<li>Select individual values and subsections from data.</li>
+<li>Perform operations on arrays of data.</li>
+</ul>
+<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+<p>:::::::::::::::::::::::::::::::::::::::: questions</p>
+<ul>
+<li>How can I process tabular data files in Python?</li>
+</ul>
+<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+<p>Words are useful, but what’s more useful are the sentences and stories we build with them. Similarly, while a lot of powerful, general tools are built into Python, specialized tools built up from these basic units live in <a href="../learners/reference.md#library">libraries</a> that can be called upon when needed.</p>
+<h2 id="loading-data-into-python">Loading data into Python</h2>
+<p>To begin processing the clinical trial inflammation data, we need to load it into Python. We can do that using a library called <a href="https://numpy.org/doc/stable" title="NumPy Documentation">NumPy</a>, which stands for Numerical Python. In general, you should use this library when you want to do fancy things with lots of numbers, especially if you have matrices or arrays. To tell Python that we’d like to start using NumPy, we need to <a href="../learners/reference.md#import">import</a> it:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> numpy</code></pre></div>
+<p>Importing a library is like getting a piece of lab equipment out of a storage locker and setting it up on the bench. Libraries provide additional functionality to the basic Python package, much like a new piece of equipment adds functionality to a lab space. Just like in the lab, importing too many libraries can sometimes complicate and slow down your programs - so we only import what we need for each program.</p>
+<p>Once we’ve imported the library, we can ask the library to read our data file for us:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">numpy.loadtxt(fname<span class="op">=</span><span class="st">&#39;inflammation-01.csv&#39;</span>, delimiter<span class="op">=</span><span class="st">&#39;,&#39;</span>)</code></pre></div>
+<pre class="output"><code>array([[ 0.,  0.,  1., ...,  3.,  0.,  0.],
+       [ 0.,  1.,  2., ...,  1.,  0.,  1.],
+       [ 0.,  1.,  1., ...,  2.,  1.,  1.],
+       ...,
+       [ 0.,  1.,  1., ...,  1.,  1.,  1.],
+       [ 0.,  0.,  0., ...,  0.,  2.,  0.],
+       [ 0.,  0.,  1., ...,  1.,  1.,  0.]])</code></pre>
+<p>The expression <code>numpy.loadtxt(...)</code> is a <a href="../learners/reference.md#function-call">function call</a> that asks Python to run the <a href="../learners/reference.md#function">function</a> <code>loadtxt</code> which belongs to the <code>numpy</code> library. The dot notation in Python is used most of all as an object attribute/property specifier or for invoking its method. <code>object.property</code> will give you the object.property value, <code>object_name.method()</code> will invoke on object_name method.</p>
+<p>As an example, John Smith is the John that belongs to the Smith family. We could use the dot notation to write his name <code>smith.john</code>, just as <code>loadtxt</code> is a function that belongs to the <code>numpy</code> library.</p>
+<p><code>numpy.loadtxt</code> has two <a href="../learners/reference.md#parameter">parameters</a>: the name of the file we want to read and the <a href="../learners/reference.md#delimiter">delimiter</a> that separates values on a line. These both need to be character strings (or <a href="../learners/reference.md#string">strings</a> for short), so we put them in quotes.</p>
+<p>Since we haven’t told it to do anything else with the function’s output, the <a href="../learners/reference.md#notebook">notebook</a> displays it. In this case, that output is the data we just loaded. By default, only a few rows and columns are shown (with <code>...</code> to omit elements when displaying big arrays). Note that, to save space when displaying NumPy arrays, Python does not show us trailing zeros, so <code>1.0</code> becomes <code>1.</code>.</p>
+<p>Our call to <code>numpy.loadtxt</code> read our file but didn’t save the data in memory. To do that, we need to assign the array to a variable. In a similar manner to how we assign a single value to a variable, we can also assign an array of values to a variable using the same syntax. Let’s re-run <code>numpy.loadtxt</code> and save the returned data:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">data <span class="op">=</span> numpy.loadtxt(fname<span class="op">=</span><span class="st">&#39;inflammation-01.csv&#39;</span>, delimiter<span class="op">=</span><span class="st">&#39;,&#39;</span>)</code></pre></div>
+<p>This statement doesn’t produce any output because we’ve assigned the output to the variable <code>data</code>. If we want to check that the data have been loaded, we can print the variable’s value:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(data)</code></pre></div>
+<pre class="output"><code>[[ 0.  0.  1. ...,  3.  0.  0.]
+ [ 0.  1.  2. ...,  1.  0.  1.]
+ [ 0.  1.  1. ...,  2.  1.  1.]
+ ...,
+ [ 0.  1.  1. ...,  1.  1.  1.]
+ [ 0.  0.  0. ...,  0.  2.  0.]
+ [ 0.  0.  1. ...,  1.  1.  0.]]</code></pre>
+<p>Now that the data are in memory, we can manipulate them. First, let’s ask what <a href="../learners/reference.md#type">type</a> of thing <code>data</code> refers to:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(<span class="bu">type</span>(data))</code></pre></div>
+<pre class="output"><code>&lt;class &#39;numpy.ndarray&#39;&gt;</code></pre>
+<p>The output tells us that <code>data</code> currently refers to an N-dimensional array, the functionality for which is provided by the NumPy library. These data correspond to arthritis patients’ inflammation. The rows are the individual patients, and the columns are their daily inflammation measurements.</p>
+<p>::::::::::::::::::::::::::::::::::::::::: callout</p>
+<h2 id="data-type">Data Type</h2>
+<p>A Numpy array contains one or more elements of the same type. The <code>type</code> function will only tell you that a variable is a NumPy array but won’t tell you the type of thing inside the array. We can find out the type of the data contained in the NumPy array.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(data.dtype)</code></pre></div>
+<pre class="output"><code>float64</code></pre>
+<p>This tells us that the NumPy array’s elements are <a href="../learners/reference.md#floating-point-number">floating-point numbers</a>.</p>
+<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+<p>With the following command, we can see the array’s <a href="../learners/reference.md#shape">shape</a>:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(data.shape)</code></pre></div>
+<pre class="output"><code>(60, 40)</code></pre>
+<p>The output tells us that the <code>data</code> array variable contains 60 rows and 40 columns. When we created the variable <code>data</code> to store our arthritis data, we did not only create the array; we also created information about the array, called <a href="../learners/reference.md#member">members</a> or attributes. This extra information describes <code>data</code> in the same way an adjective describes a noun. <code>data.shape</code> is an attribute of <code>data</code> which describes the dimensions of <code>data</code>. We use the same dotted notation for the attributes of variables that we use for the functions in libraries because they have the same part-and-whole relationship.</p>
+<p>If we want to get a single number from the array, we must provide an <a href="../learners/reference.md#index">index</a> in square brackets after the variable name, just as we do in math when referring to an element of a matrix. Our inflammation data has two dimensions, so we will need to use two indices to refer to one specific value:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(<span class="st">&#39;first value in data:&#39;</span>, data[<span class="dv">0</span>, <span class="dv">0</span>])</code></pre></div>
+<pre class="output"><code>first value in data: 0.0</code></pre>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(<span class="st">&#39;middle value in data:&#39;</span>, data[<span class="dv">29</span>, <span class="dv">19</span>])</code></pre></div>
+<pre class="output"><code>middle value in data: 16.0</code></pre>
+<p>The expression <code>data[29, 19]</code> accesses the element at row 30, column 20. While this expression may not surprise you, <code>data[0, 0]</code> might. Programming languages like Fortran, MATLAB and R start counting at 1 because that’s what human beings have done for thousands of years. Languages in the C family (including C++, Java, Perl, and Python) count from 0 because it represents an offset from the first value in the array (the second value is offset by one index from the first value). This is closer to the way that computers represent arrays (if you are interested in the historical reasons behind counting indices from zero, you can read <a href="https://exple.tive.org/blarg/2013/10/22/citation-needed/">Mike Hoye’s blog post</a>). As a result, if we have an M×N array in Python, its indices go from 0 to M-1 on the first axis and 0 to N-1 on the second. It takes a bit of getting used to, but one way to remember the rule is that the index is how many steps we have to take from the start to get the item we want.</p>
+<div class="figure">
+<img src="fig/python-zero-index.svg" alt="&#39;data&#39; is a 3 by 3 numpy array containing row 0: [&#39;A&#39;, &#39;B&#39;, &#39;C&#39;], row 1: [&#39;D&#39;, &#39;E&#39;, &#39;F&#39;], androw 2: [&#39;G&#39;, &#39;H&#39;, &#39;I&#39;]. Starting in the upper left hand corner, data[0, 0] = &#39;A&#39;, data[0, 1] = &#39;B&#39;,data[0, 2] = &#39;C&#39;, data[1, 0] = &#39;D&#39;, data[1, 1] = &#39;E&#39;, data[1, 2] = &#39;F&#39;, data[2, 0] = &#39;G&#39;,data[2, 1] = &#39;H&#39;, and data[2, 2] = &#39;I&#39;, in the bottom right hand corner." />
+
+</div>
+<p>::::::::::::::::::::::::::::::::::::::::: callout</p>
+<h2 id="in-the-corner">In the Corner</h2>
+<p>What may also surprise you is that when Python displays an array, it shows the element with index <code>[0, 0]</code> in the upper left corner rather than the lower left. This is consistent with the way mathematicians draw matrices but different from the Cartesian coordinates. The indices are (row, column) instead of (column, row) for the same reason, which can be confusing when plotting data.</p>
+<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+<h2 id="slicing-data">Slicing data</h2>
+<p>An index like <code>[30, 20]</code> selects a single element of an array, but we can select whole sections as well. For example, we can select the first ten days (columns) of values for the first four patients (rows) like this:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(data[<span class="dv">0</span>:<span class="dv">4</span>, <span class="dv">0</span>:<span class="dv">10</span>])</code></pre></div>
+<pre class="output"><code>[[ 0.  0.  1.  3.  1.  2.  4.  7.  8.  3.]
+ [ 0.  1.  2.  1.  2.  1.  3.  2.  2.  6.]
+ [ 0.  1.  1.  3.  3.  2.  6.  2.  5.  9.]
+ [ 0.  0.  2.  0.  4.  2.  2.  1.  6.  7.]]</code></pre>
+<p>The <a href="../learners/reference.md#slice">slice</a> <code>0:4</code> means, “Start at index 0 and go up to, but not including, index 4”. Again, the up-to-but-not-including takes a bit of getting used to, but the rule is that the difference between the upper and lower bounds is the number of values in the slice.</p>
+<p>We don’t have to start slices at 0:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(data[<span class="dv">5</span>:<span class="dv">10</span>, <span class="dv">0</span>:<span class="dv">10</span>])</code></pre></div>
+<pre class="output"><code>[[ 0.  0.  1.  2.  2.  4.  2.  1.  6.  4.]
+ [ 0.  0.  2.  2.  4.  2.  2.  5.  5.  8.]
+ [ 0.  0.  1.  2.  3.  1.  2.  3.  5.  3.]
+ [ 0.  0.  0.  3.  1.  5.  6.  5.  5.  8.]
+ [ 0.  1.  1.  2.  1.  3.  5.  3.  5.  8.]]</code></pre>
+<p>We also don’t have to include the upper and lower bound on the slice. If we don’t include the lower bound, Python uses 0 by default; if we don’t include the upper, the slice runs to the end of the axis, and if we don’t include either (i.e., if we use ‘:’ on its own), the slice includes everything:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">small <span class="op">=</span> data[:<span class="dv">3</span>, <span class="dv">36</span>:]
+<span class="bu">print</span>(<span class="st">&#39;small is:&#39;</span>)
+<span class="bu">print</span>(small)</code></pre></div>
+<p>The above example selects rows 0 through 2 and columns 36 through to the end of the array.</p>
+<pre class="output"><code>small is:
+[[ 2.  3.  0.  0.]
+ [ 1.  1.  0.  1.]
+ [ 2.  2.  1.  1.]]</code></pre>
+<h2 id="analyzing-data">Analyzing data</h2>
+<p>NumPy has several useful functions that take an array as input to perform operations on its values. If we want to find the average inflammation for all patients on all days, for example, we can ask NumPy to compute <code>data</code>’s mean value:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(numpy.mean(data))</code></pre></div>
+<pre class="output"><code>6.14875</code></pre>
+<p><code>mean</code> is a <a href="../learners/reference.md#function">function</a> that takes an array as an <a href="../learners/reference.md#argument">argument</a>.</p>
+<p>::::::::::::::::::::::::::::::::::::::::: callout</p>
+<h2 id="not-all-functions-have-input">Not All Functions Have Input</h2>
+<p>Generally, a function uses inputs to produce outputs. However, some functions produce outputs without needing any input. For example, checking the current time doesn’t require any input.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> time
+<span class="bu">print</span>(time.ctime())</code></pre></div>
+<pre class="output"><code>Sat Mar 26 13:07:33 2016</code></pre>
+<p>For functions that don’t take in any arguments, we still need parentheses (<code>()</code>) to tell Python to go and do something for us.</p>
+<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+<p>Let’s use three other NumPy functions to get some descriptive values about the dataset. We’ll also use multiple assignment, a convenient Python feature that will enable us to do this all in one line.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">maxval, minval, stdval <span class="op">=</span> numpy.amax(data), numpy.amin(data), numpy.std(data)
+
+<span class="bu">print</span>(<span class="st">&#39;maximum inflammation:&#39;</span>, maxval)
+<span class="bu">print</span>(<span class="st">&#39;minimum inflammation:&#39;</span>, minval)
+<span class="bu">print</span>(<span class="st">&#39;standard deviation:&#39;</span>, stdval)</code></pre></div>
+<p>Here we’ve assigned the return value from <code>numpy.amax(data)</code> to the variable <code>maxval</code>, the value from <code>numpy.amin(data)</code> to <code>minval</code>, and so on.</p>
+<pre class="output"><code>maximum inflammation: 20.0
+minimum inflammation: 0.0
+standard deviation: 4.61383319712</code></pre>
+<p>::::::::::::::::::::::::::::::::::::::::: callout</p>
+<h2 id="mystery-functions-in-ipython">Mystery Functions in IPython</h2>
+<p>How did we know what functions NumPy has and how to use them? If you are working in IPython or in a Jupyter Notebook, there is an easy way to find out. If you type the name of something followed by a dot, then you can use <a href="../learners/reference.md#tab-completion">tab completion</a> (e.g. type <code>numpy.</code> and then press <kbd>Tab</kbd>) to see a list of all functions and attributes that you can use. After selecting one, you can also add a question mark (e.g. <code>numpy.cumprod?</code>), and IPython will return an explanation of the method! This is the same as doing <code>help(numpy.cumprod)</code>. Similarly, if you are using the “plain vanilla” Python interpreter, you can type <code>numpy.</code> and press the <kbd>Tab</kbd> key twice for a listing of what is available. You can then use the <code>help()</code> function to see an explanation of the function you’re interested in, for example: <code>help(numpy.cumprod)</code>.</p>
+<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+<p>::::::::::::::::::::::::::::::::::::::::: callout</p>
+<h2 id="confusing-function-names">Confusing Function Names</h2>
+<p>One might wonder why the functions are called <code>amax</code> and <code>amin</code> and not <code>max</code> and <code>min</code> or why the other is called <code>mean</code> and not <code>amean</code>. The package <code>numpy</code> does provide functions <code>max</code> and <code>min</code> that are fully equivalent to <code>amax</code> and <code>amin</code>, but they share a name with standard library functions <code>max</code> and <code>min</code> that come with Python itself. Referring to the functions like we did above, that is <code>numpy.max</code> for example, does not cause problems, but there are other ways to refer to them that could. In addition, text editors might highlight (color) these functions like standard library function, even though they belong to NumPy, which can be confusing and lead to errors. Since there is no function called <code>mean</code> in the standard library, there is no function called <code>amean</code>.</p>
+<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+<p>When analyzing data, though, we often want to look at variations in statistical values, such as the maximum inflammation per patient or the average inflammation per day. One way to do this is to create a new temporary array of the data we want, then ask it to do the calculation:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">patient_0 <span class="op">=</span> data[<span class="dv">0</span>, :] <span class="co"># 0 on the first axis (rows), everything on the second (columns)</span>
+<span class="bu">print</span>(<span class="st">&#39;maximum inflammation for patient 0:&#39;</span>, numpy.amax(patient_0))</code></pre></div>
+<pre class="output"><code>maximum inflammation for patient 0: 18.0</code></pre>
+<p>We don’t actually need to store the row in a variable of its own. Instead, we can combine the selection and the function call:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(<span class="st">&#39;maximum inflammation for patient 2:&#39;</span>, numpy.amax(data[<span class="dv">2</span>, :]))</code></pre></div>
+<pre class="output"><code>maximum inflammation for patient 2: 19.0</code></pre>
+<p>What if we need the maximum inflammation for each patient over all days (as in the next diagram on the left) or the average for each day (as in the diagram on the right)? As the diagram below shows, we want to perform the operation across an axis:</p>
+<div class="figure">
+<img src="fig/python-operations-across-axes.png" alt="Per-patient maximum inflammation is computed row-wise across all columns usingnumpy.amax(data, axis=1). Per-day average inflammation is computed column-wise across all rows usingnumpy.mean(data, axis=0)." />
+
+</div>
+<p>To support this functionality, most array functions allow us to specify the axis we want to work on. If we ask for the average across axis 0 (rows in our 2D example), we get:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(numpy.mean(data, axis<span class="op">=</span><span class="dv">0</span>))</code></pre></div>
+<pre class="output"><code>[  0.           0.45         1.11666667   1.75         2.43333333   3.15
+   3.8          3.88333333   5.23333333   5.51666667   5.95         5.9
+   8.35         7.73333333   8.36666667   9.5          9.58333333
+  10.63333333  11.56666667  12.35        13.25        11.96666667
+  11.03333333  10.16666667  10.           8.66666667   9.15         7.25
+   7.33333333   6.58333333   6.06666667   5.95         5.11666667   3.6
+   3.3          3.56666667   2.48333333   1.5          1.13333333
+   0.56666667]</code></pre>
+<p>As a quick check, we can ask this array what its shape is:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(numpy.mean(data, axis<span class="op">=</span><span class="dv">0</span>).shape)</code></pre></div>
+<pre class="output"><code>(40,)</code></pre>
+<p>The expression <code>(40,)</code> tells us we have an N×1 vector, so this is the average inflammation per day for all patients. If we average across axis 1 (columns in our 2D example), we get:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(numpy.mean(data, axis<span class="op">=</span><span class="dv">1</span>))</code></pre></div>
+<pre class="output"><code>[ 5.45   5.425  6.1    5.9    5.55   6.225  5.975  6.65   6.625  6.525
+  6.775  5.8    6.225  5.75   5.225  6.3    6.55   5.7    5.85   6.55
+  5.775  5.825  6.175  6.1    5.8    6.425  6.05   6.025  6.175  6.55
+  6.175  6.35   6.725  6.125  7.075  5.725  5.925  6.15   6.075  5.75
+  5.975  5.725  6.3    5.9    6.75   5.925  7.225  6.15   5.95   6.275  5.7
+  6.1    6.825  5.975  6.725  5.7    6.25   6.4    7.05   5.9  ]</code></pre>
+<p>which is the average inflammation per patient across all days.</p>
+<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
+<h2 id="slicing-strings">Slicing Strings</h2>
+<p>A section of an array is called a <a href="../learners/reference.md#slice">slice</a>. We can take slices of character strings as well:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">element <span class="op">=</span> <span class="st">&#39;oxygen&#39;</span>
+<span class="bu">print</span>(<span class="st">&#39;first three characters:&#39;</span>, element[<span class="dv">0</span>:<span class="dv">3</span>])
+<span class="bu">print</span>(<span class="st">&#39;last three characters:&#39;</span>, element[<span class="dv">3</span>:<span class="dv">6</span>])</code></pre></div>
+<pre class="output"><code>first three characters: oxy
+last three characters: gen</code></pre>
+<p>What is the value of <code>element[:4]</code>? What about <code>element[4:]</code>? Or <code>element[:]</code>?</p>
+<p>::::::::::::::: solution</p>
+<h2 id="solution">Solution</h2>
+<pre class="output"><code>oxyg
+en
+oxygen</code></pre>
+<p>:::::::::::::::::::::::::</p>
+<p>What is <code>element[-1]</code>? What is <code>element[-2]</code>?</p>
+<p>::::::::::::::: solution</p>
+<h2 id="solution-1">Solution</h2>
+<pre class="output"><code>n
+e</code></pre>
+<p>:::::::::::::::::::::::::</p>
+<p>Given those answers, explain what <code>element[1:-1]</code> does.</p>
+<p>::::::::::::::: solution</p>
+<h2 id="solution-2">Solution</h2>
+<p>Creates a substring from index 1 up to (not including) the final index, effectively removing the first and last letters from ‘oxygen’</p>
+<p>:::::::::::::::::::::::::</p>
+<p>How can we rewrite the slice for getting the last three characters of <code>element</code>, so that it works even if we assign a different string to <code>element</code>? Test your solution with the following strings: <code>carpentry</code>, <code>clone</code>, <code>hi</code>.</p>
+<p>::::::::::::::: solution</p>
+<h2 id="solution-3">Solution</h2>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">element <span class="op">=</span> <span class="st">&#39;oxygen&#39;</span>
+<span class="bu">print</span>(<span class="st">&#39;last three characters:&#39;</span>, element[<span class="op">-</span><span class="dv">3</span>:])
+element <span class="op">=</span> <span class="st">&#39;carpentry&#39;</span>
+<span class="bu">print</span>(<span class="st">&#39;last three characters:&#39;</span>, element[<span class="op">-</span><span class="dv">3</span>:])
+element <span class="op">=</span> <span class="st">&#39;clone&#39;</span>
+<span class="bu">print</span>(<span class="st">&#39;last three characters:&#39;</span>, element[<span class="op">-</span><span class="dv">3</span>:])
+element <span class="op">=</span> <span class="st">&#39;hi&#39;</span>
+<span class="bu">print</span>(<span class="st">&#39;last three characters:&#39;</span>, element[<span class="op">-</span><span class="dv">3</span>:])</code></pre></div>
+<pre class="output"><code>last three characters: gen
+last three characters: try
+last three characters: one
+last three characters: hi</code></pre>
+<p>:::::::::::::::::::::::::</p>
+<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
+<h2 id="thin-slices">Thin Slices</h2>
+<p>The expression <code>element[3:3]</code> produces an <a href="../learners/reference.md#empty-string">empty string</a>, i.e., a string that contains no characters. If <code>data</code> holds our array of patient data, what does <code>data[3:3, 4:4]</code> produce? What about <code>data[3:3, :]</code>?</p>
+<p>::::::::::::::: solution</p>
+<h2 id="solution-4">Solution</h2>
+<pre class="output"><code>array([], shape=(0, 0), dtype=float64)
+array([], shape=(0, 40), dtype=float64)</code></pre>
+<p>:::::::::::::::::::::::::</p>
+<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
+<h2 id="stacking-arrays">Stacking Arrays</h2>
+<p>Arrays can be concatenated and stacked on top of one another, using NumPy’s <code>vstack</code> and <code>hstack</code> functions for vertical and horizontal stacking, respectively.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> numpy
+
+A <span class="op">=</span> numpy.array([[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>], [<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>], [<span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>]])
+<span class="bu">print</span>(<span class="st">&#39;A = &#39;</span>)
+<span class="bu">print</span>(A)
+
+B <span class="op">=</span> numpy.hstack([A, A])
+<span class="bu">print</span>(<span class="st">&#39;B = &#39;</span>)
+<span class="bu">print</span>(B)
+
+C <span class="op">=</span> numpy.vstack([A, A])
+<span class="bu">print</span>(<span class="st">&#39;C = &#39;</span>)
+<span class="bu">print</span>(C)</code></pre></div>
+<pre class="output"><code>A =
+[[1 2 3]
+ [4 5 6]
+ [7 8 9]]
+B =
+[[1 2 3 1 2 3]
+ [4 5 6 4 5 6]
+ [7 8 9 7 8 9]]
+C =
+[[1 2 3]
+ [4 5 6]
+ [7 8 9]
+ [1 2 3]
+ [4 5 6]
+ [7 8 9]]</code></pre>
+<p>Write some additional code that slices the first and last columns of <code>A</code>, and stacks them into a 3x2 array. Make sure to <code>print</code> the results to verify your solution.</p>
+<p>::::::::::::::: solution</p>
+<h2 id="solution-5">Solution</h2>
+<p>A ‘gotcha’ with array indexing is that singleton dimensions are dropped by default. That means <code>A[:, 0]</code> is a one dimensional array, which won’t stack as desired. To preserve singleton dimensions, the index itself can be a slice or array. For example, <code>A[:, :1]</code> returns a two dimensional array with one singleton dimension (i.e. a column vector).</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">D <span class="op">=</span> numpy.hstack((A[:, :<span class="dv">1</span>], A[:, <span class="op">-</span><span class="dv">1</span>:]))
+<span class="bu">print</span>(<span class="st">&#39;D = &#39;</span>)
+<span class="bu">print</span>(D)</code></pre></div>
+<pre class="output"><code>D =
+[[1 3]
+ [4 6]
+ [7 9]]</code></pre>
+<p>:::::::::::::::::::::::::</p>
+<p>::::::::::::::: solution</p>
+<h2 id="solution-6">Solution</h2>
+<p>An alternative way to achieve the same result is to use Numpy’s delete function to remove the second column of A. If you’re not sure what the parameters of numpy.delete mean, use the help files.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">D <span class="op">=</span> numpy.delete(arr<span class="op">=</span>A, obj<span class="op">=</span><span class="dv">1</span>, axis<span class="op">=</span><span class="dv">1</span>)
+<span class="bu">print</span>(<span class="st">&#39;D = &#39;</span>)
+<span class="bu">print</span>(D)</code></pre></div>
+<pre class="output"><code>D =
+[[1 3]
+ [4 6]
+ [7 9]]</code></pre>
+<p>:::::::::::::::::::::::::</p>
+<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
+<h2 id="change-in-inflammation">Change In Inflammation</h2>
+<p>The patient data is <em>longitudinal</em> in the sense that each row represents a series of observations relating to one individual. This means that the change in inflammation over time is a meaningful concept. Let’s find out how to calculate changes in the data contained in an array with NumPy.</p>
+<p>The <code>numpy.diff()</code> function takes an array and returns the differences between two successive values. Let’s use it to examine the changes each day across the first week of patient 3 from our inflammation dataset.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">patient3_week1 <span class="op">=</span> data[<span class="dv">3</span>, :<span class="dv">7</span>]
+<span class="bu">print</span>(patient3_week1)</code></pre></div>
+<pre class="output"><code> [0. 0. 2. 0. 4. 2. 2.]</code></pre>
+<p>Calling <code>numpy.diff(patient3_week1)</code> would do the following calculations</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">[ <span class="dv">0</span> <span class="op">-</span> <span class="dv">0</span>, <span class="dv">2</span> <span class="op">-</span> <span class="dv">0</span>, <span class="dv">0</span> <span class="op">-</span> <span class="dv">2</span>, <span class="dv">4</span> <span class="op">-</span> <span class="dv">0</span>, <span class="dv">2</span> <span class="op">-</span> <span class="dv">4</span>, <span class="dv">2</span> <span class="op">-</span> <span class="dv">2</span> ]</code></pre></div>
+<p>and return the 6 difference values in a new array.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">numpy.diff(patient3_week1)</code></pre></div>
+<pre class="output"><code>array([ 0.,  2., -2.,  4., -2.,  0.])</code></pre>
+<p>Note that the array of differences is shorter by one element (length 6).</p>
+<p>When calling <code>numpy.diff</code> with a multi-dimensional array, an <code>axis</code> argument may be passed to the function to specify which axis to process. When applying <code>numpy.diff</code> to our 2D inflammation array <code>data</code>, which axis would we specify?</p>
+<p>::::::::::::::: solution</p>
+<h2 id="solution-7">Solution</h2>
+<p>Since the row axis (0) is patients, it does not make sense to get the difference between two arbitrary patients. The column axis (1) is in days, so the difference is the change in inflammation – a meaningful concept.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">numpy.diff(data, axis<span class="op">=</span><span class="dv">1</span>)</code></pre></div>
+<p>:::::::::::::::::::::::::</p>
+<p>If the shape of an individual data file is <code>(60, 40)</code> (60 rows and 40 columns), what would the shape of the array be after you run the <code>diff()</code> function and why?</p>
+<p>::::::::::::::: solution</p>
+<h2 id="solution-8">Solution</h2>
+<p>The shape will be <code>(60, 39)</code> because there is one fewer difference between columns than there are columns in the data.</p>
+<p>:::::::::::::::::::::::::</p>
+<p>How would you find the largest change in inflammation for each patient? Does it matter if the change in inflammation is an increase or a decrease?</p>
+<p>::::::::::::::: solution</p>
+<h2 id="solution-9">Solution</h2>
+<p>By using the <code>numpy.amax()</code> function after you apply the <code>numpy.diff()</code> function, you will get the largest difference between days.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">numpy.amax(numpy.diff(data, axis<span class="op">=</span><span class="dv">1</span>), axis<span class="op">=</span><span class="dv">1</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">array([  <span class="dv">7</span>.,  <span class="dv">12</span>.,  <span class="dv">11</span>.,  <span class="dv">10</span>.,  <span class="dv">11</span>.,  <span class="dv">13</span>.,  <span class="dv">10</span>.,   <span class="dv">8</span>.,  <span class="dv">10</span>.,  <span class="dv">10</span>.,   <span class="dv">7</span>.,
+         <span class="dv">7</span>.,  <span class="dv">13</span>.,   <span class="dv">7</span>.,  <span class="dv">10</span>.,  <span class="dv">10</span>.,   <span class="dv">8</span>.,  <span class="dv">10</span>.,   <span class="dv">9</span>.,  <span class="dv">10</span>.,  <span class="dv">13</span>.,   <span class="dv">7</span>.,
+        <span class="dv">12</span>.,   <span class="dv">9</span>.,  <span class="dv">12</span>.,  <span class="dv">11</span>.,  <span class="dv">10</span>.,  <span class="dv">10</span>.,   <span class="dv">7</span>.,  <span class="dv">10</span>.,  <span class="dv">11</span>.,  <span class="dv">10</span>.,   <span class="dv">8</span>.,
+        <span class="dv">11</span>.,  <span class="dv">12</span>.,  <span class="dv">10</span>.,   <span class="dv">9</span>.,  <span class="dv">10</span>.,  <span class="dv">13</span>.,  <span class="dv">10</span>.,   <span class="dv">7</span>.,   <span class="dv">7</span>.,  <span class="dv">10</span>.,  <span class="dv">13</span>.,
+        <span class="dv">12</span>.,   <span class="dv">8</span>.,   <span class="dv">8</span>.,  <span class="dv">10</span>.,  <span class="dv">10</span>.,   <span class="dv">9</span>.,   <span class="dv">8</span>.,  <span class="dv">13</span>.,  <span class="dv">10</span>.,   <span class="dv">7</span>.,  <span class="dv">10</span>.,
+         <span class="dv">8</span>.,  <span class="dv">12</span>.,  <span class="dv">10</span>.,   <span class="dv">7</span>.,  <span class="dv">12</span>.])</code></pre></div>
+<p>If inflammation values <em>decrease</em> along an axis, then the difference from one element to the next will be negative. If you are interested in the <strong>magnitude</strong> of the change and not the direction, the <code>numpy.absolute()</code> function will provide that.</p>
+<p>Notice the difference if you get the largest <em>absolute</em> difference between readings.</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">numpy.amax(numpy.absolute(numpy.diff(data, axis<span class="op">=</span><span class="dv">1</span>)), axis<span class="op">=</span><span class="dv">1</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">array([ <span class="dv">12</span>.,  <span class="dv">14</span>.,  <span class="dv">11</span>.,  <span class="dv">13</span>.,  <span class="dv">11</span>.,  <span class="dv">13</span>.,  <span class="dv">10</span>.,  <span class="dv">12</span>.,  <span class="dv">10</span>.,  <span class="dv">10</span>.,  <span class="dv">10</span>.,
+        <span class="dv">12</span>.,  <span class="dv">13</span>.,  <span class="dv">10</span>.,  <span class="dv">11</span>.,  <span class="dv">10</span>.,  <span class="dv">12</span>.,  <span class="dv">13</span>.,   <span class="dv">9</span>.,  <span class="dv">10</span>.,  <span class="dv">13</span>.,   <span class="dv">9</span>.,
+        <span class="dv">12</span>.,   <span class="dv">9</span>.,  <span class="dv">12</span>.,  <span class="dv">11</span>.,  <span class="dv">10</span>.,  <span class="dv">13</span>.,   <span class="dv">9</span>.,  <span class="dv">13</span>.,  <span class="dv">11</span>.,  <span class="dv">11</span>.,   <span class="dv">8</span>.,
+        <span class="dv">11</span>.,  <span class="dv">12</span>.,  <span class="dv">13</span>.,   <span class="dv">9</span>.,  <span class="dv">10</span>.,  <span class="dv">13</span>.,  <span class="dv">11</span>.,  <span class="dv">11</span>.,  <span class="dv">13</span>.,  <span class="dv">11</span>.,  <span class="dv">13</span>.,
+        <span class="dv">13</span>.,  <span class="dv">10</span>.,   <span class="dv">9</span>.,  <span class="dv">10</span>.,  <span class="dv">10</span>.,   <span class="dv">9</span>.,   <span class="dv">9</span>.,  <span class="dv">13</span>.,  <span class="dv">10</span>.,   <span class="dv">9</span>.,  <span class="dv">10</span>.,
+        <span class="dv">11</span>.,  <span class="dv">13</span>.,  <span class="dv">10</span>.,  <span class="dv">10</span>.,  <span class="dv">12</span>.])</code></pre></div>
+<p>:::::::::::::::::::::::::</p>
+<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+<p>:::::::::::::::::::::::::::::::::::::::: keypoints</p>
+<ul>
+<li>Import a library into a program using <code>import libraryname</code>.</li>
+<li>Use the <code>numpy</code> library to work with arrays in Python.</li>
+<li>The expression <code>array.shape</code> gives the shape of an array.</li>
+<li>Use <code>array[x, y]</code> to select a single element from a 2D array.</li>
+<li>Array indices start at 0, not 1.</li>
+<li>Use <code>low:high</code> to specify a <code>slice</code> that includes the indices from <code>low</code> to <code>high-1</code>.</li>
+<li>Use <code># some kind of explanation</code> to add comments to programs.</li>
+<li>Use <code>numpy.mean(array)</code>, <code>numpy.amax(array)</code>, and <code>numpy.amin(array)</code> to calculate simple statistics.</li>
+<li>Use <code>numpy.mean(array, axis=0)</code> or <code>numpy.mean(array, axis=1)</code> to calculate statistics across the specified axis.</li>
+</ul>
+<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+        </div>
+      </div>
+      </article>
+      <div class="footer">
+        <a class="label swc-blue-bg" href="mailto:s.fernandez_valverde@unsw.edu.au">Contact</a>
+      </div>
+    </div>
+    <!-- Javascript placed at the end of the document so the pages load faster -->
+    <script src="http://software-carpentry.org/v5/js/jquery-1.9.1.min.js"></script>
+    <script src="css/bootstrap/bootstrap-js/bootstrap.js"></script>
+    <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+  </body>
+</html>

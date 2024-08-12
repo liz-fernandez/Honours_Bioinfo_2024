@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="generator" content="pandoc">
+    <title>Project Management With RStudio</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="css/swc.css" />
+    <link rel="alternate" type="application/rss+xml" title="Bioinformatics Honours 2024" href="https://github.com/liz-fernandez/UNSW_Honours_Bioinfo_2024/"/>
+    <meta charset="UTF-8" />
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body class="lesson">
+    <div class="container card">
+      <div class="banner">
+        <a href="https://liz-fernandez.github.io/Honours_Bioinfo_2024/" title="Honours Bioinformatics Course 2024">
+          <img alt="Logo UNSW" src="img/unsw_logo.jpg" />
+        </a>
+      </div>
+      <article>
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+                    <h1 class="title">Project Management With RStudio</h1>
+          <p>::::::::::::::::::::::::::::::::::::::: objectives</p>
+<ul>
+<li>Create self-contained projects in RStudio</li>
+</ul>
+<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+<p>:::::::::::::::::::::::::::::::::::::::: questions</p>
+<ul>
+<li>How can I manage my projects in R?</li>
+</ul>
+<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+<p><code>{r, include=FALSE}</code></p>
+<h2 id="introduction">Introduction</h2>
+<p>The scientific process is naturally incremental, and many projects start life as random notes, some code, then a manuscript, and eventually everything is a bit mixed together.</p>
+<blockquote class="twitter-tweet">
+<p>
+Managing your projects in a reproducible fashion doesn’t just make your science reproducible, it makes your life easier.
+</p>
+— Vince Buffalo (<span class="citation">@vsbuffalo</span>) <a href="https://twitter.com/vsbuffalo/status/323638476153167872">April 15, 2013</a>
+</blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+<p>Most people tend to organize their projects like this:</p>
+<div class="figure">
+<img src="fig/bad_layout.png" alt="Screenshot of file manager demonstrating bad project organisation" />
+
+</div>
+<p>There are many reasons why we should <em>ALWAYS</em> avoid this:</p>
+<ol style="list-style-type: decimal">
+<li>It is really hard to tell which version of your data is the original and which is the modified;</li>
+<li>It gets really messy because it mixes files with various extensions together;</li>
+<li>It probably takes you a lot of time to actually find things, and relate the correct figures to the exact code that has been used to generate it;</li>
+</ol>
+<p>A good project layout will ultimately make your life easier:</p>
+<ul>
+<li>It will help ensure the integrity of your data;</li>
+<li>It makes it simpler to share your code with someone else (a lab-mate, collaborator, or supervisor);</li>
+<li>It allows you to easily upload your code with your manuscript submission;</li>
+<li>It makes it easier to pick the project back up after a break.</li>
+</ul>
+<h2 id="a-possible-solution">A possible solution</h2>
+<p>Fortunately, there are tools and packages which can help you manage your work effectively.</p>
+<p>One of the most powerful and useful aspects of RStudio is its project management functionality. We’ll be using this today to create a self-contained, reproducible project.</p>
+<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
+<h2 id="challenge-1-creating-a-self-contained-project">Challenge 1: Creating a self-contained project</h2>
+<p>We’re going to create a new project in RStudio:</p>
+<ol style="list-style-type: decimal">
+<li>Click the “File” menu button, then “New Project”.</li>
+<li>Click “New Directory”.</li>
+<li>Click “New Project”.</li>
+<li>Type in the name of the directory to store your project, e.g. “my_project”.</li>
+<li>If available, select the checkbox for “Create a git repository.”</li>
+<li>Click the “Create Project” button.</li>
+</ol>
+<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+<p>The simplest way to open an RStudio project once it has been created is to click through your file system to get to the directory where it was saved and double click on the <code>.Rproj</code> file. This will open RStudio and start your R session in the same directory as the <code>.Rproj</code> file. All your data, plots and scripts will now be relative to the project directory. RStudio projects have the added benefit of allowing you to open multiple projects at the same time each open to its own project directory. This allows you to keep multiple projects open without them interfering with each other.</p>
+<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
+<h2 id="challenge-2-opening-an-rstudio-project-through-the-file-system">Challenge 2: Opening an RStudio project through the file system</h2>
+<ol style="list-style-type: decimal">
+<li>Exit RStudio.</li>
+<li>Navigate to the directory where you created a project in Challenge 1.</li>
+<li>Double click on the <code>.Rproj</code> file in that directory.</li>
+</ol>
+<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+<h2 id="best-practices-for-project-organization">Best practices for project organization</h2>
+<p>Although there is no “best” way to lay out a project, there are some general principles to adhere to that will make project management easier:</p>
+<h3 id="treat-data-as-read-only">Treat data as read only</h3>
+<p>This is probably the most important goal of setting up a project. Data is typically time consuming and/or expensive to collect. Working with them interactively (e.g., in Excel) where they can be modified means you are never sure of where the data came from, or how it has been modified since collection. It is therefore a good idea to treat your data as “read-only”.</p>
+<h3 id="data-cleaning">Data Cleaning</h3>
+<p>In many cases your data will be “dirty”: it will need significant preprocessing to get into a format R (or any other programming language) will find useful. This task is sometimes called “data munging”. Storing these scripts in a separate folder, and creating a second “read-only” data folder to hold the “cleaned” data sets can prevent confusion between the two sets.</p>
+<h3 id="treat-generated-output-as-disposable">Treat generated output as disposable</h3>
+<p>Anything generated by your scripts should be treated as disposable: it should all be able to be regenerated from your scripts.</p>
+<p>There are lots of different ways to manage this output. Having an output folder with different sub-directories for each separate analysis makes it easier later. Since many analyses are exploratory and don’t end up being used in the final project, and some of the analyses get shared between projects.</p>
+<p>::::::::::::::::::::::::::::::::::::::::: callout</p>
+<h2 id="tip-good-enough-practices-for-scientific-computing">Tip: Good Enough Practices for Scientific Computing</h2>
+<p><a href="https://github.com/swcarpentry/good-enough-practices-in-scientific-computing/blob/gh-pages/good-enough-practices-for-scientific-computing.pdf">Good Enough Practices for Scientific Computing</a> gives the following recommendations for project organization:</p>
+<ol style="list-style-type: decimal">
+<li>Put each project in its own directory, which is named after the project.</li>
+<li>Put text documents associated with the project in the <code>doc</code> directory.</li>
+<li>Put raw data and metadata in the <code>data</code> directory, and files generated during cleanup and analysis in a <code>results</code> directory.</li>
+<li>Put source for the project’s scripts and programs in the <code>src</code> directory, and programs brought in from elsewhere or compiled locally in the <code>bin</code> directory.</li>
+<li>Name all files to reflect their content or function.</li>
+</ol>
+<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+<h3 id="separate-function-definition-and-application">Separate function definition and application</h3>
+<p>One of the more effective ways to work with R is to start by writing the code you want to run directly in a .R script, and then running the selected lines (either using the keyboard shortcuts in RStudio or clicking the “Run” button) in the interactive R console.</p>
+<p>When your project is in its early stages, the initial .R script file usually contains many lines of directly executed code. As it matures, reusable chunks get pulled into their own functions. It’s a good idea to separate these functions into two separate folders; one to store useful functions that you’ll reuse across analyses and projects, and one to store the analysis scripts.</p>
+<h3 id="save-the-data-in-the-data-directory">Save the data in the data directory</h3>
+<p>Now we have a good directory structure we will now place/save the data file in the <code>data/</code> directory.</p>
+<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
+<h2 id="challenge-3">Challenge 3</h2>
+<p>Download the gapminder data from <a href="data/gapminder_data.csv">this link to a csv file</a>.</p>
+<ol style="list-style-type: decimal">
+<li>Download the file (right mouse click on the link above -&gt; “Save link as” / “Save file as”, or click on the link and after the page loads, press <kbd>Ctrl</kbd>+<kbd>S</kbd> or choose File -&gt; “Save page as”)</li>
+<li>Make sure it’s saved under the name <code>gapminder_data.csv</code></li>
+<li>Save the file in the <code>data/</code> folder within your project.</li>
+</ol>
+<p>We will load and inspect these data later.</p>
+<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
+<h2 id="challenge-4">Challenge 4</h2>
+<p>It is useful to get some general idea about the dataset, directly from the command line, before loading it into R. Understanding the dataset better will come in handy when making decisions on how to load it in R. Use the command-line shell to answer the following questions:</p>
+<ol style="list-style-type: decimal">
+<li>What is the size of the file?</li>
+<li>How many rows of data does it contain?</li>
+<li>What kinds of values are stored in this file?</li>
+</ol>
+<p>::::::::::::::: solution</p>
+<h2 id="solution-to-challenge-4">Solution to Challenge 4</h2>
+<p>By running these commands in the shell:</p>
+<p><code>{r ch2a-sol, engine=&quot;sh&quot;} ls -lh data/gapminder_data.csv</code></p>
+<p>The file size is 80K.</p>
+<p><code>{r ch2b-sol, engine=&quot;sh&quot;} wc -l data/gapminder_data.csv</code></p>
+<p>There are 1705 lines. The data looks like:</p>
+<p><code>{r ch2c-sol, engine=&quot;sh&quot;} head data/gapminder_data.csv</code></p>
+<p>:::::::::::::::::::::::::</p>
+<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+<p>::::::::::::::::::::::::::::::::::::::::: callout</p>
+<h2 id="tip-command-line-in-rstudio">Tip: command line in RStudio</h2>
+<p>The Terminal tab in the console pane provides a convenient place directly within RStudio to interact directly with the command line.</p>
+<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+<h3 id="working-directory">Working directory</h3>
+<p>Knowing R’s current working directory is important because when you need to access other files (for example, to import a data file), R will look for them relative to the current working directory.</p>
+<p>Each time you create a new RStudio Project, it will create a new directory for that project. When you open an existing <code>.Rproj</code> file, it will open that project and set R’s working directory to the folder that file is in.</p>
+<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
+<h2 id="challenge-5">Challenge 5</h2>
+<p>You can check the current working directory with the <code>getwd()</code> command, or by using the menus in RStudio.</p>
+<ol style="list-style-type: decimal">
+<li>In the console, type <code>getwd()</code> (“wd” is short for “working directory”) and hit Enter.</li>
+<li>In the Files pane, double click on the <code>data</code> folder to open it (or navigate to any other folder you wish). To get the Files pane back to the current working directory, click “More” and then select “Go To Working Directory”.</li>
+</ol>
+<p>You can change the working directory with <code>setwd()</code>, or by using RStudio menus.</p>
+<ol style="list-style-type: decimal">
+<li>In the console, type <code>setwd(&quot;data&quot;)</code> and hit Enter. Type <code>getwd()</code> and hit Enter to see the new working directory.</li>
+<li>In the menus at the top of the RStudio window, click the “Session” menu button, and then select “Set Working Directory” and then “Choose Directory”. Next, in the windows navigator that opens, navigate back to the project directory, and click “Open”. Note that a <code>setwd</code> command will automatically appear in the console.</li>
+</ol>
+<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+<p>::::::::::::::::::::::::::::::::::::::::: callout</p>
+<h2 id="tip-file-does-not-exist-errors">Tip: File does not exist errors</h2>
+<p>When you’re attempting to reference a file in your R code and you’re getting errors saying the file doesn’t exist, it’s a good idea to check your working directory. You need to either provide an absolute path to the file, or you need to make sure the file is saved in the working directory (or a subfolder of the working directory) and provide a relative path.</p>
+<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+<h3 id="version-control">Version Control</h3>
+<p>It is important to use version control with projects. Go <a href="https://swcarpentry.github.io/git-novice/14-supplemental-rstudio.html">here for a good lesson which describes using Git with RStudio</a>.</p>
+<p>:::::::::::::::::::::::::::::::::::::::: keypoints</p>
+<ul>
+<li>Use RStudio to create and manage projects with consistent layout.</li>
+<li>Treat raw data as read-only.</li>
+<li>Treat generated output as disposable.</li>
+<li>Separate function definition and application.</li>
+</ul>
+<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+        </div>
+      </div>
+      </article>
+      <div class="footer">
+        <a class="label swc-blue-bg" href="mailto:s.fernandez_valverde@unsw.edu.au">Contact</a>
+      </div>
+    </div>
+    <!-- Javascript placed at the end of the document so the pages load faster -->
+    <script src="http://software-carpentry.org/v5/js/jquery-1.9.1.min.js"></script>
+    <script src="css/bootstrap/bootstrap-js/bootstrap.js"></script>
+    <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+  </body>
+</html>

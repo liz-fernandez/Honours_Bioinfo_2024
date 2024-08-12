@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="generator" content="pandoc">
+    <title>Data Frame Manipulation with tidyr</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="css/swc.css" />
+    <link rel="alternate" type="application/rss+xml" title="Bioinformatics Honours 2024" href="https://github.com/liz-fernandez/UNSW_Honours_Bioinfo_2024/"/>
+    <meta charset="UTF-8" />
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body class="lesson">
+    <div class="container card">
+      <div class="banner">
+        <a href="https://liz-fernandez.github.io/Honours_Bioinfo_2024/" title="Honours Bioinformatics Course 2024">
+          <img alt="Logo UNSW" src="img/unsw_logo.jpg" />
+        </a>
+      </div>
+      <article>
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+                    <h1 class="title">Data Frame Manipulation with tidyr</h1>
+          <p>::::::::::::::::::::::::::::::::::::::: objectives</p>
+<ul>
+<li>To understand the concepts of ‘longer’ and ‘wider’ data frame formats and be able to convert between them with <code>tidyr</code>.</li>
+</ul>
+<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+<p>:::::::::::::::::::::::::::::::::::::::: questions</p>
+<ul>
+<li>How can I change the layout of a data frame?</li>
+</ul>
+<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+<p><code>{r, include=FALSE} gapminder &lt;- read.csv(&quot;data/gapminder_data.csv&quot;, header = TRUE, stringsAsFactors = FALSE) gap_wide &lt;- read.csv(&quot;data/gapminder_wide.csv&quot;, header = TRUE, stringsAsFactors = FALSE)</code></p>
+<p>Researchers often want to reshape their data frames from ‘wide’ to ‘longer’ layouts, or vice-versa. The ‘long’ layout or format is where:</p>
+<ul>
+<li>each column is a variable</li>
+<li>each row is an observation</li>
+</ul>
+<p>In the purely ‘long’ (or ‘longest’) format, you usually have 1 column for the observed variable and the other columns are ID variables.</p>
+<p>For the ‘wide’ format each row is often a site/subject/patient and you have multiple observation variables containing the same type of data. These can be either repeated observations over time, or observation of multiple variables (or a mix of both). You may find data input may be simpler or some other applications may prefer the ‘wide’ format. However, many of <code>R</code>‘s functions have been designed assuming you have ’longer’ formatted data. This tutorial will help you efficiently transform your data shape regardless of original format.</p>
+<div class="figure">
+<img src="fig/14-tidyr-fig1.png" alt="Diagram illustrating the difference between a wide versus long layout of a data frame" />
+
+</div>
+<p>Long and wide data frame layouts mainly affect readability. For humans, the wide format is often more intuitive since we can often see more of the data on the screen due to its shape. However, the long format is more machine readable and is closer to the formatting of databases. The ID variables in our data frames are similar to the fields in a database and observed variables are like the database values.</p>
+<h2 id="getting-started">Getting started</h2>
+<p>First install the packages if you haven’t already done so (you probably installed dplyr in the previous lesson):</p>
+<p><code>{r, eval=FALSE} #install.packages(&quot;tidyr&quot;) #install.packages(&quot;dplyr&quot;)</code></p>
+<p>Load the packages</p>
+<p><code>{r, message=FALSE} library(&quot;tidyr&quot;) library(&quot;dplyr&quot;)</code></p>
+<p>First, lets look at the structure of our original gapminder data frame:</p>
+<pre class="{r}"><code>str(gapminder)</code></pre>
+<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
+<h2 id="challenge-1">Challenge 1</h2>
+<p>Is gapminder a purely long, purely wide, or some intermediate format?</p>
+<p>::::::::::::::: solution</p>
+<h2 id="solution-to-challenge-1">Solution to Challenge 1</h2>
+<p>The original gapminder data.frame is in an intermediate format. It is not purely long since it had multiple observation variables (<code>pop</code>,<code>lifeExp</code>,<code>gdpPercap</code>).</p>
+<p>:::::::::::::::::::::::::</p>
+<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+<p>Sometimes, as with the gapminder dataset, we have multiple types of observed data. It is somewhere in between the purely ‘long’ and ‘wide’ data formats. We have 3 “ID variables” (<code>continent</code>, <code>country</code>, <code>year</code>) and 3 “Observation variables” (<code>pop</code>,<code>lifeExp</code>,<code>gdpPercap</code>). This intermediate format can be preferred despite not having ALL observations in 1 column given that all 3 observation variables have different units. There are few operations that would need us to make this data frame any longer (i.e. 4 ID variables and 1 Observation variable).</p>
+<p>While using many of the functions in R, which are often vector based, you usually do not want to do mathematical operations on values with different units. For example, using the purely long format, a single mean for all of the values of population, life expectancy, and GDP would not be meaningful since it would return the mean of values with 3 incompatible units. The solution is that we first manipulate the data either by grouping (see the lesson on <code>dplyr</code>), or we change the structure of the data frame. <strong>Note:</strong> Some plotting functions in R actually work better in the wide format data.</p>
+<h2 id="from-wide-to-long-format-with-pivot_longer">From wide to long format with pivot_longer()</h2>
+<p>Until now, we’ve been using the nicely formatted original gapminder dataset, but ‘real’ data (i.e. our own research data) will never be so well organized. Here let’s start with the wide formatted version of the gapminder dataset.</p>
+<blockquote>
+<p>Download the wide version of the gapminder data from <a href="data/gapminder_wide.csv">this link to a csv file</a> and save it in your data folder.</p>
+</blockquote>
+<p>We’ll load the data file and look at it. Note: we don’t want our continent and country columns to be factors, so we use the stringsAsFactors argument for <code>read.csv()</code> to disable that.</p>
+<pre class="{r}"><code>gap_wide &lt;- read.csv(&quot;data/gapminder_wide.csv&quot;, stringsAsFactors = FALSE)
+str(gap_wide)</code></pre>
+<div class="figure">
+<img src="fig/14-tidyr-fig2.png" alt="Diagram illustrating the wide format of the gapminder data frame" />
+
+</div>
+<p>To change this very wide data frame layout back to our nice, intermediate (or longer) layout, we will use one of the two available <code>pivot</code> functions from the <code>tidyr</code> package. To convert from wide to a longer format, we will use the <code>pivot_longer()</code> function. <code>pivot_longer()</code> makes datasets longer by increasing the number of rows and decreasing the number of columns, or ‘lengthening’ your observation variables into a single variable.</p>
+<div class="figure">
+<img src="fig/14-tidyr-fig3.png" alt="Diagram illustrating how pivot longer reorganizes a data frame from a wide to long format" />
+
+</div>
+<pre class="{r}"><code>gap_long &lt;- gap_wide %&gt;%
+  pivot_longer(
+    cols = c(starts_with(&#39;pop&#39;), starts_with(&#39;lifeExp&#39;), starts_with(&#39;gdpPercap&#39;)),
+    names_to = &quot;obstype_year&quot;, values_to = &quot;obs_values&quot;
+  )
+str(gap_long)</code></pre>
+<p>Here we have used piping syntax which is similar to what we were doing in the previous lesson with dplyr. In fact, these are compatible and you can use a mix of tidyr and dplyr functions by piping them together.</p>
+<p>We first provide to <code>pivot_longer()</code> a vector of column names that will be pivoted into longer format. We could type out all the observation variables, but as in the <code>select()</code> function (see <code>dplyr</code> lesson), we can use the <code>starts_with()</code> argument to select all variables that start with the desired character string. <code>pivot_longer()</code> also allows the alternative syntax of using the <code>-</code> symbol to identify which variables are not to be pivoted (i.e. ID variables).</p>
+<p>The next arguments to <code>pivot_longer()</code> are <code>names_to</code> for naming the column that will contain the new ID variable (<code>obstype_year</code>) and <code>values_to</code> for naming the new amalgamated observation variable (<code>obs_value</code>). We supply these new column names as strings.</p>
+<div class="figure">
+<img src="fig/14-tidyr-fig4.png" alt="Diagram illustrating the long format of the gapminder data" />
+
+</div>
+<pre class="{r}"><code>gap_long &lt;- gap_wide %&gt;%
+  pivot_longer(
+    cols = c(-continent, -country),
+    names_to = &quot;obstype_year&quot;, values_to = &quot;obs_values&quot;
+  )
+str(gap_long)</code></pre>
+<p>That may seem trivial with this particular data frame, but sometimes you have 1 ID variable and 40 observation variables with irregular variable names. The flexibility is a huge time saver!</p>
+<p>Now <code>obstype_year</code> actually contains 2 pieces of information, the observation type (<code>pop</code>,<code>lifeExp</code>, or <code>gdpPercap</code>) and the <code>year</code>. We can use the <code>separate()</code> function to split the character strings into multiple variables</p>
+<pre class="{r}"><code>gap_long &lt;- gap_long %&gt;% separate(obstype_year, into = c(&#39;obs_type&#39;, &#39;year&#39;), sep = &quot;_&quot;)
+gap_long$year &lt;- as.integer(gap_long$year)</code></pre>
+<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
+<h2 id="challenge-2">Challenge 2</h2>
+<p>Using <code>gap_long</code>, calculate the mean life expectancy, population, and gdpPercap for each continent. <strong>Hint:</strong> use the <code>group_by()</code> and <code>summarize()</code> functions we learned in the <code>dplyr</code> lesson</p>
+<p>::::::::::::::: solution</p>
+<h2 id="solution-to-challenge-2">Solution to Challenge 2</h2>
+<pre class="{r}"><code>gap_long %&gt;% group_by(continent, obs_type) %&gt;%
+   summarize(means=mean(obs_values))</code></pre>
+<p>:::::::::::::::::::::::::</p>
+<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+<h2 id="from-long-to-intermediate-format-with-pivot_wider">From long to intermediate format with pivot_wider()</h2>
+<p>It is always good to check work. So, let’s use the second <code>pivot</code> function, <code>pivot_wider()</code>, to ‘widen’ our observation variables back out. <code>pivot_wider()</code> is the opposite of <code>pivot_longer()</code>, making a dataset wider by increasing the number of columns and decreasing the number of rows. We can use <code>pivot_wider()</code> to pivot or reshape our <code>gap_long</code> to the original intermediate format or the widest format. Let’s start with the intermediate format.</p>
+<p>The <code>pivot_wider()</code> function takes <code>names_from</code> and <code>values_from</code> arguments.</p>
+<p>To <code>names_from</code> we supply the column name whose contents will be pivoted into new output columns in the widened data frame. The corresponding values will be added from the column named in the <code>values_from</code> argument.</p>
+<pre class="{r}"><code>gap_normal &lt;- gap_long %&gt;%
+  pivot_wider(names_from = obs_type, values_from = obs_values)
+dim(gap_normal)
+dim(gapminder)
+names(gap_normal)
+names(gapminder)</code></pre>
+<p>Now we’ve got an intermediate data frame <code>gap_normal</code> with the same dimensions as the original <code>gapminder</code>, but the order of the variables is different. Let’s fix that before checking if they are <code>all.equal()</code>.</p>
+<pre class="{r}"><code>gap_normal &lt;- gap_normal[, names(gapminder)]
+all.equal(gap_normal, gapminder)
+head(gap_normal)
+head(gapminder)</code></pre>
+<p>We’re almost there, the original was sorted by <code>country</code>, then <code>year</code>.</p>
+<pre class="{r}"><code>gap_normal &lt;- gap_normal %&gt;% arrange(country, year)
+all.equal(gap_normal, gapminder)</code></pre>
+<p>That’s great! We’ve gone from the longest format back to the intermediate and we didn’t introduce any errors in our code.</p>
+<p>Now let’s convert the long all the way back to the wide. In the wide format, we will keep country and continent as ID variables and pivot the observations across the 3 metrics (<code>pop</code>,<code>lifeExp</code>,<code>gdpPercap</code>) and time (<code>year</code>). First we need to create appropriate labels for all our new variables (time*metric combinations) and we also need to unify our ID variables to simplify the process of defining <code>gap_wide</code>.</p>
+<pre class="{r}"><code>gap_temp &lt;- gap_long %&gt;% unite(var_ID, continent, country, sep = &quot;_&quot;)
+str(gap_temp)
+
+gap_temp &lt;- gap_long %&gt;%
+    unite(ID_var, continent, country, sep = &quot;_&quot;) %&gt;%
+    unite(var_names, obs_type, year, sep = &quot;_&quot;)
+str(gap_temp)</code></pre>
+<p>Using <code>unite()</code> we now have a single ID variable which is a combination of <code>continent</code>,<code>country</code>,and we have defined variable names. We’re now ready to pipe in <code>pivot_wider()</code></p>
+<pre class="{r}"><code>gap_wide_new &lt;- gap_long %&gt;%
+  unite(ID_var, continent, country, sep = &quot;_&quot;) %&gt;%
+  unite(var_names, obs_type, year, sep = &quot;_&quot;) %&gt;%
+  pivot_wider(names_from = var_names, values_from = obs_values)
+str(gap_wide_new)</code></pre>
+<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
+<h2 id="challenge-3">Challenge 3</h2>
+<p>Take this 1 step further and create a <code>gap_ludicrously_wide</code> format data by pivoting over countries, year and the 3 metrics? <strong>Hint</strong> this new data frame should only have 5 rows.</p>
+<p>::::::::::::::: solution</p>
+<h2 id="solution-to-challenge-3">Solution to Challenge 3</h2>
+<pre class="{r}"><code>gap_ludicrously_wide &lt;- gap_long %&gt;%
+   unite(var_names, obs_type, year, country, sep = &quot;_&quot;) %&gt;%
+   pivot_wider(names_from = var_names, values_from = obs_values)</code></pre>
+<p>:::::::::::::::::::::::::</p>
+<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+<p>Now we have a great ‘wide’ format data frame, but the <code>ID_var</code> could be more usable, let’s separate it into 2 variables with <code>separate()</code></p>
+<pre class="{r}"><code>gap_wide_betterID &lt;- separate(gap_wide_new, ID_var, c(&quot;continent&quot;, &quot;country&quot;), sep=&quot;_&quot;)
+gap_wide_betterID &lt;- gap_long %&gt;%
+    unite(ID_var, continent, country, sep = &quot;_&quot;) %&gt;%
+    unite(var_names, obs_type, year, sep = &quot;_&quot;) %&gt;%
+    pivot_wider(names_from = var_names, values_from = obs_values) %&gt;%
+    separate(ID_var, c(&quot;continent&quot;,&quot;country&quot;), sep = &quot;_&quot;)
+str(gap_wide_betterID)
+
+all.equal(gap_wide, gap_wide_betterID)</code></pre>
+<p>There and back again!</p>
+<h2 id="other-great-resources">Other great resources</h2>
+<ul>
+<li><a href="https://r4ds.hadley.nz/">R for Data Science</a> (online book)</li>
+<li><a href="https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf">Data Wrangling Cheat sheet</a> (pdf file)</li>
+<li><a href="https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html">Introduction to tidyr</a> (online documentation)</li>
+<li><a href="https://www.rstudio.com/resources/webinars/data-wrangling-with-r-and-rstudio/">Data wrangling with R and RStudio</a> (online video)</li>
+</ul>
+<p>:::::::::::::::::::::::::::::::::::::::: keypoints</p>
+<ul>
+<li>Use the <code>tidyr</code> package to change the layout of data frames.</li>
+<li>Use <code>pivot_longer()</code> to go from wide to longer layout.</li>
+<li>Use <code>pivot_wider()</code> to go from long to wider layout.</li>
+</ul>
+<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+        </div>
+      </div>
+      </article>
+      <div class="footer">
+        <a class="label swc-blue-bg" href="mailto:s.fernandez_valverde@unsw.edu.au">Contact</a>
+      </div>
+    </div>
+    <!-- Javascript placed at the end of the document so the pages load faster -->
+    <script src="http://software-carpentry.org/v5/js/jquery-1.9.1.min.js"></script>
+    <script src="css/bootstrap/bootstrap-js/bootstrap.js"></script>
+    <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+  </body>
+</html>
