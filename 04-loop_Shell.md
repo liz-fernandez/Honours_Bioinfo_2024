@@ -15,33 +15,33 @@ minutes: 15
 
 Wildcards and tab completion are two ways to reduce typing (and typing mistakes).
 Another is to tell the shell to do something over and over again.
-Suppose we have several hundred genome data files named `basilisk.dat`, `unicorn.dat`, and so on.
+Suppose we have several hundred genome data files named `basilisk.fasta`, `unicorn.fasta`, and so on.
 In this example,
 we'll use the `creatures` directory which only has two example files,
 but the principles can be applied to many many more files at once.
 We would like to modify these files, but also save a version of the original files and rename them
-as `original-basilisk.dat` and `original-unicorn.dat`.
+as `original-basilisk.fasta` and `original-unicorn.fasta`.
 We can't use:
 
 ~~~ {.bash}
-$ mv *.dat original-*.dat
+$ mv *.fasta original-*.fasta
 ~~~
 
 because that would expand to:
 
 ~~~ {.bash}
-$ mv basilisk.dat unicorn.dat original-*.dat
+$ mv basilisk.fasta unicorn.fasta original-*.fasta
 ~~~
 
 This wouldn't back up our files, instead we get an error
 
 ~~~ {.error}
-mv: target `original-*.dat' is not a directory
+mv: target `original-*.fasta' is not a directory
 ~~~
 
 This a problem arises when `mv` receives more than two inputs. When this happens, it
 expects the last input to be a directory where it can move all the files it was passed.
-Since there is no directory named `original-*.dat` in the `creatures` directory we get an
+Since there is no directory named `original-*.fasta` in the `creatures` directory we get an
 error.
 
 Instead, we can use a **loop**
@@ -49,18 +49,18 @@ to do some operation once for each thing in a list.
 Here's a simple example that displays the first three lines of each file in turn:
 
 ~~~ {.bash}
-$ for filename in basilisk.dat unicorn.dat
+$ for filename in basilisk.fasta unicorn.fasta
 > do
 >    head -3 $filename
 > done
 ~~~
 ~~~ {.output}
-COMMON NAME: basilisk
-CLASSIFICATION: basiliscus vulgaris
-UPDATED: 1745-05-02
-COMMON NAME: unicorn
-CLASSIFICATION: equus monoceros
-UPDATED: 1738-11-24
+>Basiliskus_viborinious_genome_v1
+GAAATGGATTTAAAATAATAAAAAAACTTTTAGGTTAACAAGTAGAGGGTGACTCAAAAGGTCGTTAAGA
+GACGATTTTTTTGAGGCACCTCTTTTTTATTATTATTTTAGAATTTTCACATCGGTTCATTTTGATTAGG
+>Unicornius_imaginario_genome_v1
+TTTGGGCCCTTTGTTCGCCTGCTCGCCGTCTAGCGCGAGCCGCCCATCTCGTTGTCGTCCTCACTCGCAG
+GCCTCCCCCTTCCCGACGAACTCGTCGCCATGATCCTCTCTCATCTCGATGAACACGACGCCGTTCCTGC
 ~~~
 
 When the shell sees the keyword `for`,
@@ -71,8 +71,8 @@ the name of the thing currently being operated on is assigned to
 the **variable** called `filename`.
 Inside the loop,
 we get the variable's value by putting `$` in front of it:
-`$filename` is `basilisk.dat` the first time through the loop,
-`unicorn.dat` the second,
+`$filename` is `basilisk.fasta` the first time through the loop,
+`unicorn.fasta` the second,
 and so on.
 
 By using the dollar sign we are telling the shell interpreter to treat
@@ -98,7 +98,7 @@ The shell itself doesn't care what the variable is called;
 if we wrote this loop as:
 
 ~~~ {.bash}
-for x in basilisk.dat unicorn.dat
+for x in basilisk.fasta unicorn.fasta
 do
     head -3 $x
 done
@@ -107,7 +107,7 @@ done
 or:
 
 ~~~ {.bash}
-for temperature in basilisk.dat unicorn.dat
+for temperature in basilisk.fasta unicorn.fasta
 do
     head -3 $temperature
 done
@@ -122,14 +122,14 @@ increase the odds that the program won't do what its readers think it does.
 Here's a slightly more complicated loop:
 
 ~~~ {.bash}
-for filename in *.dat
+for filename in *.fasta
 do
     echo $filename
     head -100 $filename | tail -20
 done
 ~~~
 
-The shell starts by expanding `*.dat` to create the list of files it will process.
+The shell starts by expanding `*.fasta` to create the list of files it will process.
 The **loop body**
 then executes two commands for each of those files.
 The first, `echo`, just prints its command-line parameters to standard output.
@@ -151,7 +151,7 @@ since the shell expands `$filename` to be the name of a file,
 Note that we can't write this as:
 
 ~~~ {.bash}
-for filename in *.dat
+for filename in *.fasta
 do
     $filename
     head -100 $filename | tail -20
@@ -159,7 +159,7 @@ done
 ~~~
 
 because then the first time through the loop,
-when `$filename` expanded to `basilisk.dat`, the shell would try to run `basilisk.dat` as a program.
+when `$filename` expanded to `basilisk.fasta`, the shell would try to run `basilisk.fasta` as a program.
 Finally,
 the `head` and `tail` combination selects lines 81-100 from whatever file is being processed.
 
@@ -220,7 +220,7 @@ Going back to our original file renaming problem,
 we can solve it using this loop:
 
 ~~~ {.bash}
-for filename in *.dat
+for filename in *.fasta
 do
     mv $filename original-$filename
 done
@@ -228,17 +228,17 @@ done
 
 This loop runs the `mv` command once for each filename.
 The first time,
-when `$filename` expands to `basilisk.dat`,
+when `$filename` expands to `basilisk.fasta`,
 the shell executes:
 
 ~~~ {.bash}
-mv basilisk.dat original-basilisk.dat
+mv basilisk.fasta original-basilisk.fasta
 ~~~
 
 The second time, the command is:
 
 ~~~ {.bash}
-mv unicorn.dat original-unicorn.dat
+mv unicorn.fasta original-unicorn.fasta
 ~~~
 
 > ## Measure Twice, Run Once {.callout}
@@ -249,7 +249,7 @@ mv unicorn.dat original-unicorn.dat
 > For example, we could write our file renaming loop like this:
 >
 > ~~~
-> for filename in *.dat
+> for filename in *.fasta
 > do
 >     echo mv $filename original-$filename
 > done
@@ -258,8 +258,8 @@ mv unicorn.dat original-unicorn.dat
 > Instead of running `mv`, this loop runs `echo`, which prints out:
 >
 > ~~~
-> mv basilisk.dat original-basilisk.dat
-> mv unicorn.dat original-unicorn.dat
+> mv basilisk.fasta original-basilisk.fasta
+> mv unicorn.fasta original-unicorn.fasta
 > ~~~
 >
 > *without* actually running those commands. We can then use up-arrow to
@@ -277,7 +277,7 @@ Her first step is to make sure that she can select the right files --- remember,
 these are ones whose names end in 'A' or 'B', rather than 'Z'. Starting from her home directory, Simone types:
 
 ~~~ {.bash}
-$ cd north-pacific-gyre/2012-07-03
+$ cd patient-data/2023-07-03
 $ for datafile in *[AB].txt
 > do
 >     echo $datafile
@@ -293,7 +293,7 @@ NENE02043B.txt
 ~~~
 
 Her next step is to decide
-what to call the files that the `goostats` analysis program will create.
+what to call the files that the `patientstat` analysis program will create.
 Prefixing each input file's name with "stats" seems simple,
 so she modifies her loop to do that:
 
@@ -312,7 +312,7 @@ NENE02043A.txt stats-NENE02043A.txt
 NENE02043B.txt stats-NENE02043B.txt
 ~~~
 
-She hasn't actually run `goostats` yet,
+She hasn't actually run `patientstat` yet,
 but now she's sure she can select the right files and generate the right output filenames.
 
 Typing in commands over and over again is becoming tedious,
@@ -329,10 +329,10 @@ $ for datafile in *[AB].txt; do echo $datafile stats-$datafile; done
 ~~~
 
 Using the left arrow key,
-Simone backs up and changes the command `echo` to `goostats`:
+Simone backs up and changes the command `echo` to `patientstat`:
 
 ~~~ {.bash}
-$ for datafile in *[AB].txt; do bash goostats $datafile stats-$datafile; done
+$ for datafile in *[AB].txt; do bash patientstat $datafile stats-$datafile; done
 ~~~
 
 When she presses enter,
@@ -345,7 +345,7 @@ uses up-arrow to repeat the command,
 and edits it to read:
 
 ~~~ {.bash}
-$ for datafile in *[AB].txt; do echo $datafile; bash goostats $datafile stats-$datafile; done
+$ for datafile in *[AB].txt; do echo $datafile; bash patientstat $datafile stats-$datafile; done
 ~~~
 
 > ## Beginning and End {.callout}
@@ -369,7 +369,7 @@ divided by 60,
 tells her that her script will take about two hours to run.
 As a final check,
 she opens another terminal window,
-goes into `north-pacific-gyre/2012-07-03`,
+goes into `patient-data/2023-07-03`,
 and uses `cat stats-NENE01729B.txt`
 to examine one of the output files.
 It looks good,
@@ -386,12 +386,12 @@ so she decides to get some coffee and catch up on her reading.
 > $ history | tail -5
 >   456  ls -l NENE0*.txt
 >   457  rm stats-NENE01729B.txt.txt
->   458  bash goostats NENE01729B.txt stats-NENE01729B.txt
+>   458  bash patientstat NENE01729B.txt stats-NENE01729B.txt
 >   459  ls -l NENE0*.txt
 >   460  history
 > ~~~
 >
-> then she can re-run `goostats` on `NENE01729B.txt` simply by typing
+> then she can re-run `patientstat` on `NENE01729B.txt` simply by typing
 > `!458`.
 
 > ## Variables in Loops {.challenge}

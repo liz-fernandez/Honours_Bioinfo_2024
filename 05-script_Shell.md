@@ -23,7 +23,7 @@ Let's start by going back to `molecules/` and putting the following line in the 
 
 ~~~ {.bash}
 $ cd molecules
-$ cat middle.sh
+$ nano middle.sh
 ~~~
 ~~~
 head -15 octane.pdb | tail -5
@@ -71,7 +71,7 @@ Instead,
 let's edit `middle.sh` and replace `octane.pdb` with a special variable called `$1`:
 
 ~~~ {.bash}
-$ cat middle.sh
+$ nano middle.sh
 ~~~
 ~~~ {.output}
 head -20 "$1" | tail -5
@@ -126,7 +126,7 @@ though.
 Let's fix that by using the special variables `$2` and `$3`:
 
 ~~~ {.bash}
-$ cat middle.sh
+$ nano middle.sh
 ~~~
 ~~~ {.output}
 head "$2" "$1" | tail "$3"
@@ -147,7 +147,7 @@ but it may take the next person who reads `middle.sh` a moment to figure out wha
 We can improve our script by adding some **comments** at the top:
 
 ~~~ {.bash}
-$ cat middle.sh
+$ nano middle.sh
 ~~~
 ~~~ {.output}
 # Select lines from the middle of a file.
@@ -184,13 +184,13 @@ to handle the case of parameters containing spaces
 Here's an example:
 
 ~~~ {.bash}
-$ cat sorted.sh
+$ nano sorted.sh
 ~~~
 ~~~ {.output}
 wc -l "$@" | sort -n
 ~~~
 ~~~ {.bash}
-$ bash sorted.sh *.pdb ../creatures/*.dat
+$ bash sorted.sh *.pdb ../creatures/*.fasta
 ~~~
 ~~~ {.output}
 9 methane.pdb
@@ -199,8 +199,8 @@ $ bash sorted.sh *.pdb ../creatures/*.dat
 20 cubane.pdb
 21 pentane.pdb
 30 octane.pdb
-163 ../creatures/basilisk.dat
-163 ../creatures/unicorn.dat
+279 ../creatures/unicorn.fasta
+360 ../creatures/basilisk.fasta
 ~~~
 
 > ## Why Isn't It Doing Anything? {.callout}
@@ -227,7 +227,7 @@ If you look at a script like:
 wc -l "$@" | sort -n
 ~~~
 
-you can probably puzzle out what it does.
+you can probably figure out what it does.
 On the other hand,
 if you look at this script:
 
@@ -236,7 +236,7 @@ if you look at this script:
 wc -l "$@" | sort -n
 ~~~
 
-you don't have to puzzle it out --- the comment at the top tells you what it does.
+you don't have to figure it out --- the comment at the top tells you what it does.
 A line or two of documentation like this make it much easier for other people
 (including your future self)
 to re-use your work.
@@ -260,8 +260,8 @@ $ history | tail -4 > redo-figure-3.sh
 The file `redo-figure-3.sh` now contains:
 
 ~~~
-297 bash goostats -r NENE01729B.txt stats-NENE01729B.txt
-298 bash goodiff stats-NENE01729B.txt /data/validated/01729.txt > 01729-differences.txt
+297 bash patientstat -r NENE01729B.txt stats-NENE01729B.txt
+298 bash patientdiff stats-NENE01729B.txt /data/validated/01729.txt > 01729-differences.txt
 299 cut -d ',' -f 2-3 01729-differences.txt > 01729-time-series.txt
 300 ygraph --format scatter --color bw --borders none 01729-time-series.txt figure-3.png
 ~~~
@@ -271,7 +271,7 @@ we have a completely accurate record of how we created that figure.
 
 > ## Unnumbering {.callout}
 >
-> Nelle could also use `colrm` (short for "column removal") to remove the
+> Simone could also use `colrm` (short for "column removal") to remove the
 > serial numbers on her previous commands.
 > Its parameters are the range of characters to strip from its input:
 >
@@ -299,10 +299,10 @@ what they discover about their data and their workflow with one call to `history
 and a bit of editing to clean up the output
 and save it as a shell script.
 
-## Nelle's Pipeline: Creating a Script
+## Simone's Pipeline: Creating a Script
 
-An off-hand comment from her supervisor has made Nelle realize that
-she should have provided a couple of extra parameters to `goostats` when she processed her files.
+An off-hand comment from her supervisor has made Simone realize that
+she should have provided a couple of extra parameters to `patientstat` when she processed her files.
 This might have been a disaster if she had done all the analysis by hand,
 but thanks to for loops,
 it will only take a couple of hours to re-do.
@@ -311,12 +311,16 @@ But experience has taught her that if something needs to be done twice,
 it will probably need to be done a third or fourth time as well.
 She runs the editor and writes the following:
 
+~~~ {.bash}
+$ cd ../patient-data/2023-07-03/
+$ nano do-stats.sh
+~~~
 ~~~
 # Calculate reduced stats for data files at J = 100 c/bp.
 for datafile in "$@"
 do
     echo $datafile
-    bash goostats -J 100 -r $datafile stats-$datafile
+    bash patientstat -J 100 -r $datafile stats-$datafile
 done
 ~~~
 
@@ -337,7 +341,7 @@ $ bash do-stats.sh *[AB].txt | wc -l
 so that the output is just the number of files processed
 rather than the names of the files that were processed.
 
-One thing to note about Nelle's script is that
+One thing to note about Simone's script is that
 it lets the person running it decide what files to process.
 She could have written it as:
 
@@ -346,7 +350,7 @@ She could have written it as:
 for datafile in *[AB].txt
 do
     echo $datafile
-    bash goostats -J 100 -r $datafile stats-$datafile
+    bash patientstat -J 100 -r $datafile stats-$datafile
 done
 ~~~
 
@@ -354,7 +358,7 @@ The advantage is that this always selects the right files:
 she doesn't have to remember to exclude the 'Z' files.
 The disadvantage is that it *always* selects just those files --- she can't run it on all files
 (including the 'Z' files),
-or on the 'G' or 'H' files her colleagues in Antarctica are producing,
+or on the 'G' or 'H' files her colleagues in Perth are producing,
 without editing the script.
 If she wanted to be more adventurous,
 she could modify her script to check for command-line parameters,

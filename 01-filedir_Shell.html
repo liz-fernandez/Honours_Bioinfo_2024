@@ -94,8 +94,8 @@
 <p>Let’s see what’s in Simone’s home directory by running <code>ls</code>, which stands for “listing”:</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">ls</span></code></pre></div>
 <pre class="output"><code>creatures  molecules           pizza.cfg
-data       north-pacific-gyre  solar.pdf
-Desktop    notes.txt           writing</code></pre>
+data       notes.txt           solar.pdf
+Desktop    patient-data        writing</code></pre>
 <div class="figure">
 <img src="fig/homedir.svg" alt="Simone’s Home Directory" />
 <p class="caption">Simone’s Home Directory</p>
@@ -103,8 +103,8 @@ Desktop    notes.txt           writing</code></pre>
 <p><code>ls</code> prints the names of the files and directories in the current directory in alphabetical order, arranged neatly into columns. We can make its output more comprehensible by using the <strong>flag</strong> <code>-F</code>, which tells <code>ls</code> to add a trailing <code>/</code> to the names of directories:</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">ls</span> -F</code></pre></div>
 <pre class="output"><code>creatures/  molecules/           pizza.cfg
-data/       north-pacific-gyre/  solar.pdf
-Desktop/    notes.txt            writing/</code></pre>
+data/       notes.txt            solar.pdf
+Desktop/    patient-data/        writing/</code></pre>
 <p>Here, we can see that <code>/Users/simone</code> contains six <strong>sub-directories</strong>. The names that don’t have trailing slashes, like <code>notes.txt</code>, <code>pizza.cfg</code>, and <code>solar.pdf</code>, are plain old files. And note that there is a space between <code>ls</code> and <code>-F</code>: without it, the shell thinks we’re trying to run a command called <code>ls-F</code>, which doesn’t exist.</p>
 <aside class="callout panel panel-info">
 <div class="panel-heading">
@@ -140,7 +140,7 @@ network.cfg</code></pre>
 <pre class="output"><code>/Users/simone</code></pre>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">ls</span></code></pre></div>
 <pre class="output"><code>creatures  molecules           pizza.cfg
-data       north-pacific-gyre  solar.pdf
+data       patient-data        solar.pdf
 Desktop    notes.txt           writing</code></pre>
 <p>We can use <code>cd</code> followed by a directory name to change our working directory. <code>cd</code> stands for “change directory”, which is a bit misleading: the command doesn’t change the directory, it changes the shell’s idea of what directory we are in.</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">cd</span> data</code></pre></div>
@@ -164,7 +164,7 @@ pdb/              planets.txt   sunspot.txt</code></pre>
 <pre class="output"><code>./                  creatures/          notes.txt
 ../                 data/               pizza.cfg
 .bash_profile       molecules/          solar.pdf
-Desktop/            north-pacific-gyre/ writing/</code></pre>
+Desktop/            patient-data/       writing/</code></pre>
 <p><code>-a</code> stands for “show all”; it forces <code>ls</code> to show us file and directory names that begin with <code>.</code>, such as <code>..</code> (which, if we’re in <code>/Users/simone</code>, refers to the <code>/Users</code> directory). As you can see, it also displays another special directory that’s just called <code>.</code>, which means “the current working directory”. It may seem redundant to have a name for it, but we’ll see some uses for it soon. Finally, we also see a file called <code>.bash_profile</code>. This file usually contains settings to customize the shell (terminal). For this lesson material it does not contain any settings. There may also be similar files called <code>.bashrc</code> or <code>.bash_login</code>. The <code>.</code> prefix is used to prevent these configuration files from cluttering the terminal when a standard <code>ls</code> command is used.</p>
 <aside class="callout panel panel-info">
 <div class="panel-heading">
@@ -175,21 +175,21 @@ Desktop/            north-pacific-gyre/ writing/</code></pre>
 </div>
 </aside>
 <h3 id="simones-pipeline-organizing-files">Simone’s Pipeline: Organizing Files</h3>
-<p>Knowing just this much about files and directories, Simone is ready to organize the files that the protein assay machine will create. First, she creates a directory called <code>north-pacific-gyre</code> (to remind herself where the data came from). Inside that, she creates a directory called <code>2012-07-03</code>, which is the date she started processing the samples. She used to use names like <code>conference-paper</code> and <code>revised-results</code>, but she found them hard to understand after a couple of years. (The final straw was when she found herself creating a directory called <code>revised-revised-results-3</code>.)</p>
+<p>Knowing just this much about files and directories, Simone is ready to organize the files that the protein assay machine will create. First, she creates a directory called <code>patient-data</code> (to remind herself where the data came from). Inside that, she creates a directory called <code>2023-07-03</code>, which is the date she started processing the samples. She used to use names like <code>conference-paper</code> and <code>revised-results</code>, but she found them hard to understand after a couple of years. (The final straw was when she found herself creating a directory called <code>revised-revised-results-3</code>.)</p>
 <blockquote>
 <p>Simone names her directories “year-month-day”, with leading zeroes for months and days, because the shell displays file and directory names in alphabetical order. If she used month names, December would come before July; if she didn’t use leading zeroes, November (‘11’) would come before July (‘7’).</p>
 </blockquote>
 <p>Each of her physical samples is labelled according to her lab’s convention with a unique ten-character ID, such as “NENE01729A”. This is what she used in her collection log to record the location, time, depth, and other characteristics of the sample, so she decides to use it as part of each data file’s name. Since the assay machine’s output is plain text, she will call her files <code>NENE01729A.txt</code>, <code>NENE01812A.txt</code>, and so on. All 1520 files will go into the same directory.</p>
 <p>If she is in her home directory, Simone can see what files she has using the command:</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">ls</span> north-pacific-gyre/2012-07-03/</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">ls</span> patient-data/2023-07-03/</code></pre></div>
 <p>This is a lot to type, but she can let the shell do most of the work through what is called <strong>tab completion</strong>. If she types:</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">ls</span> nor</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">ls</span> pat </code></pre></div>
 <p>and then presses tab (the tab key on her keyboard), the shell automatically completes the directory name for her:</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">ls</span> north-pacific-gyre/</code></pre></div>
-<p>If she presses tab again, Bash will add <code>2012-07-03/</code> to the command, since it’s the only possible completion. Pressing tab again does nothing, since there are 1520 possibilities; pressing tab twice brings up a list of all the files, and so on. This is called <strong>tab completion</strong>, and we will see it in many other tools as we go on.</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">ls</span> patient-data/</code></pre></div>
+<p>If she presses tab again, Bash will add <code>2023-07-03/</code> to the command, since it’s the only possible completion. Pressing tab again does nothing, since there are 1520 possibilities; pressing tab twice brings up a list of all the files, and so on. This is called <strong>tab completion</strong>, and we will see it in many other tools as we go on.</p>
 <div class="figure">
-<img src="fig/filesystem-challenge.svg" alt="File System for Challange Questions" />
-<p class="caption">File System for Challange Questions</p>
+<img src="fig/filesystem-challenge.svg" alt="File System for Challenge Questions" />
+<p class="caption">File System for Challenge Questions</p>
 </div>
 <section class="challenge panel panel-success">
 <div class="panel-heading">

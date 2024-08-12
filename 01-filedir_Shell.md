@@ -137,8 +137,8 @@ $ ls
 ~~~
 ~~~ {.output}
 creatures  molecules           pizza.cfg
-data       north-pacific-gyre  solar.pdf
-Desktop    notes.txt           writing
+data       notes.txt           solar.pdf
+Desktop    patient-data        writing
 ~~~
 
 ![Simone's Home Directory](fig/homedir.svg)
@@ -153,8 +153,8 @@ $ ls -F
 ~~~
 ~~~ {.output}
 creatures/  molecules/           pizza.cfg
-data/       north-pacific-gyre/  solar.pdf
-Desktop/    notes.txt            writing/
+data/       notes.txt            solar.pdf
+Desktop/    patient-data/        writing/
 ~~~
 
 Here,
@@ -256,7 +256,7 @@ $ ls
 ~~~
 ~~~ {.output}
 creatures  molecules           pizza.cfg
-data       north-pacific-gyre  solar.pdf
+data       patient-data        solar.pdf
 Desktop    notes.txt           writing
 ~~~
 
@@ -334,7 +334,7 @@ $ ls -F -a
 ./                  creatures/          notes.txt
 ../                 data/               pizza.cfg
 .bash_profile       molecules/          solar.pdf
-Desktop/            north-pacific-gyre/ writing/
+Desktop/            patient-data/       writing/
 ~~~
 
 `-a` stands for "show all";
@@ -367,10 +367,10 @@ Finally, we also see a file called `.bash_profile`. This file usually contains s
 Knowing just this much about files and directories,
 Simone is ready to organize the files that the protein assay machine will create.
 First,
-she creates a directory called `north-pacific-gyre`
+she creates a directory called `patient-data`
 (to remind herself where the data came from).
 Inside that,
-she creates a directory called `2012-07-03`,
+she creates a directory called `2023-07-03`,
 which is the date she started processing the samples.
 She used to use names like `conference-paper` and `revised-results`,
 but she found them hard to understand after a couple of years.
@@ -399,7 +399,7 @@ If she is in her home directory,
 Simone can see what files she has using the command:
 
 ~~~ {.bash}
-$ ls north-pacific-gyre/2012-07-03/
+$ ls patient-data/2023-07-03/
 ~~~
 
 This is a lot to type,
@@ -407,18 +407,18 @@ but she can let the shell do most of the work through what is called **tab compl
 If she types:
 
 ~~~ {.bash}
-$ ls nor
+$ ls pat 
 ~~~
 
 and then presses tab (the tab key on her keyboard),
 the shell automatically completes the directory name for her:
 
 ~~~ {.bash}
-$ ls north-pacific-gyre/
+$ ls patient-data/
 ~~~
 
 If she presses tab again,
-Bash will add `2012-07-03/` to the command,
+Bash will add `2023-07-03/` to the command,
 since it's the only possible completion.
 Pressing tab again does nothing,
 since there are 1520 possibilities;
@@ -427,7 +427,7 @@ and so on.
 This is called **tab completion**,
 and we will see it in many other tools as we go on.
 
-![File System for Challange Questions](fig/filesystem-challenge.svg)
+![File System for Challenge Questions](fig/filesystem-challenge.svg)
 
 > ## Relative path resolution {.challenge}
 >

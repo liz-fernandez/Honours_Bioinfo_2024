@@ -290,11 +290,11 @@ so that you and other people can put those programs into pipes to multiply their
 ### Simone's Pipeline: Checking Files
 
 Simone has run her samples through the assay machines
-and created 1520 files in the `north-pacific-gyre/2012-07-03` directory described earlier.
+and created 1520 files in the `patient-data/2023-07-03` directory described earlier.
 As a quick sanity check, starting from her home directory, Simone types:
 
 ~~~ {.bash}
-$ cd north-pacific-gyre/2012-07-03
+$ cd patient-data/2023-07-03
 $ wc -l *.txt
 ~~~
 

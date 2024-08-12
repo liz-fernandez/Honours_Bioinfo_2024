@@ -28,8 +28,8 @@ $ ls -F
 ~~~
 ~~~ {.output}
 creatures/  molecules/           pizza.cfg
-data/       north-pacific-gyre/  solar.pdf
-Desktop/    notes.txt            writing/
+data/       notes.txt            solar.pdf
+Desktop/    patient-data/        writing/
 ~~~
 
 Let's create a new directory called `thesis` using the command `mkdir thesis`
@@ -49,8 +49,8 @@ the new directory is created in the current working directory:
 $ ls -F
 ~~~
 ~~~ {.output}
-creatures/  north-pacific-gyre/  thesis/
-data/       notes.txt            writing/
+creatures/  notes.txt            thesis/
+data/       patient-data/        writing/
 Desktop/    pizza.cfg
 molecules/  solar.pdf
 ~~~
