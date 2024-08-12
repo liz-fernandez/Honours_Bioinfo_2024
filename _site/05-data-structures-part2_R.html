@@ -1,381 +1,210 @@
-<p>::::::::::::::::::::::::::::::::::::::: objectives</p>
-
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="generator" content="pandoc">
+    <title>Exploring Data Frames</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="css/swc.css" />
+    <link rel="alternate" type="application/rss+xml" title="Bioinformatics Honours 2024" href="https://github.com/liz-fernandez/UNSW_Honours_Bioinfo_2024/"/>
+    <meta charset="UTF-8" />
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body class="lesson">
+    <div class="container card">
+      <div class="banner">
+        <a href="https://liz-fernandez.github.io/Honours_Bioinfo_2024/" title="Honours Bioinformatics Course 2024">
+          <img alt="Logo UNSW" src="img/unsw_logo.jpg" />
+        </a>
+      </div>
+      <article>
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+                    <h1 class="title">Exploring Data Frames</h1>
+          <p>::::::::::::::::::::::::::::::::::::::: objectives</p>
 <ul>
-  <li>Add and remove rows or columns.</li>
-  <li>Append two data frames.</li>
-  <li>Display basic properties of data frames including size and class of the columns, names, and first few rows.</li>
+<li>Add and remove rows or columns.</li>
+<li>Append two data frames.</li>
+<li>Display basic properties of data frames including size and class of the columns, names, and first few rows.</li>
 </ul>
-
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-
 <p>:::::::::::::::::::::::::::::::::::::::: questions</p>
-
 <ul>
-  <li>How can I manipulate a data frame?</li>
+<li>How can I manipulate a data frame?</li>
 </ul>
-
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-
-<p>```{r, include=FALSE}</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-At this point, you've seen it all: in the last lesson, we toured all the basic
-data types and data structures in R. Everything you do will be a manipulation of
-those tools. But most of the time, the star of the show is the data frame—the table that we created by loading information from a csv file. In this lesson, we'll learn a few more things
-about working with data frames.
-
-## Adding columns and rows in data frames
-
-We already learned that the columns of a data frame are vectors, so that our
-data are consistent in type throughout the columns. As such, if we want to add a
-new column, we can start by making a new vector:
-
-```{r, echo=FALSE}
-cats &lt;- read.csv("data/feline-data.csv")
-</code></pre></div></div>
-
-<pre><code class="language-{r}">age &lt;- c(2, 3, 5)
-cats
-</code></pre>
-
+<p><code>{r, include=FALSE}</code></p>
+<p>At this point, you’ve seen it all: in the last lesson, we toured all the basic data types and data structures in R. Everything you do will be a manipulation of those tools. But most of the time, the star of the show is the data frame—the table that we created by loading information from a csv file. In this lesson, we’ll learn a few more things about working with data frames.</p>
+<h2 id="adding-columns-and-rows-in-data-frames">Adding columns and rows in data frames</h2>
+<p>We already learned that the columns of a data frame are vectors, so that our data are consistent in type throughout the columns. As such, if we want to add a new column, we can start by making a new vector:</p>
+<p><code>{r, echo=FALSE} cats &lt;- read.csv(&quot;data/feline-data.csv&quot;)</code></p>
+<pre class="{r}"><code>age &lt;- c(2, 3, 5)
+cats</code></pre>
 <p>We can then add this as a column via:</p>
-
-<pre><code class="language-{r}">cbind(cats, age)
-</code></pre>
-
+<pre class="{r}"><code>cbind(cats, age)</code></pre>
 <p>Note that if we tried to add a vector of ages with a different number of entries than the number of rows in the data frame, it would fail:</p>
-
-<p>```{r, error=TRUE}
-age &lt;- c(2, 3, 5, 12)
-cbind(cats, age)</p>
-
-<p>age &lt;- c(2, 3)
-cbind(cats, age)</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-Why didn't this work? Of course, R wants to see one element in our new column
-for every row in the table:
-
-```{r}
-nrow(cats)
-length(age)
-</code></pre></div></div>
-
-<p>So for it to work we need to have <code class="language-plaintext highlighter-rouge">nrow(cats)</code> = <code class="language-plaintext highlighter-rouge">length(age)</code>. Let’s overwrite the content of cats with our new data frame.</p>
-
-<pre><code class="language-{r}">age &lt;- c(2, 3, 5)
-cats &lt;- cbind(cats, age)
-</code></pre>
-
-<p>Now how about adding rows? We already know that the rows of a
-data frame are lists:</p>
-
-<pre><code class="language-{r}">newRow &lt;- list("tortoiseshell", 3.3, TRUE, 9)
-cats &lt;- rbind(cats, newRow)
-</code></pre>
-
+<p>```{r, error=TRUE} age &lt;- c(2, 3, 5, 12) cbind(cats, age)</p>
+<p>age &lt;- c(2, 3) cbind(cats, age) ```</p>
+<p>Why didn’t this work? Of course, R wants to see one element in our new column for every row in the table:</p>
+<pre class="{r}"><code>nrow(cats)
+length(age)</code></pre>
+<p>So for it to work we need to have <code>nrow(cats)</code> = <code>length(age)</code>. Let’s overwrite the content of cats with our new data frame.</p>
+<pre class="{r}"><code>age &lt;- c(2, 3, 5)
+cats &lt;- cbind(cats, age)</code></pre>
+<p>Now how about adding rows? We already know that the rows of a data frame are lists:</p>
+<pre class="{r}"><code>newRow &lt;- list(&quot;tortoiseshell&quot;, 3.3, TRUE, 9)
+cats &lt;- rbind(cats, newRow)</code></pre>
 <p>Let’s confirm that our new row was added correctly.</p>
-
-<pre><code class="language-{r}">cats
-</code></pre>
-
+<pre class="{r}"><code>cats</code></pre>
 <h2 id="removing-rows">Removing rows</h2>
-
 <p>We now know how to add rows and columns to our data frame in R. Now let’s learn to remove rows.</p>
-
-<pre><code class="language-{r}">cats
-</code></pre>
-
+<pre class="{r}"><code>cats</code></pre>
 <p>We can ask for a data frame minus the last row:</p>
-
-<pre><code class="language-{r}">cats[-4, ]
-</code></pre>
-
+<pre class="{r}"><code>cats[-4, ]</code></pre>
 <p>Notice the comma with nothing after it to indicate that we want to drop the entire fourth row.</p>
-
-<p>Note: we could also remove several rows at once by putting the row numbers
-inside of a vector, for example: <code class="language-plaintext highlighter-rouge">cats[c(-3,-4), ]</code></p>
-
+<p>Note: we could also remove several rows at once by putting the row numbers inside of a vector, for example: <code>cats[c(-3,-4), ]</code></p>
 <h2 id="removing-columns">Removing columns</h2>
-
 <p>We can also remove columns in our data frame. What if we want to remove the column “age”. We can remove it in two ways, by variable number or by index.</p>
-
-<pre><code class="language-{r}">cats[,-4]
-</code></pre>
-
+<pre class="{r}"><code>cats[,-4]</code></pre>
 <p>Notice the comma with nothing before it, indicating we want to keep all of the rows.</p>
-
-<p>Alternatively, we can drop the column by using the index name and the <code class="language-plaintext highlighter-rouge">%in%</code> operator. The <code class="language-plaintext highlighter-rouge">%in%</code> operator goes through each element of its left argument, in this case the names of <code class="language-plaintext highlighter-rouge">cats</code>, and asks, “Does this element occur in the second argument?”</p>
-
-<pre><code class="language-{r}">drop &lt;- names(cats) %in% c("age")
-cats[,!drop]
-</code></pre>
-
-<p>We will cover subsetting with logical operators like <code class="language-plaintext highlighter-rouge">%in%</code> in more detail in the next episode. See the section <a href="06-data-subsetting.Rmd">Subsetting through other logical operations</a></p>
-
+<p>Alternatively, we can drop the column by using the index name and the <code>%in%</code> operator. The <code>%in%</code> operator goes through each element of its left argument, in this case the names of <code>cats</code>, and asks, “Does this element occur in the second argument?”</p>
+<pre class="{r}"><code>drop &lt;- names(cats) %in% c(&quot;age&quot;)
+cats[,!drop]</code></pre>
+<p>We will cover subsetting with logical operators like <code>%in%</code> in more detail in the next episode. See the section <a href="06-data-subsetting.Rmd">Subsetting through other logical operations</a></p>
 <h2 id="appending-to-a-data-frame">Appending to a data frame</h2>
-
-<p>The key to remember when adding data to a data frame is that <em>columns are
-vectors and rows are lists.</em> We can also glue two data frames
-together with <code class="language-plaintext highlighter-rouge">rbind</code>:</p>
-
-<pre><code class="language-{r}">cats &lt;- rbind(cats, cats)
-cats
-</code></pre>
-
-<p>:::::::::::::::::::::::::::::::::::::::  challenge</p>
-
+<p>The key to remember when adding data to a data frame is that <em>columns are vectors and rows are lists.</em> We can also glue two data frames together with <code>rbind</code>:</p>
+<pre class="{r}"><code>cats &lt;- rbind(cats, cats)
+cats</code></pre>
+<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
 <h2 id="challenge-1">Challenge 1</h2>
-
 <p>You can create a new data frame right from within R with the following syntax:</p>
-
-<pre><code class="language-{r}">df &lt;- data.frame(id = c("a", "b", "c"),
+<pre class="{r}"><code>df &lt;- data.frame(id = c(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;),
                  x = 1:3,
-                 y = c(TRUE, TRUE, FALSE))
-</code></pre>
-
+                 y = c(TRUE, TRUE, FALSE))</code></pre>
 <p>Make a data frame that holds the following information for yourself:</p>
-
 <ul>
-  <li>first name</li>
-  <li>last name</li>
-  <li>lucky number</li>
+<li>first name</li>
+<li>last name</li>
+<li>lucky number</li>
 </ul>
-
-<p>Then use <code class="language-plaintext highlighter-rouge">rbind</code> to add an entry for the people sitting beside you.
-Finally, use <code class="language-plaintext highlighter-rouge">cbind</code> to add a column with each person’s answer to the question, “Is it time for coffee break?”</p>
-
-<p>:::::::::::::::  solution</p>
-
+<p>Then use <code>rbind</code> to add an entry for the people sitting beside you. Finally, use <code>cbind</code> to add a column with each person’s answer to the question, “Is it time for coffee break?”</p>
+<p>::::::::::::::: solution</p>
 <h2 id="solution-to-challenge-1">Solution to Challenge 1</h2>
-
-<pre><code class="language-{r}">df &lt;- data.frame(first = c("Grace"),
-                 last = c("Hopper"),
+<pre class="{r}"><code>df &lt;- data.frame(first = c(&quot;Grace&quot;),
+                 last = c(&quot;Hopper&quot;),
                  lucky_number = c(0))
-df &lt;- rbind(df, list("Marie", "Curie", 238) )
-df &lt;- cbind(df, coffeetime = c(TRUE,TRUE))
-</code></pre>
-
+df &lt;- rbind(df, list(&quot;Marie&quot;, &quot;Curie&quot;, 238) )
+df &lt;- cbind(df, coffeetime = c(TRUE,TRUE))</code></pre>
 <p>:::::::::::::::::::::::::</p>
-
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-
 <h2 id="realistic-example">Realistic example</h2>
-
-<p>So far, you have seen the basics of manipulating data frames with our cat data;
-now let’s use those skills to digest a more realistic dataset. Let’s read in the
-<code class="language-plaintext highlighter-rouge">gapminder</code> dataset that we downloaded previously:</p>
-
-<pre><code class="language-{r}">gapminder &lt;- read.csv("data/gapminder_data.csv")
-</code></pre>
-
-<p>:::::::::::::::::::::::::::::::::::::::::  callout</p>
-
+<p>So far, you have seen the basics of manipulating data frames with our cat data; now let’s use those skills to digest a more realistic dataset. Let’s read in the <code>gapminder</code> dataset that we downloaded previously:</p>
+<pre class="{r}"><code>gapminder &lt;- read.csv(&quot;data/gapminder_data.csv&quot;)</code></pre>
+<p>::::::::::::::::::::::::::::::::::::::::: callout</p>
 <h2 id="miscellaneous-tips">Miscellaneous Tips</h2>
-
 <ul>
-  <li>
-    <p>Another type of file you might encounter are tab-separated value files (.tsv). To specify a tab as a separator, use <code class="language-plaintext highlighter-rouge">"\\t"</code> or <code class="language-plaintext highlighter-rouge">read.delim()</code>.</p>
-  </li>
-  <li>
-    <p>Files can also be downloaded directly from the Internet into a local
-folder of your choice onto your computer using the <code class="language-plaintext highlighter-rouge">download.file</code> function.
-The <code class="language-plaintext highlighter-rouge">read.csv</code> function can then be executed to read the downloaded file from the download location, for example,</p>
-  </li>
+<li><p>Another type of file you might encounter are tab-separated value files (.tsv). To specify a tab as a separator, use <code>&quot;\\t&quot;</code> or <code>read.delim()</code>.</p></li>
+<li><p>Files can also be downloaded directly from the Internet into a local folder of your choice onto your computer using the <code>download.file</code> function. The <code>read.csv</code> function can then be executed to read the downloaded file from the download location, for example,</p></li>
 </ul>
-
-<p>```{r, eval=FALSE, echo=TRUE}
-download.file(“https://raw.githubusercontent.com/swcarpentry/r-novice-gapminder/main/episodes/data/gapminder_data.csv”, destfile = “data/gapminder_data.csv”)
-gapminder &lt;- read.csv(“data/gapminder_data.csv”)</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-- Alternatively, you can also read in files directly into R from the Internet by replacing the file paths with a web address in `read.csv`. One should note that in doing this no local copy of the csv file is first saved onto your computer. For example,
-
-```{r, eval=FALSE, echo=TRUE}
-gapminder &lt;- read.csv("https://raw.githubusercontent.com/swcarpentry/r-novice-gapminder/main/episodes/data/gapminder_data.csv")
-</code></pre></div></div>
-
+<p><code>{r, eval=FALSE, echo=TRUE} download.file(&quot;https://raw.githubusercontent.com/swcarpentry/r-novice-gapminder/main/episodes/data/gapminder_data.csv&quot;, destfile = &quot;data/gapminder_data.csv&quot;) gapminder &lt;- read.csv(&quot;data/gapminder_data.csv&quot;)</code></p>
 <ul>
-  <li>
-    <p>You can read directly from excel spreadsheets without
-converting them to plain text first by using the <a href="https://cran.r-project.org/package=readxl">readxl</a> package.</p>
-  </li>
-  <li>
-    <p>The argument “stringsAsFactors” can be useful to tell R how to read strings either as factors or as character strings. In R versions after 4.0, all strings are read-in as characters by default, but in earlier versions of R, strings are read-in as factors by default. For more information, see the call-out in <a href="https://swcarpentry.github.io/r-novice-gapminder/04-data-structures-part1.html#check-your-data-for-factors">the previous episode</a>.</p>
-  </li>
+<li>Alternatively, you can also read in files directly into R from the Internet by replacing the file paths with a web address in <code>read.csv</code>. One should note that in doing this no local copy of the csv file is first saved onto your computer. For example,</li>
 </ul>
-
+<p><code>{r, eval=FALSE, echo=TRUE} gapminder &lt;- read.csv(&quot;https://raw.githubusercontent.com/swcarpentry/r-novice-gapminder/main/episodes/data/gapminder_data.csv&quot;)</code></p>
+<ul>
+<li><p>You can read directly from excel spreadsheets without converting them to plain text first by using the <a href="https://cran.r-project.org/package=readxl">readxl</a> package.</p></li>
+<li><p>The argument “stringsAsFactors” can be useful to tell R how to read strings either as factors or as character strings. In R versions after 4.0, all strings are read-in as characters by default, but in earlier versions of R, strings are read-in as factors by default. For more information, see the call-out in <a href="https://swcarpentry.github.io/r-novice-gapminder/04-data-structures-part1.html#check-your-data-for-factors">the previous episode</a>.</p></li>
+</ul>
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-
-<p>Let’s investigate gapminder a bit; the first thing we should always do is check
-out what the data looks like with <code class="language-plaintext highlighter-rouge">str</code>:</p>
-
-<pre><code class="language-{r}">str(gapminder)
-</code></pre>
-
-<p>An additional method for examining the structure of gapminder is to use the <code class="language-plaintext highlighter-rouge">summary</code> function. This function can be used on various objects in R. For data frames, <code class="language-plaintext highlighter-rouge">summary</code> yields a numeric, tabular, or descriptive summary of each column. Numeric or integer columns are described by the descriptive statistics (quartiles and mean), and character columns by its length, class, and mode.</p>
-
-<pre><code class="language-{r}">summary(gapminder)
-</code></pre>
-
-<p>Along with the <code class="language-plaintext highlighter-rouge">str</code> and <code class="language-plaintext highlighter-rouge">summary</code> functions, we can examine individual columns of the data frame with our <code class="language-plaintext highlighter-rouge">typeof</code> function:</p>
-
-<pre><code class="language-{r}">typeof(gapminder$year)
+<p>Let’s investigate gapminder a bit; the first thing we should always do is check out what the data looks like with <code>str</code>:</p>
+<pre class="{r}"><code>str(gapminder)</code></pre>
+<p>An additional method for examining the structure of gapminder is to use the <code>summary</code> function. This function can be used on various objects in R. For data frames, <code>summary</code> yields a numeric, tabular, or descriptive summary of each column. Numeric or integer columns are described by the descriptive statistics (quartiles and mean), and character columns by its length, class, and mode.</p>
+<pre class="{r}"><code>summary(gapminder)</code></pre>
+<p>Along with the <code>str</code> and <code>summary</code> functions, we can examine individual columns of the data frame with our <code>typeof</code> function:</p>
+<pre class="{r}"><code>typeof(gapminder$year)
 typeof(gapminder$country)
-str(gapminder$country)
-</code></pre>
-
-<p>We can also interrogate the data frame for information about its dimensions;
-remembering that <code class="language-plaintext highlighter-rouge">str(gapminder)</code> said there were 1704 observations of 6
-variables in gapminder, what do you think the following will produce, and why?</p>
-
-<pre><code class="language-{r}">length(gapminder)
-</code></pre>
-
-<p>A fair guess would have been to say that the length of a data frame would be the
-number of rows it has (1704), but this is not the case; remember, a data frame
-is a <em>list of vectors and factors</em>:</p>
-
-<pre><code class="language-{r}">typeof(gapminder)
-</code></pre>
-
-<p>When <code class="language-plaintext highlighter-rouge">length</code> gave us 6, it’s because gapminder is built out of a list of 6
-columns. To get the number of rows and columns in our dataset, try:</p>
-
-<pre><code class="language-{r}">nrow(gapminder)
-ncol(gapminder)
-</code></pre>
-
+str(gapminder$country)</code></pre>
+<p>We can also interrogate the data frame for information about its dimensions; remembering that <code>str(gapminder)</code> said there were 1704 observations of 6 variables in gapminder, what do you think the following will produce, and why?</p>
+<pre class="{r}"><code>length(gapminder)</code></pre>
+<p>A fair guess would have been to say that the length of a data frame would be the number of rows it has (1704), but this is not the case; remember, a data frame is a <em>list of vectors and factors</em>:</p>
+<pre class="{r}"><code>typeof(gapminder)</code></pre>
+<p>When <code>length</code> gave us 6, it’s because gapminder is built out of a list of 6 columns. To get the number of rows and columns in our dataset, try:</p>
+<pre class="{r}"><code>nrow(gapminder)
+ncol(gapminder)</code></pre>
 <p>Or, both at once:</p>
-
-<pre><code class="language-{r}">dim(gapminder)
-</code></pre>
-
-<p>We’ll also likely want to know what the titles of all the columns are, so we can
-ask for them later:</p>
-
-<pre><code class="language-{r}">colnames(gapminder)
-</code></pre>
-
-<p>At this stage, it’s important to ask ourselves if the structure R is reporting
-matches our intuition or expectations; do the basic data types reported for each
-column make sense? If not, we need to sort any problems out now before they turn
-into bad surprises down the road, using what we’ve learned about how R
-interprets data, and the importance of <em>strict consistency</em> in how we record our
-data.</p>
-
-<p>Once we’re happy that the data types and structures seem reasonable, it’s time
-to start digging into our data proper. Check out the first few lines:</p>
-
-<pre><code class="language-{r}">head(gapminder)
-</code></pre>
-
-<p>:::::::::::::::::::::::::::::::::::::::  challenge</p>
-
+<pre class="{r}"><code>dim(gapminder)</code></pre>
+<p>We’ll also likely want to know what the titles of all the columns are, so we can ask for them later:</p>
+<pre class="{r}"><code>colnames(gapminder)</code></pre>
+<p>At this stage, it’s important to ask ourselves if the structure R is reporting matches our intuition or expectations; do the basic data types reported for each column make sense? If not, we need to sort any problems out now before they turn into bad surprises down the road, using what we’ve learned about how R interprets data, and the importance of <em>strict consistency</em> in how we record our data.</p>
+<p>Once we’re happy that the data types and structures seem reasonable, it’s time to start digging into our data proper. Check out the first few lines:</p>
+<pre class="{r}"><code>head(gapminder)</code></pre>
+<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
 <h2 id="challenge-2">Challenge 2</h2>
-
 <p>It’s good practice to also check the last few lines of your data and some in the middle. How would you do this?</p>
-
 <p>Searching for ones specifically in the middle isn’t too hard, but we could ask for a few lines at random. How would you code this?</p>
-
-<p>:::::::::::::::  solution</p>
-
+<p>::::::::::::::: solution</p>
 <h2 id="solution-to-challenge-2">Solution to Challenge 2</h2>
-
 <p>To check the last few lines it’s relatively simple as R already has a function for this:</p>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tail</span><span class="p">(</span><span class="n">gapminder</span><span class="p">)</span><span class="w">
-</span><span class="n">tail</span><span class="p">(</span><span class="n">gapminder</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">15</span><span class="p">)</span><span class="w">
-</span></code></pre></div></div>
-
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">tail</span>(gapminder)
+<span class="kw">tail</span>(gapminder, <span class="dt">n =</span> <span class="dv">15</span>)</code></pre></div>
 <p>What about a few arbitrary rows just in case something is odd in the middle?</p>
-
-<h2 id="tip-there-are-several-ways-to-achieve-this">Tip: There are several ways to achieve this.</h2>
-
-<p>The solution here presents one form of using nested functions, i.e. a function passed as an argument to another function. This might sound like a new concept, but you are already using it!
-Remember my_dataframe[rows, cols] will print to screen your data frame with the number of rows and columns you asked for (although you might have asked for a range or named columns for example). How would you get the last row if you don’t know how many rows your data frame has? R has a function for this. What about getting a (pseudorandom) sample? R also has a function for this.</p>
-
-<div class="language-r highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">gapminder</span><span class="p">[</span><span class="n">sample</span><span class="p">(</span><span class="n">nrow</span><span class="p">(</span><span class="n">gapminder</span><span class="p">),</span><span class="w"> </span><span class="m">5</span><span class="p">),</span><span class="w"> </span><span class="p">]</span><span class="w">
-</span></code></pre></div></div>
-
+<h2 id="tip-there-are-several-ways-to-achieve-this.">Tip: There are several ways to achieve this.</h2>
+<p>The solution here presents one form of using nested functions, i.e. a function passed as an argument to another function. This might sound like a new concept, but you are already using it! Remember my_dataframe[rows, cols] will print to screen your data frame with the number of rows and columns you asked for (although you might have asked for a range or named columns for example). How would you get the last row if you don’t know how many rows your data frame has? R has a function for this. What about getting a (pseudorandom) sample? R also has a function for this.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">gapminder[<span class="kw">sample</span>(<span class="kw">nrow</span>(gapminder), <span class="dv">5</span>), ]</code></pre></div>
 <p>:::::::::::::::::::::::::</p>
-
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-
-<p>To make sure our analysis is reproducible, we should put the code
-into a script file so we can come back to it later.</p>
-
-<p>:::::::::::::::::::::::::::::::::::::::  challenge</p>
-
+<p>To make sure our analysis is reproducible, we should put the code into a script file so we can come back to it later.</p>
+<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
 <h2 id="challenge-3">Challenge 3</h2>
-
-<p>Go to file -&gt; new file -&gt; R script, and write an R script
-to load in the gapminder dataset. Put it in the <code class="language-plaintext highlighter-rouge">scripts/</code>
-directory and add it to version control.</p>
-
-<p>Run the script using the <code class="language-plaintext highlighter-rouge">source</code> function, using the file path
-as its argument (or by pressing the “source” button in RStudio).</p>
-
-<p>:::::::::::::::  solution</p>
-
+<p>Go to file -&gt; new file -&gt; R script, and write an R script to load in the gapminder dataset. Put it in the <code>scripts/</code> directory and add it to version control.</p>
+<p>Run the script using the <code>source</code> function, using the file path as its argument (or by pressing the “source” button in RStudio).</p>
+<p>::::::::::::::: solution</p>
 <h2 id="solution-to-challenge-3">Solution to Challenge 3</h2>
-
-<p>The <code class="language-plaintext highlighter-rouge">source</code> function can be used to use a script within a script.
-Assume you would like to load the same type of file over and over
-again and therefore you need to specify the arguments to fit the
-needs of your file. Instead of writing the necessary argument again
-and again you could just write it once and save it as a script. Then,
-you can use <code class="language-plaintext highlighter-rouge">source("Your_Script_containing_the_load_function")</code> in a new
-script to use the function of that script without writing everything again.
-Check out <code class="language-plaintext highlighter-rouge">?source</code> to find out more.</p>
-
-<p>```{r, eval=FALSE}
-download.file(“https://raw.githubusercontent.com/swcarpentry/r-novice-gapminder/main/episodes/data/gapminder_data.csv”, destfile = “data/gapminder_data.csv”)
-gapminder &lt;- read.csv(file = “data/gapminder_data.csv”)</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-To run the script and load the data into the `gapminder` variable:
-
-```{r, eval=FALSE}
-source(file = "scripts/load-gapminder.R")
-</code></pre></div></div>
-
+<p>The <code>source</code> function can be used to use a script within a script. Assume you would like to load the same type of file over and over again and therefore you need to specify the arguments to fit the needs of your file. Instead of writing the necessary argument again and again you could just write it once and save it as a script. Then, you can use <code>source(&quot;Your_Script_containing_the_load_function&quot;)</code> in a new script to use the function of that script without writing everything again. Check out <code>?source</code> to find out more.</p>
+<p><code>{r, eval=FALSE} download.file(&quot;https://raw.githubusercontent.com/swcarpentry/r-novice-gapminder/main/episodes/data/gapminder_data.csv&quot;, destfile = &quot;data/gapminder_data.csv&quot;) gapminder &lt;- read.csv(file = &quot;data/gapminder_data.csv&quot;)</code></p>
+<p>To run the script and load the data into the <code>gapminder</code> variable:</p>
+<p><code>{r, eval=FALSE} source(file = &quot;scripts/load-gapminder.R&quot;)</code></p>
 <p>:::::::::::::::::::::::::</p>
-
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-
-<p>:::::::::::::::::::::::::::::::::::::::  challenge</p>
-
+<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
 <h2 id="challenge-4">Challenge 4</h2>
-
-<p>Read the output of <code class="language-plaintext highlighter-rouge">str(gapminder)</code> again;
-this time, use what you’ve learned about lists and vectors,
-as well as the output of functions like <code class="language-plaintext highlighter-rouge">colnames</code> and <code class="language-plaintext highlighter-rouge">dim</code>
-to explain what everything that <code class="language-plaintext highlighter-rouge">str</code> prints out for gapminder means.
-If there are any parts you can’t interpret, discuss with your neighbors!</p>
-
-<p>:::::::::::::::  solution</p>
-
+<p>Read the output of <code>str(gapminder)</code> again; this time, use what you’ve learned about lists and vectors, as well as the output of functions like <code>colnames</code> and <code>dim</code> to explain what everything that <code>str</code> prints out for gapminder means. If there are any parts you can’t interpret, discuss with your neighbors!</p>
+<p>::::::::::::::: solution</p>
 <h2 id="solution-to-challenge-4">Solution to Challenge 4</h2>
-
-<p>The object <code class="language-plaintext highlighter-rouge">gapminder</code> is a data frame with columns</p>
-
+<p>The object <code>gapminder</code> is a data frame with columns</p>
 <ul>
-  <li><code class="language-plaintext highlighter-rouge">country</code> and <code class="language-plaintext highlighter-rouge">continent</code> are character strings.</li>
-  <li><code class="language-plaintext highlighter-rouge">year</code> is an integer vector.</li>
-  <li><code class="language-plaintext highlighter-rouge">pop</code>, <code class="language-plaintext highlighter-rouge">lifeExp</code>, and <code class="language-plaintext highlighter-rouge">gdpPercap</code> are numeric vectors.</li>
+<li><code>country</code> and <code>continent</code> are character strings.</li>
+<li><code>year</code> is an integer vector.</li>
+<li><code>pop</code>, <code>lifeExp</code>, and <code>gdpPercap</code> are numeric vectors.</li>
 </ul>
-
 <p>:::::::::::::::::::::::::</p>
-
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-
 <p>:::::::::::::::::::::::::::::::::::::::: keypoints</p>
-
 <ul>
-  <li>Use <code class="language-plaintext highlighter-rouge">cbind()</code> to add a new column to a data frame.</li>
-  <li>Use <code class="language-plaintext highlighter-rouge">rbind()</code> to add a new row to a data frame.</li>
-  <li>Remove rows from a data frame.</li>
-  <li>Use <code class="language-plaintext highlighter-rouge">str()</code>, <code class="language-plaintext highlighter-rouge">summary()</code>, <code class="language-plaintext highlighter-rouge">nrow()</code>, <code class="language-plaintext highlighter-rouge">ncol()</code>, <code class="language-plaintext highlighter-rouge">dim()</code>, <code class="language-plaintext highlighter-rouge">colnames()</code>, <code class="language-plaintext highlighter-rouge">head()</code>, and <code class="language-plaintext highlighter-rouge">typeof()</code> to understand the structure of a data frame.</li>
-  <li>Read in a csv file using <code class="language-plaintext highlighter-rouge">read.csv()</code>.</li>
-  <li>Understand what <code class="language-plaintext highlighter-rouge">length()</code> of a data frame represents.</li>
+<li>Use <code>cbind()</code> to add a new column to a data frame.</li>
+<li>Use <code>rbind()</code> to add a new row to a data frame.</li>
+<li>Remove rows from a data frame.</li>
+<li>Use <code>str()</code>, <code>summary()</code>, <code>nrow()</code>, <code>ncol()</code>, <code>dim()</code>, <code>colnames()</code>, <code>head()</code>, and <code>typeof()</code> to understand the structure of a data frame.</li>
+<li>Read in a csv file using <code>read.csv()</code>.</li>
+<li>Understand what <code>length()</code> of a data frame represents.</li>
 </ul>
-
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-
+        </div>
+      </div>
+      </article>
+      <div class="footer">
+        <a class="label swc-blue-bg" href="mailto:s.fernandez_valverde@unsw.edu.au">Contact</a>
+      </div>
+    </div>
+    <!-- Javascript placed at the end of the document so the pages load faster -->
+    <script src="http://software-carpentry.org/v5/js/jquery-1.9.1.min.js"></script>
+    <script src="css/bootstrap/bootstrap-js/bootstrap.js"></script>
+    <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+  </body>
+</html>

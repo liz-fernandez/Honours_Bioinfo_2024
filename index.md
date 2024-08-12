@@ -47,10 +47,11 @@ These lessons will start you on a path towards using these resources effectively
 >     on the 'Katana Terminal' button. 
 > 11. Navigate to 'Bioinfo_Course' and decompress the file by copying the following lines and pasting them into the
 >     terminal:
-> ~~~{.bash} 
-> cd Bionfo_Course/
+>
+> ~~~ {.bash}
+> cd Bionfo_Course
 > unzip data-shell-dir.zip
-> cd data-shell/
+> cd data-shell
 > ~~~
 > 
 > You are now ready to start! 

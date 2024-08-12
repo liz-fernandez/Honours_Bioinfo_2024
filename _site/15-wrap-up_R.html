@@ -1,112 +1,90 @@
-<p>::::::::::::::::::::::::::::::::::::::: objectives</p>
-
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="generator" content="pandoc">
+    <title>Writing Good Software</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="css/swc.css" />
+    <link rel="alternate" type="application/rss+xml" title="Bioinformatics Honours 2024" href="https://github.com/liz-fernandez/UNSW_Honours_Bioinfo_2024/"/>
+    <meta charset="UTF-8" />
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body class="lesson">
+    <div class="container card">
+      <div class="banner">
+        <a href="https://liz-fernandez.github.io/Honours_Bioinfo_2024/" title="Honours Bioinformatics Course 2024">
+          <img alt="Logo UNSW" src="img/unsw_logo.jpg" />
+        </a>
+      </div>
+      <article>
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+                    <h1 class="title">Writing Good Software</h1>
+          <p>::::::::::::::::::::::::::::::::::::::: objectives</p>
 <ul>
-  <li>Describe best practices for writing R and explain the justification for each.</li>
+<li>Describe best practices for writing R and explain the justification for each.</li>
 </ul>
-
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-
 <p>:::::::::::::::::::::::::::::::::::::::: questions</p>
-
 <ul>
-  <li>How can I write software that other people can use?</li>
+<li>How can I write software that other people can use?</li>
 </ul>
-
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-
 <h2 id="structure-your-project-folder">Structure your project folder</h2>
-
-<p>Keep your project folder structured, organized and tidy, by creating subfolders for your code files, manuals, data, binaries, output plots, etc. It can be done completely manually, or with the help of RStudio’s <code class="language-plaintext highlighter-rouge">New Project</code> functionality, or a designated package, such as <code class="language-plaintext highlighter-rouge">ProjectTemplate</code>.</p>
-
-<p>:::::::::::::::::::::::::::::::::::::::::  callout</p>
-
+<p>Keep your project folder structured, organized and tidy, by creating subfolders for your code files, manuals, data, binaries, output plots, etc. It can be done completely manually, or with the help of RStudio’s <code>New Project</code> functionality, or a designated package, such as <code>ProjectTemplate</code>.</p>
+<p>::::::::::::::::::::::::::::::::::::::::: callout</p>
 <h2 id="tip-projecttemplate---a-possible-solution">Tip: ProjectTemplate - a possible solution</h2>
-
-<p>One way to automate the management of projects is to install the third-party package, <code class="language-plaintext highlighter-rouge">ProjectTemplate</code>.
-This package will set up an ideal directory structure for project management.
-This is very useful as it enables you to have your analysis pipeline/workflow organised and structured.
-Together with the default RStudio project functionality and Git you will be able to keep track of your
-work as well as be able to share your work with collaborators.</p>
-
-<ol>
-  <li>Install <code class="language-plaintext highlighter-rouge">ProjectTemplate</code>.</li>
-  <li>Load the library</li>
-  <li>Initialise the project:</li>
+<p>One way to automate the management of projects is to install the third-party package, <code>ProjectTemplate</code>. This package will set up an ideal directory structure for project management. This is very useful as it enables you to have your analysis pipeline/workflow organised and structured. Together with the default RStudio project functionality and Git you will be able to keep track of your work as well as be able to share your work with collaborators.</p>
+<ol style="list-style-type: decimal">
+<li>Install <code>ProjectTemplate</code>.</li>
+<li>Load the library</li>
+<li>Initialise the project:</li>
 </ol>
-
-<p><code class="language-plaintext highlighter-rouge">{r, eval=FALSE}
-install.packages("ProjectTemplate")
-library("ProjectTemplate")
-create.project("../my_project_2", merge.strategy = "allow.non.conflict")
-</code></p>
-
-<p>For more information on ProjectTemplate and its functionality visit the
-home page <a href="https://projecttemplate.net/index.html">ProjectTemplate</a></p>
-
+<p><code>{r, eval=FALSE} install.packages(&quot;ProjectTemplate&quot;) library(&quot;ProjectTemplate&quot;) create.project(&quot;../my_project_2&quot;, merge.strategy = &quot;allow.non.conflict&quot;)</code></p>
+<p>For more information on ProjectTemplate and its functionality visit the home page <a href="https://projecttemplate.net/index.html">ProjectTemplate</a></p>
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-
 <h2 id="make-code-readable">Make code readable</h2>
-
-<p>The most important part of writing code is making it readable and understandable.
-You want someone else to be able to pick up your code and be able to understand
-what it does: more often than not this someone will be you 6 months down the line,
-who will otherwise be cursing past-self.</p>
-
+<p>The most important part of writing code is making it readable and understandable. You want someone else to be able to pick up your code and be able to understand what it does: more often than not this someone will be you 6 months down the line, who will otherwise be cursing past-self.</p>
 <h2 id="documentation-tell-us-what-and-why-not-how">Documentation: tell us what and why, not how</h2>
-
-<p>When you first start out, your comments will often describe what a command does,
-since you’re still learning yourself and it can help to clarify concepts and
-remind you later. However, these comments aren’t particularly useful later on
-when you don’t remember what problem your code is trying to solve. Try to also
-include comments that tell you <em>why</em> you’re solving a problem, and <em>what</em> problem
-that is. The <em>how</em> can come after that: it’s an implementation detail you ideally
-shouldn’t have to worry about.</p>
-
+<p>When you first start out, your comments will often describe what a command does, since you’re still learning yourself and it can help to clarify concepts and remind you later. However, these comments aren’t particularly useful later on when you don’t remember what problem your code is trying to solve. Try to also include comments that tell you <em>why</em> you’re solving a problem, and <em>what</em> problem that is. The <em>how</em> can come after that: it’s an implementation detail you ideally shouldn’t have to worry about.</p>
 <h2 id="keep-your-code-modular">Keep your code modular</h2>
-
-<p>Our recommendation is that you should separate your functions from your analysis
-scripts, and store them in a separate file that you <code class="language-plaintext highlighter-rouge">source</code> when you open the R
-session in your project. This approach is nice because it leaves you with an
-uncluttered analysis script, and a repository of useful functions that can be
-loaded into any analysis script in your project. It also lets you group related
-functions together easily.</p>
-
+<p>Our recommendation is that you should separate your functions from your analysis scripts, and store them in a separate file that you <code>source</code> when you open the R session in your project. This approach is nice because it leaves you with an uncluttered analysis script, and a repository of useful functions that can be loaded into any analysis script in your project. It also lets you group related functions together easily.</p>
 <h2 id="break-down-problem-into-bite-size-pieces">Break down problem into bite size pieces</h2>
-
-<p>When you first start out, problem solving and function writing can be daunting
-tasks, and hard to separate from code inexperience. Try to break down your
-problem into digestible chunks and worry about the implementation details later:
-keep breaking down the problem into smaller and smaller functions until you
-reach a point where you can code a solution, and build back up from there.</p>
-
+<p>When you first start out, problem solving and function writing can be daunting tasks, and hard to separate from code inexperience. Try to break down your problem into digestible chunks and worry about the implementation details later: keep breaking down the problem into smaller and smaller functions until you reach a point where you can code a solution, and build back up from there.</p>
 <h2 id="know-that-your-code-is-doing-the-right-thing">Know that your code is doing the right thing</h2>
-
 <p>Make sure to test your functions!</p>
-
 <h2 id="dont-repeat-yourself">Don’t repeat yourself</h2>
-
-<p>Functions enable easy reuse within a project. If you see blocks of similar
-lines of code through your project, those are usually candidates for being
-moved into functions.</p>
-
-<p>If your calculations are performed through a series of functions, then the
-project becomes more modular and easier to change. This is especially the case
-for which a particular input always gives a particular output.</p>
-
+<p>Functions enable easy reuse within a project. If you see blocks of similar lines of code through your project, those are usually candidates for being moved into functions.</p>
+<p>If your calculations are performed through a series of functions, then the project becomes more modular and easier to change. This is especially the case for which a particular input always gives a particular output.</p>
 <h2 id="remember-to-be-stylish">Remember to be stylish</h2>
-
 <p>Apply consistent style to your code.</p>
-
 <p>:::::::::::::::::::::::::::::::::::::::: keypoints</p>
-
 <ul>
-  <li>Keep your project folder structured, organized and tidy.</li>
-  <li>Document what and why, not how.</li>
-  <li>Break programs into short single-purpose functions.</li>
-  <li>Write re-runnable tests.</li>
-  <li>Don’t repeat yourself.</li>
-  <li>Be consistent in naming, indentation, and other aspects of style.</li>
+<li>Keep your project folder structured, organized and tidy.</li>
+<li>Document what and why, not how.</li>
+<li>Break programs into short single-purpose functions.</li>
+<li>Write re-runnable tests.</li>
+<li>Don’t repeat yourself.</li>
+<li>Be consistent in naming, indentation, and other aspects of style.</li>
 </ul>
-
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-
+        </div>
+      </div>
+      </article>
+      <div class="footer">
+        <a class="label swc-blue-bg" href="mailto:s.fernandez_valverde@unsw.edu.au">Contact</a>
+      </div>
+    </div>
+    <!-- Javascript placed at the end of the document so the pages load faster -->
+    <script src="http://software-carpentry.org/v5/js/jquery-1.9.1.min.js"></script>
+    <script src="css/bootstrap/bootstrap-js/bootstrap.js"></script>
+    <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+  </body>
+</html>

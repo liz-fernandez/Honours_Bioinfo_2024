@@ -42,71 +42,63 @@
 <h2 id="getting-ready"><span class="glyphicon glyphicon-check"></span>Getting ready</h2>
 </div>
 <div class="panel-body">
-<p>We will be using the Katana server. A very simple way to access Katana is to use the ‘Katana OnDemand’ version.</p>
-<ol style="list-style-type: decimal">
-<li>Navigate to the following link: <a href="https://kod.restech.unsw.edu.au/">Katana On Demand</a></li>
-<li>Click on the ‘FastX Desktop’ button.</li>
-<li>Click on the ‘Launch’ button.</li>
-<li>Click on the ‘Connect to FastX Desktop’ button.</li>
-<li>Double click on the folder named ‘yourzID’s Home’</li>
-<li>Make a new folder in your Desktop called ‘Bioinfo_Course’ and double click it.</li>
-<li>Download data-shell-dir.zip by opening and internet browser and navigating to the following url: <a href="https://liz-fernandez.github.io/Honours_Bioinfo_2024/DATA/data-shell-dir.zip" class="uri">https://liz-fernandez.github.io/Honours_Bioinfo_2024/DATA/data-shell-dir.zip</a></li>
-<li>Move the ‘data-shell-dir.zip’ file inside the ‘Bioinfo_Course’ folder.</li>
-<li>Close your FastX Desktop browser tab.</li>
-<li>Click the red ‘Delete’ button.</li>
-<li>Navigate back to the <a href="https://kod.restech.unsw.edu.au/pun/sys/dashboard">Katana OnDemand Dashboard</a> and click on the ‘Katana Terminal’ button.</li>
-<li>Navigate to ‘Bioinfo_Course’ and decompress the file by copying the following lines and pasting them into the terminal:</li>
-</ol>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">cd</span> Bionfo_Course
-<span class="kw">unzip</span> data-shell-dir.zip
-<span class="kw">cd</span> data-shell</code></pre></div>
-<p>You are now ready to start!</p>
+<p>We will be using the Katana server. A very simple way to access Katana is to use the ‘Katana OnDemand’ version. Please navigate to the following link:</p>
+<p><a href="https://kod.restech.unsw.edu.au/">Katana On Demand</a></p>
+<p>And click on the ‘Katana Terminal’ button.</p>
 <p>You can get more support for Katana OnDemand <a href="https://docs.restech.unsw.edu.au/using_katana/ondemand/">here</a></p>
+<p>You need to download some files to follow this lesson:</p>
+<ol style="list-style-type: decimal">
+<li>Make a new folder in your Desktop called <code>shell-novice</code>.</li>
+<li>Download <a href="./shell-novice-data.zip">shell-novice-data.zip</a> and move the file to this folder.</li>
+<li>If it’s not unzipped yet, double-click on it to unzip it. You should end up with a new folder called <code>data</code>.</li>
+<li>You can access this folder from the Unix shell with:</li>
+</ol>
+<pre class="input"><code>$ cd &amp;&amp; cd Desktop/shell-novice/data</code></pre>
 </div>
 </section>
 <h2 id="topics">Topics</h2>
 <h3 id="week-1---linux-shell">Week 1 - Linux Shell</h3>
 <ol style="list-style-type: decimal">
-<li><a href="">Introducing the Shell</a></li>
-<li><a href="">Files and Directories</a></li>
-<li><a href="">Creating Things</a></li>
-<li><a href="">Pipes and Filters</a></li>
-<li><a href="">Loops</a></li>
-<li><a href="">Shell Scripts</a></li>
-<li><a href="">Finding Things</a></li>
+<li><a href="00-intro_Shell.html">Introducing the Shell</a></li>
+<li><a href="01-filedir_Shell.html">Files and Directories</a></li>
+<li><a href="02-create_Shell.html">Creating Things</a></li>
+<li><a href="03-pipefilter_Shell.html">Pipes and Filters</a></li>
+<li><a href="04-loop_Shell.html">Loops</a></li>
+<li><a href="05-script_Shell.html">Shell Scripts</a></li>
+<li><a href="06-find_Shell.html">Finding Things</a></li>
 </ol>
 <h3 id="week-2---introduction-to-python">Week 2 - Introduction to Python</h3>
 <ol style="list-style-type: decimal">
-<li><a href="">Python fundamentals</a></li>
-<li><a href="">Analyzing Patient Data</a></li>
-<li><a href="">Visualising Tabular Data</a></li>
-<li><a href="">Storing Multiple Values in Lists</a></li>
-<li><a href="">Repeating Actions with Loops</a></li>
-<li><a href="">Analyzing Data from Multiple Files</a></li>
-<li><a href="">Making Choices</a></li>
-<li><a href="">Creating Functions</a></li>
-<li><a href="">Errors and Exceptions</a></li>
-<li><a href="">Defensive Programming</a></li>
-<li><a href="">Debugging</a></li>
-<li><a href="">Command-Line Programs</a></li>
+<li><a href="01-intro_Python.html">Python fundamentals</a></li>
+<li><a href="02-numpy_Python.html">Analyzing Patient Data</a></li>
+<li><a href="03-matplotlib_Python.html">Visualising Tabular Data</a></li>
+<li><a href="04-lists_Python.html">Storing Multiple Values in Lists</a></li>
+<li><a href="05-loop_Python.html">Repeating Actions with Loops</a></li>
+<li><a href="06-files_Python.html">Analyzing Data from Multiple Files</a></li>
+<li><a href="07-cond_Python.html">Making Choices</a></li>
+<li><a href="08-func_Python.html">Creating Functions</a></li>
+<li><a href="09-errors_Python.html">Errors and Exceptions</a></li>
+<li><a href="10-defensive_Python.html">Defensive Programming</a></li>
+<li><a href="11-debugging_Python.html">Debugging</a></li>
+<li><a href="12-chtmlline_Python.html">Command-Line Programs</a></li>
 </ol>
 <h3 id="week-3---introduction-to-r">Week 3 - Introduction to R</h3>
 <ol style="list-style-type: decimal">
-<li><a href="">Introduction to R and RStudio</a></li>
-<li><a href="">Project Management With RStudio</a></li>
-<li><a href="">Seeking Help</a></li>
-<li><a href="">Data Structures</a></li>
-<li><a href="">Exploring Data Frames</a></li>
-<li><a href="">Subsetting Data</a></li>
-<li><a href="">Control Flow</a></li>
-<li><a href="">Creating Publication-Quality Graphics with ggplot2</a></li>
-<li><a href="">Vectorization</a></li>
-<li><a href="">Functions Explained</a></li>
-<li><a href="">Writing Data</a></li>
-<li><a href="">Data Frame Manipulation with dplyr</a></li>
-<li><a href="">Data Frame Manipulation with tidyr</a></li>
-<li><a href="">Producing Reports With knitr</a></li>
-<li><a href="">Writing Good Software</a></li>
+<li><a href="01-rstudio-intro_R.html">Introduction to R and RStudio</a></li>
+<li><a href="02-project-intro_R.html">Project Management With RStudio</a></li>
+<li><a href="03-seeking-help_R.html">Seeking Help</a></li>
+<li><a href="04-data-structures-part1_R.html">Data Structures</a></li>
+<li><a href="05-data-structures-part2_R.html">Exploring Data Frames</a></li>
+<li><a href="06-data-subsetting_R.html">Subsetting Data</a></li>
+<li><a href="07-control-flow_R.html">Control Flow</a></li>
+<li><a href="08-plot-ggplot2_R.html">Creating Publication-Quality Graphics with ggplot2</a></li>
+<li><a href="09-vectorization_R.html">Vectorization</a></li>
+<li><a href="10-functions_R.html">Functions Explained</a></li>
+<li><a href="11-writing-data_R.html">Writing Data</a></li>
+<li><a href="12-dplyr_R.html">Data Frame Manipulation with dplyr</a></li>
+<li><a href="13-tidyr_R.html">Data Frame Manipulation with tidyr</a></li>
+<li><a href="14-knitr-markdown_R.html">Producing Reports With knitr</a></li>
+<li><a href="15-wrap-up_R.html">Writing Good Software</a></li>
 </ol>
 <h2 id="other-resources">Other Resources</h2>
 <ul>

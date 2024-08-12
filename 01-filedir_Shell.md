@@ -42,8 +42,10 @@ it shows us who the shell thinks we are:
 $ whoami
 ~~~
 ~~~ {.output}
-simone
+z0000000
 ~~~
+
+You should see your zID, which is the name of your account in Katana.
 
 More specifically, when we type `whoami` the shell:
 
@@ -62,15 +64,18 @@ i.e.,
 the directory that the computer assumes we want to run commands in
 unless we explicitly specify something else.
 Here,
-the computer's response is `/Users/simone`,
+the computer's response is `/home/simone`,
 which is Simone's **home directory**:
 
 ~~~ {.bash}
 $ pwd
 ~~~
 ~~~ {.output}
-/Users/simone
+/home/z0000000/Bioinfo_Course/data-shell
 ~~~
+
+Throughout the course we will use 'simone' as Simone's zID, and data-shell 
+as her home directory, to make things clearer.
 
 > ## Home directory {.callout}
 >
@@ -98,7 +103,7 @@ let's have a look at how the file system as a whole is organized.
 At the top is the **root directory**
 that holds everything else.
 We refer to it using a slash character `/` on its own;
-this is the leading slash in `/Users/simone`.
+this is the leading slash in `/home/simone`.
 
 Inside that directory are several other directories:
 `bin` (which is where some built-in programs are stored),
@@ -109,17 +114,17 @@ and so on:
 
 ![The File System](fig/filesystem.svg)
 
-We know that our current working directory `/Users/simone` is stored inside `/Users`
-because `/Users` is the first part of its name.
+We know that our current working directory `/home/simone` is stored inside `/home`
+because `/home` is the first part of its name.
 Similarly,
-we know that `/Users` is stored inside the root directory `/`
+we know that `/home` is stored inside the root directory `/`
 because its name begins with `/`.
 
-Underneath `/Users`,
+Underneath `/home`,
 we find one directory for each user with an account on this machine.
-The Mummy's files are stored in `/Users/imhotep`,
-Wolfman's in `/Users/larry`,
-and ours in `/Users/simone`,
+The Mummy's files are stored in `/home/imhotep`,
+Wolfman's in `/home/larry`,
+and ours in `/home/simone`,
 which is why `simone` is the last part of the directory's name.
 
 ![Home Directories](fig/home-directories.svg)
@@ -158,7 +163,7 @@ Desktop/    patient-data/        writing/
 ~~~
 
 Here,
-we can see that `/Users/simone` contains six **sub-directories**.
+we can see that `/home/simone` contains six **sub-directories**.
 The names that don't have trailing slashes,
 like `notes.txt`, `pizza.cfg`, and `solar.pdf`,
 are plain old files.
@@ -242,14 +247,14 @@ no matter where we are when we run the command.
 
 What if we want to change our current working directory?
 Before we do this,
-`pwd` shows us that we're in `/Users/simone`,
+`pwd` shows us that we're in `/home/simone`,
 and `ls` without any arguments shows us that directory's contents:
 
 ~~~ {.bash}
 $ pwd
 ~~~
 ~~~ {.output}
-/Users/simone
+/home/simone
 ~~~
 ~~~ {.bash}
 $ ls
@@ -271,16 +276,16 @@ $ cd data
 ~~~
 
 `cd` doesn't print anything,
-but if we run `pwd` after it, we can see that we are now in `/Users/simone/data`.
+but if we run `pwd` after it, we can see that we are now in `/home/simone/data`.
 If we run `ls` without arguments now,
-it lists the contents of `/Users/simone/data`,
+it lists the contents of `/home/simone/data`,
 because that's where we now are:
 
 ~~~ {.bash}
 $ pwd
 ~~~
 ~~~ {.output}
-/Users/simone/data
+/home/simone/data
 ~~~
 ~~~ {.bash}
 $ ls -F
@@ -295,7 +300,7 @@ how do we go up?
 We could use an absolute path:
 
 ~~~ {.bash}
-$ cd /Users/simone
+$ cd /home/simone
 ~~~
 
 but it's almost always simpler to use `cd ..` to go up one level:
@@ -304,7 +309,7 @@ but it's almost always simpler to use `cd ..` to go up one level:
 $ pwd
 ~~~
 ~~~ {.output}
-/Users/simone/data
+/home/simone/data
 ~~~
 ~~~ {.bash}
 $ cd ..
@@ -315,13 +320,13 @@ $ cd ..
 or more succinctly,
 the **parent** of the current directory.
 Sure enough,
-if we run `pwd` after running `cd ..`, we're back in `/Users/simone`:
+if we run `pwd` after running `cd ..`, we're back in `/home/simone`:
 
 ~~~ {.bash}
 $ pwd
 ~~~
 ~~~ {.output}
-/Users/simone
+/home/simone
 ~~~
 
 The special directory `..` doesn't usually show up when we run `ls`.
@@ -339,7 +344,7 @@ Desktop/            patient-data/       writing/
 
 `-a` stands for "show all";
 it forces `ls` to show us file and directory names that begin with `.`,
-such as `..` (which, if we're in `/Users/simone`, refers to the `/Users` directory).
+such as `..` (which, if we're in `/home/simone`, refers to the `/home` directory).
 As you can see,
 it also displays another special directory that's just called `.`,
 which means "the current working directory".
@@ -355,8 +360,8 @@ Finally, we also see a file called `.bash_profile`. This file usually contains s
 > The special names `.` and `..` don't belong to `ls`;
 > they are interpreted the same way by every program.
 > For example,
-> if we are in `/Users/simone/data`,
-> the command `ls ..` will give us a listing of `/Users/simone`.
+> if we are in `/home/simone/data`,
+> the command `ls ..` will give us a listing of `/home/simone`.
 > When the meanings of the parts are the same no matter how they're combined,
 > programmers say they are **orthogonal**:
 > Orthogonal systems tend to be easier for people to learn
@@ -431,7 +436,7 @@ and we will see it in many other tools as we go on.
 
 > ## Relative path resolution {.challenge}
 >
-> If `pwd` displays `/Users/thing`, what will `ls ../backup` display?
+> If `pwd` displays `/home/thing`, what will `ls ../backup` display?
 >
 > 1.  `../backup: No such file or directory`
 > 2.  `2012-12-01 2013-01-08 2013-01-27`
@@ -440,7 +445,7 @@ and we will see it in many other tools as we go on.
 
 > ## `ls` reading comprehension {.challenge}
 >
-> If `pwd` displays `/Users/backup`,
+> If `pwd` displays `/home/backup`,
 > and `-r` tells `ls` to display things in reverse order,
 > what command will display:
 >
@@ -450,7 +455,7 @@ and we will see it in many other tools as we go on.
 >
 > 1.  `ls pwd`
 > 2.  `ls -r -F`
-> 3.  `ls -r -F /Users/backup`
+> 3.  `ls -r -F /home/backup`
 > 4.  Either \#2 or \#3 above, but not \#1.
 
 > ## Default `cd` action {.challenge}

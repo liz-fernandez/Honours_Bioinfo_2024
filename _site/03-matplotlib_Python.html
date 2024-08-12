@@ -1,344 +1,242 @@
-<p>::::::::::::::::::::::::::::::::::::::: objectives</p>
-
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="generator" content="pandoc">
+    <title>Visualizing Tabular Data</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="css/swc.css" />
+    <link rel="alternate" type="application/rss+xml" title="Bioinformatics Honours 2024" href="https://github.com/liz-fernandez/UNSW_Honours_Bioinfo_2024/"/>
+    <meta charset="UTF-8" />
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body class="lesson">
+    <div class="container card">
+      <div class="banner">
+        <a href="https://liz-fernandez.github.io/Honours_Bioinfo_2024/" title="Honours Bioinformatics Course 2024">
+          <img alt="Logo UNSW" src="img/unsw_logo.jpg" />
+        </a>
+      </div>
+      <article>
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+                    <h1 class="title">Visualizing Tabular Data</h1>
+          <p>::::::::::::::::::::::::::::::::::::::: objectives</p>
 <ul>
-  <li>Plot simple graphs from data.</li>
-  <li>Plot multiple graphs in a single figure.</li>
+<li>Plot simple graphs from data.</li>
+<li>Plot multiple graphs in a single figure.</li>
 </ul>
-
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-
 <p>:::::::::::::::::::::::::::::::::::::::: questions</p>
-
 <ul>
-  <li>How can I visualize tabular data in Python?</li>
-  <li>How can I group several plots together?</li>
+<li>How can I visualize tabular data in Python?</li>
+<li>How can I group several plots together?</li>
 </ul>
-
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-
 <h2 id="visualizing-data">Visualizing data</h2>
-
-<p>The mathematician Richard Hamming once said, “The purpose of computing is insight, not numbers,”
-and the best way to develop insight is often to visualize data.  Visualization deserves an entire
-lecture of its own, but we can explore a few features of Python’s <code class="language-plaintext highlighter-rouge">matplotlib</code> library here.  While
-there is no official plotting library, <code class="language-plaintext highlighter-rouge">matplotlib</code> is the <em>de facto</em> standard.  First, we will
-import the <code class="language-plaintext highlighter-rouge">pyplot</code> module from <code class="language-plaintext highlighter-rouge">matplotlib</code> and use two of its functions to create and display a
-<a href="../learners/reference.md#heat-map">heat map</a> of our data:</p>
-
-<p>::::::::::::::::::::::::::::::::::::::::::  prereq</p>
-
+<p>The mathematician Richard Hamming once said, “The purpose of computing is insight, not numbers,” and the best way to develop insight is often to visualize data. Visualization deserves an entire lecture of its own, but we can explore a few features of Python’s <code>matplotlib</code> library here. While there is no official plotting library, <code>matplotlib</code> is the <em>de facto</em> standard. First, we will import the <code>pyplot</code> module from <code>matplotlib</code> and use two of its functions to create and display a <a href="../learners/reference.md#heat-map">heat map</a> of our data:</p>
+<p>:::::::::::::::::::::::::::::::::::::::::: prereq</p>
 <h2 id="episode-prerequisites">Episode Prerequisites</h2>
-
-<p>If you are continuing in the same notebook from the previous episode, you already
-have a <code class="language-plaintext highlighter-rouge">data</code> variable and have imported <code class="language-plaintext highlighter-rouge">numpy</code>.  If you are starting a new
-notebook at this point, you need the following two lines:</p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">numpy</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">numpy</span><span class="p">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">fname</span><span class="o">=</span><span class="s">'inflammation-01.csv'</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s">','</span><span class="p">)</span>
-</code></pre></div></div>
-
+<p>If you are continuing in the same notebook from the previous episode, you already have a <code>data</code> variable and have imported <code>numpy</code>. If you are starting a new notebook at this point, you need the following two lines:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> numpy
+data <span class="op">=</span> numpy.loadtxt(fname<span class="op">=</span><span class="st">&#39;inflammation-01.csv&#39;</span>, delimiter<span class="op">=</span><span class="st">&#39;,&#39;</span>)</code></pre></div>
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> matplotlib.pyplot
+image <span class="op">=</span> matplotlib.pyplot.imshow(data)
+matplotlib.pyplot.show()</code></pre></div>
+<div class="figure">
+<img src="fig/inflammation-01-imshow.svg" alt="Heat map representing the data variable. Each cell is colored by value along a color gradientfrom blue to yellow." />
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span>
-<span class="n">image</span> <span class="o">=</span> <span class="n">matplotlib</span><span class="p">.</span><span class="n">pyplot</span><span class="p">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="n">matplotlib</span><span class="p">.</span><span class="n">pyplot</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
-</code></pre></div></div>
-
-<p><img src="fig/inflammation-01-imshow.svg" alt="" />{alt=’Heat map representing the data variable. Each cell is colored by value along a color gradientfrom blue to yellow.’}</p>
-
-<p>Each row in the heat map corresponds to a patient in the clinical trial dataset, and each column
-corresponds to a day in the dataset.  Blue pixels in this heat map represent low values, while
-yellow pixels represent high values.  As we can see, the general number of inflammation flare-ups
-for the patients rises and falls over a 40-day period.</p>
-
-<p>So far so good as this is in line with our knowledge of the clinical trial and Dr. Maverick’s
-claims:</p>
-
+</div>
+<p>Each row in the heat map corresponds to a patient in the clinical trial dataset, and each column corresponds to a day in the dataset. Blue pixels in this heat map represent low values, while yellow pixels represent high values. As we can see, the general number of inflammation flare-ups for the patients rises and falls over a 40-day period.</p>
+<p>So far so good as this is in line with our knowledge of the clinical trial and Dr. Maverick’s claims:</p>
 <ul>
-  <li>the patients take their medication once their inflammation flare-ups begin</li>
-  <li>it takes around 3 weeks for the medication to take effect and begin reducing flare-ups</li>
-  <li>and flare-ups appear to drop to zero by the end of the clinical trial.</li>
+<li>the patients take their medication once their inflammation flare-ups begin</li>
+<li>it takes around 3 weeks for the medication to take effect and begin reducing flare-ups</li>
+<li>and flare-ups appear to drop to zero by the end of the clinical trial.</li>
 </ul>
-
 <p>Now let’s take a look at the average inflammation over time:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">ave_inflammation <span class="op">=</span> numpy.mean(data, axis<span class="op">=</span><span class="dv">0</span>)
+ave_plot <span class="op">=</span> matplotlib.pyplot.plot(ave_inflammation)
+matplotlib.pyplot.show()</code></pre></div>
+<div class="figure">
+<img src="fig/inflammation-01-average.svg" alt="A line graph showing the average inflammation across all patients over a 40-day period." />
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ave_inflammation</span> <span class="o">=</span> <span class="n">numpy</span><span class="p">.</span><span class="n">mean</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">ave_plot</span> <span class="o">=</span> <span class="n">matplotlib</span><span class="p">.</span><span class="n">pyplot</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ave_inflammation</span><span class="p">)</span>
-<span class="n">matplotlib</span><span class="p">.</span><span class="n">pyplot</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
-</code></pre></div></div>
+</div>
+<p>Here, we have put the average inflammation per day across all patients in the variable <code>ave_inflammation</code>, then asked <code>matplotlib.pyplot</code> to create and display a line graph of those values. The result is a reasonably linear rise and fall, in line with Dr. Maverick’s claim that the medication takes 3 weeks to take effect. But a good data scientist doesn’t just consider the average of a dataset, so let’s have a look at two other statistics:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">max_plot <span class="op">=</span> matplotlib.pyplot.plot(numpy.amax(data, axis<span class="op">=</span><span class="dv">0</span>))
+matplotlib.pyplot.show()</code></pre></div>
+<div class="figure">
+<img src="fig/inflammation-01-maximum.svg" alt="A line graph showing the maximum inflammation across all patients over a 40-day period." />
 
-<p><img src="fig/inflammation-01-average.svg" alt="" />{alt=’A line graph showing the average inflammation across all patients over a 40-day period.’}</p>
+</div>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">min_plot <span class="op">=</span> matplotlib.pyplot.plot(numpy.amin(data, axis<span class="op">=</span><span class="dv">0</span>))
+matplotlib.pyplot.show()</code></pre></div>
+<div class="figure">
+<img src="fig/inflammation-01-minimum.svg" alt="A line graph showing the minimum inflammation across all patients over a 40-day period." />
 
-<p>Here, we have put the average inflammation per day across all patients in the variable
-<code class="language-plaintext highlighter-rouge">ave_inflammation</code>, then asked <code class="language-plaintext highlighter-rouge">matplotlib.pyplot</code> to create and display a line graph of those
-values.  The result is a reasonably linear rise and fall, in line with Dr. Maverick’s claim that
-the medication takes 3 weeks to take effect.  But a good data scientist doesn’t just consider the
-average of a dataset, so let’s have a look at two other statistics:</p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">max_plot</span> <span class="o">=</span> <span class="n">matplotlib</span><span class="p">.</span><span class="n">pyplot</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">numpy</span><span class="p">.</span><span class="n">amax</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
-<span class="n">matplotlib</span><span class="p">.</span><span class="n">pyplot</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
-</code></pre></div></div>
-
-<p><img src="fig/inflammation-01-maximum.svg" alt="" />{alt=’A line graph showing the maximum inflammation across all patients over a 40-day period.’}</p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">min_plot</span> <span class="o">=</span> <span class="n">matplotlib</span><span class="p">.</span><span class="n">pyplot</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">numpy</span><span class="p">.</span><span class="n">amin</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
-<span class="n">matplotlib</span><span class="p">.</span><span class="n">pyplot</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
-</code></pre></div></div>
-
-<p><img src="fig/inflammation-01-minimum.svg" alt="" />{alt=’A line graph showing the minimum inflammation across all patients over a 40-day period.’}</p>
-
-<p>The maximum value rises and falls linearly, while the minimum seems to be a step function.
-Neither trend seems particularly likely, so either there’s a mistake in our calculations or
-something is wrong with our data. This insight would have been difficult to reach by examining
-the numbers themselves without visualization tools.</p>
-
+</div>
+<p>The maximum value rises and falls linearly, while the minimum seems to be a step function. Neither trend seems particularly likely, so either there’s a mistake in our calculations or something is wrong with our data. This insight would have been difficult to reach by examining the numbers themselves without visualization tools.</p>
 <h3 id="grouping-plots">Grouping plots</h3>
+<p>You can group similar plots in a single figure using subplots. This script below uses a number of new commands. The function <code>matplotlib.pyplot.figure()</code> creates a space into which we will place all of our plots. The parameter <code>figsize</code> tells Python how big to make this space. Each subplot is placed into the figure using its <code>add_subplot</code> <a href="../learners/reference.md#method">method</a>. The <code>add_subplot</code> method takes 3 parameters. The first denotes how many total rows of subplots there are, the second parameter refers to the total number of subplot columns, and the final parameter denotes which subplot your variable is referencing (left-to-right, top-to-bottom). Each subplot is stored in a different variable (<code>axes1</code>, <code>axes2</code>, <code>axes3</code>). Once a subplot is created, the axes can be titled using the <code>set_xlabel()</code> command (or <code>set_ylabel()</code>). Here are our three plots side by side:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> numpy
+<span class="im">import</span> matplotlib.pyplot
 
-<p>You can group similar plots in a single figure using subplots.
-This script below uses a number of new commands. The function <code class="language-plaintext highlighter-rouge">matplotlib.pyplot.figure()</code>
-creates a space into which we will place all of our plots. The parameter <code class="language-plaintext highlighter-rouge">figsize</code>
-tells Python how big to make this space. Each subplot is placed into the figure using
-its <code class="language-plaintext highlighter-rouge">add_subplot</code> <a href="../learners/reference.md#method">method</a>. The <code class="language-plaintext highlighter-rouge">add_subplot</code> method takes
-3 parameters. The first denotes how many total rows of subplots there are, the second parameter
-refers to the total number of subplot columns, and the final parameter denotes which subplot
-your variable is referencing (left-to-right, top-to-bottom). Each subplot is stored in a
-different variable (<code class="language-plaintext highlighter-rouge">axes1</code>, <code class="language-plaintext highlighter-rouge">axes2</code>, <code class="language-plaintext highlighter-rouge">axes3</code>). Once a subplot is created, the axes can
-be titled using the <code class="language-plaintext highlighter-rouge">set_xlabel()</code> command (or <code class="language-plaintext highlighter-rouge">set_ylabel()</code>).
-Here are our three plots side by side:</p>
+data <span class="op">=</span> numpy.loadtxt(fname<span class="op">=</span><span class="st">&#39;inflammation-01.csv&#39;</span>, delimiter<span class="op">=</span><span class="st">&#39;,&#39;</span>)
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">numpy</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span>
+fig <span class="op">=</span> matplotlib.pyplot.figure(figsize<span class="op">=</span>(<span class="fl">10.0</span>, <span class="fl">3.0</span>))
 
-<span class="n">data</span> <span class="o">=</span> <span class="n">numpy</span><span class="p">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">fname</span><span class="o">=</span><span class="s">'inflammation-01.csv'</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s">','</span><span class="p">)</span>
+axes1 <span class="op">=</span> fig.add_subplot(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">1</span>)
+axes2 <span class="op">=</span> fig.add_subplot(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>)
+axes3 <span class="op">=</span> fig.add_subplot(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">3</span>)
 
-<span class="n">fig</span> <span class="o">=</span> <span class="n">matplotlib</span><span class="p">.</span><span class="n">pyplot</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">))</span>
+axes1.set_ylabel(<span class="st">&#39;average&#39;</span>)
+axes1.plot(numpy.mean(data, axis<span class="op">=</span><span class="dv">0</span>))
 
-<span class="n">axes1</span> <span class="o">=</span> <span class="n">fig</span><span class="p">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">axes2</span> <span class="o">=</span> <span class="n">fig</span><span class="p">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="n">axes3</span> <span class="o">=</span> <span class="n">fig</span><span class="p">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+axes2.set_ylabel(<span class="st">&#39;max&#39;</span>)
+axes2.plot(numpy.amax(data, axis<span class="op">=</span><span class="dv">0</span>))
 
-<span class="n">axes1</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">'average'</span><span class="p">)</span>
-<span class="n">axes1</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">numpy</span><span class="p">.</span><span class="n">mean</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+axes3.set_ylabel(<span class="st">&#39;min&#39;</span>)
+axes3.plot(numpy.amin(data, axis<span class="op">=</span><span class="dv">0</span>))
 
-<span class="n">axes2</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">'max'</span><span class="p">)</span>
-<span class="n">axes2</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">numpy</span><span class="p">.</span><span class="n">amax</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+fig.tight_layout()
 
-<span class="n">axes3</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">'min'</span><span class="p">)</span>
-<span class="n">axes3</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">numpy</span><span class="p">.</span><span class="n">amin</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+matplotlib.pyplot.savefig(<span class="st">&#39;inflammation.png&#39;</span>)
+matplotlib.pyplot.show()</code></pre></div>
+<div class="figure">
+<img src="fig/inflammation-01-group-plot.svg" alt="Three line graphs showing the daily average, maximum and minimum inflammation over a 40-day period." />
 
-<span class="n">fig</span><span class="p">.</span><span class="n">tight_layout</span><span class="p">()</span>
-
-<span class="n">matplotlib</span><span class="p">.</span><span class="n">pyplot</span><span class="p">.</span><span class="n">savefig</span><span class="p">(</span><span class="s">'inflammation.png'</span><span class="p">)</span>
-<span class="n">matplotlib</span><span class="p">.</span><span class="n">pyplot</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
-</code></pre></div></div>
-
-<p><img src="fig/inflammation-01-group-plot.svg" alt="" />{alt=’Three line graphs showing the daily average, maximum and minimum inflammation over a 40-day period.’}</p>
-
-<p>The <a href="../learners/reference.md#function-call">call</a> to <code class="language-plaintext highlighter-rouge">loadtxt</code> reads our data,
-and the rest of the program tells the plotting library
-how large we want the figure to be,
-that we’re creating three subplots,
-what to draw for each one,
-and that we want a tight layout.
-(If we leave out that call to <code class="language-plaintext highlighter-rouge">fig.tight_layout()</code>,
-the graphs will actually be squeezed together more closely.)</p>
-
-<p>The call to <code class="language-plaintext highlighter-rouge">savefig</code> stores the plot as a graphics file. This can be
-a convenient way to store your plots for use in other documents, web
-pages etc. The graphics format is automatically determined by
-Matplotlib from the file name ending we specify; here PNG from
-‘inflammation.png’. Matplotlib supports many different graphics
-formats, including SVG, PDF, and JPEG.</p>
-
-<p>:::::::::::::::::::::::::::::::::::::::::  callout</p>
-
+</div>
+<p>The <a href="../learners/reference.md#function-call">call</a> to <code>loadtxt</code> reads our data, and the rest of the program tells the plotting library how large we want the figure to be, that we’re creating three subplots, what to draw for each one, and that we want a tight layout. (If we leave out that call to <code>fig.tight_layout()</code>, the graphs will actually be squeezed together more closely.)</p>
+<p>The call to <code>savefig</code> stores the plot as a graphics file. This can be a convenient way to store your plots for use in other documents, web pages etc. The graphics format is automatically determined by Matplotlib from the file name ending we specify; here PNG from ‘inflammation.png’. Matplotlib supports many different graphics formats, including SVG, PDF, and JPEG.</p>
+<p>::::::::::::::::::::::::::::::::::::::::: callout</p>
 <h2 id="importing-libraries-with-shortcuts">Importing libraries with shortcuts</h2>
-
-<p>In this lesson we use the <code class="language-plaintext highlighter-rouge">import matplotlib.pyplot</code>
-<a href="../learners/reference.md#syntax">syntax</a>
-to import the <code class="language-plaintext highlighter-rouge">pyplot</code> module of <code class="language-plaintext highlighter-rouge">matplotlib</code>. However, shortcuts such as
-<code class="language-plaintext highlighter-rouge">import matplotlib.pyplot as plt</code> are frequently used.
-Importing <code class="language-plaintext highlighter-rouge">pyplot</code> this way means that after the initial import, rather than writing
-<code class="language-plaintext highlighter-rouge">matplotlib.pyplot.plot(...)</code>, you can now write <code class="language-plaintext highlighter-rouge">plt.plot(...)</code>.
-Another common convention is to use the shortcut <code class="language-plaintext highlighter-rouge">import numpy as np</code> when importing the
-NumPy library. We then can write <code class="language-plaintext highlighter-rouge">np.loadtxt(...)</code> instead of <code class="language-plaintext highlighter-rouge">numpy.loadtxt(...)</code>,
-for example.</p>
-
-<p>Some people prefer these shortcuts as it is quicker to type and results in shorter
-lines of code - especially for libraries with long names! You will frequently see
-Python code online using a <code class="language-plaintext highlighter-rouge">pyplot</code> function with <code class="language-plaintext highlighter-rouge">plt</code>, or a NumPy function with
-<code class="language-plaintext highlighter-rouge">np</code>, and it’s because they’ve used this shortcut. It makes no difference which
-approach you choose to take, but you must be consistent as if you use
-<code class="language-plaintext highlighter-rouge">import matplotlib.pyplot as plt</code> then <code class="language-plaintext highlighter-rouge">matplotlib.pyplot.plot(...)</code> will not work, and
-you must use <code class="language-plaintext highlighter-rouge">plt.plot(...)</code> instead. Because of this, when working with other people it
-is important you agree on how libraries are imported.</p>
-
+<p>In this lesson we use the <code>import matplotlib.pyplot</code> <a href="../learners/reference.md#syntax">syntax</a> to import the <code>pyplot</code> module of <code>matplotlib</code>. However, shortcuts such as <code>import matplotlib.pyplot as plt</code> are frequently used. Importing <code>pyplot</code> this way means that after the initial import, rather than writing <code>matplotlib.pyplot.plot(...)</code>, you can now write <code>plt.plot(...)</code>. Another common convention is to use the shortcut <code>import numpy as np</code> when importing the NumPy library. We then can write <code>np.loadtxt(...)</code> instead of <code>numpy.loadtxt(...)</code>, for example.</p>
+<p>Some people prefer these shortcuts as it is quicker to type and results in shorter lines of code - especially for libraries with long names! You will frequently see Python code online using a <code>pyplot</code> function with <code>plt</code>, or a NumPy function with <code>np</code>, and it’s because they’ve used this shortcut. It makes no difference which approach you choose to take, but you must be consistent as if you use <code>import matplotlib.pyplot as plt</code> then <code>matplotlib.pyplot.plot(...)</code> will not work, and you must use <code>plt.plot(...)</code> instead. Because of this, when working with other people it is important you agree on how libraries are imported.</p>
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-
-<p>:::::::::::::::::::::::::::::::::::::::  challenge</p>
-
+<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
 <h2 id="plot-scaling">Plot Scaling</h2>
-
 <p>Why do all of our plots stop just short of the upper end of our graph?</p>
-
-<p>:::::::::::::::  solution</p>
-
+<p>::::::::::::::: solution</p>
 <h2 id="solution">Solution</h2>
-
-<p>Because matplotlib normally sets x and y axes limits to the min and max of our data
-(depending on data range)</p>
-
+<p>Because matplotlib normally sets x and y axes limits to the min and max of our data (depending on data range)</p>
 <p>:::::::::::::::::::::::::</p>
-
-<p>If we want to change this, we can use the <code class="language-plaintext highlighter-rouge">set_ylim(min, max)</code> method of each ‘axes’,
-for example:</p>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">axes3</span><span class="p">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
-</code></pre></div></div>
-
-<p>Update your plotting code to automatically set a more appropriate scale.
-(Hint: you can make use of the <code class="language-plaintext highlighter-rouge">max</code> and <code class="language-plaintext highlighter-rouge">min</code> methods to help.)</p>
-
-<p>:::::::::::::::  solution</p>
-
+<p>If we want to change this, we can use the <code>set_ylim(min, max)</code> method of each ‘axes’, for example:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">axes3.set_ylim(<span class="dv">0</span>, <span class="dv">6</span>)</code></pre></div>
+<p>Update your plotting code to automatically set a more appropriate scale. (Hint: you can make use of the <code>max</code> and <code>min</code> methods to help.)</p>
+<p>::::::::::::::: solution</p>
 <h2 id="solution-1">Solution</h2>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># One method
-</span><span class="n">axes3</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">'min'</span><span class="p">)</span>
-<span class="n">axes3</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">numpy</span><span class="p">.</span><span class="n">amin</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
-<span class="n">axes3</span><span class="p">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
-</code></pre></div></div>
-
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co"># One method</span>
+axes3.set_ylabel(<span class="st">&#39;min&#39;</span>)
+axes3.plot(numpy.amin(data, axis<span class="op">=</span><span class="dv">0</span>))
+axes3.set_ylim(<span class="dv">0</span>, <span class="dv">6</span>)</code></pre></div>
 <p>:::::::::::::::::::::::::</p>
-
-<p>:::::::::::::::  solution</p>
-
+<p>::::::::::::::: solution</p>
 <h2 id="solution-2">Solution</h2>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># A more automated approach
-</span><span class="n">min_data</span> <span class="o">=</span> <span class="n">numpy</span><span class="p">.</span><span class="n">amin</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">axes3</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">'min'</span><span class="p">)</span>
-<span class="n">axes3</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">min_data</span><span class="p">)</span>
-<span class="n">axes3</span><span class="p">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">numpy</span><span class="p">.</span><span class="n">amin</span><span class="p">(</span><span class="n">min_data</span><span class="p">),</span> <span class="n">numpy</span><span class="p">.</span><span class="n">amax</span><span class="p">(</span><span class="n">min_data</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1.1</span><span class="p">)</span>
-</code></pre></div></div>
-
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co"># A more automated approach</span>
+min_data <span class="op">=</span> numpy.amin(data, axis<span class="op">=</span><span class="dv">0</span>)
+axes3.set_ylabel(<span class="st">&#39;min&#39;</span>)
+axes3.plot(min_data)
+axes3.set_ylim(numpy.amin(min_data), numpy.amax(min_data) <span class="op">*</span> <span class="fl">1.1</span>)</code></pre></div>
 <p>:::::::::::::::::::::::::</p>
-
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-
-<p>:::::::::::::::::::::::::::::::::::::::  challenge</p>
-
+<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
 <h2 id="drawing-straight-lines">Drawing Straight Lines</h2>
-
-<p>In the center and right subplots above, we expect all lines to look like step functions because
-non-integer value are not realistic for the minimum and maximum values. However, you can see
-that the lines are not always vertical or horizontal, and in particular the step function
-in the subplot on the right looks slanted. Why is this?</p>
-
-<p>:::::::::::::::  solution</p>
-
+<p>In the center and right subplots above, we expect all lines to look like step functions because non-integer value are not realistic for the minimum and maximum values. However, you can see that the lines are not always vertical or horizontal, and in particular the step function in the subplot on the right looks slanted. Why is this?</p>
+<p>::::::::::::::: solution</p>
 <h2 id="solution-3">Solution</h2>
+<p>Because matplotlib interpolates (draws a straight line) between the points. One way to do avoid this is to use the Matplotlib <code>drawstyle</code> option:</p>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> numpy
+<span class="im">import</span> matplotlib.pyplot
 
-<p>Because matplotlib interpolates (draws a straight line) between the points.
-One way to do avoid this is to use the Matplotlib <code class="language-plaintext highlighter-rouge">drawstyle</code> option:</p>
+data <span class="op">=</span> numpy.loadtxt(fname<span class="op">=</span><span class="st">&#39;inflammation-01.csv&#39;</span>, delimiter<span class="op">=</span><span class="st">&#39;,&#39;</span>)
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">numpy</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span>
+fig <span class="op">=</span> matplotlib.pyplot.figure(figsize<span class="op">=</span>(<span class="fl">10.0</span>, <span class="fl">3.0</span>))
 
-<span class="n">data</span> <span class="o">=</span> <span class="n">numpy</span><span class="p">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">fname</span><span class="o">=</span><span class="s">'inflammation-01.csv'</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s">','</span><span class="p">)</span>
+axes1 <span class="op">=</span> fig.add_subplot(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">1</span>)
+axes2 <span class="op">=</span> fig.add_subplot(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>)
+axes3 <span class="op">=</span> fig.add_subplot(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">3</span>)
 
-<span class="n">fig</span> <span class="o">=</span> <span class="n">matplotlib</span><span class="p">.</span><span class="n">pyplot</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">10.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">))</span>
+axes1.set_ylabel(<span class="st">&#39;average&#39;</span>)
+axes1.plot(numpy.mean(data, axis<span class="op">=</span><span class="dv">0</span>), drawstyle<span class="op">=</span><span class="st">&#39;steps-mid&#39;</span>)
 
-<span class="n">axes1</span> <span class="o">=</span> <span class="n">fig</span><span class="p">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">axes2</span> <span class="o">=</span> <span class="n">fig</span><span class="p">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="n">axes3</span> <span class="o">=</span> <span class="n">fig</span><span class="p">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+axes2.set_ylabel(<span class="st">&#39;max&#39;</span>)
+axes2.plot(numpy.amax(data, axis<span class="op">=</span><span class="dv">0</span>), drawstyle<span class="op">=</span><span class="st">&#39;steps-mid&#39;</span>)
 
-<span class="n">axes1</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">'average'</span><span class="p">)</span>
-<span class="n">axes1</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">numpy</span><span class="p">.</span><span class="n">mean</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">drawstyle</span><span class="o">=</span><span class="s">'steps-mid'</span><span class="p">)</span>
+axes3.set_ylabel(<span class="st">&#39;min&#39;</span>)
+axes3.plot(numpy.amin(data, axis<span class="op">=</span><span class="dv">0</span>), drawstyle<span class="op">=</span><span class="st">&#39;steps-mid&#39;</span>)
 
-<span class="n">axes2</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">'max'</span><span class="p">)</span>
-<span class="n">axes2</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">numpy</span><span class="p">.</span><span class="n">amax</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">drawstyle</span><span class="o">=</span><span class="s">'steps-mid'</span><span class="p">)</span>
+fig.tight_layout()
 
-<span class="n">axes3</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">'min'</span><span class="p">)</span>
-<span class="n">axes3</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">numpy</span><span class="p">.</span><span class="n">amin</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">drawstyle</span><span class="o">=</span><span class="s">'steps-mid'</span><span class="p">)</span>
+matplotlib.pyplot.show()</code></pre></div>
+<div class="figure">
+<img src="fig/inflammation-01-line-styles.svg" alt="Three line graphs, with step lines connecting the points, showing the daily average, maximumand minimum inflammation over a 40-day period." />
 
-<span class="n">fig</span><span class="p">.</span><span class="n">tight_layout</span><span class="p">()</span>
-
-<span class="n">matplotlib</span><span class="p">.</span><span class="n">pyplot</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
-</code></pre></div></div>
-
-<p><img src="fig/inflammation-01-line-styles.svg" alt="" />{alt=’Three line graphs, with step lines connecting the points, showing the daily average, maximumand minimum inflammation over a 40-day period.’}</p>
-
+</div>
 <p>:::::::::::::::::::::::::</p>
-
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-
-<p>:::::::::::::::::::::::::::::::::::::::  challenge</p>
-
+<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
 <h2 id="make-your-own-plot">Make Your Own Plot</h2>
-
-<p>Create a plot showing the standard deviation (<code class="language-plaintext highlighter-rouge">numpy.std</code>)
-of the inflammation data for each day across all patients.</p>
-
-<p>:::::::::::::::  solution</p>
-
+<p>Create a plot showing the standard deviation (<code>numpy.std</code>) of the inflammation data for each day across all patients.</p>
+<p>::::::::::::::: solution</p>
 <h2 id="solution-4">Solution</h2>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">std_plot</span> <span class="o">=</span> <span class="n">matplotlib</span><span class="p">.</span><span class="n">pyplot</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">numpy</span><span class="p">.</span><span class="n">std</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
-<span class="n">matplotlib</span><span class="p">.</span><span class="n">pyplot</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
-</code></pre></div></div>
-
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">std_plot <span class="op">=</span> matplotlib.pyplot.plot(numpy.std(data, axis<span class="op">=</span><span class="dv">0</span>))
+matplotlib.pyplot.show()</code></pre></div>
 <p>:::::::::::::::::::::::::</p>
-
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-
-<p>:::::::::::::::::::::::::::::::::::::::  challenge</p>
-
+<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
 <h2 id="moving-plots-around">Moving Plots Around</h2>
-
-<p>Modify the program to display the three plots on top of one another
-instead of side by side.</p>
-
-<p>:::::::::::::::  solution</p>
-
+<p>Modify the program to display the three plots on top of one another instead of side by side.</p>
+<p>::::::::::::::: solution</p>
 <h2 id="solution-5">Solution</h2>
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> numpy
+<span class="im">import</span> matplotlib.pyplot
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">numpy</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span>
+data <span class="op">=</span> numpy.loadtxt(fname<span class="op">=</span><span class="st">&#39;inflammation-01.csv&#39;</span>, delimiter<span class="op">=</span><span class="st">&#39;,&#39;</span>)
 
-<span class="n">data</span> <span class="o">=</span> <span class="n">numpy</span><span class="p">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="n">fname</span><span class="o">=</span><span class="s">'inflammation-01.csv'</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s">','</span><span class="p">)</span>
+<span class="co"># change figsize (swap width and height)</span>
+fig <span class="op">=</span> matplotlib.pyplot.figure(figsize<span class="op">=</span>(<span class="fl">3.0</span>, <span class="fl">10.0</span>))
 
-<span class="c1"># change figsize (swap width and height)
-</span><span class="n">fig</span> <span class="o">=</span> <span class="n">matplotlib</span><span class="p">.</span><span class="n">pyplot</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">))</span>
+<span class="co"># change add_subplot (swap first two parameters)</span>
+axes1 <span class="op">=</span> fig.add_subplot(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">1</span>)
+axes2 <span class="op">=</span> fig.add_subplot(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">2</span>)
+axes3 <span class="op">=</span> fig.add_subplot(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">3</span>)
 
-<span class="c1"># change add_subplot (swap first two parameters)
-</span><span class="n">axes1</span> <span class="o">=</span> <span class="n">fig</span><span class="p">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">axes2</span> <span class="o">=</span> <span class="n">fig</span><span class="p">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="n">axes3</span> <span class="o">=</span> <span class="n">fig</span><span class="p">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+axes1.set_ylabel(<span class="st">&#39;average&#39;</span>)
+axes1.plot(numpy.mean(data, axis<span class="op">=</span><span class="dv">0</span>))
 
-<span class="n">axes1</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">'average'</span><span class="p">)</span>
-<span class="n">axes1</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">numpy</span><span class="p">.</span><span class="n">mean</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+axes2.set_ylabel(<span class="st">&#39;max&#39;</span>)
+axes2.plot(numpy.amax(data, axis<span class="op">=</span><span class="dv">0</span>))
 
-<span class="n">axes2</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">'max'</span><span class="p">)</span>
-<span class="n">axes2</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">numpy</span><span class="p">.</span><span class="n">amax</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+axes3.set_ylabel(<span class="st">&#39;min&#39;</span>)
+axes3.plot(numpy.amin(data, axis<span class="op">=</span><span class="dv">0</span>))
 
-<span class="n">axes3</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s">'min'</span><span class="p">)</span>
-<span class="n">axes3</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">numpy</span><span class="p">.</span><span class="n">amin</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+fig.tight_layout()
 
-<span class="n">fig</span><span class="p">.</span><span class="n">tight_layout</span><span class="p">()</span>
-
-<span class="n">matplotlib</span><span class="p">.</span><span class="n">pyplot</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
-</code></pre></div></div>
-
+matplotlib.pyplot.show()</code></pre></div>
 <p>:::::::::::::::::::::::::</p>
-
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-
 <p>:::::::::::::::::::::::::::::::::::::::: keypoints</p>
-
 <ul>
-  <li>Use the <code class="language-plaintext highlighter-rouge">pyplot</code> module from the <code class="language-plaintext highlighter-rouge">matplotlib</code> library for creating simple visualizations.</li>
+<li>Use the <code>pyplot</code> module from the <code>matplotlib</code> library for creating simple visualizations.</li>
 </ul>
-
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-
+        </div>
+      </div>
+      </article>
+      <div class="footer">
+        <a class="label swc-blue-bg" href="mailto:s.fernandez_valverde@unsw.edu.au">Contact</a>
+      </div>
+    </div>
+    <!-- Javascript placed at the end of the document so the pages load faster -->
+    <script src="http://software-carpentry.org/v5/js/jquery-1.9.1.min.js"></script>
+    <script src="css/bootstrap/bootstrap-js/bootstrap.js"></script>
+    <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+  </body>
+</html>
