@@ -66,7 +66,7 @@ These lessons will start you on a path towards using these resources effectively
 1.  [Introducing the Shell](00-intro_Shell.html)
 2.  [Files and Directories](01-filedir_Shell.html)
 3.  [Creating Things](02-create_Shell.html)
-4.  [Pipes and Filters]()
+4.  [Pipes and Filters](03-pipefilter_Shell.html)
 5.  [Loops]()
 6.  [Shell Scripts]()
 7.  [Finding Things]()
