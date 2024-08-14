@@ -27,7 +27,11 @@
       <div class="row">
         <div class="col-md-10 col-md-offset-1">
                     <h1 class="title">Storing Multiple Values in Lists</h1>
-          <p>::::::::::::::::::::::::::::::::::::::: objectives</p>
+          <section class="objectives panel panel-warning">
+<div class="panel-heading">
+<h2 id="learning-objectives"><span class="glyphicon glyphicon-certificate"></span>Learning Objectives</h2>
+</div>
+<div class="panel-body">
 <ul>
 <li>Explain what a list is.</li>
 <li>Create and index lists of simple values.</li>
@@ -36,12 +40,12 @@
 <li>Reorder and slice list elements</li>
 <li>Create and manipulate nested lists</li>
 </ul>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>:::::::::::::::::::::::::::::::::::::::: questions</p>
+<h5 id="questions">Questions</h5>
 <ul>
 <li>How can I store many values together?</li>
 </ul>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+</div>
+</section>
 <p>In the previous episode, we analyzed a single file of clinical trial inflammation data. However, after finding some peculiar and potentially suspicious trends in the trial data we ask Dr. Maverick if they have performed any other clinical trials. Surprisingly, they say that they have and provide us with 11 more CSV files for a further 11 clinical trials they have undertaken since the initial trial.</p>
 <p>Our goal now is to process all the inflammation data we have, which means that we still have eleven more files to go!</p>
 <p>The natural first step is to collect the names of all the files that we have to process. In Python, a list is a way to store multiple values together. In this episode, we will learn how to store multiple values in a list as well as how to work with lists.</p>
@@ -76,8 +80,11 @@ TypeError                                 Traceback (most recent call last)
 
 TypeError: &#39;str&#39; object does not support item assignment</code></pre>
 <p>does not.</p>
-<p>::::::::::::::::::::::::::::::::::::::::: callout</p>
-<h2 id="ch-ch-ch-ch-changes">Ch-Ch-Ch-Ch-Changes</h2>
+<aside class="callout panel panel-info">
+<div class="panel-heading">
+<h2 id="ch-ch-ch-ch-changes"><span class="glyphicon glyphicon-pushpin"></span>Ch-Ch-Ch-Ch-Changes</h2>
+</div>
+<div class="panel-body">
 <p>Data which can be modified in place is called <a href="../learners/reference.md#mutable">mutable</a>, while data which cannot be modified is called <a href="../learners/reference.md#immutable">immutable</a>. Strings and numbers are immutable. This does not mean that variables with string or number values are constants, but when we want to change the value of a string or number variable, we can only replace the old value with a completely new value.</p>
 <p>Lists and arrays, on the other hand, are mutable: we can modify them after they have been created. We can change individual elements, append new elements, or reorder the whole list. For some operations, like sorting, we can choose whether to use a function that modifies the data in-place or a function that returns a modified copy and leaves the original unchanged.</p>
 <p>Be careful when modifying data in-place. If two variables refer to the same list, and you modify the list value, it will change for both variables!</p>
@@ -97,9 +104,13 @@ hot_salsa[<span class="dv">0</span>] <span class="op">=</span> <span class="st">
 <pre class="output"><code>Ingredients in mild salsa: [&#39;peppers&#39;, &#39;onions&#39;, &#39;cilantro&#39;, &#39;tomatoes&#39;]
 Ingredients in hot salsa: [&#39;hot peppers&#39;, &#39;onions&#39;, &#39;cilantro&#39;, &#39;tomatoes&#39;]</code></pre>
 <p>Because of pitfalls like this, code which modifies data in place can be more difficult to understand. However, it is often far more efficient to modify a large data structure in place than to create a modified copy for every small change. You should consider both of these aspects when writing your code.</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::::: callout</p>
-<h2 id="nested-lists">Nested Lists</h2>
+</div>
+</aside>
+<aside class="callout panel panel-info">
+<div class="panel-heading">
+<h2 id="nested-lists"><span class="glyphicon glyphicon-pushpin"></span>Nested Lists</h2>
+</div>
+<div class="panel-body">
 <p>Since a list can contain any Python variables, it can even contain other lists.</p>
 <p>For example, you could represent the products on the shelves of a small grocery shop as a nested list called <code>veg</code>:</p>
 <div class="figure">
@@ -125,12 +136,17 @@ Ingredients in hot salsa: [&#39;hot peppers&#39;, &#39;onions&#39;, &#39;cilantr
 <pre class="output"><code>&#39;lettuce&#39;</code></pre>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(veg[<span class="dv">1</span>][<span class="dv">2</span>])</code></pre></div>
 <pre class="output"><code>&#39;peppers&#39;</code></pre>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::::: callout</p>
-<h2 id="heterogeneous-lists">Heterogeneous Lists</h2>
+</div>
+</aside>
+<aside class="callout panel panel-info">
+<div class="panel-heading">
+<h2 id="heterogeneous-lists"><span class="glyphicon glyphicon-pushpin"></span>Heterogeneous Lists</h2>
+</div>
+<div class="panel-body">
 <p>Lists in Python can contain elements of different types. Example:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">sample_ages <span class="op">=</span> [<span class="dv">10</span>, <span class="fl">12.5</span>, <span class="st">&#39;Unknown&#39;</span>]</code></pre></div>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+</div>
+</aside>
 <p>There are many ways to change the contents of lists besides assigning new values to individual elements:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">odds.append(<span class="dv">11</span>)
 <span class="bu">print</span>(<span class="st">&#39;odds after adding a value:&#39;</span>, odds)</code></pre></div>
@@ -178,7 +194,7 @@ last <span class="op">=</span> chromosomes[<span class="op">-</span><span class=
 species: melanogaster
 autosomes: [&#39;2&#39;, &#39;3&#39;, &#39;4&#39;]
 last: 4</code></pre>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
+<blockquote>
 <h2 id="slicing-from-the-end">Slicing From the End</h2>
 <p>Use slicing to access only the last four characters of a string or entries of a list.</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">string_for_slicing <span class="op">=</span> <span class="st">&#39;Observation date: 02-Feb-2013&#39;</span>
@@ -191,13 +207,11 @@ list_for_slicing <span class="op">=</span> [[<span class="st">&#39;fluorine&#39;
 [[&#39;chlorine&#39;, &#39;Cl&#39;], [&#39;bromine&#39;, &#39;Br&#39;], [&#39;iodine&#39;, &#39;I&#39;], [&#39;astatine&#39;, &#39;At&#39;]]</code></pre>
 <p>Would your solution work regardless of whether you knew beforehand the length of the string or list (e.g. if you wanted to apply the solution to a set of lists of different lengths)? If not, try to change your approach to make it more robust.</p>
 <p>Hint: Remember that indices can be negative as well as positive</p>
-<p>::::::::::::::: solution</p>
-<h2 id="solution">Solution</h2>
+<h5 id="solution">Solution</h5>
 <p>Use negative indices to count elements from the end of a container (such as list or string):</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">string_for_slicing[<span class="op">-</span><span class="dv">4</span>:]
 list_for_slicing[<span class="op">-</span><span class="dv">4</span>:]</code></pre></div>
-<p>:::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+</blockquote>
 <p>::::::::::::::::::::::::::::::::::::::: challenge</p>
 <h2 id="non-continuous-slices">Non-Continuous Slices</h2>
 <p>So far we’ve seen how to use slicing to take single blocks of successive entries from a sequence. But what if we want to take a subset of entries that aren’t next to each other in the sequence?</p>
@@ -216,7 +230,7 @@ subset <span class="op">=</span> primes[<span class="dv">2</span>:<span class="d
 <p>What slice of <code>beatles</code> will produce the following output (i.e., the first character, third character, and every other character through the end of the string)?</p>
 <pre class="output"><code>I notpssgre ntesae</code></pre>
 <p>::::::::::::::: solution</p>
-<h2 id="solution-1">Solution</h2>
+<h5 id="solution-1">Solution</h5>
 <p>To obtain every other character you need to provide a slice with the step size of 2:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">beatles[<span class="dv">0</span>:<span class="dv">35</span>:<span class="dv">2</span>]</code></pre></div>
 <p>You can also leave out the beginning and end of the slice to take the whole string and provide only the step argument to go every second element:</p>
@@ -256,7 +270,7 @@ repeats <span class="op">=</span> counts <span class="op">*</span> <span class="
 </ol>
 <p>The technical term for this is <em>operator overloading</em>: a single operator, like <code>+</code> or <code>*</code>, can do different things depending on what it’s applied to.</p>
 <p>::::::::::::::: solution</p>
-<h2 id="solution-2">Solution</h2>
+<h5 id="solution-2">Solution</h5>
 <p>The multiplication operator <code>*</code> used on a list replicates elements of the list and concatenates them together:</p>
 <pre class="output"><code>[2, 4, 6, 8, 10, 2, 4, 6, 8, 10]</code></pre>
 <p>It’s equivalent to:</p>

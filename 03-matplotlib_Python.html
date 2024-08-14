@@ -27,26 +27,24 @@
       <div class="row">
         <div class="col-md-10 col-md-offset-1">
                     <h1 class="title">Visualizing Tabular Data</h1>
-          <p>::::::::::::::::::::::::::::::::::::::: objectives</p>
+          <section class="objectives panel panel-warning">
+<div class="panel-heading">
+<h2 id="learning-objectives"><span class="glyphicon glyphicon-certificate"></span>Learning Objectives</h2>
+</div>
+<div class="panel-body">
 <ul>
 <li>Plot simple graphs from data.</li>
 <li>Plot multiple graphs in a single figure.</li>
 </ul>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>:::::::::::::::::::::::::::::::::::::::: questions</p>
+<h5 id="questions">Questions</h5>
 <ul>
 <li>How can I visualize tabular data in Python?</li>
 <li>How can I group several plots together?</li>
 </ul>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+</div>
+</section>
 <h2 id="visualizing-data">Visualizing data</h2>
-<p>The mathematician Richard Hamming once said, “The purpose of computing is insight, not numbers,” and the best way to develop insight is often to visualize data. Visualization deserves an entire lecture of its own, but we can explore a few features of Python’s <code>matplotlib</code> library here. While there is no official plotting library, <code>matplotlib</code> is the <em>de facto</em> standard. First, we will import the <code>pyplot</code> module from <code>matplotlib</code> and use two of its functions to create and display a <a href="../learners/reference.md#heat-map">heat map</a> of our data:</p>
-<p>:::::::::::::::::::::::::::::::::::::::::: prereq</p>
-<h2 id="episode-prerequisites">Episode Prerequisites</h2>
-<p>If you are continuing in the same notebook from the previous episode, you already have a <code>data</code> variable and have imported <code>numpy</code>. If you are starting a new notebook at this point, you need the following two lines:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> numpy
-data <span class="op">=</span> numpy.loadtxt(fname<span class="op">=</span><span class="st">&#39;inflammation-01.csv&#39;</span>, delimiter<span class="op">=</span><span class="st">&#39;,&#39;</span>)</code></pre></div>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+<p>The mathematician Richard Hamming once said, “The purpose of computing is insight, not numbers,” and the best way to develop insight is often to visualize data. Visualization deserves an entire lecture of its own, but we can explore a few features of Python’s <code>matplotlib</code> library here. While there is no official plotting library, <code>matplotlib</code> is the <em>de facto</em> standard. First, we will import the <code>pyplot</code> module from <code>matplotlib</code> and use two of its functions to create and display a heat map of our data:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> matplotlib.pyplot
 image <span class="op">=</span> matplotlib.pyplot.imshow(data)
 matplotlib.pyplot.show()</code></pre></div>
@@ -84,7 +82,7 @@ matplotlib.pyplot.show()</code></pre></div>
 </div>
 <p>The maximum value rises and falls linearly, while the minimum seems to be a step function. Neither trend seems particularly likely, so either there’s a mistake in our calculations or something is wrong with our data. This insight would have been difficult to reach by examining the numbers themselves without visualization tools.</p>
 <h3 id="grouping-plots">Grouping plots</h3>
-<p>You can group similar plots in a single figure using subplots. This script below uses a number of new commands. The function <code>matplotlib.pyplot.figure()</code> creates a space into which we will place all of our plots. The parameter <code>figsize</code> tells Python how big to make this space. Each subplot is placed into the figure using its <code>add_subplot</code> <a href="../learners/reference.md#method">method</a>. The <code>add_subplot</code> method takes 3 parameters. The first denotes how many total rows of subplots there are, the second parameter refers to the total number of subplot columns, and the final parameter denotes which subplot your variable is referencing (left-to-right, top-to-bottom). Each subplot is stored in a different variable (<code>axes1</code>, <code>axes2</code>, <code>axes3</code>). Once a subplot is created, the axes can be titled using the <code>set_xlabel()</code> command (or <code>set_ylabel()</code>). Here are our three plots side by side:</p>
+<p>You can group similar plots in a single figure using subplots. This script below uses a number of new commands. The function <code>matplotlib.pyplot.figure()</code> creates a space into which we will place all of our plots. The parameter <code>figsize</code> tells Python how big to make this space. Each subplot is placed into the figure using its <code>add_subplot</code> method. The <code>add_subplot</code> method takes 3 parameters. The first denotes how many total rows of subplots there are, the second parameter refers to the total number of subplot columns, and the final parameter denotes which subplot your variable is referencing (left-to-right, top-to-bottom). Each subplot is stored in a different variable (<code>axes1</code>, <code>axes2</code>, <code>axes3</code>). Once a subplot is created, the axes can be titled using the <code>set_xlabel()</code> command (or <code>set_ylabel()</code>). Here are our three plots side by side:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> numpy
 <span class="im">import</span> matplotlib.pyplot
 
@@ -113,44 +111,50 @@ matplotlib.pyplot.show()</code></pre></div>
 <img src="fig/inflammation-01-group-plot.svg" alt="Three line graphs showing the daily average, maximum and minimum inflammation over a 40-day period." />
 
 </div>
-<p>The <a href="../learners/reference.md#function-call">call</a> to <code>loadtxt</code> reads our data, and the rest of the program tells the plotting library how large we want the figure to be, that we’re creating three subplots, what to draw for each one, and that we want a tight layout. (If we leave out that call to <code>fig.tight_layout()</code>, the graphs will actually be squeezed together more closely.)</p>
+<p>The call to <code>loadtxt</code> reads our data, and the rest of the program tells the plotting library how large we want the figure to be, that we’re creating three subplots, what to draw for each one, and that we want a tight layout. (If we leave out that call to <code>fig.tight_layout()</code>, the graphs will actually be squeezed together more closely.)</p>
 <p>The call to <code>savefig</code> stores the plot as a graphics file. This can be a convenient way to store your plots for use in other documents, web pages etc. The graphics format is automatically determined by Matplotlib from the file name ending we specify; here PNG from ‘inflammation.png’. Matplotlib supports many different graphics formats, including SVG, PDF, and JPEG.</p>
-<p>::::::::::::::::::::::::::::::::::::::::: callout</p>
-<h2 id="importing-libraries-with-shortcuts">Importing libraries with shortcuts</h2>
-<p>In this lesson we use the <code>import matplotlib.pyplot</code> <a href="../learners/reference.md#syntax">syntax</a> to import the <code>pyplot</code> module of <code>matplotlib</code>. However, shortcuts such as <code>import matplotlib.pyplot as plt</code> are frequently used. Importing <code>pyplot</code> this way means that after the initial import, rather than writing <code>matplotlib.pyplot.plot(...)</code>, you can now write <code>plt.plot(...)</code>. Another common convention is to use the shortcut <code>import numpy as np</code> when importing the NumPy library. We then can write <code>np.loadtxt(...)</code> instead of <code>numpy.loadtxt(...)</code>, for example.</p>
+<aside class="callout panel panel-info">
+<div class="panel-heading">
+<h2 id="importing-libraries-with-shortcuts"><span class="glyphicon glyphicon-pushpin"></span>Importing libraries with shortcuts</h2>
+</div>
+<div class="panel-body">
+<p>In this lesson we use the <code>import matplotlib.pyplot</code> syntax to import the <code>pyplot</code> module of <code>matplotlib</code>. However, shortcuts such as <code>import matplotlib.pyplot as plt</code> are frequently used. Importing <code>pyplot</code> this way means that after the initial import, rather than writing <code>matplotlib.pyplot.plot(...)</code>, you can now write <code>plt.plot(...)</code>. Another common convention is to use the shortcut <code>import numpy as np</code> when importing the NumPy library. We then can write <code>np.loadtxt(...)</code> instead of <code>numpy.loadtxt(...)</code>, for example.</p>
 <p>Some people prefer these shortcuts as it is quicker to type and results in shorter lines of code - especially for libraries with long names! You will frequently see Python code online using a <code>pyplot</code> function with <code>plt</code>, or a NumPy function with <code>np</code>, and it’s because they’ve used this shortcut. It makes no difference which approach you choose to take, but you must be consistent as if you use <code>import matplotlib.pyplot as plt</code> then <code>matplotlib.pyplot.plot(...)</code> will not work, and you must use <code>plt.plot(...)</code> instead. Because of this, when working with other people it is important you agree on how libraries are imported.</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
-<h2 id="plot-scaling">Plot Scaling</h2>
+</div>
+</aside>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h2 id="plot-scaling"><span class="glyphicon glyphicon-pencil"></span>Plot Scaling</h2>
+</div>
+<div class="panel-body">
 <p>Why do all of our plots stop just short of the upper end of our graph?</p>
 <p>::::::::::::::: solution</p>
-<h2 id="solution">Solution</h2>
+<h5 id="solution">Solution</h5>
 <p>Because matplotlib normally sets x and y axes limits to the min and max of our data (depending on data range)</p>
-<p>:::::::::::::::::::::::::</p>
+<h5 id="extra-challenge">Extra challenge:</h5>
 <p>If we want to change this, we can use the <code>set_ylim(min, max)</code> method of each ‘axes’, for example:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">axes3.set_ylim(<span class="dv">0</span>, <span class="dv">6</span>)</code></pre></div>
 <p>Update your plotting code to automatically set a more appropriate scale. (Hint: you can make use of the <code>max</code> and <code>min</code> methods to help.)</p>
-<p>::::::::::::::: solution</p>
-<h2 id="solution-1">Solution</h2>
+<h5 id="solution-1">Solution 1</h5>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co"># One method</span>
 axes3.set_ylabel(<span class="st">&#39;min&#39;</span>)
 axes3.plot(numpy.amin(data, axis<span class="op">=</span><span class="dv">0</span>))
 axes3.set_ylim(<span class="dv">0</span>, <span class="dv">6</span>)</code></pre></div>
-<p>:::::::::::::::::::::::::</p>
-<p>::::::::::::::: solution</p>
-<h2 id="solution-2">Solution</h2>
+<h5 id="solution-2">Solution 2</h5>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co"># A more automated approach</span>
 min_data <span class="op">=</span> numpy.amin(data, axis<span class="op">=</span><span class="dv">0</span>)
 axes3.set_ylabel(<span class="st">&#39;min&#39;</span>)
 axes3.plot(min_data)
 axes3.set_ylim(numpy.amin(min_data), numpy.amax(min_data) <span class="op">*</span> <span class="fl">1.1</span>)</code></pre></div>
-<p>:::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
-<h2 id="drawing-straight-lines">Drawing Straight Lines</h2>
+</div>
+</section>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h2 id="drawing-straight-lines"><span class="glyphicon glyphicon-pencil"></span>Drawing Straight Lines</h2>
+</div>
+<div class="panel-body">
 <p>In the center and right subplots above, we expect all lines to look like step functions because non-integer value are not realistic for the minimum and maximum values. However, you can see that the lines are not always vertical or horizontal, and in particular the step function in the subplot on the right looks slanted. Why is this?</p>
-<p>::::::::::::::: solution</p>
-<h2 id="solution-3">Solution</h2>
+<h5 id="solution-3">Solution</h5>
 <p>Because matplotlib interpolates (draws a straight line) between the points. One way to do avoid this is to use the Matplotlib <code>drawstyle</code> option:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> numpy
 <span class="im">import</span> matplotlib.pyplot
@@ -179,22 +183,27 @@ matplotlib.pyplot.show()</code></pre></div>
 <img src="fig/inflammation-01-line-styles.svg" alt="Three line graphs, with step lines connecting the points, showing the daily average, maximumand minimum inflammation over a 40-day period." />
 
 </div>
-<p>:::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
-<h2 id="make-your-own-plot">Make Your Own Plot</h2>
+</div>
+</section>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h2 id="make-your-own-plot"><span class="glyphicon glyphicon-pencil"></span>Make Your Own Plot</h2>
+</div>
+<div class="panel-body">
 <p>Create a plot showing the standard deviation (<code>numpy.std</code>) of the inflammation data for each day across all patients.</p>
 <p>::::::::::::::: solution</p>
-<h2 id="solution-4">Solution</h2>
+<h5 id="solution-4">Solution</h5>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">std_plot <span class="op">=</span> matplotlib.pyplot.plot(numpy.std(data, axis<span class="op">=</span><span class="dv">0</span>))
 matplotlib.pyplot.show()</code></pre></div>
-<p>:::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
-<h2 id="moving-plots-around">Moving Plots Around</h2>
+</div>
+</section>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h2 id="moving-plots-around"><span class="glyphicon glyphicon-pencil"></span>Moving Plots Around</h2>
+</div>
+<div class="panel-body">
 <p>Modify the program to display the three plots on top of one another instead of side by side.</p>
-<p>::::::::::::::: solution</p>
-<h2 id="solution-5">Solution</h2>
+<h5 id="solution-5">Solution</h5>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> numpy
 <span class="im">import</span> matplotlib.pyplot
 
@@ -220,13 +229,18 @@ axes3.plot(numpy.amin(data, axis<span class="op">=</span><span class="dv">0</spa
 fig.tight_layout()
 
 matplotlib.pyplot.show()</code></pre></div>
-<p>:::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>:::::::::::::::::::::::::::::::::::::::: keypoints</p>
+</div>
+</section>
+<section class="objectives panel panel-warning">
+<div class="panel-heading">
+<h2 id="keypoints"><span class="glyphicon glyphicon-certificate"></span>Keypoints</h2>
+</div>
+<div class="panel-body">
 <ul>
 <li>Use the <code>pyplot</code> module from the <code>matplotlib</code> library for creating simple visualizations.</li>
 </ul>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+</div>
+</section>
         </div>
       </div>
       </article>
