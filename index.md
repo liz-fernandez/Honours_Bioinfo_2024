@@ -69,7 +69,7 @@ These lessons will start you on a path towards using these resources effectively
 4.  [Pipes and Filters](03-pipefilter_Shell.html)
 5.  [Loops](04-loop_Shell.html)
 6.  [Shell Scripts](05-script_Shell.html)
-7.  [Finding Things]()
+7.  [Finding Things](06-find_Shell.html)
 
 ### Week 2 - Introduction to Python
 
