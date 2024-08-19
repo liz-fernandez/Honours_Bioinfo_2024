@@ -27,7 +27,11 @@
       <div class="row">
         <div class="col-md-10 col-md-offset-1">
                     <h1 class="title">Defensive Programming</h1>
-          <p>::::::::::::::::::::::::::::::::::::::: objectives</p>
+          <section class="objectives panel panel-warning">
+<div class="panel-heading">
+<h2 id="learning-objectives"><span class="glyphicon glyphicon-certificate"></span>Learning Objectives</h2>
+</div>
+<div class="panel-body">
 <ul>
 <li>Explain what an assertion is.</li>
 <li>Add assertions that check the program’s state is correct.</li>
@@ -35,12 +39,12 @@
 <li>Explain what test-driven development is, and use it when creating new functions.</li>
 <li>Explain why variables should be initialized using actual data values rather than arbitrary constants.</li>
 </ul>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>:::::::::::::::::::::::::::::::::::::::: questions</p>
+<h5 id="questions">Questions</h5>
 <ul>
 <li>How can I make my programs more reliable?</li>
 </ul>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+</div>
+</section>
 <p>Our previous lessons have introduced the basic tools of programming: variables and lists, file I/O, loops, conditionals, and functions. What they <em>haven’t</em> done is show us how to tell whether a program is getting the right answer, and how to tell if it’s <em>still</em> getting the right answer as we make changes to it.</p>
 <p>To achieve that, we need to:</p>
 <ul>
@@ -242,20 +246,25 @@ AssertionError                            Traceback (most recent call last)
 
 AssertionError:</code></pre>
 <p>The first test that was supposed to produce <code>None</code> fails, so we know something is wrong with our function. We <em>don’t</em> know whether the other tests passed or failed because Python halted the program as soon as it spotted the first error. Still, some information is better than none, and if we trace the behavior of the function with that input, we realize that we’re initializing <code>max_left</code> and <code>min_right</code> to 0.0 and 1.0 respectively, regardless of the input values. This violates another important rule of programming: <em>always initialize from data</em>.</p>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
-<h2 id="pre--and-post-conditions">Pre- and Post-Conditions</h2>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h2 id="pre--and-post-conditions"><span class="glyphicon glyphicon-pencil"></span>Pre- and Post-Conditions</h2>
+</div>
+<div class="panel-body">
 <p>Suppose you are writing a function called <code>average</code> that calculates the average of the numbers in a NumPy array. What pre-conditions and post-conditions would you write for it? Compare your answer to your neighbor’s: can you think of a function that will pass your tests but not his/hers or vice versa?</p>
-<p>::::::::::::::: solution</p>
 <h2 id="solution">Solution</h2>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co"># a possible pre-condition:</span>
 <span class="cf">assert</span> <span class="bu">len</span>(input_array) <span class="op">&gt;</span> <span class="dv">0</span>, <span class="st">&#39;Array length must be non-zero&#39;</span>
 <span class="co"># a possible post-condition:</span>
 <span class="cf">assert</span> numpy.amin(input_array) <span class="op">&lt;=</span> average <span class="op">&lt;=</span> numpy.amax(input_array),
 <span class="co">&#39;Average should be between min and max of input values (inclusive)&#39;</span></code></pre></div>
-<p>:::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
-<h2 id="testing-assertions">Testing Assertions</h2>
+</div>
+</section>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h2 id="testing-assertions"><span class="glyphicon glyphicon-pencil"></span>Testing Assertions</h2>
+</div>
+<div class="panel-body">
 <p>Given a sequence of a number of cars, the function <code>get_total_cars</code> returns the total number of cars.</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">get_total_cars([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>])</code></pre></div>
 <pre class="output"><code>10</code></pre>
@@ -270,16 +279,19 @@ AssertionError:</code></pre>
     total <span class="op">=</span> <span class="bu">sum</span>(values)
     <span class="cf">assert</span> total <span class="op">&gt;</span> <span class="dv">0</span>
     <span class="cf">return</span> total</code></pre></div>
-<p>::::::::::::::: solution</p>
 <h2 id="solution-1">Solution</h2>
 <ul>
 <li>The first assertion checks that the input sequence <code>values</code> is not empty. An empty sequence such as <code>[]</code> will make it fail.</li>
 <li>The second assertion checks that each value in the list can be turned into an integer. Input such as <code>[1, 2, 'c', 3]</code> will make it fail.</li>
 <li>The third assertion checks that the total of the list is greater than 0. Input such as <code>[-10, 2, 3]</code> will make it fail.</li>
 </ul>
-<p>:::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>:::::::::::::::::::::::::::::::::::::::: keypoints</p>
+</div>
+</section>
+<section class="objectives panel panel-warning">
+<div class="panel-heading">
+<h2 id="keypoints"><span class="glyphicon glyphicon-certificate"></span>Keypoints</h2>
+</div>
+<div class="panel-body">
 <ul>
 <li>Program defensively, i.e., assume that errors are going to arise, and write code to detect them when they do.</li>
 <li>Put assertions in programs to check their state as they run, and to help readers understand how those programs are supposed to work.</li>
@@ -287,7 +299,8 @@ AssertionError:</code></pre>
 <li>Use postconditions to check that the output from a function is safe to use.</li>
 <li>Write tests before writing code in order to help determine exactly what that code is supposed to do.</li>
 </ul>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+</div>
+</section>
         </div>
       </div>
       </article>

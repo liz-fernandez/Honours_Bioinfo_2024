@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="generator" content="pandoc">
+    <title>BABS Honours Bioinformatics Course 2024</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="css/swc.css" />
+    <link rel="alternate" type="application/rss+xml" title="Bioinformatics Honours 2024" href="https://github.com/liz-fernandez/UNSW_Honours_Bioinfo_2024/"/>
+    <meta charset="UTF-8" />
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body class="lesson">
+    <div class="container card">
+      <div class="banner">
+        <a href="https://liz-fernandez.github.io/Honours_Bioinfo_2024/" title="Honours Bioinformatics Course 2024">
+          <img alt="Logo UNSW" src="img/unsw_logo.jpg" />
+        </a>
+      </div>
+      <article>
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+                    <h1 class="title">BABS Honours Bioinformatics Course 2024</h1>
+          <p>The Unix shell has been around longer than most of its users have been alive. It has survived so long because it’s a power tool that allows people to do complex things with just a few keystrokes. More importantly, it helps them combine existing programs in new ways and automate repetitive tasks so that they don’t have to type the same things over and over again. Use of the shell is fundamental to using a wide range of other powerful tools and computing resources (including “high-performance computing” supercomputers). These lessons will start you on a path towards using these resources effectively.</p>
+<section class="prereq panel panel-warning">
+<div class="panel-heading">
+<h2 id="prerequisites"><span class="glyphicon glyphicon-education"></span>Prerequisites</h2>
+</div>
+<div class="panel-body">
+<p>This lesson guides you through the basics of file systems and the shell. If you have stored files on a computer at all and recognize the word “file” and either “directory” or “folder” (two common words for the same thing), you’re ready for this lesson.</p>
+<p>If you’re already comfortable manipulating files and directories, searching for files with <code>grep</code> and <code>find</code>, and writing simple loops and scripts, you probably won’t learn much from this lesson.</p>
+</div>
+</section>
+<section class="getready panel panel-warning">
+<div class="panel-heading">
+<h2 id="getting-ready"><span class="glyphicon glyphicon-check"></span>Getting ready</h2>
+</div>
+<div class="panel-body">
+<p>We will be using the Katana server. A very simple way to access Katana is to use the ‘Katana OnDemand’ version. Please navigate to the following link:</p>
+<p><a href="https://kod.restech.unsw.edu.au/">Katana On Demand</a></p>
+<p>And click on the ‘Katana Terminal’ button.</p>
+<p>You can get more support for Katana OnDemand <a href="https://docs.restech.unsw.edu.au/using_katana/ondemand/">here</a></p>
+<p>You need to download some files to follow this lesson:</p>
+<ol style="list-style-type: decimal">
+<li>Make a new folder in your Desktop called <code>shell-novice</code>.</li>
+<li>Download <a href="./shell-novice-data.zip">shell-novice-data.zip</a> and move the file to this folder.</li>
+<li>If it’s not unzipped yet, double-click on it to unzip it. You should end up with a new folder called <code>data</code>.</li>
+<li>You can access this folder from the Unix shell with:</li>
+</ol>
+<pre class="input"><code>$ cd &amp;&amp; cd Desktop/shell-novice/data</code></pre>
+</div>
+</section>
+<h2 id="topics">Topics</h2>
+<h3 id="week-1---linux-shell">Week 1 - Linux Shell</h3>
+<ol style="list-style-type: decimal">
+<li><a href="00-intro_Shell.html">Introducing the Shell</a></li>
+<li><a href="01-filedir_Shell.html">Files and Directories</a></li>
+<li><a href="02-create_Shell.html">Creating Things</a></li>
+<li><a href="03-pipefilter_Shell.html">Pipes and Filters</a></li>
+<li><a href="04-loop_Shell.html">Loops</a></li>
+<li><a href="05-script_Shell.html">Shell Scripts</a></li>
+<li><a href="06-find_Shell.html">Finding Things</a></li>
+</ol>
+<h3 id="week-2---introduction-to-python">Week 2 - Introduction to Python</h3>
+<ol style="list-style-type: decimal">
+<li><a href="01-intro_Python.html">Python fundamentals</a></li>
+<li><a href="02-numpy_Python.html">Analyzing Patient Data</a></li>
+<li><a href="03-matplotlib_Python.html">Visualising Tabular Data</a></li>
+<li><a href="04-lists_Python.html">Storing Multiple Values in Lists</a></li>
+<li><a href="05-loop_Python.html">Repeating Actions with Loops</a></li>
+<li><a href="06-files_Python.html">Analyzing Data from Multiple Files</a></li>
+<li><a href="07-cond_Python.html">Making Choices</a></li>
+<li><a href="08-func_Python.html">Creating Functions</a></li>
+<li><a href="09-errors_Python.html">Errors and Exceptions</a></li>
+<li><a href="10-defensive_Python.html">Defensive Programming</a></li>
+<li><a href="11-debugging_Python.html">Debugging</a></li>
+<li><a href="12-chtmlline_Python.html">Command-Line Programs</a></li>
+</ol>
+<h3 id="week-3---introduction-to-r">Week 3 - Introduction to R</h3>
+<ol style="list-style-type: decimal">
+<li><a href="01-rstudio-intro_R.html">Introduction to R and RStudio</a></li>
+<li><a href="02-project-intro_R.html">Project Management With RStudio</a></li>
+<li><a href="03-seeking-help_R.html">Seeking Help</a></li>
+<li><a href="04-data-structures-part1_R.html">Data Structures</a></li>
+<li><a href="05-data-structures-part2_R.html">Exploring Data Frames</a></li>
+<li><a href="06-data-subsetting_R.html">Subsetting Data</a></li>
+<li><a href="07-control-flow_R.html">Control Flow</a></li>
+<li><a href="08-plot-ggplot2_R.html">Creating Publication-Quality Graphics with ggplot2</a></li>
+<li><a href="09-vectorization_R.html">Vectorization</a></li>
+<li><a href="10-functions_R.html">Functions Explained</a></li>
+<li><a href="11-writing-data_R.html">Writing Data</a></li>
+<li><a href="12-dplyr_R.html">Data Frame Manipulation with dplyr</a></li>
+<li><a href="13-tidyr_R.html">Data Frame Manipulation with tidyr</a></li>
+<li><a href="14-knitr-markdown_R.html">Producing Reports With knitr</a></li>
+<li><a href="15-wrap-up_R.html">Writing Good Software</a></li>
+</ol>
+<h2 id="other-resources">Other Resources</h2>
+<ul>
+<li><a href="motivation.html">Motivation</a></li>
+<li><a href="reference.html">Reference</a></li>
+<li><a href="discussion.html">Discussion</a></li>
+</ul>
+        </div>
+      </div>
+      </article>
+      <div class="footer">
+        <a class="label swc-blue-bg" href="mailto:s.fernandez_valverde@unsw.edu.au">Contact</a>
+      </div>
+    </div>
+    <!-- Javascript placed at the end of the document so the pages load faster -->
+    <script src="http://software-carpentry.org/v5/js/jquery-1.9.1.min.js"></script>
+    <script src="css/bootstrap/bootstrap-js/bootstrap.js"></script>
+    <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+  </body>
+</html>

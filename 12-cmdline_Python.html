@@ -27,23 +27,31 @@
       <div class="row">
         <div class="col-md-10 col-md-offset-1">
                     <h1 class="title">Command-Line Programs</h1>
-          <p>::::::::::::::::::::::::::::::::::::::: objectives</p>
+          <section class="objectives panel panel-warning">
+<div class="panel-heading">
+<h2 id="learning-objectives"><span class="glyphicon glyphicon-certificate"></span>Learning Objectives</h2>
+</div>
+<div class="panel-body">
 <ul>
 <li>Use the values of command-line arguments in a program.</li>
 <li>Handle flags and files separately in a command-line program.</li>
 <li>Read data from standard input in a program so that it can be used in a pipeline.</li>
 </ul>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>:::::::::::::::::::::::::::::::::::::::: questions</p>
+<h5 id="questions">Questions</h5>
 <ul>
 <li>How can I write Python programs that will work like Unix command-line tools?</li>
 </ul>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+</div>
+</section>
 <p>The Jupyter Notebook and other interactive tools are great for prototyping code and exploring data, but sooner or later we will want to use our program in a pipeline or run it in a shell script to process thousands of data files. In order to do that in an efficient way, we need to make our programs work like other Unix command-line tools. For example, we may want a program that reads a dataset and prints the average inflammation per patient.</p>
-<p>::::::::::::::::::::::::::::::::::::::::: callout</p>
-<h2 id="switching-to-shell-commands">Switching to Shell Commands</h2>
+<aside class="callout panel panel-info">
+<div class="panel-heading">
+<h2 id="switching-to-shell-commands"><span class="glyphicon glyphicon-pushpin"></span>Switching to Shell Commands</h2>
+</div>
+<div class="panel-body">
 <p>In this lesson we are switching from typing commands in a Python interpreter to typing commands in a shell terminal window (such as bash). When you see a <code>$</code> in front of a command that tells you to run that command in the shell rather than the Python interpreter.</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+</div>
+</aside>
 <p>This program does exactly what we want - it prints the average inflammation per patient for a given file.</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">python</span> ../code/readings_04.py --mean inflammation-01.csv</code></pre></div>
 <pre class="output"><code>5.45
@@ -172,19 +180,27 @@
 6.4
 7.05
 5.9</code></pre>
-<p>::::::::::::::::::::::::::::::::::::::::: callout</p>
-<h2 id="running-versus-importing">Running Versus Importing</h2>
+<aside class="callout panel panel-info">
+<div class="panel-heading">
+<h2 id="running-versus-importing"><span class="glyphicon glyphicon-pushpin"></span>Running Versus Importing</h2>
+</div>
+<div class="panel-body">
 <p>Running a Python script in bash is very similar to importing that file in Python. The biggest difference is that we don’t expect anything to happen when we import a file, whereas when running a script, we expect to see some output printed to the console.</p>
 <p>In order for a Python script to work as expected when imported or when run as a script, we typically put the part of the script that produces output in the following if statement:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&#39;__main__&#39;</span>:
     main()  <span class="co"># Or whatever function produces output</span></code></pre></div>
 <p>When you import a Python file, <code>__name__</code> is the name of that file (e.g., when importing <code>readings.py</code>, <code>__name__</code> is <code>'readings'</code>). However, when running a script in bash, <code>__name__</code> is always set to <code>'__main__'</code> in that script so that you can determine if the file is being imported or run as a script.</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::::: callout</p>
-<h2 id="the-right-way-to-do-it">The Right Way to Do It</h2>
+</div>
+</aside>
+<aside class="callout panel panel-info">
+<div class="panel-heading">
+<h2 id="the-right-way-to-do-it"><span class="glyphicon glyphicon-pushpin"></span>The Right Way to Do It</h2>
+</div>
+<div class="panel-body">
 <p>If our programs can take complex parameters or multiple filenames, we shouldn’t handle <code>sys.argv</code> directly. Instead, we should use Python’s <code>argparse</code> library, which handles common cases in a systematic way, and also makes it easy for us to provide sensible error messages for our users. We will not cover this module in this lesson but you can go to Tshepang Lekhonkhobe’s <a href="https://docs.python.org/3/howto/argparse.html">Argparse tutorial</a> that is part of Python’s Official Documentation.</p>
 <p>We can also use the <code>argh</code> library, a wrapper around the <code>argparse</code> library that simplifies its usage (see <a href="https://pythonhosted.org/argh/">the argh documentation</a> for more information).</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+</div>
+</aside>
 <h2 id="handling-multiple-files">Handling Multiple Files</h2>
 <p>The next step is to teach our program how to handle multiple files. Since 60 lines of output per file is a lot to page through, we’ll start by using three smaller files, each of which has three days of data for two patients:</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">ls</span> small-*.csv</code></pre></div>
@@ -217,10 +233,8 @@
 1.0
 13.6666666667
 11.0</code></pre>
-<p>::::::::::::::::::::::::::::::::::::::::: callout</p>
 <h2 id="the-right-way-to-do-it-1">The Right Way to Do It</h2>
 <p>At this point, we have created three versions of our script called <code>readings_01.py</code>, <code>readings_02.py</code>, and <code>readings_03.py</code>. We wouldn’t do this in real life: instead, we would have one file called <code>readings.py</code> that we committed to version control every time we got an enhancement working. For teaching, though, we need all the successive versions side by side.</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
 <h2 id="handling-command-line-flags">Handling Command-Line Flags</h2>
 <p>The next step is to teach our program to pay attention to the <code>--min</code>, <code>--mean</code>, and <code>--max</code> flags. These always appear before the names of the files, so we could do this:</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">cat</span> ../code/readings_04.py</code></pre></div>
@@ -340,15 +354,17 @@ count <span class="op">=</span> <span class="dv">0</span>
 <pre class="output"><code>0.333333333333
 1.0</code></pre>
 <p>That’s better. In fact, that’s done: the program now does everything we set out to do.</p>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
-<h2 id="arithmetic-on-the-command-line">Arithmetic on the Command Line</h2>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h2 id="arithmetic-on-the-command-line"><span class="glyphicon glyphicon-pencil"></span>Arithmetic on the Command Line</h2>
+</div>
+<div class="panel-body">
 <p>Write a Python program that adds, subtracts, multiplies, or divides two numbers provided on the command line:</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">python</span> arith.py --add 1 2</code></pre></div>
 <pre class="output"><code>3.0</code></pre>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">python</span> arith.py --subtract 3 4</code></pre></div>
 <pre class="output"><code>-1.0</code></pre>
-<p>::::::::::::::: solution</p>
-<h2 id="solution">Solution</h2>
+<h5 id="solution">Solution</h5>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> sys
 
 <span class="kw">def</span> main():
@@ -378,17 +394,19 @@ count <span class="op">=</span> <span class="dv">0</span>
     <span class="bu">print</span>(value)
 
 main()</code></pre></div>
-<p>:::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
-<h2 id="finding-particular-files">Finding Particular Files</h2>
+</div>
+</section>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h2 id="finding-particular-files"><span class="glyphicon glyphicon-pencil"></span>Finding Particular Files</h2>
+</div>
+<div class="panel-body">
 <p>Using the <code>glob</code> module introduced <a href="06-files.html">earlier</a>, write a simple version of <code>ls</code> that shows files in the current directory with a particular suffix. A call to this script should look like this:</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">python</span> my_ls.py py</code></pre></div>
 <pre class="output"><code>left.py
 right.py
 zero.py</code></pre>
-<p>::::::::::::::: solution</p>
-<h2 id="solution-1">Solution</h2>
+<h5 id="solution-1">Solution</h5>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> sys
 <span class="im">import</span> glob
 
@@ -403,13 +421,15 @@ zero.py</code></pre>
     <span class="cf">return</span>
 
 main()</code></pre></div>
-<p>:::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
-<h2 id="changing-flags">Changing Flags</h2>
+</div>
+</section>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h2 id="changing-flags"><span class="glyphicon glyphicon-pencil"></span>Changing Flags</h2>
+</div>
+<div class="panel-body">
 <p>Rewrite <code>readings.py</code> so that it uses <code>-n</code>, <code>-m</code>, and <code>-x</code> instead of <code>--min</code>, <code>--mean</code>, and <code>--max</code> respectively. Is the code easier to read? Is the program easier to understand?</p>
-<p>::::::::::::::: solution</p>
-<h2 id="solution-2">Solution</h2>
+<h5 id="solution-2">Solution</h5>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co"># this is code/readings_07.py</span>
 <span class="im">import</span> sys
 <span class="im">import</span> numpy
@@ -440,13 +460,15 @@ main()</code></pre></div>
         <span class="bu">print</span>(val)
 
 main()</code></pre></div>
-<p>:::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
-<h2 id="adding-a-help-message">Adding a Help Message</h2>
+</div>
+</section>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h2 id="adding-a-help-message"><span class="glyphicon glyphicon-pencil"></span>Adding a Help Message</h2>
+</div>
+<div class="panel-body">
 <p>Separately, modify <code>readings.py</code> so that if no parameters are given (i.e., no action is specified and no filenames are given), it prints a message explaining how it should be used.</p>
-<p>::::::::::::::: solution</p>
-<h2 id="solution-3">Solution</h2>
+<h5 id="solution-3">Solution</h5>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co"># this is code/readings_08.py</span>
 <span class="im">import</span> sys
 <span class="im">import</span> numpy
@@ -487,13 +509,15 @@ main()</code></pre></div>
 
 <span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">&#39;__main__&#39;</span>:
     main()</code></pre></div>
-<p>:::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
-<h2 id="adding-a-default-action">Adding a Default Action</h2>
+</div>
+</section>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h2 id="adding-a-default-action"><span class="glyphicon glyphicon-pencil"></span>Adding a Default Action</h2>
+</div>
+<div class="panel-body">
 <p>Separately, modify <code>readings.py</code> so that if no action is given it displays the means of the data.</p>
-<p>::::::::::::::: solution</p>
-<h2 id="solution-4">Solution</h2>
+<h5 id="solution-4">Solution</h5>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co"># this is code/readings_09.py</span>
 <span class="im">import</span> sys
 <span class="im">import</span> numpy
@@ -527,13 +551,15 @@ main()</code></pre></div>
         <span class="bu">print</span>(val)
 
 main()</code></pre></div>
-<p>:::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
-<h2 id="a-file-checker">A File-Checker</h2>
+</div>
+</section>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h2 id="a-file-checker"><span class="glyphicon glyphicon-pencil"></span>A File-Checker</h2>
+</div>
+<div class="panel-body">
 <p>Write a program called <code>check.py</code> that takes the names of one or more inflammation data files as arguments and checks that all the files have the same number of rows and columns. What is the best way to test your program?</p>
-<p>::::::::::::::: solution</p>
-<h2 id="solution-5">Solution</h2>
+<h5 id="solution-5">Solution</h5>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> sys
 <span class="im">import</span> numpy
 
@@ -564,17 +590,19 @@ main()</code></pre></div>
     <span class="cf">return</span> nrow, ncol
 
 main()</code></pre></div>
-<p>:::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
-<h2 id="counting-lines">Counting Lines</h2>
+</div>
+</section>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h2 id="counting-lines"><span class="glyphicon glyphicon-pencil"></span>Counting Lines</h2>
+</div>
+<div class="panel-body">
 <p>Write a program called <code>line_count.py</code> that works like the Unix <code>wc</code> command:</p>
 <ul>
 <li>If no filenames are given, it reports the number of lines in standard input.</li>
 <li>If one or more filenames are given, it reports the number of lines in each, followed by the total number of lines.</li>
 </ul>
-<p>::::::::::::::: solution</p>
-<h2 id="solution-6">Solution</h2>
+<h5 id="solution-6">Solution</h5>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> sys
 
 <span class="kw">def</span> main():
@@ -608,24 +636,33 @@ main()</code></pre></div>
     <span class="cf">return</span> n
 
 main()</code></pre></div>
-<p>:::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
-<h2 id="generate-an-error-message">Generate an Error Message</h2>
+</div>
+</section>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h2 id="generate-an-error-message"><span class="glyphicon glyphicon-pencil"></span>Generate an Error Message</h2>
+</div>
+<div class="panel-body">
 <p>Write a program called <code>check_arguments.py</code> that prints usage then exits the program if no arguments are provided. (Hint: You can use <code>sys.exit()</code> to exit the program.)</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">python</span> check_arguments.py</code></pre></div>
 <pre class="output"><code>usage: python check_argument.py filename.txt</code></pre>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash">$ <span class="kw">python</span> check_arguments.py filename.txt</code></pre></div>
 <pre class="output"><code>Thanks for specifying arguments!</code></pre>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>:::::::::::::::::::::::::::::::::::::::: keypoints</p>
+</div>
+</section>
+<section class="objectives panel panel-warning">
+<div class="panel-heading">
+<h2 id="keypoints"><span class="glyphicon glyphicon-certificate"></span>Keypoints</h2>
+</div>
+<div class="panel-body">
 <ul>
 <li>The <code>sys</code> library connects a Python program to the system it is running on.</li>
 <li>The list <code>sys.argv</code> contains the command-line arguments that a program was run with.</li>
 <li>Avoid silent failures.</li>
 <li>The pseudo-file <code>sys.stdin</code> connects to a program’s standard input.</li>
 </ul>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+</div>
+</section>
         </div>
       </div>
       </article>

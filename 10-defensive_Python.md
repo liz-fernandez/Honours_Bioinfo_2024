@@ -4,21 +4,18 @@ teaching: 30
 exercises: 10
 ---
 
-::::::::::::::::::::::::::::::::::::::: objectives
+> ## Learning Objectives {.objectives}
+> 
+> * Explain what an assertion is.
+> * Add assertions that check the program's state is correct.
+> * Correctly add precondition and postcondition assertions to functions.
+> * Explain what test-driven development is, and use it when creating new functions.
+> * Explain why variables should be initialized using actual data values rather than arbitrary constants.
+> 
+> ##### Questions
+> 
+> * How can I make my programs more reliable?
 
-- Explain what an assertion is.
-- Add assertions that check the program's state is correct.
-- Correctly add precondition and postcondition assertions to functions.
-- Explain what test-driven development is, and use it when creating new functions.
-- Explain why variables should be initialized using actual data values rather than arbitrary constants.
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
-
-:::::::::::::::::::::::::::::::::::::::: questions
-
-- How can I make my programs more reliable?
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
 
 Our previous lessons have introduced the basic tools of programming:
 variables and lists,
@@ -65,16 +62,16 @@ and prints the error message if one is provided.
 For example,
 this piece of code halts as soon as the loop encounters a value that isn't positive:
 
-```python
+~~~ {.python}
 numbers = [1.5, 2.3, 0.7, -0.001, 4.4]
 total = 0.0
 for num in numbers:
     assert num > 0.0, 'Data should only contain positive values'
     total += num
 print('total is:', total)
-```
+~~~
 
-```error
+~~~error
 ---------------------------------------------------------------------------
 AssertionError                            Traceback (most recent call last)
 <ipython-input-19-33d87ea29ae4> in <module>()
@@ -85,7 +82,7 @@ AssertionError                            Traceback (most recent call last)
       6 print('total is:', total)
 
 AssertionError: Data should only contain positive values
-```
+~~~
 
 Programs like the Firefox browser are full of assertions:
 10-20% of the code they contain
@@ -112,7 +109,7 @@ and the longest side is 1.0 units long.
 This function does that,
 but checks that its input is correctly formatted and that its result makes sense:
 
-```python
+~~~ {.python}
 def normalize_rectangle(rect):
     """Normalizes a rectangle so that it is at the origin and 1.0 units long on its longest axis.
     Input should be of the format (x0, y0, x1, y1).
@@ -136,15 +133,15 @@ def normalize_rectangle(rect):
     assert 0 < upper_y <= 1.0, 'Calculated upper Y coordinate invalid'
 
     return (0, 0, upper_x, upper_y)
-```
+~~~
 
 The preconditions on lines 6, 8, and 9 catch invalid inputs:
 
-```python
+~~~ {.python}
 print(normalize_rectangle( (0.0, 1.0, 2.0) )) # missing the fourth coordinate
-```
+~~~
 
-```error
+~~~error
 ---------------------------------------------------------------------------
 AssertionError                            Traceback (most recent call last)
 <ipython-input-2-1b9cd8e18a1f> in <module>
@@ -158,13 +155,13 @@ AssertionError                            Traceback (most recent call last)
       8     assert x0 < x1, 'Invalid X coordinates'
 
 AssertionError: Rectangles must contain 4 coordinates
-```
+~~~
 
-```python
+~~~ {.python}
 print(normalize_rectangle( (4.0, 2.0, 1.0, 5.0) )) # X axis inverted
-```
+~~~
 
-```error
+~~~error
 ---------------------------------------------------------------------------
 AssertionError                            Traceback (most recent call last)
 <ipython-input-3-325036405532> in <module>
@@ -178,29 +175,29 @@ AssertionError                            Traceback (most recent call last)
      10
 
 AssertionError: Invalid X coordinates
-```
+~~~
 
 The post-conditions on lines 20 and 21 help us catch bugs by telling us when our
 calculations might have been incorrect.
 For example,
 if we normalize a rectangle that is taller than it is wide everything seems OK:
 
-```python
+~~~ {.python}
 print(normalize_rectangle( (0.0, 0.0, 1.0, 5.0) ))
-```
+~~~
 
-```output
+~~~ {.output}
 (0, 0, 0.2, 1.0)
-```
+~~~
 
 but if we normalize one that's wider than it is tall,
 the assertion is triggered:
 
-```python
+~~~ {.python}
 print(normalize_rectangle( (0.0, 0.0, 5.0, 1.0) ))
-```
+~~~
 
-```error
+~~~error
 ---------------------------------------------------------------------------
 AssertionError                            Traceback (most recent call last)
 <ipython-input-5-8d4a48f1d068> in <module>
@@ -214,7 +211,7 @@ AssertionError                            Traceback (most recent call last)
      23     return (0, 0, upper_x, upper_y)
 
 AssertionError: Calculated upper Y coordinate invalid
-```
+~~~
 
 Re-reading our function,
 we realize that line 14 should divide `dy` by `dx` rather than `dx` by `dy`.
@@ -292,20 +289,20 @@ Its advocates believe it produces better code faster because:
 
 We start by defining an empty function `range_overlap`:
 
-```python
+~~~ {.python}
 def range_overlap(ranges):
     pass
-```
+~~~
 
 Here are three test statements for `range_overlap`:
 
-```python
+~~~ {.python}
 assert range_overlap([ (0.0, 1.0) ]) == (0.0, 1.0)
 assert range_overlap([ (2.0, 3.0), (2.0, 4.0) ]) == (2.0, 3.0)
 assert range_overlap([ (0.0, 1.0), (0.0, 2.0), (-1.0, 1.0) ]) == (0.0, 1.0)
-```
+~~~
 
-```error
+~~~error
 ---------------------------------------------------------------------------
 AssertionError                            Traceback (most recent call last)
 <ipython-input-25-d8be150fbef6> in <module>()
@@ -314,7 +311,7 @@ AssertionError                            Traceback (most recent call last)
       3 assert range_overlap([ (0.0, 1.0), (0.0, 2.0), (-1.0, 1.0) ]) == (0.0, 1.0)
 
 AssertionError:
-```
+~~~
 
 The error is actually reassuring:
 we haven't implemented any logic into `range_overlap` yet,
@@ -329,9 +326,9 @@ and produce a single pair as output.
 Something important is missing, though.
 We don't have any tests for the case where the ranges don't overlap at all:
 
-```python
+~~~ {.python}
 assert range_overlap([ (0.0, 1.0), (5.0, 6.0) ]) == ???
-```
+~~~
 
 What should `range_overlap` do in this case:
 fail with an error message,
@@ -344,9 +341,9 @@ before we realized there was an issue.
 
 And what about this case?
 
-```python
+~~~ {.python}
 assert range_overlap([ (0.0, 1.0), (1.0, 2.0) ]) == ???
-```
+~~~
 
 Do two segments that touch at their endpoints overlap or not?
 Mathematicians usually say "yes",
@@ -369,12 +366,12 @@ and means "nothing here".
 With that decision made,
 we can finish writing our last two tests:
 
-```python
+~~~ {.python}
 assert range_overlap([ (0.0, 1.0), (5.0, 6.0) ]) == None
 assert range_overlap([ (0.0, 1.0), (1.0, 2.0) ]) == None
-```
+~~~
 
-```error
+~~~error
 ---------------------------------------------------------------------------
 AssertionError                            Traceback (most recent call last)
 <ipython-input-26-d877ef460ba2> in <module>()
@@ -382,13 +379,13 @@ AssertionError                            Traceback (most recent call last)
       2 assert range_overlap([ (0.0, 1.0), (1.0, 2.0) ]) == None
 
 AssertionError:
-```
+~~~
 
 Again,
 we get an error because we haven't written our function,
 but we're now ready to do so:
 
-```python
+~~~ {.python}
 def range_overlap(ranges):
     """Return common overlap among a set of [left, right] ranges."""
     max_left = 0.0
@@ -397,7 +394,7 @@ def range_overlap(ranges):
         max_left = max(max_left, left)
         min_right = min(min_right, right)
     return (max_left, min_right)
-```
+~~~
 
 Take a moment to think about why we calculate the left endpoint of the overlap as
 the maximum of the input left endpoints, and the overlap right endpoint as the minimum
@@ -407,7 +404,7 @@ but they're scattered across three different cells.
 To make running them easier,
 let's put them all in a function:
 
-```python
+~~~ {.python}
 def test_range_overlap():
     assert range_overlap([ (0.0, 1.0), (5.0, 6.0) ]) == None
     assert range_overlap([ (0.0, 1.0), (1.0, 2.0) ]) == None
@@ -415,15 +412,15 @@ def test_range_overlap():
     assert range_overlap([ (2.0, 3.0), (2.0, 4.0) ]) == (2.0, 3.0)
     assert range_overlap([ (0.0, 1.0), (0.0, 2.0), (-1.0, 1.0) ]) == (0.0, 1.0)
     assert range_overlap([]) == None
-```
+~~~
 
 We can now test `range_overlap` with a single function call:
 
-```python
+~~~ {.python}
 test_range_overlap()
-```
+~~~
 
-```error
+~~~error
 ---------------------------------------------------------------------------
 AssertionError                            Traceback (most recent call last)
 <ipython-input-29-cf9215c96457> in <module>()
@@ -437,7 +434,7 @@ AssertionError                            Traceback (most recent call last)
       5     assert range_overlap([ (2.0, 3.0), (2.0, 4.0) ]) == (2.0, 3.0)
 
 AssertionError:
-```
+~~~
 
 The first test that was supposed to produce `None` fails,
 so we know something is wrong with our function.
@@ -451,97 +448,77 @@ regardless of the input values.
 This violates another important rule of programming:
 *always initialize from data*.
 
-:::::::::::::::::::::::::::::::::::::::  challenge
 
-## Pre- and Post-Conditions
+> ## Pre- and Post-Conditions {.challenge}
+> 
+> Suppose you are writing a function called `average` that calculates
+> the average of the numbers in a NumPy array.
+> What pre-conditions and post-conditions would you write for it?
+> Compare your answer to your neighbor's:
+> can you think of a function that will pass your tests but not his/hers or vice versa?
+> 
+> ## Solution
+> 
+> ~~~ {.python}
+> # a possible pre-condition:
+> assert len(input_array) > 0, 'Array length must be non-zero'
+> # a possible post-condition:
+> assert numpy.amin(input_array) <= average <= numpy.amax(input_array),
+> 'Average should be between min and max of input values (inclusive)'
+> ~~~
 
-Suppose you are writing a function called `average` that calculates
-the average of the numbers in a NumPy array.
-What pre-conditions and post-conditions would you write for it?
-Compare your answer to your neighbor's:
-can you think of a function that will pass your tests but not his/hers or vice versa?
 
-:::::::::::::::  solution
-
-## Solution
-
-```python
-# a possible pre-condition:
-assert len(input_array) > 0, 'Array length must be non-zero'
-# a possible post-condition:
-assert numpy.amin(input_array) <= average <= numpy.amax(input_array),
-'Average should be between min and max of input values (inclusive)'
-```
-
-:::::::::::::::::::::::::
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
-
-:::::::::::::::::::::::::::::::::::::::  challenge
-
-## Testing Assertions
-
-Given a sequence of a number of cars, the function `get_total_cars` returns
-the total number of cars.
-
-```python
-get_total_cars([1, 2, 3, 4])
-```
-
-```output
-10
-```
-
-```python
-get_total_cars(['a', 'b', 'c'])
-```
-
-```output
-ValueError: invalid literal for int() with base 10: 'a'
-```
-
-Explain in words what the assertions in this function check,
-and for each one,
-give an example of input that will make that assertion fail.
-
-```python
-def get_total_cars(values):
-    assert len(values) > 0
-    for element in values:
-        assert int(element)
-    values = [int(element) for element in values]
-    total = sum(values)
-    assert total > 0
-    return total
-```
-
-:::::::::::::::  solution
-
-## Solution
-
-- The first assertion checks that the input sequence `values` is not empty.
-  An empty sequence such as `[]` will make it fail.
-- The second assertion checks that each value in the list can be turned into an integer.
-  Input such as `[1, 2, 'c', 3]` will make it fail.
-- The third assertion checks that the total of the list is greater than 0.
-  Input such as `[-10, 2, 3]` will make it fail.
-  
+> ## Testing Assertions {.challenge}
+> 
+> Given a sequence of a number of cars, the function `get_total_cars` returns
+> the total number of cars.
+> 
+> ~~~ {.python}
+> get_total_cars([1, 2, 3, 4])
+> ~~~
+> 
+> ~~~ {.output}
+> 10
+> ~~~
+> 
+> ~~~ {.python}
+> get_total_cars(['a', 'b', 'c'])
+> ~~~
+> 
+> ~~~ {.output}
+> ValueError: invalid literal for int() with base 10: 'a'
+> ~~~
+> 
+> Explain in words what the assertions in this function check,
+> and for each one,
+> give an example of input that will make that assertion fail.
+> 
+> ~~~ {.python}
+> def get_total_cars(values):
+>     assert len(values) > 0
+>     for element in values:
+>         assert int(element)
+>     values = [int(element) for element in values]
+>     total = sum(values)
+>     assert total > 0
+>     return total
+> ~~~
+> 
+> ## Solution
+> 
+> - The first assertion checks that the input sequence `values` is not empty.
+>   An empty sequence such as `[]` will make it fail.
+> - The second assertion checks that each value in the list can be turned into an integer.
+>   Input such as `[1, 2, 'c', 3]` will make it fail.
+> - The third assertion checks that the total of the list is greater than 0.
+>   Input such as `[-10, 2, 3]` will make it fail.
   
 
-:::::::::::::::::::::::::
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
-
-
-
-:::::::::::::::::::::::::::::::::::::::: keypoints
-
-- Program defensively, i.e., assume that errors are going to arise, and write code to detect them when they do.
-- Put assertions in programs to check their state as they run, and to help readers understand how those programs are supposed to work.
-- Use preconditions to check that the inputs to a function are safe to use.
-- Use postconditions to check that the output from a function is safe to use.
-- Write tests before writing code in order to help determine exactly what that code is supposed to do.
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
-
+> ## Keypoints {.objectives}
+> 
+> * Program defensively, i.e., assume that errors are going to arise, and write code to detect them when they do.
+> * Put assertions in programs to check their state as they run, and to help readers understand how those programs are supposed to work.
+> * Use preconditions to check that the inputs to a function are safe to use.
+> * Use postconditions to check that the output from a function is safe to use.
+> * Write tests before writing code in order to help determine exactly what that code is supposed to do.
 

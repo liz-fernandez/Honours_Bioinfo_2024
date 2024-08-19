@@ -4,18 +4,15 @@ teaching: 30
 exercises: 20
 ---
 
-::::::::::::::::::::::::::::::::::::::: objectives
-
-- Debug code containing an error systematically.
-- Identify ways of making code less error-prone and more easily tested.
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
-
-:::::::::::::::::::::::::::::::::::::::: questions
-
-- How can I debug my program?
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
+> ## Learning Objectives {.objectives}
+> 
+> * Debug code containing an error systematically.
+> * Identify ways of making code less error-prone and more easily tested.
+> 
+> ##### Questions
+> 
+> - How can I debug my program?
+> 
 
 Once testing has uncovered problems,
 the next step is to fix them.
@@ -66,7 +63,7 @@ scientists tend to do the following:
   our first test should hold temperature, precipitation, and other factors constant.
 
 3. *Compare to an oracle.*
-  A [test oracle](../learners/reference.md#test-oracle)
+  A test oracle
   is something whose results are trusted,
   such as experimental data, an older program, or a human expert.
   We use test oracles to determine if our new program produces the correct results.
@@ -192,27 +189,24 @@ People are more likely to listen to us
 when we can explain clearly what we did,
 and we're better able to give them the information they need to be useful.
 
-:::::::::::::::::::::::::::::::::::::::::  callout
 
-## Version Control Revisited
-
-Version control is often used to reset software to a known state during debugging,
-and to explore recent changes to code that might be responsible for bugs.
-In particular,
-most version control systems (e.g. git, Mercurial) have:
-
-1. a `blame` command that shows who last changed each line of a file;
-2. a `bisect` command that helps with finding the commit that introduced an
-  issue.
+> ## Version Control Revisited {.callout}
+> 
+> Version control is often used to reset software to a known state during debugging,
+> and to explore recent changes to code that might be responsible for bugs.
+> In particular,
+> most version control systems (e.g. git, Mercurial) have:
+> 
+> 1. a `blame` command that shows who last changed each line of a file;
+> 2. a `bisect` command that helps with finding the commit that introduced an
+>   issue.
   
 
-::::::::::::::::::::::::::::::::::::::::::::::::::
-
-## Be Humble
+## Don't be afraid to ask for help 
 
 And speaking of help:
-if we can't find a bug in 10 minutes,
-we should *be humble* and ask for help.
+if we can't find a bug in 10-20 minutes,
+we should ask for help.
 Explaining the problem to someone else is often useful,
 since hearing what we're thinking helps us spot inconsistencies and hidden assumptions.
 If you don't have someone nearby to share your problem description with, get a
@@ -226,7 +220,7 @@ rather than searching for the reason it doesn't.
 People who aren't emotionally invested in the code can be more objective,
 which is why they're often able to spot the simple mistakes we have overlooked.
 
-Part of being humble is learning from our mistakes.
+A key part of learning is learning from our mistakes.
 Programmers tend to get the same things wrong over and over:
 either they don't understand the language and libraries they're working with,
 or their model of how things work is wrong.
@@ -244,85 +238,67 @@ and to turn every assumption (or mistake) into an assertion,
 it will actually take us *less* time to produce working programs,
 not more.
 
-:::::::::::::::::::::::::::::::::::::::  challenge
-
-## Debug With a Neighbor
-
-Take a function that you have written today, and introduce a tricky bug.
-Your function should still run, but will give the wrong output.
-Switch seats with your neighbor and attempt to debug
-the bug that they introduced into their function.
-Which of the principles discussed above did you find helpful?
+> ## Debug With a Mate {.challenge}
+> 
+> Take a function that you have written today, and introduce a tricky bug.
+> Your function should still run, but will give the wrong output.
+> Switch seats with your neighbor and attempt to debug
+> the bug that they introduced into their function.
+> Which of the principles discussed above did you find helpful?
 
 
-::::::::::::::::::::::::::::::::::::::::::::::::::
-
-:::::::::::::::::::::::::::::::::::::::  challenge
-
-## Not Supposed to be the Same
-
-You are assisting a researcher with Python code that computes the
-Body Mass Index (BMI) of patients.  The researcher is concerned because
-all patients seemingly have unusual and identical BMIs, despite having different
-physiques.  BMI is calculated as **weight in kilograms**
-divided by the square of **height in metres**.
-
-Use the debugging principles in this exercise and locate problems
-with the code. What suggestions would you give the researcher for
-ensuring any later changes they make work correctly? What bugs do you spot?
-
-```python
-patients = [[70, 1.8], [80, 1.9], [150, 1.7]]
-
-def calculate_bmi(weight, height):
-    return weight / (height ** 2)
-
-for patient in patients:
-    weight, height = patients[0]
-    bmi = calculate_bmi(height, weight)
-    print("Patient's BMI is:", bmi)
-```
-
-```output
-Patient's BMI is: 0.000367
-Patient's BMI is: 0.000367
-Patient's BMI is: 0.000367
-```
-
-:::::::::::::::  solution
-
-## Solution
-
-### Suggestions for debugging
-
-- Add printing statement in the `calculate_bmi` function, like `print('weight:', weight, 'height:', height)`, to make clear that what the BMI is based on.
-- Change `print("Patient's BMI is: %f" % bmi)` to `print("Patient's BMI (weight: %f, height: %f) is: %f" % (weight, height, bmi))`, in order to be able to distinguish bugs in the function from bugs in the loop.
-
-### Bugs found
-
-- The loop is not being utilised correctly. `height` and `weight` are always
-  set as the first patient's data during each iteration of the loop.
-
-- The height/weight variables are reversed in the function call to
-  `calculate_bmi(...)`, the correct BMIs are 21.604938, 22.160665 and 51.903114.
-  
-  
-
-:::::::::::::::::::::::::
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
+> ## Not Supposed to be the Same {.challenge}
+> 
+> You are assisting a researcher with Python code that computes the
+> Body Mass Index (BMI) of patients.  The researcher is concerned because
+> all patients seemingly have unusual and identical BMIs, despite having different
+> physiques.  BMI is calculated as **weight in kilograms**
+> divided by the square of **height in metres**.
+> 
+> Use the debugging principles in this exercise and locate problems
+> with the code. What suggestions would you give the researcher for
+> ensuring any later changes they make work correctly? What bugs do you spot?
+> 
+> ```python
+> patients = [[70, 1.8], [80, 1.9], [150, 1.7]]
+> 
+> def calculate_bmi(weight, height):
+>     return weight / (height ** 2)
+> 
+> for patient in patients:
+>     weight, height = patients[0]
+>     bmi = calculate_bmi(height, weight)
+>     print("Patient's BMI is:", bmi)
+> ```
+> 
+> ```output
+> Patient's BMI is: 0.000367
+> Patient's BMI is: 0.000367
+> Patient's BMI is: 0.000367
+> ```
+> 
+> ##### Solution
+> 
+> ### Suggestions for debugging
+> 
+> - Add printing statement in the `calculate_bmi` function, like `print('weight:', weight, 'height:', height)`, to make clear that what the BMI is based on.
+> - Change `print("Patient's BMI is: %f" % bmi)` to `print("Patient's BMI (weight: %f, height: %f) is: %f" % (weight, height, bmi))`, in order to be able to distinguish bugs in the function from bugs in the loop.
+> 
+> ### Bugs found
+> 
+> - The loop is not being utilised correctly. `height` and `weight` are always
+>   set as the first patient's data during each iteration of the loop.
+> 
+> - The height/weight variables are reversed in the function call to
+>   `calculate_bmi(...)`, the correct BMIs are 21.604938, 22.160665 and 51.903114.
 
 
-
-:::::::::::::::::::::::::::::::::::::::: keypoints
-
-- Know what code is supposed to do *before* trying to debug it.
-- Make it fail every time.
-- Make it fail fast.
-- Change one thing at a time, and for a reason.
-- Keep track of what you've done.
-- Be humble.
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
-
+> ## Keypoints {.objectives}
+> 
+> * Know what code is supposed to do *before* trying to debug it.
+> * Make it fail every time.
+> * Make it fail fast.
+> * Change one thing at a time, and for a reason.
+> * Keep track of what you've done.
+> * Be humble.
 
