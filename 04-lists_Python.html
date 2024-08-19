@@ -212,8 +212,11 @@ list_for_slicing <span class="op">=</span> [[<span class="st">&#39;fluorine&#39;
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">string_for_slicing[<span class="op">-</span><span class="dv">4</span>:]
 list_for_slicing[<span class="op">-</span><span class="dv">4</span>:]</code></pre></div>
 </blockquote>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
-<h2 id="non-continuous-slices">Non-Continuous Slices</h2>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h2 id="non-continuous-slices"><span class="glyphicon glyphicon-pencil"></span>Non-Continuous Slices</h2>
+</div>
+<div class="panel-body">
 <p>So far we’ve seen how to use slicing to take single blocks of successive entries from a sequence. But what if we want to take a subset of entries that aren’t next to each other in the sequence?</p>
 <p>You can achieve this by providing a third argument to the range within the brackets, called the <em>step size</em>. The example below shows how you can take every third entry in a list:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">primes <span class="op">=</span> [<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">11</span>, <span class="dv">13</span>, <span class="dv">17</span>, <span class="dv">19</span>, <span class="dv">23</span>, <span class="dv">29</span>, <span class="dv">31</span>, <span class="dv">37</span>]
@@ -229,14 +232,13 @@ subset <span class="op">=</span> primes[<span class="dv">2</span>:<span class="d
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">beatles <span class="op">=</span> <span class="st">&quot;In an octopus&#39;s garden in the shade&quot;</span></code></pre></div>
 <p>What slice of <code>beatles</code> will produce the following output (i.e., the first character, third character, and every other character through the end of the string)?</p>
 <pre class="output"><code>I notpssgre ntesae</code></pre>
-<p>::::::::::::::: solution</p>
 <h5 id="solution-1">Solution</h5>
 <p>To obtain every other character you need to provide a slice with the step size of 2:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">beatles[<span class="dv">0</span>:<span class="dv">35</span>:<span class="dv">2</span>]</code></pre></div>
 <p>You can also leave out the beginning and end of the slice to take the whole string and provide only the step argument to go every second element:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">beatles[::<span class="dv">2</span>]</code></pre></div>
-<p>:::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+</div>
+</section>
 <p>If you want to take a slice from the beginning of a sequence, you can omit the first index in the range:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">date <span class="op">=</span> <span class="st">&#39;Monday 4 January 2016&#39;</span>
 day <span class="op">=</span> date[<span class="dv">0</span>:<span class="dv">6</span>]
@@ -256,8 +258,11 @@ sond <span class="op">=</span> months[<span class="dv">8</span>:]
 <pre class="output"><code>With known last position: [&#39;sep&#39;, &#39;oct&#39;, &#39;nov&#39;, &#39;dec&#39;]
 Using len() to get last entry: [&#39;sep&#39;, &#39;oct&#39;, &#39;nov&#39;, &#39;dec&#39;]
 Omitting ending index: [&#39;sep&#39;, &#39;oct&#39;, &#39;nov&#39;, &#39;dec&#39;]</code></pre>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
-<h2 id="overloading">Overloading</h2>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h2 id="overloading"><span class="glyphicon glyphicon-pencil"></span>Overloading</h2>
+</div>
+<div class="panel-body">
 <p><code>+</code> usually means addition, but when used on strings or lists, it means “concatenate”. Given that, what do you think the multiplication operator <code>*</code> does on lists? In particular, what will be the output of the following code?</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">counts <span class="op">=</span> [<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">10</span>]
 repeats <span class="op">=</span> counts <span class="op">*</span> <span class="dv">2</span>
@@ -269,15 +274,18 @@ repeats <span class="op">=</span> counts <span class="op">*</span> <span class="
 <li><code>[2, 4, 6, 8, 10, 4, 8, 12, 16, 20]</code></li>
 </ol>
 <p>The technical term for this is <em>operator overloading</em>: a single operator, like <code>+</code> or <code>*</code>, can do different things depending on what it’s applied to.</p>
-<p>::::::::::::::: solution</p>
 <h5 id="solution-2">Solution</h5>
 <p>The multiplication operator <code>*</code> used on a list replicates elements of the list and concatenates them together:</p>
 <pre class="output"><code>[2, 4, 6, 8, 10, 2, 4, 6, 8, 10]</code></pre>
 <p>It’s equivalent to:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">counts <span class="op">+</span> counts</code></pre></div>
-<p>:::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>:::::::::::::::::::::::::::::::::::::::: keypoints</p>
+</div>
+</section>
+<section class="objectives panel panel-warning">
+<div class="panel-heading">
+<h2 id="keypoints"><span class="glyphicon glyphicon-certificate"></span>Keypoints</h2>
+</div>
+<div class="panel-body">
 <ul>
 <li><code>[value1, value2, value3, ...]</code> creates a list.</li>
 <li>Lists can contain any Python object, including lists (i.e., list of lists).</li>
@@ -285,7 +293,8 @@ repeats <span class="op">=</span> counts <span class="op">*</span> <span class="
 <li>Lists are mutable (i.e., their values can be changed in place).</li>
 <li>Strings are immutable (i.e., the characters in them cannot be changed).</li>
 </ul>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+</div>
+</section>
         </div>
       </div>
       </article>

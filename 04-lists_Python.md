@@ -224,7 +224,6 @@ does not.
 > sample_ages = [10, 12.5, 'Unknown']
 > ~~~ 
 
-
 There are many ways to change the contents of lists besides assigning new values to
 individual elements:
 
@@ -356,85 +355,77 @@ last: 4
 > list_for_slicing[-4:]
 > ~~~ 
 
-
-:::::::::::::::::::::::::::::::::::::::  challenge
-
-## Non-Continuous Slices
-
-So far we've seen how to use slicing to take single blocks
-of successive entries from a sequence.
-But what if we want to take a subset of entries
-that aren't next to each other in the sequence?
-
-You can achieve this by providing a third argument
-to the range within the brackets, called the *step size*.
-The example below shows how you can take every third entry in a list:
-
-~~~ {.python}
-primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37]
-subset = primes[0:12:3]
-print('subset', subset)
-~~~ 
-
-~~~ {.output}
-subset [2, 7, 17, 29]
-~~~ 
-
-Notice that the slice taken begins with the first entry in the range,
-followed by entries taken at equally-spaced intervals (the steps) thereafter.
-If you wanted to begin the subset with the third entry,
-you would need to specify that as the starting point of the sliced range:
-
-~~~ {.python}
-primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37]
-subset = primes[2:12:3]
-print('subset', subset)
-~~~ 
-
-~~~ {.output}
-subset [5, 13, 23, 37]
-~~~ 
-
-Use the step size argument to create a new string
-that contains only every other character in the string
-"In an octopus's garden in the shade". Start with
-creating a variable to hold the string:
-
-~~~ {.python}
-beatles = "In an octopus's garden in the shade"
-~~~ 
-
-What slice of `beatles` will produce the
-following output (i.e., the first character, third
-character, and every other character through the end
-of the string)?
-
-~~~ {.output}
-I notpssgre ntesae
-~~~ 
-
-:::::::::::::::  solution
-
-##### Solution
-
-To obtain every other character you need to provide a slice with the step
-size of 2:
-
-~~~ {.python}
-beatles[0:35:2]
-~~~ 
-
-You can also leave out the beginning and end of the slice to take the whole string
-and provide only the step argument to go every second
-element:
-
-~~~ {.python}
-beatles[::2]
-~~~ 
-
-:::::::::::::::::::::::::
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
+> ## Non-Continuous Slices {.challenge}
+> 
+> So far we've seen how to use slicing to take single blocks
+> of successive entries from a sequence.
+> But what if we want to take a subset of entries
+> that aren't next to each other in the sequence?
+> 
+> You can achieve this by providing a third argument
+> to the range within the brackets, called the *step size*.
+> The example below shows how you can take every third entry in a list:
+> 
+> ~~~ {.python}
+> primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37]
+> subset = primes[0:12:3]
+> print('subset', subset)
+> ~~~ 
+> 
+> ~~~ {.output}
+> subset [2, 7, 17, 29]
+> ~~~ 
+> 
+> Notice that the slice taken begins with the first entry in the range,
+> followed by entries taken at equally-spaced intervals (the steps) thereafter.
+> If you wanted to begin the subset with the third entry,
+> you would need to specify that as the starting point of the sliced range:
+> 
+> ~~~ {.python}
+> primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37]
+> subset = primes[2:12:3]
+> print('subset', subset)
+> ~~~ 
+> 
+> ~~~ {.output}
+> subset [5, 13, 23, 37]
+> ~~~ 
+> 
+> Use the step size argument to create a new string
+> that contains only every other character in the string
+> "In an octopus's garden in the shade". Start with
+> creating a variable to hold the string:
+> 
+> ~~~ {.python}
+> beatles = "In an octopus's garden in the shade"
+> ~~~ 
+> 
+> What slice of `beatles` will produce the
+> following output (i.e., the first character, third
+> character, and every other character through the end
+> of the string)?
+> 
+> ~~~ {.output}
+> I notpssgre ntesae
+> ~~~ 
+> 
+> ##### Solution
+> 
+> To obtain every other character you need to provide a slice with the step
+> size of 2:
+> 
+> ~~~ {.python}
+> beatles[0:35:2]
+> ~~~ 
+> 
+> You can also leave out the beginning and end of the slice to take the whole string
+> and provide only the step argument to go every second
+> element:
+> 
+> ~~~ {.python}
+> beatles[::2]
+> ~~~ 
+> 
 
 If you want to take a slice from the beginning of a sequence, you can omit the first index in the
 range:
@@ -471,60 +462,50 @@ Using len() to get last entry: ['sep', 'oct', 'nov', 'dec']
 Omitting ending index: ['sep', 'oct', 'nov', 'dec']
 ~~~ 
 
-:::::::::::::::::::::::::::::::::::::::  challenge
 
-## Overloading
-
-`+` usually means addition, but when used on strings or lists, it means "concatenate".
-Given that, what do you think the multiplication operator `*` does on lists?
-In particular, what will be the output of the following code?
-
-~~~ {.python}
-counts = [2, 4, 6, 8, 10]
-repeats = counts * 2
-print(repeats)
-~~~ 
-
-1. `[2, 4, 6, 8, 10, 2, 4, 6, 8, 10]`
-2. `[4, 8, 12, 16, 20]`
-3. `[[2, 4, 6, 8, 10], [2, 4, 6, 8, 10]]`
-4. `[2, 4, 6, 8, 10, 4, 8, 12, 16, 20]`
-
-The technical term for this is *operator overloading*:
-a single operator, like `+` or `*`,
-can do different things depending on what it's applied to.
-
-:::::::::::::::  solution
-
-##### Solution
-
-The multiplication operator `*` used on a list replicates elements of the list and concatenates
-them together:
-
-~~~ {.output}
-[2, 4, 6, 8, 10, 2, 4, 6, 8, 10]
-~~~ 
-
-It's equivalent to:
-
-~~~ {.python}
-counts + counts
-~~~ 
-
-:::::::::::::::::::::::::
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
+> ## Overloading {.challenge}
+> 
+> `+` usually means addition, but when used on strings or lists, it means "concatenate".
+> Given that, what do you think the multiplication operator `*` does on lists?
+> In particular, what will be the output of the following code?
+> 
+> ~~~ {.python}
+> counts = [2, 4, 6, 8, 10]
+> repeats = counts * 2
+> print(repeats)
+> ~~~ 
+> 
+> 1. `[2, 4, 6, 8, 10, 2, 4, 6, 8, 10]`
+> 2. `[4, 8, 12, 16, 20]`
+> 3. `[[2, 4, 6, 8, 10], [2, 4, 6, 8, 10]]`
+> 4. `[2, 4, 6, 8, 10, 4, 8, 12, 16, 20]`
+> 
+> The technical term for this is *operator overloading*:
+> a single operator, like `+` or `*`,
+> can do different things depending on what it's applied to.
+> 
+> ##### Solution
+> 
+> The multiplication operator `*` used on a list replicates elements of the list and concatenates
+> them together:
+> 
+> ~~~ {.output}
+> [2, 4, 6, 8, 10, 2, 4, 6, 8, 10]
+> ~~~ 
+> 
+> It's equivalent to:
+> 
+> ~~~ {.python}
+> counts + counts
+> ~~~ 
 
 
 
-:::::::::::::::::::::::::::::::::::::::: keypoints
-
-- `[value1, value2, value3, ...]` creates a list.
-- Lists can contain any Python object, including lists (i.e., list of lists).
-- Lists are indexed and sliced with square brackets (e.g., `list[0]` and `list[2:9]`), in the same way as strings and arrays.
-- Lists are mutable (i.e., their values can be changed in place).
-- Strings are immutable (i.e., the characters in them cannot be changed).
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
-
+> ## Keypoints {.objectives}
+> 
+> * `[value1, value2, value3, ...]` creates a list.
+> * Lists can contain any Python object, including lists (i.e., list of lists).
+> * Lists are indexed and sliced with square brackets (e.g., `list[0]` and `list[2:9]`), in the same way as strings and arrays.
+> * Lists are mutable (i.e., their values can be changed in place).
+> * Strings are immutable (i.e., the characters in them cannot be changed).
 

@@ -27,17 +27,21 @@
       <div class="row">
         <div class="col-md-10 col-md-offset-1">
                     <h1 class="title">Analyzing Data from Multiple Files</h1>
-          <p>::::::::::::::::::::::::::::::::::::::: objectives</p>
+          <section class="objectives panel panel-warning">
+<div class="panel-heading">
+<h2 id="learning-objectives"><span class="glyphicon glyphicon-certificate"></span>Learning Objectives</h2>
+</div>
+<div class="panel-body">
 <ul>
 <li>Use a library function to get a list of filenames that match a wildcard pattern.</li>
 <li>Write a <code>for</code> loop to process multiple files.</li>
 </ul>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>:::::::::::::::::::::::::::::::::::::::: questions</p>
+<h5 id="questions">Questions</h5>
 <ul>
 <li>How can I do the same operations on many different files?</li>
 </ul>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+</div>
+</section>
 <p>As a final piece to processing our inflammation data, we need a way to get a list of all the files in our <code>data</code> directory whose names start with <code>inflammation-</code> and end with <code>.csv</code>. The following library will help us to achieve this:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> glob</code></pre></div>
 <p>The <code>glob</code> library contains a function, also called <code>glob</code>, that finds files and directories whose names match a pattern. We provide those patterns as strings: the character <code>*</code> matches zero or more characters, while <code>?</code> matches any one character. We can use this to get the names of all the CSV files in the current directory:</p>
@@ -97,11 +101,13 @@ filenames <span class="op">=</span> filenames[<span class="dv">0</span>:<span cl
 
 </div>
 <p>We can see that there are zero values sporadically distributed across all patients and days of the clinical trial, suggesting that there were potential issues with data collection throughout the trial. In addition, we can see that the last patient in the study didn’t have any inflammation flare-ups at all throughout the trial, suggesting that they may not even suffer from arthritis!</p>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
-<h2 id="plotting-differences">Plotting Differences</h2>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h2 id="plotting-differences"><span class="glyphicon glyphicon-pencil"></span>Plotting Differences</h2>
+</div>
+<div class="panel-body">
 <p>Plot the difference between the average inflammations reported in the first and second datasets (stored in <code>inflammation-01.csv</code> and <code>inflammation-02.csv</code>, correspondingly), i.e., the difference between the leftmost plots of the first two figures.</p>
-<p>::::::::::::::: solution</p>
-<h2 id="solution">Solution</h2>
+<h5 id="solution">Solution</h5>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> glob
 <span class="im">import</span> numpy
 <span class="im">import</span> matplotlib.pyplot
@@ -118,10 +124,13 @@ matplotlib.pyplot.plot(numpy.mean(data0, axis<span class="op">=</span><span clas
 
 fig.tight_layout()
 matplotlib.pyplot.show()</code></pre></div>
-<p>:::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
-<h2 id="generate-composite-statistics">Generate Composite Statistics</h2>
+</div>
+</section>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h2 id="generate-composite-statistics"><span class="glyphicon glyphicon-pencil"></span>Generate Composite Statistics</h2>
+</div>
+<div class="panel-body">
 <p>Use each of the files once to generate a dataset containing values averaged over all patients by completing the code inside the loop given below:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">filenames <span class="op">=</span> glob.glob(<span class="st">&#39;inflammation*.csv&#39;</span>)
 composite_data <span class="op">=</span> numpy.zeros((<span class="dv">60</span>, <span class="dv">40</span>))
@@ -131,8 +140,7 @@ composite_data <span class="op">=</span> numpy.zeros((<span class="dv">60</span>
 <span class="co"># and then divide the composite_data by number of samples</span>
 composite_data <span class="op">=</span> composite_data <span class="op">/</span> <span class="bu">len</span>(filenames)</code></pre></div>
 <p>Then use pyplot to generate average, max, and min for all patients.</p>
-<p>::::::::::::::: solution</p>
-<h2 id="solution-1">Solution</h2>
+<h5 id="solution-1">Solution</h5>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> glob
 <span class="im">import</span> numpy
 <span class="im">import</span> matplotlib.pyplot
@@ -164,8 +172,8 @@ axes3.plot(numpy.amin(composite_data, axis<span class="op">=</span><span class="
 fig.tight_layout()
 
 matplotlib.pyplot.show()</code></pre></div>
-<p>:::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+</div>
+</section>
 <p>After spending some time investigating the heat map and statistical plots, as well as doing the above exercises to plot differences between datasets and to generate composite patient statistics, we gain some insight into the twelve clinical trial datasets.</p>
 <p>The datasets appear to fall into two categories:</p>
 <ul>
@@ -176,12 +184,17 @@ matplotlib.pyplot.show()</code></pre></div>
 <p>Dr. Maverick has admitted to fabricating the clinical data for their drug trial. They did this after discovering that the initial trial had several issues, including unreliable data recording and poor participant selection. In order to prove the efficacy of their drug, they created fake data. When asked for additional data, they attempted to generate more fake datasets, and also included the original poor-quality dataset several times in order to make the trials seem more realistic.</p>
 <p>Congratulations! We’ve investigated the inflammation data and proven that the datasets have been synthetically generated.</p>
 <p>But it would be a shame to throw away the synthetic datasets that have taught us so much already, so we’ll forgive the imaginary Dr. Maverick and continue to use the data to learn how to program.</p>
-<p>:::::::::::::::::::::::::::::::::::::::: keypoints</p>
+<section class="objectives panel panel-warning">
+<div class="panel-heading">
+<h2 id="keypoints"><span class="glyphicon glyphicon-certificate"></span>Keypoints</h2>
+</div>
+<div class="panel-body">
 <ul>
 <li>Use <code>glob.glob(pattern)</code> to create a list of files whose names match a pattern.</li>
 <li>Use <code>*</code> in a pattern to match zero or more characters, and <code>?</code> to match any single character.</li>
 </ul>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+</div>
+</section>
         </div>
       </div>
       </article>

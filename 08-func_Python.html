@@ -27,7 +27,11 @@
       <div class="row">
         <div class="col-md-10 col-md-offset-1">
                     <h1 class="title">Creating Functions</h1>
-          <p>::::::::::::::::::::::::::::::::::::::: objectives</p>
+          <section class="objectives panel panel-warning">
+<div class="panel-heading">
+<h2 id="learning-objectives"><span class="glyphicon glyphicon-certificate"></span>Learning Objectives</h2>
+</div>
+<div class="panel-body">
 <ul>
 <li>Define a function that takes parameters.</li>
 <li>Return a value from a function.</li>
@@ -35,14 +39,14 @@
 <li>Set default values for function parameters.</li>
 <li>Explain why we should divide programs into small, single-purpose functions.</li>
 </ul>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>:::::::::::::::::::::::::::::::::::::::: questions</p>
+<h5 id="questions">Questions</h5>
 <ul>
 <li>How can I define new functions?</li>
 <li>What’s the difference between defining and calling a function?</li>
 <li>What happens when I call a function?</li>
 </ul>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+</div>
+</section>
 <p>At this point, we’ve seen that code can have Python make decisions about what it sees in our data. What if we want to convert some of our data, like taking a temperature in Fahrenheit and converting it to Celsius. We could write something like this for converting a single number</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">fahrenheit_val <span class="op">=</span> <span class="dv">99</span>
 celsius_val <span class="op">=</span> ((fahrenheit_val <span class="op">-</span> <span class="dv">32</span>) <span class="op">*</span> (<span class="dv">5</span><span class="op">/</span><span class="dv">9</span>))</code></pre></div>
@@ -357,60 +361,70 @@ cols=None, unpack=False, ndmin=0, encoding=&#39;bytes&#39;)</code></pre>
     <span class="cf">return</span> numpy.sqrt(sum_squared_devs <span class="op">/</span> (<span class="bu">len</span>(sample) <span class="op">-</span> <span class="dv">1</span>))</code></pre></div>
 <p>The functions <code>s</code> and <code>std_dev</code> are computationally equivalent (they both calculate the sample standard deviation), but to a human reader, they look very different. You probably found <code>std_dev</code> much easier to read and understand than <code>s</code>.</p>
 <p>As this example illustrates, both documentation and a programmer’s <em>coding style</em> combine to determine how easy it is for others to read and understand the programmer’s code. Choosing meaningful variable names and using blank spaces to break the code into logical “chunks” are helpful techniques for producing <em>readable code</em>. This is useful not only for sharing code with others, but also for the original programmer. If you need to revisit code that you wrote months ago and haven’t thought about since then, you will appreciate the value of readable code!</p>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
-<h2 id="combining-strings">Combining Strings</h2>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h2 id="combining-strings"><span class="glyphicon glyphicon-pencil"></span>Combining Strings</h2>
+</div>
+<div class="panel-body">
 <p>“Adding” two strings produces their concatenation: <code>'a' + 'b'</code> is <code>'ab'</code>. Write a function called <code>fence</code> that takes two parameters called <code>original</code> and <code>wrapper</code> and returns a new string that has the wrapper character at the beginning and end of the original. A call to your function should look like this:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(fence(<span class="st">&#39;name&#39;</span>, <span class="st">&#39;*&#39;</span>))</code></pre></div>
 <pre class="output"><code>*name*</code></pre>
-<p>::::::::::::::: solution</p>
-<h2 id="solution">Solution</h2>
+<h5 id="solution">Solution</h5>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> fence(original, wrapper):
     <span class="cf">return</span> wrapper <span class="op">+</span> original <span class="op">+</span> wrapper</code></pre></div>
-<p>:::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
-<h2 id="return-versus-print">Return versus print</h2>
+</div>
+</section>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h2 id="return-versus-print"><span class="glyphicon glyphicon-pencil"></span>Return versus print</h2>
+</div>
+<div class="panel-body">
 <p>Note that <code>return</code> and <code>print</code> are not interchangeable. <code>print</code> is a Python function that <em>prints</em> data to the screen. It enables us, <em>users</em>, see the data. <code>return</code> statement, on the other hand, makes data visible to the program. Let’s have a look at the following function:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> add(a, b):
     <span class="bu">print</span>(a <span class="op">+</span> b)</code></pre></div>
 <p><strong>Question</strong>: What will we see if we execute the following commands?</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">A <span class="op">=</span> add(<span class="dv">7</span>, <span class="dv">3</span>)
 <span class="bu">print</span>(A)</code></pre></div>
-<p>::::::::::::::: solution</p>
-<h2 id="solution-1">Solution</h2>
+<h5 id="solution-1">Solution</h5>
 <p>Python will first execute the function <code>add</code> with <code>a = 7</code> and <code>b = 3</code>, and, therefore, print <code>10</code>. However, because function <code>add</code> does not have a line that starts with <code>return</code> (no <code>return</code> “statement”), it will, by default, return nothing which, in Python world, is called <code>None</code>. Therefore, <code>A</code> will be assigned to <code>None</code> and the last line (<code>print(A)</code>) will print <code>None</code>. As a result, we will see:</p>
 <pre class="output"><code>10
 None</code></pre>
-<p>:::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
-<h2 id="selecting-characters-from-strings">Selecting Characters From Strings</h2>
+</div>
+</section>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h2 id="selecting-characters-from-strings"><span class="glyphicon glyphicon-pencil"></span>Selecting Characters From Strings</h2>
+</div>
+<div class="panel-body">
 <p>If the variable <code>s</code> refers to a string, then <code>s[0]</code> is the string’s first character and <code>s[-1]</code> is its last. Write a function called <code>outer</code> that returns a string made up of just the first and last characters of its input. A call to your function should look like this:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(outer(<span class="st">&#39;helium&#39;</span>))</code></pre></div>
 <pre class="output"><code>hm</code></pre>
-<p>::::::::::::::: solution</p>
-<h2 id="solution-2">Solution</h2>
+<h5 id="solution-2">Solution</h5>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> outer(input_string):
     <span class="cf">return</span> input_string[<span class="dv">0</span>] <span class="op">+</span> input_string[<span class="op">-</span><span class="dv">1</span>]</code></pre></div>
-<p>:::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
-<h2 id="rescaling-an-array">Rescaling an Array</h2>
+</div>
+</section>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h2 id="rescaling-an-array"><span class="glyphicon glyphicon-pencil"></span>Rescaling an Array</h2>
+</div>
+<div class="panel-body">
 <p>Write a function <code>rescale</code> that takes an array as input and returns a corresponding array of values scaled to lie in the range 0.0 to 1.0. (Hint: If <code>L</code> and <code>H</code> are the lowest and highest values in the original array, then the replacement for a value <code>v</code> should be <code>(v-L) / (H-L)</code>.)</p>
-<p>::::::::::::::: solution</p>
-<h2 id="solution-3">Solution</h2>
+<h5 id="solution-3">Solution</h5>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> rescale(input_array):
     L <span class="op">=</span> numpy.amin(input_array)
     H <span class="op">=</span> numpy.amax(input_array)
     output_array <span class="op">=</span> (input_array <span class="op">-</span> L) <span class="op">/</span> (H <span class="op">-</span> L)
     <span class="cf">return</span> output_array</code></pre></div>
-<p>:::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
-<h2 id="testing-and-documenting-your-function">Testing and Documenting Your Function</h2>
+</div>
+</section>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h2 id="testing-and-documenting-your-function"><span class="glyphicon glyphicon-pencil"></span>Testing and Documenting Your Function</h2>
+</div>
+<div class="panel-body">
 <p>Run the commands <code>help(numpy.arange)</code> and <code>help(numpy.linspace)</code> to see how to use these functions to generate regularly-spaced values, then use those values to test your <code>rescale</code> function. Once you’ve successfully tested your function, add a docstring that explains what it does.</p>
-<p>::::::::::::::: solution</p>
-<h2 id="solution-4">Solution</h2>
+<h5 id="solution-4">Solution</h5>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co">&quot;&quot;&quot;Takes an array as input, and returns a corresponding array scaled so</span>
 <span class="co">that 0 corresponds to the minimum and 1 to the maximum value of the input array.</span>
 
@@ -421,13 +435,15 @@ None</code></pre>
 <span class="co">&gt;&gt;&gt; rescale(numpy.linspace(0, 100, 5))</span>
 <span class="co">array([ 0.  ,  0.25,  0.5 ,  0.75,  1.  ])</span>
 <span class="co">&quot;&quot;&quot;</span></code></pre></div>
-<p>:::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
-<h2 id="defining-defaults-1">Defining Defaults</h2>
+</div>
+</section>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h2 id="defining-defaults-1"><span class="glyphicon glyphicon-pencil"></span>Defining Defaults</h2>
+</div>
+<div class="panel-body">
 <p>Rewrite the <code>rescale</code> function so that it scales data to lie between <code>0.0</code> and <code>1.0</code> by default, but will allow the caller to specify lower and upper bounds if they want. Compare your implementation to your neighbor’s: do the two functions always behave the same way?</p>
-<p>::::::::::::::: solution</p>
-<h2 id="solution-5">Solution</h2>
+<h5 id="solution-5">Solution</h5>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> rescale(input_array, low_val<span class="op">=</span><span class="fl">0.0</span>, high_val<span class="op">=</span><span class="fl">1.0</span>):
     <span class="co">&quot;&quot;&quot;rescales input array values to lie between low_val and high_val&quot;&quot;&quot;</span>
     L <span class="op">=</span> numpy.amin(input_array)
@@ -435,10 +451,13 @@ None</code></pre>
     intermed_array <span class="op">=</span> (input_array <span class="op">-</span> L) <span class="op">/</span> (H <span class="op">-</span> L)
     output_array <span class="op">=</span> intermed_array <span class="op">*</span> (high_val <span class="op">-</span> low_val) <span class="op">+</span> low_val
     <span class="cf">return</span> output_array</code></pre></div>
-<p>:::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
-<h2 id="variables-inside-and-outside-functions">Variables Inside and Outside Functions</h2>
+</div>
+</section>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h2 id="variables-inside-and-outside-functions"><span class="glyphicon glyphicon-pencil"></span>Variables Inside and Outside Functions</h2>
+</div>
+<div class="panel-body">
 <p>What does the following piece of code display when run — and why?</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">f <span class="op">=</span> <span class="dv">0</span>
 k <span class="op">=</span> <span class="dv">0</span>
@@ -452,17 +471,19 @@ k <span class="op">=</span> <span class="dv">0</span>
 <span class="bu">print</span>(f2k(<span class="dv">32</span>))
 
 <span class="bu">print</span>(k)</code></pre></div>
-<p>::::::::::::::: solution</p>
-<h2 id="solution-6">Solution</h2>
+<h5 id="solution-6">Solution</h5>
 <pre class="output"><code>259.81666666666666
 278.15
 273.15
 0</code></pre>
 <p><code>k</code> is 0 because the <code>k</code> inside the function <code>f2k</code> doesn’t know about the <code>k</code> defined outside the function. When the <code>f2k</code> function is called, it creates a <a href="../learners/reference.md#local-variable">local variable</a> <code>k</code>. The function does not return any values and does not alter <code>k</code> outside of its local copy. Therefore the original value of <code>k</code> remains unchanged. Beware that a local <code>k</code> is created because <code>f2k</code> internal statements <em>affect</em> a new value to it. If <code>k</code> was only <code>read</code>, it would simply retrieve the global <code>k</code> value.</p>
-<p>:::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
-<h2 id="mixing-default-and-non-default-parameters">Mixing Default and Non-Default Parameters</h2>
+</div>
+</section>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h2 id="mixing-default-and-non-default-parameters"><span class="glyphicon glyphicon-pencil"></span>Mixing Default and Non-Default Parameters</h2>
+</div>
+<div class="panel-body">
 <p>Given the following code:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> numbers(one, two<span class="op">=</span><span class="dv">2</span>, three, four<span class="op">=</span><span class="dv">4</span>):
     n <span class="op">=</span> <span class="bu">str</span>(one) <span class="op">+</span> <span class="bu">str</span>(two) <span class="op">+</span> <span class="bu">str</span>(three) <span class="op">+</span> <span class="bu">str</span>(four)
@@ -487,17 +508,24 @@ func(<span class="op">-</span><span class="dv">1</span>, <span class="dv">2</spa
 <li><code>a: -1 b: 2 c: 6</code></li>
 <li><code>a: b: -1 c: 2</code></li>
 </ol>
-<p>::::::::::::::: solution</p>
-<h2 id="solution-7">Solution</h2>
+<h5 id="solution-7">Solution</h5>
 <p>Attempting to define the <code>numbers</code> function results in <code>4. SyntaxError</code>. The defined parameters <code>two</code> and <code>four</code> are given default values. Because <code>one</code> and <code>three</code> are not given default values, they are required to be included as arguments when the function is called and must be placed before any parameters that have default values in the function definition.</p>
 <p>The given call to <code>func</code> displays <code>a: -1 b: 2 c: 6</code>. -1 is assigned to the first parameter <code>a</code>, 2 is assigned to the next parameter <code>b</code>, and <code>c</code> is not passed a value, so it uses its default value 6.</p>
-<p>:::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
-<h2 id="readable-code">Readable Code</h2>
+</div>
+</section>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h2 id="readable-code"><span class="glyphicon glyphicon-pencil"></span>Readable Code</h2>
+</div>
+<div class="panel-body">
 <p>Revise a function you wrote for one of the previous exercises to try to make the code more readable. Then, collaborate with one of your neighbors to critique each other’s functions and discuss how your function implementations could be further improved to make them more readable.</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>:::::::::::::::::::::::::::::::::::::::: keypoints</p>
+</div>
+</section>
+<section class="objectives panel panel-warning">
+<div class="panel-heading">
+<h2 id="keypoints"><span class="glyphicon glyphicon-certificate"></span>Keypoints</h2>
+</div>
+<div class="panel-body">
 <ul>
 <li>Define a function using <code>def function_name(parameter)</code>.</li>
 <li>The body of a function must be indented.</li>
@@ -513,7 +541,8 @@ func(<span class="op">-</span><span class="dv">1</span>, <span class="dv">2</spa
 <li>Parameters can be passed by matching based on name, by position, or by omitting them (in which case the default value is used).</li>
 <li>Put code whose parameters change frequently in a function, then call it with different parameter values to customize its behavior.</li>
 </ul>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+</div>
+</section>
         </div>
       </div>
       </article>

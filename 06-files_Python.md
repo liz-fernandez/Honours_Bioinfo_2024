@@ -4,26 +4,23 @@ teaching: 20
 exercises: 0
 ---
 
-::::::::::::::::::::::::::::::::::::::: objectives
+> ## Learning Objectives {.objectives}
+> 
+> * Use a library function to get a list of filenames that match a wildcard pattern.
+> * Write a `for` loop to process multiple files.
+> 
+> ##### Questions
+> 
+> * How can I do the same operations on many different files?
 
-- Use a library function to get a list of filenames that match a wildcard pattern.
-- Write a `for` loop to process multiple files.
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
-
-:::::::::::::::::::::::::::::::::::::::: questions
-
-- How can I do the same operations on many different files?
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
 
 As a final piece to processing our inflammation data, we need a way to get a list of all the files
 in our `data` directory whose names start with `inflammation-` and end with `.csv`.
 The following library will help us to achieve this:
 
-```python
+~~~ {.python}
 import glob
-```
+~~~
 
 The `glob` library contains a function, also called `glob`,
 that finds files and directories whose names match a pattern.
@@ -32,15 +29,15 @@ the character `*` matches zero or more characters,
 while `?` matches any one character.
 We can use this to get the names of all the CSV files in the current directory:
 
-```python
+~~~ {.python}
 print(glob.glob('inflammation*.csv'))
-```
+~~~
 
-```output
+~~~ {.output}
 ['inflammation-05.csv', 'inflammation-11.csv', 'inflammation-12.csv', 'inflammation-08.csv',
 'inflammation-03.csv', 'inflammation-06.csv', 'inflammation-09.csv', 'inflammation-07.csv',
 'inflammation-10.csv', 'inflammation-02.csv', 'inflammation-04.csv', 'inflammation-01.csv']
-```
+~~~
 
 As these examples show,
 `glob.glob`'s result is a list of file and directory paths in arbitrary order.
@@ -52,7 +49,7 @@ the "something" we want to do is generate a set of plots for each file in our in
 If we want to start by analyzing just the first three files in alphabetical order, we can use the
 `sorted` built-in function to generate a new sorted list from the `glob.glob` output:
 
-```python
+~~~ {.python}
 import glob
 import numpy
 import matplotlib.pyplot
@@ -81,23 +78,23 @@ for filename in filenames:
 
     fig.tight_layout()
     matplotlib.pyplot.show()
-```
+~~~
 
-```output
+~~~ {.output}
 inflammation-01.csv
-```
+~~~
 
 ![](fig/03-loop_49_1.png){alt='Output from the first iteration of the for loop. Three line graphs showing the daily average, maximum and minimum inflammation over a 40-day period for all patients in the first dataset.'}
 
-```output
+~~~ {.output}
 inflammation-02.csv
-```
+~~~
 
 ![](fig/03-loop_49_3.png){alt='Output from the second iteration of the for loop. Three line graphs showing the daily average, maximum and minimum inflammation over a 40-day period for all patients in the seconddataset.'}
 
-```output
+~~~ {.output}
 inflammation-03.csv
-```
+~~~
 
 ![](fig/03-loop_49_5.png){alt='Output from the third iteration of the for loop. Three line graphs showing the daily average, maximum and minimum inflammation over a 40-day period for all patients in the thirddataset.'}
 
@@ -118,100 +115,88 @@ clinical trial, suggesting that there were potential issues with data collection
 trial. In addition, we can see that the last patient in the study didn't have any inflammation
 flare-ups at all throughout the trial, suggesting that they may not even suffer from arthritis!
 
-:::::::::::::::::::::::::::::::::::::::  challenge
 
-## Plotting Differences
+> ## Plotting Differences {.challenge}
+> 
+> Plot the difference between the average inflammations reported in the first and second datasets
+> (stored in `inflammation-01.csv` and `inflammation-02.csv`, correspondingly),
+> i.e., the difference between the leftmost plots of the first two figures.
+> 
+> ##### Solution
+> 
+> ~~~ {.python}
+> import glob
+> import numpy
+> import matplotlib.pyplot
+> 
+> filenames = sorted(glob.glob('inflammation*.csv'))
+> 
+> data0 = numpy.loadtxt(fname=filenames[0], delimiter=',')
+> data1 = numpy.loadtxt(fname=filenames[1], delimiter=',')
+> 
+> fig = matplotlib.pyplot.figure(figsize=(10.0, 3.0))
+> 
+> matplotlib.pyplot.ylabel('Difference in average')
+> matplotlib.pyplot.plot(numpy.mean(data0, axis=0) - numpy.mean(data1, axis=0))
+> 
+> fig.tight_layout()
+> matplotlib.pyplot.show()
+> ~~~
+> 
 
-Plot the difference between the average inflammations reported in the first and second datasets
-(stored in `inflammation-01.csv` and `inflammation-02.csv`, correspondingly),
-i.e., the difference between the leftmost plots of the first two figures.
 
-:::::::::::::::  solution
+> ## Generate Composite Statistics {.challenge}
+> 
+> Use each of the files once to generate a dataset containing values averaged over all patients by completing the code inside the loop given below:
+> 
+> ~~~ {.python}
+> filenames = glob.glob('inflammation*.csv')
+> composite_data = numpy.zeros((60, 40))
+> for filename in filenames:
+>     # sum each new file's data into composite_data as it's read
+>     #
+> # and then divide the composite_data by number of samples
+> composite_data = composite_data / len(filenames)
+> ~~~
+> 
+> Then use pyplot to generate average, max, and min for all patients.
+> 
+> ##### Solution
+> 
+> ~~~ {.python}
+> import glob
+> import numpy
+> import matplotlib.pyplot
+> 
+> filenames = glob.glob('inflammation*.csv')
+> composite_data = numpy.zeros((60, 40))
+> 
+> for filename in filenames:
+>     data = numpy.loadtxt(fname = filename, delimiter=',')
+>     composite_data = composite_data + data
+> 
+> composite_data = composite_data / len(filenames)
+> 
+> fig = matplotlib.pyplot.figure(figsize=(10.0, 3.0))
+> 
+> axes1 = fig.add_subplot(1, 3, 1)
+> axes2 = fig.add_subplot(1, 3, 2)
+> axes3 = fig.add_subplot(1, 3, 3)
+> 
+> axes1.set_ylabel('average')
+> axes1.plot(numpy.mean(composite_data, axis=0))
+> 
+> axes2.set_ylabel('max')
+> axes2.plot(numpy.amax(composite_data, axis=0))
+> 
+> axes3.set_ylabel('min')
+> axes3.plot(numpy.amin(composite_data, axis=0))
+> 
+> fig.tight_layout()
+> 
+> matplotlib.pyplot.show()
+> ~~~
 
-## Solution
-
-```python
-import glob
-import numpy
-import matplotlib.pyplot
-
-filenames = sorted(glob.glob('inflammation*.csv'))
-
-data0 = numpy.loadtxt(fname=filenames[0], delimiter=',')
-data1 = numpy.loadtxt(fname=filenames[1], delimiter=',')
-
-fig = matplotlib.pyplot.figure(figsize=(10.0, 3.0))
-
-matplotlib.pyplot.ylabel('Difference in average')
-matplotlib.pyplot.plot(numpy.mean(data0, axis=0) - numpy.mean(data1, axis=0))
-
-fig.tight_layout()
-matplotlib.pyplot.show()
-```
-
-:::::::::::::::::::::::::
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
-
-:::::::::::::::::::::::::::::::::::::::  challenge
-
-## Generate Composite Statistics
-
-Use each of the files once to generate a dataset containing values averaged over all patients by completing the code inside the loop given below:
-
-```python
-filenames = glob.glob('inflammation*.csv')
-composite_data = numpy.zeros((60, 40))
-for filename in filenames:
-    # sum each new file's data into composite_data as it's read
-    #
-# and then divide the composite_data by number of samples
-composite_data = composite_data / len(filenames)
-```
-
-Then use pyplot to generate average, max, and min for all patients.
-
-:::::::::::::::  solution
-
-## Solution
-
-```python
-import glob
-import numpy
-import matplotlib.pyplot
-
-filenames = glob.glob('inflammation*.csv')
-composite_data = numpy.zeros((60, 40))
-
-for filename in filenames:
-    data = numpy.loadtxt(fname = filename, delimiter=',')
-    composite_data = composite_data + data
-
-composite_data = composite_data / len(filenames)
-
-fig = matplotlib.pyplot.figure(figsize=(10.0, 3.0))
-
-axes1 = fig.add_subplot(1, 3, 1)
-axes2 = fig.add_subplot(1, 3, 2)
-axes3 = fig.add_subplot(1, 3, 3)
-
-axes1.set_ylabel('average')
-axes1.plot(numpy.mean(composite_data, axis=0))
-
-axes2.set_ylabel('max')
-axes2.plot(numpy.amax(composite_data, axis=0))
-
-axes3.set_ylabel('min')
-axes3.plot(numpy.amin(composite_data, axis=0))
-
-fig.tight_layout()
-
-matplotlib.pyplot.show()
-```
-
-:::::::::::::::::::::::::
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
 
 After spending some time investigating the heat map and statistical plots, as well as
 doing the above exercises to plot differences between datasets and to generate composite
@@ -240,12 +225,9 @@ already, so we'll forgive the imaginary Dr. Maverick and continue to use the dat
 how to program.
 
 
-
-:::::::::::::::::::::::::::::::::::::::: keypoints
-
-- Use `glob.glob(pattern)` to create a list of files whose names match a pattern.
-- Use `*` in a pattern to match zero or more characters, and `?` to match any single character.
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
+> ## Keypoints {.objectives}
+> 
+> * Use `glob.glob(pattern)` to create a list of files whose names match a pattern.
+> * Use `*` in a pattern to match zero or more characters, and `?` to match any single character.
 
 

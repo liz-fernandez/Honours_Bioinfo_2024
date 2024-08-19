@@ -27,19 +27,23 @@
       <div class="row">
         <div class="col-md-10 col-md-offset-1">
                     <h1 class="title">Repeating Actions with Loops</h1>
-          <p>::::::::::::::::::::::::::::::::::::::: objectives</p>
+          <section class="objectives panel panel-warning">
+<div class="panel-heading">
+<h2 id="learning-objectives"><span class="glyphicon glyphicon-certificate"></span>Learning Objectives</h2>
+</div>
+<div class="panel-body">
 <ul>
 <li>Explain what a <code>for</code> loop does.</li>
 <li>Correctly write <code>for</code> loops to repeat simple calculations.</li>
 <li>Trace changes to a loop variable as the loop runs.</li>
 <li>Trace changes to other variables as they are updated by a <code>for</code> loop.</li>
 </ul>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>:::::::::::::::::::::::::::::::::::::::: questions</p>
+<h5 id="questions">Questions</h5>
 <ul>
 <li>How can I do the same operations on many different values?</li>
 </ul>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+</div>
+</section>
 <p>In the episode about visualizing data, we wrote Python code that plots values of interest from our first inflammation dataset (<code>inflammation-01.csv</code>), which revealed some suspicious features in it.</p>
 <div class="figure">
 <img src="fig/03-loop_2_0.png" alt="Line graphs showing average, maximum and minimum inflammation across all patients over a 40-dayperiod." />
@@ -107,8 +111,11 @@ IndexError: list index out of range</code></pre>
 </div>
 <p>where each number (<code>num</code>) in the variable <code>odds</code> is looped through and printed one number after another. The other numbers in the diagram denote which loop cycle the number was printed in (1 being the first loop cycle, and 6 being the final loop cycle).</p>
 <p>We can call the <a href="../learners/reference.md#loop-variable">loop variable</a> anything we like, but there must be a colon at the end of the line starting the loop, and we must indent anything we want to run inside the loop. Unlike many other languages, there is no command to signify the end of the loop body (e.g. <code>end for</code>); everything indented after the <code>for</code> statement belongs to the loop.</p>
-<p>::::::::::::::::::::::::::::::::::::::::: callout</p>
-<h2 id="whats-in-a-name">What’s in a name?</h2>
+<aside class="callout panel panel-info">
+<div class="panel-heading">
+<h2 id="whats-in-a-name"><span class="glyphicon glyphicon-pushpin"></span>What’s in a name?</h2>
+</div>
+<div class="panel-body">
 <p>In the example above, the loop variable was given the name <code>num</code> as a mnemonic; it is short for ‘number’. We can choose any name we want for variables. We might just as easily have chosen the name <code>banana</code> for the loop variable, as long as we use the same name when we invoke the variable inside the loop:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">odds <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">9</span>, <span class="dv">11</span>]
 <span class="cf">for</span> banana <span class="op">in</span> odds:
@@ -120,7 +127,8 @@ IndexError: list index out of range</code></pre>
 9
 11</code></pre>
 <p>It is a good idea to choose variable names that are meaningful, otherwise it would be more difficult to understand what the loop is doing.</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+</div>
+</aside>
 <p>Here’s another loop that repeatedly updates a variable:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">length <span class="op">=</span> <span class="dv">0</span>
 names <span class="op">=</span> [<span class="st">&#39;Curie&#39;</span>, <span class="st">&#39;Darwin&#39;</span>, <span class="st">&#39;Turing&#39;</span>]
@@ -142,8 +150,11 @@ after the loop, name is Turing</code></pre>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(<span class="bu">len</span>([<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]))</code></pre></div>
 <pre class="output"><code>4</code></pre>
 <p><code>len</code> is much faster than any function we could write ourselves, and much easier to read than a two-line loop; it will also give us the length of many other things that we haven’t met yet, so we should always use it when we can.</p>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
-<h2 id="from-1-to-n">From 1 to N</h2>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h2 id="from-1-to-n"><span class="glyphicon glyphicon-pencil"></span>From 1 to N</h2>
+</div>
+<div class="panel-body">
 <p>Python has a built-in function called <code>range</code> that generates a sequence of numbers. <code>range</code> can accept 1, 2, or 3 parameters.</p>
 <ul>
 <li>If one parameter is given, <code>range</code> generates a sequence of that length, starting at zero and incrementing by 1. For example, <code>range(3)</code> produces the numbers <code>0, 1, 2</code>.</li>
@@ -154,14 +165,16 @@ after the loop, name is Turing</code></pre>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="dv">1</span>
 <span class="dv">2</span>
 <span class="dv">3</span></code></pre></div>
-<p>::::::::::::::: solution</p>
-<h2 id="solution">Solution</h2>
+<h5 id="solution">Solution</h5>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="cf">for</span> number <span class="op">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">4</span>):
     <span class="bu">print</span>(number)</code></pre></div>
-<p>:::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
-<h2 id="understanding-the-loops">Understanding the loops</h2>
+</div>
+</section>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h2 id="understanding-the-loops"><span class="glyphicon glyphicon-pencil"></span>Understanding the loops</h2>
+</div>
+<div class="panel-body">
 <p>Given the following loop:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">word <span class="op">=</span> <span class="st">&#39;oxygen&#39;</span>
 <span class="cf">for</span> letter <span class="op">in</span> word:
@@ -174,38 +187,45 @@ after the loop, name is Turing</code></pre>
 <li>6 times</li>
 </ul>
 <p>::::::::::::::: solution</p>
-<h2 id="solution-1">Solution</h2>
+<h5 id="solution-1">Solution</h5>
 <p>The body of the loop is executed 6 times.</p>
-<p>:::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
-<h2 id="computing-powers-with-loops">Computing Powers With Loops</h2>
+</div>
+</section>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h2 id="computing-powers-with-loops"><span class="glyphicon glyphicon-pencil"></span>Computing Powers With Loops</h2>
+</div>
+<div class="panel-body">
 <p>Exponentiation is built into Python:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(<span class="dv">5</span> <span class="op">**</span> <span class="dv">3</span>)</code></pre></div>
 <pre class="output"><code>125</code></pre>
 <p>Write a loop that calculates the same result as <code>5 ** 3</code> using multiplication (and without exponentiation).</p>
-<p>::::::::::::::: solution</p>
-<h2 id="solution-2">Solution</h2>
+<h5 id="solution-2">Solution</h5>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">result <span class="op">=</span> <span class="dv">1</span>
 <span class="cf">for</span> number <span class="op">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">3</span>):
     result <span class="op">=</span> result <span class="op">*</span> <span class="dv">5</span>
 <span class="bu">print</span>(result)</code></pre></div>
-<p>:::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
-<h2 id="summing-a-list">Summing a list</h2>
+</div>
+</section>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h2 id="summing-a-list"><span class="glyphicon glyphicon-pencil"></span>Summing a list</h2>
+</div>
+<div class="panel-body">
 <p>Write a loop that calculates the sum of elements in a list by adding each element and printing the final value, so <code>[124, 402, 36]</code> prints 562</p>
-<p>::::::::::::::: solution</p>
-<h2 id="solution-3">Solution</h2>
+<h5 id="solution-3">Solution</h5>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">numbers <span class="op">=</span> [<span class="dv">124</span>, <span class="dv">402</span>, <span class="dv">36</span>]
 summed <span class="op">=</span> <span class="dv">0</span>
 <span class="cf">for</span> num <span class="op">in</span> numbers:
     summed <span class="op">=</span> summed <span class="op">+</span> num
 <span class="bu">print</span>(summed)</code></pre></div>
-<p>:::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
-<h2 id="computing-the-value-of-a-polynomial">Computing the Value of a Polynomial</h2>
+</div>
+</section>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h2 id="computing-the-value-of-a-polynomial"><span class="glyphicon glyphicon-pencil"></span>Computing the Value of a Polynomial</h2>
+</div>
+<div class="panel-body">
 <p>The built-in function <code>enumerate</code> takes a sequence (e.g. a <a href="04-lists.md">list</a>) and generates a new sequence of the same length. Each element of the new sequence is a pair composed of the index (0, 1, 2,…) and the value from the original sequence:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="cf">for</span> idx, val <span class="op">in</span> <span class="bu">enumerate</span>(a_list):
     <span class="co"># Do something using idx and val</span></code></pre></div>
@@ -217,20 +237,24 @@ y <span class="op">=</span> coefs[<span class="dv">0</span>] <span class="op">*<
 <span class="bu">print</span>(y)</code></pre></div>
 <pre class="output"><code>97</code></pre>
 <p>Write a loop using <code>enumerate(coefs)</code> which computes the value <code>y</code> of any polynomial, given <code>x</code> and <code>coefs</code>.</p>
-<p>::::::::::::::: solution</p>
-<h2 id="solution-4">Solution</h2>
+<h5 id="solution-4">Solution</h5>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">y <span class="op">=</span> <span class="dv">0</span>
 <span class="cf">for</span> idx, coef <span class="op">in</span> <span class="bu">enumerate</span>(coefs):
     y <span class="op">=</span> y <span class="op">+</span> coef <span class="op">*</span> x<span class="op">**</span>idx</code></pre></div>
-<p>:::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>:::::::::::::::::::::::::::::::::::::::: keypoints</p>
+</div>
+</section>
+<section class="objectives panel panel-warning">
+<div class="panel-heading">
+<h2 id="keypoints"><span class="glyphicon glyphicon-certificate"></span>Keypoints</h2>
+</div>
+<div class="panel-body">
 <ul>
 <li>Use <code>for variable in sequence</code> to process the elements of a sequence one at a time.</li>
 <li>The body of a <code>for</code> loop must be indented.</li>
 <li>Use <code>len(thing)</code> to determine the length of something that contains other values.</li>
 </ul>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+</div>
+</section>
         </div>
       </div>
       </article>
