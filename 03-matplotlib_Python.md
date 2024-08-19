@@ -163,8 +163,6 @@ formats, including SVG, PDF, and JPEG.
 > 
 > Why do all of our plots stop just short of the upper end of our graph?
 > 
-> :::::::::::::::  solution
-> 
 > ##### Solution
 > 
 > Because matplotlib normally sets x and y axes limits to the min and max of our data
@@ -248,8 +246,6 @@ formats, including SVG, PDF, and JPEG.
 > 
 > Create a plot showing the standard deviation (`numpy.std`)
 > of the inflammation data for each day across all patients.
-> 
-> :::::::::::::::  solution
 > 
 > ##### Solution
 > 
