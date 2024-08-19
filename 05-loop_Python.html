@@ -83,7 +83,7 @@ IndexError                                Traceback (most recent call last)
 ----&gt; 5 print(odds[3])
 
 IndexError: list index out of range</code></pre>
-<p>Here’s a better approach: a <a href="../learners/reference.md#for-loop">for loop</a></p>
+<p>Here’s a better approach: a for loop</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">odds <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>]
 <span class="cf">for</span> num <span class="op">in</span> odds:
     <span class="bu">print</span>(num)</code></pre></div>
@@ -101,7 +101,7 @@ IndexError: list index out of range</code></pre>
 7
 9
 11</code></pre>
-<p>The improved version uses a <a href="../learners/reference.md#for-loop">for loop</a> to repeat an operation — in this case, printing — once for each thing in a sequence. The general form of a loop is:</p>
+<p>The improved version uses a for loop to repeat an operation — in this case, printing — once for each thing in a sequence. The general form of a loop is:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="cf">for</span> variable <span class="op">in</span> collection:
     <span class="co"># do things using variable, such as print</span></code></pre></div>
 <p>Using the odds example above, the loop might look like this:</p>
@@ -110,7 +110,7 @@ IndexError: list index out of range</code></pre>
 
 </div>
 <p>where each number (<code>num</code>) in the variable <code>odds</code> is looped through and printed one number after another. The other numbers in the diagram denote which loop cycle the number was printed in (1 being the first loop cycle, and 6 being the final loop cycle).</p>
-<p>We can call the <a href="../learners/reference.md#loop-variable">loop variable</a> anything we like, but there must be a colon at the end of the line starting the loop, and we must indent anything we want to run inside the loop. Unlike many other languages, there is no command to signify the end of the loop body (e.g. <code>end for</code>); everything indented after the <code>for</code> statement belongs to the loop.</p>
+<p>We can call the loop variable anything we like, but there must be a colon at the end of the line starting the loop, and we must indent anything we want to run inside the loop. Unlike many other languages, there is no command to signify the end of the loop body (e.g. <code>end for</code>); everything indented after the <code>for</code> statement belongs to the loop.</p>
 <aside class="callout panel panel-info">
 <div class="panel-heading">
 <h2 id="whats-in-a-name"><span class="glyphicon glyphicon-pushpin"></span>What’s in a name?</h2>

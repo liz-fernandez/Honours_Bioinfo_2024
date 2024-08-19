@@ -94,7 +94,7 @@ IndexError                                Traceback (most recent call last)
 IndexError: list index out of range
 ~~~ 
 
-Here's a better approach: a [for loop](../learners/reference.md#for-loop)
+Here's a better approach: a for loop
 
 ~~~ {.python}
 odds = [1, 3, 5, 7]
@@ -127,7 +127,7 @@ for num in odds:
 11
 ~~~ 
 
-The improved version uses a [for loop](../learners/reference.md#for-loop)
+The improved version uses a for loop
 to repeat an operation --- in this case, printing --- once for each thing in a sequence.
 The general form of a loop is:
 
@@ -144,7 +144,7 @@ where each number (`num`) in the variable `odds` is looped through and printed o
 another. The other numbers in the diagram denote which loop cycle the number was printed in (1
 being the first loop cycle, and 6 being the final loop cycle).
 
-We can call the [loop variable](../learners/reference.md#loop-variable) anything we like, but
+We can call the loop variable anything we like, but
 there must be a colon at the end of the line starting the loop, and we must indent anything we
 want to run inside the loop. Unlike many other languages, there is no command to signify the end
 of the loop body (e.g. `end for`); everything indented after the `for` statement belongs to the loop.

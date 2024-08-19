@@ -103,9 +103,9 @@ does not.
 
 > ## Ch-Ch-Ch-Ch-Changes {.callout}
 > 
-> Data which can be modified in place is called [mutable](../learners/reference.md#mutable),
+> Data which can be modified in place is called mutable,
 > while data which cannot be modified is called
-> [immutable](../learners/reference.md#immutable).
+> immutable.
 > Strings and numbers are immutable. This does not mean that variables with string or number values
 > are constants, but when we want to change the value of a string or number variable, we can only
 > replace the old value with a completely new value.

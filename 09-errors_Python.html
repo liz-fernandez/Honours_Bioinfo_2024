@@ -76,7 +76,7 @@ IndexError: list index out of range</code></pre>
 <li><p>The first shows code from the cell above, with an arrow pointing to Line 11 (which is <code>favorite_ice_cream()</code>).</p></li>
 <li><p>The second shows some code in the function <code>favorite_ice_cream</code>, with an arrow pointing to Line 9 (which is <code>print(ice_creams[3])</code>).</p></li>
 </ol>
-<p>The last level is the actual place where the error occurred. The other level(s) show what function the program executed to get to the next level down. So, in this case, the program first performed a <a href="../learners/reference.md#function-call">function call</a> to the function <code>favorite_ice_cream</code>. Inside this function, the program encountered an error on Line 6, when it tried to run the code <code>print(ice_creams[3])</code>.</p>
+<p>The last level is the actual place where the error occurred. The other level(s) show what function the program executed to get to the next level down. So, in this case, the program first performed a function call to the function <code>favorite_ice_cream</code>. Inside this function, the program encountered an error on Line 6, when it tried to run the code <code>print(ice_creams[3])</code>.</p>
 <aside class="callout panel panel-info">
 <div class="panel-heading">
 <h2 id="long-tracebacks"><span class="glyphicon glyphicon-pushpin"></span>Long Tracebacks</h2>
@@ -161,7 +161,7 @@ IndexError: list index out of range</code></pre>
 </div>
 </aside>
 <h2 id="syntax-errors">Syntax Errors</h2>
-<p>When you forget a colon at the end of a line, accidentally add one space too many when indenting under an <code>if</code> statement, or forget a parenthesis, you will encounter a <a href="../learners/reference.md#syntax-error">syntax error</a>. This means that Python couldn’t figure out how to read your program. This is similar to forgetting punctuation in English: for example, this text is difficult to read there is no punctuation there is also no capitalization why is this hard because you have to figure out where each sentence ends you also have to figure out where each sentence begins to some extent it might be ambiguous if there should be a sentence break or not</p>
+<p>When you forget a colon at the end of a line, accidentally add one space too many when indenting under an <code>if</code> statement, or forget a parenthesis, you will encounter a syntax error. This means that Python couldn’t figure out how to read your program. This is similar to forgetting punctuation in English: for example, this text is difficult to read there is no punctuation there is also no capitalization why is this hard because you have to figure out where each sentence ends you also have to figure out where each sentence begins to some extent it might be ambiguous if there should be a sentence break or not</p>
 <p>People can typically figure out what is meant by text with no punctuation, but people are much smarter than computers. If Python doesn’t know how to read the program, it will give up and inform you with an error. For example:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> some_function()
     msg <span class="op">=</span> <span class="st">&#39;hello, world!&#39;</span>
@@ -187,7 +187,7 @@ IndentationError: unexpected indent</code></pre>
 <h2 id="tabs-and-spaces"><span class="glyphicon glyphicon-pushpin"></span>Tabs and Spaces</h2>
 </div>
 <div class="panel-body">
-<p>Some indentation errors are harder to spot than others. In particular, mixing spaces and tabs can be difficult to spot because they are both <a href="../learners/reference.md#whitespace">whitespace</a>. In the example below, the first two lines in the body of the function <code>some_function</code> are indented with tabs, while the third line — with spaces. If you’re working in a Jupyter notebook, be sure to copy and paste this example rather than trying to type it in manually because Jupyter automatically replaces tabs with spaces.</p>
+<p>Some indentation errors are harder to spot than others. In particular, mixing spaces and tabs can be difficult to spot because they are both whitespace. In the example below, the first two lines in the body of the function <code>some_function</code> are indented with tabs, while the third line — with spaces. If you’re working in a Jupyter notebook, be sure to copy and paste this example rather than trying to type it in manually because Jupyter automatically replaces tabs with spaces.</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> some_function():
   msg <span class="op">=</span> <span class="st">&#39;hello, world!&#39;</span>
   <span class="bu">print</span>(msg)

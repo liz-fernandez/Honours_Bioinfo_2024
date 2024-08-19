@@ -76,7 +76,7 @@ In this case:
 The last level is the actual place where the error occurred.
 The other level(s) show what function the program executed to get to the next level down.
 So, in this case, the program first performed a
-[function call](../learners/reference.md#function-call) to the function `favorite_ice_cream`.
+function call to the function `favorite_ice_cream`.
 Inside this function,
 the program encountered an error on Line 6, when it tried to run the code `print(ice_creams[3])`.
 
@@ -197,7 +197,7 @@ hopefully the custom error message is informative enough to help you figure out 
 When you forget a colon at the end of a line,
 accidentally add one space too many when indenting under an `if` statement,
 or forget a parenthesis,
-you will encounter a [syntax error](../learners/reference.md#syntax-error).
+you will encounter a syntax error.
 This means that Python couldn't figure out how to read your program.
 This is similar to forgetting punctuation in English:
 for example,
@@ -258,7 +258,7 @@ it *always* means that there is a problem with how your code is indented.
 > 
 > Some indentation errors are harder to spot than others.
 > In particular, mixing spaces and tabs can be difficult to spot
-> because they are both [whitespace](../learners/reference.md#whitespace).
+> because they are both whitespace.
 > In the example below, the first two lines in the body of the function
 > `some_function` are indented with tabs, while the third line — with spaces.
 > If you're working in a Jupyter notebook, be sure to copy and paste this example

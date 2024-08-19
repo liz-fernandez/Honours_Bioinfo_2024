@@ -397,7 +397,7 @@ have string representations which can be printed.
 ## In-Place Operators
 
 Python (and most other languages in the C family) provides
-[in-place operators](../learners/reference.md#in-place-operators)
+in-place operators
 that work like this:
 
 ```python

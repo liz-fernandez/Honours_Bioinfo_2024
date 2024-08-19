@@ -19,7 +19,7 @@ exercises: 20
 Words are useful, but what's more useful are the sentences and stories we build with them.
 Similarly, while a lot of powerful, general tools are built into Python,
 specialized tools built up from these basic units live in
-[libraries](../learners/reference.md#library)
+libraries
 that can be called upon when needed.
 
 ## Loading data into Python
@@ -29,7 +29,7 @@ We can do that using a library called
 [NumPy](https://numpy.org/doc/stable "NumPy Documentation"), which stands for Numerical Python.
 In general, you should use this library when you want to do fancy things with lots of numbers,
 especially if you have matrices or arrays. To tell Python that we'd like to start using NumPy,
-we need to [import](../learners/reference.md#import) it:
+we need to import it:
 
 ~~~ {.python}
 import numpy
@@ -58,8 +58,8 @@ array([[ 0.,  0.,  1., ...,  3.,  0.,  0.],
 ~~~ 
 
 The expression `numpy.loadtxt(...)` is a
-[function call](../learners/reference.md#function-call)
-that asks Python to run the [function](../learners/reference.md#function) `loadtxt` which
+function call
+that asks Python to run the function `loadtxt` which
 belongs to the `numpy` library.
 The dot notation in Python is used most of all as an object attribute/property specifier or for invoking its method. `object.property` will give you the object.property value,
 `object_name.method()` will invoke on object\_name method.
@@ -68,13 +68,13 @@ As an example, John Smith is the John that belongs to the Smith family.
 We could use the dot notation to write his name `smith.john`,
 just as `loadtxt` is a function that belongs to the `numpy` library.
 
-`numpy.loadtxt` has two [parameters](../learners/reference.md#parameter): the name of the file
-we want to read and the [delimiter](../learners/reference.md#delimiter) that separates values
+`numpy.loadtxt` has two parameters: the name of the file
+we want to read and the delimiter that separates values
 on a line. These both need to be character strings
-(or [strings](../learners/reference.md#string) for short), so we put them in quotes.
+(or strings for short), so we put them in quotes.
 
 Since we haven't told it to do anything else with the function's output,
-the [notebook](../learners/reference.md#notebook) displays it.
+the notebook displays it.
 In this case,
 that output is the data we just loaded.
 By default,
@@ -115,7 +115,7 @@ print(data)
 Now that the data are in memory,
 we can manipulate them.
 First,
-let's ask what [type](../learners/reference.md#type) of thing `data` refers to:
+let's ask what type of thing `data` refers to:
 
 ~~~ {.python}
 print(type(data))
@@ -149,11 +149,11 @@ are their daily inflammation measurements.
 > ~~~ 
 > 
 > This tells us that the NumPy array's elements are
-> [floating-point numbers](../learners/reference.md#floating-point-number).
+> floating-point numbers.
 > 
 
 
-With the following command, we can see the array's [shape](../learners/reference.md#shape):
+With the following command, we can see the array's shape:
 
 ~~~ {.python}
 print(data.shape)
@@ -165,14 +165,14 @@ print(data.shape)
 
 The output tells us that the `data` array variable contains 60 rows and 40 columns. When we
 created the variable `data` to store our arthritis data, we did not only create the array; we also
-created information about the array, called [members](../learners/reference.md#member) or
+created information about the array, called members or
 attributes. This extra information describes `data` in the same way an adjective describes a noun.
 `data.shape` is an attribute of `data` which describes the dimensions of `data`. We use the same
 dotted notation for the attributes of variables that we use for the functions in libraries because
 they have the same part-and-whole relationship.
 
 If we want to get a single number from the array, we must provide an
-[index](../learners/reference.md#index) in square brackets after the variable name, just as we
+index in square brackets after the variable name, just as we
 do in math when referring to an element of a matrix.  Our inflammation data has two dimensions, so
 we will need to use two indices to refer to one specific value:
 
@@ -243,7 +243,7 @@ print(data[0:4, 0:10])
  [ 0.  0.  2.  0.  4.  2.  2.  1.  6.  7.]]
 ~~~ 
 
-The [slice](../learners/reference.md#slice) `0:4` means, "Start at index 0 and go up to,
+The slice `0:4` means, "Start at index 0 and go up to,
 but not including, index 4". Again, the up-to-but-not-including takes a bit of getting used to,
 but the rule is that the difference between the upper and lower bounds is the number of values in
 the slice.
@@ -296,8 +296,8 @@ print(numpy.mean(data))
 6.14875
 ~~~ 
 
-`mean` is a [function](../learners/reference.md#function) that takes
-an array as an [argument](../learners/reference.md#argument).
+`mean` is a function that takes
+an array as an argument.
 
 > ## Not All Functions Have Input {.callout}
 > 
@@ -345,7 +345,7 @@ standard deviation: 4.61383319712
 > How did we know what functions NumPy has and how to use them?
 > If you are working in IPython or in a Jupyter Notebook, there is an easy way to find out.
 > If you type the name of something followed by a dot, then you can use
-> [tab completion](../learners/reference.md#tab-completion)
+> tab completion
 > (e.g. type `numpy.` and then press <kbd>Tab</kbd>)
 > to see a list of all functions and attributes that you can use. After selecting one, you
 > can also add a question mark (e.g. `numpy.cumprod?`), and IPython will return an
@@ -449,7 +449,7 @@ which is the average inflammation per patient across all days.
 
 > ## Slicing Strings {.challenge}
 > 
-> A section of an array is called a [slice](../learners/reference.md#slice).
+> A section of an array is called a slice.
 > We can take slices of character strings as well:
 > 
 > ~~~ {.python}
@@ -527,7 +527,7 @@ which is the average inflammation per patient across all days.
 > ## Thin Slices {.challenge}
 > 
 > The expression `element[3:3]` produces an
-> [empty string](../learners/reference.md#empty-string),
+> empty string,
 > i.e., a string that contains no characters.
 > If `data` holds our array of patient data,
 > what does `data[3:3, 4:4]` produce?

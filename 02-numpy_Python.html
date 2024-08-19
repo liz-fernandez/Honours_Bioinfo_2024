@@ -45,9 +45,9 @@
 </ul>
 </div>
 </section>
-<p>Words are useful, but what’s more useful are the sentences and stories we build with them. Similarly, while a lot of powerful, general tools are built into Python, specialized tools built up from these basic units live in <a href="../learners/reference.md#library">libraries</a> that can be called upon when needed.</p>
+<p>Words are useful, but what’s more useful are the sentences and stories we build with them. Similarly, while a lot of powerful, general tools are built into Python, specialized tools built up from these basic units live in libraries that can be called upon when needed.</p>
 <h2 id="loading-data-into-python">Loading data into Python</h2>
-<p>To begin processing the clinical trial inflammation data, we need to load it into Python. We can do that using a library called <a href="https://numpy.org/doc/stable" title="NumPy Documentation">NumPy</a>, which stands for Numerical Python. In general, you should use this library when you want to do fancy things with lots of numbers, especially if you have matrices or arrays. To tell Python that we’d like to start using NumPy, we need to <a href="../learners/reference.md#import">import</a> it:</p>
+<p>To begin processing the clinical trial inflammation data, we need to load it into Python. We can do that using a library called <a href="https://numpy.org/doc/stable" title="NumPy Documentation">NumPy</a>, which stands for Numerical Python. In general, you should use this library when you want to do fancy things with lots of numbers, especially if you have matrices or arrays. To tell Python that we’d like to start using NumPy, we need to import it:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> numpy</code></pre></div>
 <p>Importing a library is like getting a piece of lab equipment out of a storage locker and setting it up on the bench. Libraries provide additional functionality to the basic Python package, much like a new piece of equipment adds functionality to a lab space. Just like in the lab, importing too many libraries can sometimes complicate and slow down your programs - so we only import what we need for each program.</p>
 <p>Once we’ve imported the library, we can ask the library to read our data file for us:</p>
@@ -59,10 +59,10 @@
        [ 0.,  1.,  1., ...,  1.,  1.,  1.],
        [ 0.,  0.,  0., ...,  0.,  2.,  0.],
        [ 0.,  0.,  1., ...,  1.,  1.,  0.]])</code></pre>
-<p>The expression <code>numpy.loadtxt(...)</code> is a <a href="../learners/reference.md#function-call">function call</a> that asks Python to run the <a href="../learners/reference.md#function">function</a> <code>loadtxt</code> which belongs to the <code>numpy</code> library. The dot notation in Python is used most of all as an object attribute/property specifier or for invoking its method. <code>object.property</code> will give you the object.property value, <code>object_name.method()</code> will invoke on object_name method.</p>
+<p>The expression <code>numpy.loadtxt(...)</code> is a function call that asks Python to run the function <code>loadtxt</code> which belongs to the <code>numpy</code> library. The dot notation in Python is used most of all as an object attribute/property specifier or for invoking its method. <code>object.property</code> will give you the object.property value, <code>object_name.method()</code> will invoke on object_name method.</p>
 <p>As an example, John Smith is the John that belongs to the Smith family. We could use the dot notation to write his name <code>smith.john</code>, just as <code>loadtxt</code> is a function that belongs to the <code>numpy</code> library.</p>
-<p><code>numpy.loadtxt</code> has two <a href="../learners/reference.md#parameter">parameters</a>: the name of the file we want to read and the <a href="../learners/reference.md#delimiter">delimiter</a> that separates values on a line. These both need to be character strings (or <a href="../learners/reference.md#string">strings</a> for short), so we put them in quotes.</p>
-<p>Since we haven’t told it to do anything else with the function’s output, the <a href="../learners/reference.md#notebook">notebook</a> displays it. In this case, that output is the data we just loaded. By default, only a few rows and columns are shown (with <code>...</code> to omit elements when displaying big arrays). Note that, to save space when displaying NumPy arrays, Python does not show us trailing zeros, so <code>1.0</code> becomes <code>1.</code>.</p>
+<p><code>numpy.loadtxt</code> has two parameters: the name of the file we want to read and the delimiter that separates values on a line. These both need to be character strings (or strings for short), so we put them in quotes.</p>
+<p>Since we haven’t told it to do anything else with the function’s output, the notebook displays it. In this case, that output is the data we just loaded. By default, only a few rows and columns are shown (with <code>...</code> to omit elements when displaying big arrays). Note that, to save space when displaying NumPy arrays, Python does not show us trailing zeros, so <code>1.0</code> becomes <code>1.</code>.</p>
 <p>Our call to <code>numpy.loadtxt</code> read our file but didn’t save the data in memory. To do that, we need to assign the array to a variable. In a similar manner to how we assign a single value to a variable, we can also assign an array of values to a variable using the same syntax. Let’s re-run <code>numpy.loadtxt</code> and save the returned data:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">data <span class="op">=</span> numpy.loadtxt(fname<span class="op">=</span><span class="st">&#39;inflammation-01.csv&#39;</span>, delimiter<span class="op">=</span><span class="st">&#39;,&#39;</span>)</code></pre></div>
 <p>This statement doesn’t produce any output because we’ve assigned the output to the variable <code>data</code>. If we want to check that the data have been loaded, we can print the variable’s value:</p>
@@ -74,7 +74,7 @@
  [ 0.  1.  1. ...,  1.  1.  1.]
  [ 0.  0.  0. ...,  0.  2.  0.]
  [ 0.  0.  1. ...,  1.  1.  0.]]</code></pre>
-<p>Now that the data are in memory, we can manipulate them. First, let’s ask what <a href="../learners/reference.md#type">type</a> of thing <code>data</code> refers to:</p>
+<p>Now that the data are in memory, we can manipulate them. First, let’s ask what type of thing <code>data</code> refers to:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(<span class="bu">type</span>(data))</code></pre></div>
 <pre class="output"><code>&lt;class &#39;numpy.ndarray&#39;&gt;</code></pre>
 <p>The output tells us that <code>data</code> currently refers to an N-dimensional array, the functionality for which is provided by the NumPy library. These data correspond to arthritis patients’ inflammation. The rows are the individual patients, and the columns are their daily inflammation measurements.</p>
@@ -86,14 +86,14 @@
 <p>A Numpy array contains one or more elements of the same type. The <code>type</code> function will only tell you that a variable is a NumPy array but won’t tell you the type of thing inside the array. We can find out the type of the data contained in the NumPy array.</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(data.dtype)</code></pre></div>
 <pre class="output"><code>float64</code></pre>
-<p>This tells us that the NumPy array’s elements are <a href="../learners/reference.md#floating-point-number">floating-point numbers</a>.</p>
+<p>This tells us that the NumPy array’s elements are floating-point numbers.</p>
 </div>
 </aside>
-<p>With the following command, we can see the array’s <a href="../learners/reference.md#shape">shape</a>:</p>
+<p>With the following command, we can see the array’s shape:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(data.shape)</code></pre></div>
 <pre class="output"><code>(60, 40)</code></pre>
-<p>The output tells us that the <code>data</code> array variable contains 60 rows and 40 columns. When we created the variable <code>data</code> to store our arthritis data, we did not only create the array; we also created information about the array, called <a href="../learners/reference.md#member">members</a> or attributes. This extra information describes <code>data</code> in the same way an adjective describes a noun. <code>data.shape</code> is an attribute of <code>data</code> which describes the dimensions of <code>data</code>. We use the same dotted notation for the attributes of variables that we use for the functions in libraries because they have the same part-and-whole relationship.</p>
-<p>If we want to get a single number from the array, we must provide an <a href="../learners/reference.md#index">index</a> in square brackets after the variable name, just as we do in math when referring to an element of a matrix. Our inflammation data has two dimensions, so we will need to use two indices to refer to one specific value:</p>
+<p>The output tells us that the <code>data</code> array variable contains 60 rows and 40 columns. When we created the variable <code>data</code> to store our arthritis data, we did not only create the array; we also created information about the array, called members or attributes. This extra information describes <code>data</code> in the same way an adjective describes a noun. <code>data.shape</code> is an attribute of <code>data</code> which describes the dimensions of <code>data</code>. We use the same dotted notation for the attributes of variables that we use for the functions in libraries because they have the same part-and-whole relationship.</p>
+<p>If we want to get a single number from the array, we must provide an index in square brackets after the variable name, just as we do in math when referring to an element of a matrix. Our inflammation data has two dimensions, so we will need to use two indices to refer to one specific value:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(<span class="st">&#39;first value in data:&#39;</span>, data[<span class="dv">0</span>, <span class="dv">0</span>])</code></pre></div>
 <pre class="output"><code>first value in data: 0.0</code></pre>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(<span class="st">&#39;middle value in data:&#39;</span>, data[<span class="dv">29</span>, <span class="dv">19</span>])</code></pre></div>
@@ -118,7 +118,7 @@
  [ 0.  1.  2.  1.  2.  1.  3.  2.  2.  6.]
  [ 0.  1.  1.  3.  3.  2.  6.  2.  5.  9.]
  [ 0.  0.  2.  0.  4.  2.  2.  1.  6.  7.]]</code></pre>
-<p>The <a href="../learners/reference.md#slice">slice</a> <code>0:4</code> means, “Start at index 0 and go up to, but not including, index 4”. Again, the up-to-but-not-including takes a bit of getting used to, but the rule is that the difference between the upper and lower bounds is the number of values in the slice.</p>
+<p>The slice <code>0:4</code> means, “Start at index 0 and go up to, but not including, index 4”. Again, the up-to-but-not-including takes a bit of getting used to, but the rule is that the difference between the upper and lower bounds is the number of values in the slice.</p>
 <p>We don’t have to start slices at 0:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(data[<span class="dv">5</span>:<span class="dv">10</span>, <span class="dv">0</span>:<span class="dv">10</span>])</code></pre></div>
 <pre class="output"><code>[[ 0.  0.  1.  2.  2.  4.  2.  1.  6.  4.]
@@ -139,7 +139,7 @@
 <p>NumPy has several useful functions that take an array as input to perform operations on its values. If we want to find the average inflammation for all patients on all days, for example, we can ask NumPy to compute <code>data</code>’s mean value:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(numpy.mean(data))</code></pre></div>
 <pre class="output"><code>6.14875</code></pre>
-<p><code>mean</code> is a <a href="../learners/reference.md#function">function</a> that takes an array as an <a href="../learners/reference.md#argument">argument</a>.</p>
+<p><code>mean</code> is a function that takes an array as an argument.</p>
 <aside class="callout panel panel-info">
 <div class="panel-heading">
 <h2 id="not-all-functions-have-input"><span class="glyphicon glyphicon-pushpin"></span>Not All Functions Have Input</h2>
@@ -167,7 +167,7 @@ standard deviation: 4.61383319712</code></pre>
 <h2 id="mystery-functions-in-ipython"><span class="glyphicon glyphicon-pushpin"></span>Mystery Functions in IPython</h2>
 </div>
 <div class="panel-body">
-<p>How did we know what functions NumPy has and how to use them? If you are working in IPython or in a Jupyter Notebook, there is an easy way to find out. If you type the name of something followed by a dot, then you can use <a href="../learners/reference.md#tab-completion">tab completion</a> (e.g. type <code>numpy.</code> and then press <kbd>Tab</kbd>) to see a list of all functions and attributes that you can use. After selecting one, you can also add a question mark (e.g. <code>numpy.cumprod?</code>), and IPython will return an explanation of the method! This is the same as doing <code>help(numpy.cumprod)</code>. Similarly, if you are using the “plain vanilla” Python interpreter, you can type <code>numpy.</code> and press the <kbd>Tab</kbd> key twice for a listing of what is available. You can then use the <code>help()</code> function to see an explanation of the function you’re interested in, for example: <code>help(numpy.cumprod)</code>.</p>
+<p>How did we know what functions NumPy has and how to use them? If you are working in IPython or in a Jupyter Notebook, there is an easy way to find out. If you type the name of something followed by a dot, then you can use tab completion (e.g. type <code>numpy.</code> and then press <kbd>Tab</kbd>) to see a list of all functions and attributes that you can use. After selecting one, you can also add a question mark (e.g. <code>numpy.cumprod?</code>), and IPython will return an explanation of the method! This is the same as doing <code>help(numpy.cumprod)</code>. Similarly, if you are using the “plain vanilla” Python interpreter, you can type <code>numpy.</code> and press the <kbd>Tab</kbd> key twice for a listing of what is available. You can then use the <code>help()</code> function to see an explanation of the function you’re interested in, for example: <code>help(numpy.cumprod)</code>.</p>
 </div>
 </aside>
 <aside class="callout panel panel-info">
@@ -217,7 +217,7 @@ standard deviation: 4.61383319712</code></pre>
 <h2 id="slicing-strings"><span class="glyphicon glyphicon-pencil"></span>Slicing Strings</h2>
 </div>
 <div class="panel-body">
-<p>A section of an array is called a <a href="../learners/reference.md#slice">slice</a>. We can take slices of character strings as well:</p>
+<p>A section of an array is called a slice. We can take slices of character strings as well:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">element <span class="op">=</span> <span class="st">&#39;oxygen&#39;</span>
 <span class="bu">print</span>(<span class="st">&#39;first three characters:&#39;</span>, element[<span class="dv">0</span>:<span class="dv">3</span>])
 <span class="bu">print</span>(<span class="st">&#39;last three characters:&#39;</span>, element[<span class="dv">3</span>:<span class="dv">6</span>])</code></pre></div>
@@ -259,7 +259,7 @@ last three characters: hi</code></pre>
 <h2 id="thin-slices"><span class="glyphicon glyphicon-pencil"></span>Thin Slices</h2>
 </div>
 <div class="panel-body">
-<p>The expression <code>element[3:3]</code> produces an <a href="../learners/reference.md#empty-string">empty string</a>, i.e., a string that contains no characters. If <code>data</code> holds our array of patient data, what does <code>data[3:3, 4:4]</code> produce? What about <code>data[3:3, :]</code>?</p>
+<p>The expression <code>element[3:3]</code> produces an empty string, i.e., a string that contains no characters. If <code>data</code> holds our array of patient data, what does <code>data[3:3, 4:4]</code> produce? What about <code>data[3:3, :]</code>?</p>
 <h5 id="solution-4">Solution</h5>
 <pre class="output"><code>array([], shape=(0, 0), dtype=float64)
 array([], shape=(0, 40), dtype=float64)</code></pre>

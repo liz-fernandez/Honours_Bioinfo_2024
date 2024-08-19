@@ -192,7 +192,7 @@ weight in kilograms is now: 65.0
 > ~~~
 > 
 > Everything in a line of code following the '#' symbol is a
-> [comment](../learners/reference.md#comment) that is ignored by Python.
+> comment that is ignored by Python.
 > Comments allow programmers to leave explanatory notes for other
 > programmers or their future selves.
 > 

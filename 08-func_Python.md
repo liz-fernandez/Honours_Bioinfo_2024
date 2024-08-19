@@ -62,7 +62,7 @@ def fahr_to_celsius(temp):
 
 The function definition opens with the keyword `def` followed by the
 name of the function (`fahr_to_celsius`) and a parenthesized list of parameter names (`temp`). The
-[body](../learners/reference.md#body) of the function --- the
+body of the function --- the
 statements that are executed when it runs --- is indented below the
 definition line.  The body concludes with a `return` keyword followed by the return value.
 
@@ -70,7 +70,7 @@ When we call the function,
 the values we pass to it are assigned to those variables
 so that we can use them inside the function.
 Inside the function,
-we use a [return statement](../learners/reference.md#return-statement) to send a result
+we use a return statement to send a result
 back to whoever asked for it.
 
 Let's try running our function.
@@ -116,7 +116,7 @@ What about converting Fahrenheit to Kelvin?
 We could write out the formula,
 but we don't need to.
 Instead,
-we can [compose](../learners/reference.md#compose) the two functions we have already created:
+we can compose the two functions we have already created:
 
 ~~~ {.python}
 def fahr_to_kelvin(temp_f):
@@ -142,7 +142,7 @@ or the next person who reads it won't be able to understand what's going on.
 
 In composing our temperature conversion functions, we created variables inside of those functions,
 `temp`, `temp_c`, `temp_f`, and `temp_k`.
-We refer to these variables as [local variables](../learners/reference.md#local-variable)
+We refer to these variables as local variables
 because they no longer exist once the function is done executing.
 If we try to access their values outside of the function, we will encounter an error:
 
@@ -172,7 +172,7 @@ temperature in Kelvin was: 373.15
 ~~~
 
 The variable `temp_kelvin`, being defined outside any function,
-is said to be [global](../learners/reference.md#global-variable).
+is said to be global.
 
 Inside a function, one can read the value of such global variables:
 
@@ -356,11 +356,11 @@ difference in standard deviations before and after: 0.0
 Everything looks good,
 and we should probably get back to doing our analysis.
 We have one more task first, though:
-we should write some [documentation](../learners/reference.md#documentation) for our function
+we should write some documentation for our function
 to remind ourselves later what it's for and how to use it.
 
 The usual way to put documentation in software is
-to add [comments](../learners/reference.md#comment) like this:
+to add comments like this:
 
 ~~~ {.python}
 # offset_mean(data, target_mean_value):
@@ -394,7 +394,7 @@ offset_mean(data, target_mean_value)
     Return a new array containing the original data with its mean offset to match the desired value.
 ~~~
 
-A string like this is called a [docstring](../learners/reference.md#docstring).
+A string like this is called a docstring.
 We don't need to use triple quotes when we write one,
 but if we do,
 we can break the string across multiple lines:
@@ -504,7 +504,7 @@ print(offset_mean(test_data, 3))
 
 But we can also now call it with just one parameter,
 in which case `target_mean_value` is automatically assigned
-the [default value](../learners/reference.md#default-value) of 0.0:
+the default value of 0.0:
 
 ~~~ {.python}
 more_data = 5 + numpy.zeros((2, 2))
@@ -837,7 +837,7 @@ readable code!
 > 
 > `k` is 0 because the `k` inside the function `f2k` doesn't know
 > about the `k` defined outside the function. When the `f2k` function is called,
-> it creates a [local variable](../learners/reference.md#local-variable)
+> it creates a local variable
 > `k`. The function does not return any values
 > and does not alter `k` outside of its local copy.
 > Therefore the original value of `k` remains unchanged.

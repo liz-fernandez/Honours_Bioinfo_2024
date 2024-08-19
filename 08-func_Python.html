@@ -73,8 +73,8 @@ celsius_val2 <span class="op">=</span> ((fahrenheit_val2 <span class="op">-</spa
 <img src="fig/python-function.svg" alt="Labeled parts of a Python function definition" />
 
 </div>
-<p>The function definition opens with the keyword <code>def</code> followed by the name of the function (<code>fahr_to_celsius</code>) and a parenthesized list of parameter names (<code>temp</code>). The <a href="../learners/reference.md#body">body</a> of the function — the statements that are executed when it runs — is indented below the definition line. The body concludes with a <code>return</code> keyword followed by the return value.</p>
-<p>When we call the function, the values we pass to it are assigned to those variables so that we can use them inside the function. Inside the function, we use a <a href="../learners/reference.md#return-statement">return statement</a> to send a result back to whoever asked for it.</p>
+<p>The function definition opens with the keyword <code>def</code> followed by the name of the function (<code>fahr_to_celsius</code>) and a parenthesized list of parameter names (<code>temp</code>). The body of the function — the statements that are executed when it runs — is indented below the definition line. The body concludes with a <code>return</code> keyword followed by the return value.</p>
+<p>When we call the function, the values we pass to it are assigned to those variables so that we can use them inside the function. Inside the function, we use a return statement to send a result back to whoever asked for it.</p>
 <p>Let’s try running our function.</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">fahr_to_celsius(<span class="dv">32</span>)</code></pre></div>
 <p>This command should call our function, using “32” as the input and return the function value.</p>
@@ -91,7 +91,7 @@ boiling point of water: 100.0 C</code></pre>
 
 <span class="bu">print</span>(<span class="st">&#39;freezing point of water in Kelvin:&#39;</span>, celsius_to_kelvin(<span class="dv">0</span>.))</code></pre></div>
 <pre class="output"><code>freezing point of water in Kelvin: 273.15</code></pre>
-<p>What about converting Fahrenheit to Kelvin? We could write out the formula, but we don’t need to. Instead, we can <a href="../learners/reference.md#compose">compose</a> the two functions we have already created:</p>
+<p>What about converting Fahrenheit to Kelvin? We could write out the formula, but we don’t need to. Instead, we can compose the two functions we have already created:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> fahr_to_kelvin(temp_f):
     temp_c <span class="op">=</span> fahr_to_celsius(temp_f)
     temp_k <span class="op">=</span> celsius_to_kelvin(temp_c)
@@ -101,7 +101,7 @@ boiling point of water: 100.0 C</code></pre>
 <pre class="output"><code>boiling point of water in Kelvin: 373.15</code></pre>
 <p>This is our first taste of how larger programs are built: we define basic operations, then combine them in ever-larger chunks to get the effect we want. Real-life functions will usually be larger than the ones shown here — typically half a dozen to a few dozen lines — but they shouldn’t ever be much longer than that, or the next person who reads it won’t be able to understand what’s going on.</p>
 <h2 id="variable-scope">Variable Scope</h2>
-<p>In composing our temperature conversion functions, we created variables inside of those functions, <code>temp</code>, <code>temp_c</code>, <code>temp_f</code>, and <code>temp_k</code>. We refer to these variables as <a href="../learners/reference.md#local-variable">local variables</a> because they no longer exist once the function is done executing. If we try to access their values outside of the function, we will encounter an error:</p>
+<p>In composing our temperature conversion functions, we created variables inside of those functions, <code>temp</code>, <code>temp_c</code>, <code>temp_f</code>, and <code>temp_k</code>. We refer to these variables as local variables because they no longer exist once the function is done executing. If we try to access their values outside of the function, we will encounter an error:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(<span class="st">&#39;Again, temperature in Kelvin was:&#39;</span>, temp_k)</code></pre></div>
 <pre class="error"><code>---------------------------------------------------------------------------
 NameError                                 Traceback (most recent call last)
@@ -113,7 +113,7 @@ NameError: name &#39;temp_k&#39; is not defined</code></pre>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">temp_kelvin <span class="op">=</span> fahr_to_kelvin(<span class="fl">212.0</span>)
 <span class="bu">print</span>(<span class="st">&#39;temperature in Kelvin was:&#39;</span>, temp_kelvin)</code></pre></div>
 <pre class="output"><code>temperature in Kelvin was: 373.15</code></pre>
-<p>The variable <code>temp_kelvin</code>, being defined outside any function, is said to be <a href="../learners/reference.md#global-variable">global</a>.</p>
+<p>The variable <code>temp_kelvin</code>, being defined outside any function, is said to be global.</p>
 <p>Inside a function, one can read the value of such global variables:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> print_temperatures():
     <span class="bu">print</span>(<span class="st">&#39;temperature in Fahrenheit was:&#39;</span>, temp_fahr)
@@ -203,8 +203,8 @@ min, mean, and max of offset data are: -6.14875 2.842170943040401e-16 13.85125</
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(<span class="st">&#39;difference in standard deviations before and after:&#39;</span>,
       numpy.std(data) <span class="op">-</span> numpy.std(offset_data))</code></pre></div>
 <pre class="output"><code>difference in standard deviations before and after: 0.0</code></pre>
-<p>Everything looks good, and we should probably get back to doing our analysis. We have one more task first, though: we should write some <a href="../learners/reference.md#documentation">documentation</a> for our function to remind ourselves later what it’s for and how to use it.</p>
-<p>The usual way to put documentation in software is to add <a href="../learners/reference.md#comment">comments</a> like this:</p>
+<p>Everything looks good, and we should probably get back to doing our analysis. We have one more task first, though: we should write some documentation for our function to remind ourselves later what it’s for and how to use it.</p>
+<p>The usual way to put documentation in software is to add comments like this:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co"># offset_mean(data, target_mean_value):</span>
 <span class="co"># return a new array containing the original data with its mean offset to match the desired value.</span>
 <span class="kw">def</span> offset_mean(data, target_mean_value):
@@ -220,7 +220,7 @@ min, mean, and max of offset data are: -6.14875 2.842170943040401e-16 13.85125</
 
 offset_mean(data, target_mean_value)
     Return a new array containing the original data with its mean offset to match the desired value.</code></pre>
-<p>A string like this is called a <a href="../learners/reference.md#docstring">docstring</a>. We don’t need to use triple quotes when we write one, but if we do, we can break the string across multiple lines:</p>
+<p>A string like this is called a docstring. We don’t need to use triple quotes when we write one, but if we do, we can break the string across multiple lines:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="kw">def</span> offset_mean(data, target_mean_value):
     <span class="co">&quot;&quot;&quot;Return a new array containing the original data</span>
 <span class="co">       with its mean offset to match the desired value.</span>
@@ -283,7 +283,7 @@ SyntaxError: unexpected EOF while parsing</code></pre>
 <span class="bu">print</span>(offset_mean(test_data, <span class="dv">3</span>))</code></pre></div>
 <pre class="output"><code>[[ 3.  3.]
  [ 3.  3.]]</code></pre>
-<p>But we can also now call it with just one parameter, in which case <code>target_mean_value</code> is automatically assigned the <a href="../learners/reference.md#default-value">default value</a> of 0.0:</p>
+<p>But we can also now call it with just one parameter, in which case <code>target_mean_value</code> is automatically assigned the default value of 0.0:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">more_data <span class="op">=</span> <span class="dv">5</span> <span class="op">+</span> numpy.zeros((<span class="dv">2</span>, <span class="dv">2</span>))
 <span class="bu">print</span>(<span class="st">&#39;data before mean offset:&#39;</span>)
 <span class="bu">print</span>(more_data)
@@ -476,7 +476,7 @@ k <span class="op">=</span> <span class="dv">0</span>
 278.15
 273.15
 0</code></pre>
-<p><code>k</code> is 0 because the <code>k</code> inside the function <code>f2k</code> doesn’t know about the <code>k</code> defined outside the function. When the <code>f2k</code> function is called, it creates a <a href="../learners/reference.md#local-variable">local variable</a> <code>k</code>. The function does not return any values and does not alter <code>k</code> outside of its local copy. Therefore the original value of <code>k</code> remains unchanged. Beware that a local <code>k</code> is created because <code>f2k</code> internal statements <em>affect</em> a new value to it. If <code>k</code> was only <code>read</code>, it would simply retrieve the global <code>k</code> value.</p>
+<p><code>k</code> is 0 because the <code>k</code> inside the function <code>f2k</code> doesn’t know about the <code>k</code> defined outside the function. When the <code>f2k</code> function is called, it creates a local variable <code>k</code>. The function does not return any values and does not alter <code>k</code> outside of its local copy. Therefore the original value of <code>k</code> remains unchanged. Beware that a local <code>k</code> is created because <code>f2k</code> internal statements <em>affect</em> a new value to it. If <code>k</code> was only <code>read</code>, it would simply retrieve the global <code>k</code> value.</p>
 </div>
 </section>
 <section class="challenge panel panel-success">
