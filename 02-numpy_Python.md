@@ -131,30 +131,27 @@ These data correspond to arthritis patients' inflammation.
 The rows are the individual patients, and the columns
 are their daily inflammation measurements.
 
-:::::::::::::::::::::::::::::::::::::::::  callout
+> ## Data Type {.callout}
+> 
+> A Numpy array contains one or more elements
+> of the same type. The `type` function will only tell you that
+> a variable is a NumPy array but won't tell you the type of
+> thing inside the array.
+> We can find out the type
+> of the data contained in the NumPy array.
+> 
+> ~~~ {.python}
+> print(data.dtype)
+> ~~~ 
+> 
+> ~~~ {.output}
+> float64
+> ~~~ 
+> 
+> This tells us that the NumPy array's elements are
+> [floating-point numbers](../learners/reference.md#floating-point-number).
+> 
 
-## Data Type
-
-A Numpy array contains one or more elements
-of the same type. The `type` function will only tell you that
-a variable is a NumPy array but won't tell you the type of
-thing inside the array.
-We can find out the type
-of the data contained in the NumPy array.
-
-~~~ {.python}
-print(data.dtype)
-~~~ 
-
-~~~ {.output}
-float64
-~~~ 
-
-This tells us that the NumPy array's elements are
-[floating-point numbers](../learners/reference.md#floating-point-number).
-
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
 
 With the following command, we can see the array's [shape](../learners/reference.md#shape):
 
@@ -216,20 +213,16 @@ the index is how many steps we have to take from the start to get the item we wa
 
 ![](fig/python-zero-index.svg){alt="'data' is a 3 by 3 numpy array containing row 0: \['A', 'B', 'C'\], row 1: \['D', 'E', 'F'\], androw 2: \['G', 'H', 'I'\]. Starting in the upper left hand corner, data\[0, 0\] = 'A', data\[0, 1\] = 'B',data\[0, 2\] = 'C', data\[1, 0\] = 'D', data\[1, 1\] = 'E', data\[1, 2\] = 'F', data\[2, 0\] = 'G',data\[2, 1\] = 'H', and data\[2, 2\] = 'I', in the bottom right hand corner."}
 
-:::::::::::::::::::::::::::::::::::::::::  callout
+> ## In the Corner {.callout}
+> 
+> What may also surprise you is that when Python displays an array,
+> it shows the element with index `[0, 0]` in the upper left corner
+> rather than the lower left.
+> This is consistent with the way mathematicians draw matrices
+> but different from the Cartesian coordinates.
+> The indices are (row, column) instead of (column, row) for the same reason,
+> which can be confusing when plotting data.
 
-## In the Corner
-
-What may also surprise you is that when Python displays an array,
-it shows the element with index `[0, 0]` in the upper left corner
-rather than the lower left.
-This is consistent with the way mathematicians draw matrices
-but different from the Cartesian coordinates.
-The indices are (row, column) instead of (column, row) for the same reason,
-which can be confusing when plotting data.
-
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Slicing data
 
