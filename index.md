@@ -73,6 +73,8 @@ These lessons will start you on a path towards using these resources effectively
 
 ### Week 2 - Introduction to Python
 
+[Python setup](00-setup_Python.html)
+
 1.  [Python fundamentals]()
 2.  [Analyzing Patient Data]()
 3.  [Visualising Tabular Data]()
