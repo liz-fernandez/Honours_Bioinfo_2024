@@ -29,13 +29,13 @@ We will execute the following commands one by one:
 
 ~~~ {.bash}
 module load python/3.10.8
-python3 -m venv --system-site-packages /home/z3539918/.venvs/jupyter-kernel
 ~~~
 
-In the next command, which will create our 'kernel', 
+In the next commands, which will create our 'kernel', 
 please change 'your_zID' by your own zID:
 
 ~~~ {.bash}
+python3 -m venv --system-site-packages /home/your_zID/.venvs/jupyter-kernel
 source /home/your_zID/.venvs/jupyter-kernel/bin/activate
 ~~~
 

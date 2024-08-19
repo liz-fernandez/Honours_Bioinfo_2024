@@ -39,10 +39,10 @@
 <p>The instance will say first ‘Queued’ and then ‘Starting’ in blue, click on the ‘Connect to Jupyter’ button once the status changes to ‘Running’ in green.</p>
 <p>In this ‘Launcher’ screen we will find the submenu ‘Others’ and we will click on ‘Terminal’. This will take us to a terminal very similar to the one we were using last week.</p>
 <p>We will execute the following commands one by one:</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">module</span> load python/3.10.8
-<span class="kw">python3</span> -m venv --system-site-packages /home/z3539918/.venvs/jupyter-kernel</code></pre></div>
-<p>In the next command, which will create our ‘kernel’, please change ‘your_zID’ by your own zID:</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">source</span> /home/your_zID/.venvs/jupyter-kernel/bin/activate</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">module</span> load python/3.10.8</code></pre></div>
+<p>In the next commands, which will create our ‘kernel’, please change ‘your_zID’ by your own zID:</p>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">python3</span> -m venv --system-site-packages /home/your_zID/.venvs/jupyter-kernel
+<span class="kw">source</span> /home/your_zID/.venvs/jupyter-kernel/bin/activate</code></pre></div>
 <p>Finally, we will install a couple of packages that will be helpful for our lessons:</p>
 <div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">pip</span> install ipykernel
 <span class="kw">install_jupyter_kernels</span>
