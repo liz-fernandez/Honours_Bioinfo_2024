@@ -27,24 +27,24 @@
       <div class="row">
         <div class="col-md-10 col-md-offset-1">
                     <h1 class="title">Making Choices</h1>
-          <p>::::::::::::::::::::::::::::::::::::::: objectives</p>
+          <section class="objectives panel panel-warning">
+<div class="panel-heading">
+<h2 id="learning-objectives"><span class="glyphicon glyphicon-certificate"></span>Learning Objectives</h2>
+</div>
+<div class="panel-body">
 <ul>
 <li>Write conditional statements including <code>if</code>, <code>elif</code>, and <code>else</code> branches.</li>
 <li>Correctly evaluate expressions containing <code>and</code> and <code>or</code>.</li>
 </ul>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>:::::::::::::::::::::::::::::::::::::::: questions</p>
+<h5 id="questions" class="questions">Questions</h5>
 <ul>
 <li>How can my programs do different things based on data values?</li>
 </ul>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+</div>
+</section>
 <p>In our last lesson, we discovered something suspicious was going on in our inflammation data by drawing some plots. How can we use Python to automatically recognize the different features we saw, and take a different action for each? In this lesson, we’ll learn how to write code that runs only when certain conditions are true.</p>
 <h2 id="conditionals">Conditionals</h2>
 <p>We can ask Python to take different actions, depending on a condition, with an <code>if</code> statement:</p>
-<p>::::::::::::::::::::::::::::::::::::::: instructor</p>
-<p>The following example will lead to a syntax error in the Python prompt, as it seems to expect exactly one top-level statement per invocation. Removing <code>print('done')</code> from the example will fix the problem.</p>
-<p>IPython executes the example from a single prompt without throwing an error.</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">num <span class="op">=</span> <span class="dv">37</span>
 <span class="cf">if</span> num <span class="op">&gt;</span> <span class="dv">100</span>:
     <span class="bu">print</span>(<span class="st">&#39;greater&#39;</span>)
@@ -77,8 +77,11 @@ done</code></pre>
     <span class="bu">print</span>(num, <span class="st">&#39;is negative&#39;</span>)</code></pre></div>
 <pre class="output"><code>-3 is negative</code></pre>
 <p>Note that to test for equality we use a double equals sign <code>==</code> rather than a single equals sign <code>=</code> which is used to assign values.</p>
-<p>::::::::::::::::::::::::::::::::::::::::: callout</p>
-<h2 id="comparing-in-python">Comparing in Python</h2>
+<aside class="callout panel panel-info">
+<div class="panel-heading">
+<h2 id="comparing-in-python"><span class="glyphicon glyphicon-pushpin"></span>Comparing in Python</h2>
+</div>
+<div class="panel-body">
 <p>Along with the <code>&gt;</code> and <code>==</code> operators we have already used for comparing values in our conditionals, there are a few more options to know about:</p>
 <ul>
 <li><code>&gt;</code>: greater than</li>
@@ -88,7 +91,8 @@ done</code></pre>
 <li><code>&gt;=</code>: greater than or equal to</li>
 <li><code>&lt;=</code>: less than or equal to</li>
 </ul>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+</div>
+</aside>
 <p>We can also combine tests using <code>and</code> and <code>or</code>. <code>and</code> is only true if both parts are true:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="cf">if</span> (<span class="dv">1</span> <span class="op">&gt;</span> <span class="dv">0</span>) <span class="op">and</span> (<span class="op">-</span><span class="dv">1</span> <span class="op">&gt;=</span> <span class="dv">0</span>):
     <span class="bu">print</span>(<span class="st">&#39;both parts are true&#39;</span>)
@@ -99,10 +103,10 @@ done</code></pre>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="cf">if</span> (<span class="dv">1</span> <span class="op">&lt;</span> <span class="dv">0</span>) <span class="op">or</span> (<span class="dv">1</span> <span class="op">&gt;=</span> <span class="dv">0</span>):
     <span class="bu">print</span>(<span class="st">&#39;at least one test is true&#39;</span>)</code></pre></div>
 <pre class="output"><code>at least one test is true</code></pre>
-<p>::::::::::::::::::::::::::::::::::::::::: callout</p>
-<h2 id="true-and-false"><code>True</code> and <code>False</code></h2>
+<blockquote>
+<h2 id="true-and-false"><code>True</code> and <code class="callout">False</code></h2>
 <p><code>True</code> and <code>False</code> are special words in Python called <code>booleans</code>, which represent truth values. A statement such as <code>1 &lt; 0</code> returns the value <code>False</code>, while <code>-1 &lt; 0</code> returns the value <code>True</code>.</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+</blockquote>
 <h2 id="checking-our-data">Checking our Data</h2>
 <p>Now that we’ve seen how conditionals work, we can use them to check for the suspicious features we saw in our inflammation data. We are about to use functions provided by the <code>numpy</code> module again. Therefore, if you’re working in a new Python session, make sure to load the module and data with:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> numpy
@@ -145,8 +149,11 @@ max_inflammation_20 <span class="op">=</span> numpy.amax(data, axis<span class="
     <span class="bu">print</span>(<span class="st">&#39;Seems OK!&#39;</span>)</code></pre></div>
 <pre class="output"><code>Minima add up to zero!</code></pre>
 <p>In this way, we have asked Python to do something different depending on the condition of our data. Here we printed messages in all cases, but we could also imagine not using the <code>else</code> catch-all so that messages are only printed when something is wrong, freeing us from having to manually examine every plot for features we’ve seen before.</p>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
-<h2 id="how-many-paths">How Many Paths?</h2>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h2 id="how-many-paths"><span class="glyphicon glyphicon-pencil"></span>How Many Paths?</h2>
+</div>
+<div class="panel-body">
 <p>Consider this code:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="cf">if</span> <span class="dv">4</span> <span class="op">&gt;</span> <span class="dv">5</span>:
     <span class="bu">print</span>(<span class="st">&#39;A&#39;</span>)
@@ -161,13 +168,15 @@ max_inflammation_20 <span class="op">=</span> numpy.amax(data, axis<span class="
 <li>C</li>
 <li>B and C</li>
 </ol>
-<p>::::::::::::::: solution</p>
-<h2 id="solution">Solution</h2>
+<h5 id="solution">Solution</h5>
 <p>C gets printed because the first two conditions, <code>4 &gt; 5</code> and <code>4 == 5</code>, are not true, but <code>4 &lt; 5</code> is true. In this case only one of these conditions can be true for at a time, but in other scenarios multiple <code>elif</code> conditions could be met. In these scenarios only the action associated with the first true <code>elif</code> condition will occur, starting from the top of the conditional section. <img src="fig/python-else-if.png" alt="A flowchart diagram of a conditional section with multiple elif conditions and some possible outcomes." /> This contrasts with the case of multiple <code>if</code> statements, where every action can occur as long as their condition is met. <img src="fig/python-multi-if.png" alt="A flowchart diagram of a conditional section with multiple if statements and some possible outcomes." /></p>
-<p>:::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
-<h2 id="what-is-truth">What Is Truth?</h2>
+</div>
+</section>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h2 id="what-is-truth"><span class="glyphicon glyphicon-pencil"></span>What Is Truth?</h2>
+</div>
+<div class="panel-body">
 <p><code>True</code> and <code>False</code> booleans are not the only values in Python that are true and false. In fact, <em>any</em> value can be used in an <code>if</code> or <code>elif</code>. After reading and running the code below, explain what the rule is for which values are considered true and which are considered false.</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="cf">if</span> <span class="st">&#39;&#39;</span>:
     <span class="bu">print</span>(<span class="st">&#39;empty string is true&#39;</span>)
@@ -181,9 +190,13 @@ max_inflammation_20 <span class="op">=</span> numpy.amax(data, axis<span class="
     <span class="bu">print</span>(<span class="st">&#39;zero is true&#39;</span>)
 <span class="cf">if</span> <span class="dv">1</span>:
     <span class="bu">print</span>(<span class="st">&#39;one is true&#39;</span>)</code></pre></div>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
-<h2 id="thats-not-not-what-i-meant">That’s Not Not What I Meant</h2>
+</div>
+</section>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h2 id="thats-not-not-what-i-meant"><span class="glyphicon glyphicon-pencil"></span>That’s Not Not What I Meant</h2>
+</div>
+<div class="panel-body">
 <p>Sometimes it is useful to check whether some condition is not true. The Boolean operator <code>not</code> can do this explicitly. After reading and running the code below, write some <code>if</code> statements that use <code>not</code> to test the rule that you formulated in the previous challenge.</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="cf">if</span> <span class="op">not</span> <span class="st">&#39;&#39;</span>:
     <span class="bu">print</span>(<span class="st">&#39;empty string is not true&#39;</span>)
@@ -191,18 +204,19 @@ max_inflammation_20 <span class="op">=</span> numpy.amax(data, axis<span class="
     <span class="bu">print</span>(<span class="st">&#39;word is not true&#39;</span>)
 <span class="cf">if</span> <span class="op">not</span> <span class="op">not</span> <span class="va">True</span>:
     <span class="bu">print</span>(<span class="st">&#39;not not True is true&#39;</span>)</code></pre></div>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
-<h2 id="close-enough">Close Enough</h2>
+</div>
+</section>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h2 id="close-enough"><span class="glyphicon glyphicon-pencil"></span>Close Enough</h2>
+</div>
+<div class="panel-body">
 <p>Write some conditions that print <code>True</code> if the variable <code>a</code> is within 10% of the variable <code>b</code> and <code>False</code> otherwise. Compare your implementation with your partner’s: do you get the same answer for all possible pairs of numbers?</p>
-<p>::::::::::::::: solution</p>
-<h2 id="hint">Hint</h2>
+<h5 id="hint">Hint</h5>
 <p>There is a <a href="https://docs.python.org/3/library/functions.html#abs">built-in function <code>abs</code></a> that returns the absolute value of a number:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(<span class="bu">abs</span>(<span class="op">-</span><span class="dv">12</span>))</code></pre></div>
 <pre class="output"><code>12</code></pre>
-<p>:::::::::::::::::::::::::</p>
-<p>::::::::::::::: solution</p>
-<h2 id="solution-1">Solution 1</h2>
+<h5 id="solution-1">Solution 1</h5>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">a <span class="op">=</span> <span class="dv">5</span>
 b <span class="op">=</span> <span class="fl">5.1</span>
 
@@ -210,15 +224,16 @@ b <span class="op">=</span> <span class="fl">5.1</span>
     <span class="bu">print</span>(<span class="st">&#39;True&#39;</span>)
 <span class="cf">else</span>:
     <span class="bu">print</span>(<span class="st">&#39;False&#39;</span>)</code></pre></div>
-<p>:::::::::::::::::::::::::</p>
-<p>::::::::::::::: solution</p>
-<h2 id="solution-2">Solution 2</h2>
+<h5 id="solution-2">Solution 2</h5>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(<span class="bu">abs</span>(a <span class="op">-</span> b) <span class="op">&lt;=</span> <span class="fl">0.1</span> <span class="op">*</span> <span class="bu">abs</span>(b))</code></pre></div>
 <p>This works because the Booleans <code>True</code> and <code>False</code> have string representations which can be printed.</p>
-<p>:::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
-<h2 id="in-place-operators">In-Place Operators</h2>
+</div>
+</section>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h2 id="in-place-operators"><span class="glyphicon glyphicon-pencil"></span>In-Place Operators</h2>
+</div>
+<div class="panel-body">
 <p>Python (and most other languages in the C family) provides in-place operators that work like this:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">x <span class="op">=</span> <span class="dv">1</span>  <span class="co"># original value</span>
 x <span class="op">+=</span> <span class="dv">1</span> <span class="co"># add one to x, assigning result back to x</span>
@@ -226,8 +241,7 @@ x <span class="op">*=</span> <span class="dv">3</span> <span class="co"># multip
 <span class="bu">print</span>(x)</code></pre></div>
 <pre class="output"><code>6</code></pre>
 <p>Write some code that sums the positive and negative numbers in a list separately, using in-place operators. Do you think the result is more or less readable than writing the same without in-place operators?</p>
-<p>::::::::::::::: solution</p>
-<h2 id="solution-3">Solution</h2>
+<h5 id="solution-3">Solution</h5>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">positive_sum <span class="op">=</span> <span class="dv">0</span>
 negative_sum <span class="op">=</span> <span class="dv">0</span>
 test_list <span class="op">=</span> [<span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>, <span class="op">-</span><span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">7</span>, <span class="op">-</span><span class="dv">8</span>]
@@ -240,10 +254,13 @@ test_list <span class="op">=</span> [<span class="dv">3</span>, <span class="dv"
         negative_sum <span class="op">+=</span> num
 <span class="bu">print</span>(positive_sum, negative_sum)</code></pre></div>
 <p>Here <code>pass</code> means “don’t do anything”. In this particular case, it’s not actually needed, since if <code>num == 0</code> neither sum needs to change, but it illustrates the use of <code>elif</code> and <code>pass</code>.</p>
-<p>:::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
-<h2 id="sorting-a-list-into-buckets">Sorting a List Into Buckets</h2>
+</div>
+</section>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h2 id="sorting-a-list-into-buckets"><span class="glyphicon glyphicon-pencil"></span>Sorting a List Into Buckets</h2>
+</div>
+<div class="panel-body">
 <p>In our <code>data</code> folder, large data sets are stored in files whose names start with “inflammation-” and small data sets – in files whose names start with “small-”. We also have some other files that we do not care about at this point. We’d like to break all these files into three lists called <code>large_files</code>, <code>small_files</code>, and <code>other_files</code>, respectively.</p>
 <p>Add code to the template below to do this. Note that the string method <a href="https://docs.python.org/3/library/stdtypes.html#str.startswith"><code>startswith</code></a> returns <code>True</code> if and only if the string it is called on starts with the string passed as an argument, that is:</p>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co">&#39;String&#39;</span>.startswith(<span class="st">&#39;Str&#39;</span>)</code></pre></div>
@@ -270,8 +287,7 @@ other_files <span class="op">=</span> []</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">large_files <span class="op">=</span> [<span class="st">&#39;inflammation-01.csv&#39;</span>, <span class="st">&#39;inflammation-02.csv&#39;</span>]
 small_files <span class="op">=</span> [<span class="st">&#39;small-01.csv&#39;</span>, <span class="st">&#39;small-02.csv&#39;</span>]
 other_files <span class="op">=</span> [<span class="st">&#39;myscript.py&#39;</span>]</code></pre></div>
-<p>::::::::::::::: solution</p>
-<h2 id="solution-4">Solution</h2>
+<h5 id="solution-4">Solution</h5>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="cf">for</span> filename <span class="op">in</span> filenames:
     <span class="cf">if</span> filename.startswith(<span class="st">&#39;inflammation-&#39;</span>):
         large_files.append(filename)
@@ -283,17 +299,19 @@ other_files <span class="op">=</span> [<span class="st">&#39;myscript.py&#39;</s
 <span class="bu">print</span>(<span class="st">&#39;large_files:&#39;</span>, large_files)
 <span class="bu">print</span>(<span class="st">&#39;small_files:&#39;</span>, small_files)
 <span class="bu">print</span>(<span class="st">&#39;other_files:&#39;</span>, other_files)</code></pre></div>
-<p>:::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
-<h2 id="counting-vowels">Counting Vowels</h2>
+</div>
+</section>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h2 id="counting-vowels"><span class="glyphicon glyphicon-pencil"></span>Counting Vowels</h2>
+</div>
+<div class="panel-body">
 <ol style="list-style-type: decimal">
 <li>Write a loop that counts the number of vowels in a character string.</li>
 <li>Test it on a few individual words and full sentences.</li>
 <li>Once you are done, compare your solution to your neighbor’s. Did you make the same decisions about how to handle the letter ‘y’ (which some people think is a vowel, and some do not)?</li>
 </ol>
-<p>::::::::::::::: solution</p>
-<h2 id="solution-5">Solution</h2>
+<h5 id="solution-5">Solution</h5>
 <div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">vowels <span class="op">=</span> <span class="st">&#39;aeiouAEIOU&#39;</span>
 sentence <span class="op">=</span> <span class="st">&#39;Mary had a little lamb.&#39;</span>
 count <span class="op">=</span> <span class="dv">0</span>
@@ -302,9 +320,13 @@ count <span class="op">=</span> <span class="dv">0</span>
         count <span class="op">+=</span> <span class="dv">1</span>
 
 <span class="bu">print</span>(<span class="st">&#39;The number of vowels in this string is &#39;</span> <span class="op">+</span> <span class="bu">str</span>(count))</code></pre></div>
-<p>:::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>:::::::::::::::::::::::::::::::::::::::: keypoints</p>
+</div>
+</section>
+<section class="objectives panel panel-warning">
+<div class="panel-heading">
+<h2 id="keypoints"><span class="glyphicon glyphicon-certificate"></span>Keypoints</h2>
+</div>
+<div class="panel-body">
 <ul>
 <li>Use <code>if condition</code> to start a conditional statement, <code>elif condition</code> to provide additional tests, and <code>else</code> to provide a default.</li>
 <li>The bodies of the branches of conditional statements must be indented.</li>
@@ -314,7 +336,8 @@ count <span class="op">=</span> <span class="dv">0</span>
 <li>Zero, the empty string, and the empty list are considered false; all other numbers, strings, and lists are considered true.</li>
 <li><code>True</code> and <code>False</code> represent truth values.</li>
 </ul>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+</div>
+</section>
         </div>
       </div>
       </article>

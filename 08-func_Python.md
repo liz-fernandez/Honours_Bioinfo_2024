@@ -248,7 +248,7 @@ we can now read and reuse both ideas separately.
 We can reproduce the previous analysis with a much simpler `for` loop:
 
 ~~~ {.python}
-filenames = sorted(glob.glob('inflammation*.csv'))
+filenames = sorted(glob.glob('./data/inflammation*.csv'))
 
 for filename in filenames[:3]:
     print(filename)

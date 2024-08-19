@@ -67,5 +67,16 @@ as follows:
 
 ![](fig/python-juplabrename.png){alt=''}
 
+Finally, we will go back to our terminal to download some files with the
+following commands:
+
+~~~ {.bash}
+cd /home/your_zID/ondemand/data/sys/dashboard/batch_connect/db/
+wget https://liz-fernandez.github.io/Honours_Bioinfo_2024/DATA/python-novice-inflammation-data.zip
+unzip python-novice-inflammation-data.zip
+~~~
+
+And finally, click back to our Jupyter notebook.
+
 Now we are ready to start our lessons! 
 

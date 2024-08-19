@@ -161,7 +161,7 @@ temperature in Kelvin was: 373.15</code></pre>
         <span class="bu">print</span>(<span class="st">&#39;Seems OK!&#39;</span>)</code></pre></div>
 <p>Wait! Didn’t we forget to specify what both of these functions should return? Well, we didn’t. In Python, functions are not required to include a <code>return</code> statement and can be used for the sole purpose of grouping together pieces of code that conceptually do one thing. In such cases, function names usually describe what they do, <em>e.g.</em> <code>visualize</code>, <code>detect_problems</code>.</p>
 <p>Notice that rather than jumbling this code together in one giant <code>for</code> loop, we can now read and reuse both ideas separately. We can reproduce the previous analysis with a much simpler <code>for</code> loop:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">filenames <span class="op">=</span> <span class="bu">sorted</span>(glob.glob(<span class="st">&#39;inflammation*.csv&#39;</span>))
+<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">filenames <span class="op">=</span> <span class="bu">sorted</span>(glob.glob(<span class="st">&#39;./data/inflammation*.csv&#39;</span>))
 
 <span class="cf">for</span> filename <span class="op">in</span> filenames[:<span class="dv">3</span>]:
     <span class="bu">print</span>(filename)

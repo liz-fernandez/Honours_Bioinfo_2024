@@ -30,7 +30,7 @@ while `?` matches any one character.
 We can use this to get the names of all the CSV files in the current directory:
 
 ~~~ {.python}
-print(glob.glob('inflammation*.csv'))
+print(glob.glob('./data/inflammation*.csv'))
 ~~~
 
 ~~~ {.output}
@@ -54,7 +54,7 @@ import glob
 import numpy
 import matplotlib.pyplot
 
-filenames = sorted(glob.glob('inflammation*.csv'))
+filenames = sorted(glob.glob('./data/inflammation*.csv'))
 filenames = filenames[0:3]
 for filename in filenames:
     print(filename)
