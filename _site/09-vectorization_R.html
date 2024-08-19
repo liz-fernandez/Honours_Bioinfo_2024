@@ -1,321 +1,192 @@
-<p>::::::::::::::::::::::::::::::::::::::: objectives</p>
-
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="generator" content="pandoc">
+    <title>Vectorization</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="css/swc.css" />
+    <link rel="alternate" type="application/rss+xml" title="Bioinformatics Honours 2024" href="https://github.com/liz-fernandez/UNSW_Honours_Bioinfo_2024/"/>
+    <meta charset="UTF-8" />
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body class="lesson">
+    <div class="container card">
+      <div class="banner">
+        <a href="https://liz-fernandez.github.io/Honours_Bioinfo_2024/" title="Honours Bioinformatics Course 2024">
+          <img alt="Logo UNSW" src="img/unsw_logo.jpg" />
+        </a>
+      </div>
+      <article>
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+                    <h1 class="title">Vectorization</h1>
+          <p>::::::::::::::::::::::::::::::::::::::: objectives</p>
 <ul>
-  <li>To understand vectorized operations in R.</li>
+<li>To understand vectorized operations in R.</li>
 </ul>
-
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-
 <p>:::::::::::::::::::::::::::::::::::::::: questions</p>
-
 <ul>
-  <li>How can I operate on all the elements of a vector at once?</li>
+<li>How can I operate on all the elements of a vector at once?</li>
 </ul>
-
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-
-<p>```{r, include=FALSE}
-gapminder &lt;- read.csv(“data/gapminder_data.csv”, header = TRUE)
-library(“ggplot2”)</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-Most of R's functions are vectorized, meaning that the function will
-operate on all elements of a vector without needing to loop through
-and act on each element one at a time. This makes writing code more
-concise, easy to read, and less error prone.
-
-```{r}
-x &lt;- 1:4
-x * 2
-</code></pre></div></div>
-
+<p><code>{r, include=FALSE} gapminder &lt;- read.csv(&quot;data/gapminder_data.csv&quot;, header = TRUE) library(&quot;ggplot2&quot;)</code></p>
+<p>Most of R’s functions are vectorized, meaning that the function will operate on all elements of a vector without needing to loop through and act on each element one at a time. This makes writing code more concise, easy to read, and less error prone.</p>
+<pre class="{r}"><code>x &lt;- 1:4
+x * 2</code></pre>
 <p>The multiplication happened to each element of the vector.</p>
-
 <p>We can also add two vectors together:</p>
-
-<pre><code class="language-{r}">y &lt;- 6:9
-x + y
-</code></pre>
-
-<p>Each element of <code class="language-plaintext highlighter-rouge">x</code> was added to its corresponding element of <code class="language-plaintext highlighter-rouge">y</code>:</p>
-
-<p>```{r, eval=FALSE}
-x:  1  2  3  4
-    +  +  +  +
-y:  6  7  8  9
-—————
-    7  9 11 13</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-Here is how we would add two vectors together using a for loop:
-
-```{r}
-output_vector &lt;- c()
+<pre class="{r}"><code>y &lt;- 6:9
+x + y</code></pre>
+<p>Each element of <code>x</code> was added to its corresponding element of <code>y</code>:</p>
+<p><code>{r, eval=FALSE} x:  1  2  3  4     +  +  +  + y:  6  7  8  9 ---------------     7  9 11 13</code></p>
+<p>Here is how we would add two vectors together using a for loop:</p>
+<pre class="{r}"><code>output_vector &lt;- c()
 for (i in 1:4) {
   output_vector[i] &lt;- x[i] + y[i]
 }
 output_vector
 
-
-</code></pre></div></div>
-
+</code></pre>
 <p>Compare this to the output using vectorised operations.</p>
-
-<pre><code class="language-{r}">sum_xy &lt;- x + y
-sum_xy
-</code></pre>
-
-<p>:::::::::::::::::::::::::::::::::::::::  challenge</p>
-
+<pre class="{r}"><code>sum_xy &lt;- x + y
+sum_xy</code></pre>
+<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
 <h2 id="challenge-1">Challenge 1</h2>
-
-<p>Let’s try this on the <code class="language-plaintext highlighter-rouge">pop</code> column of the <code class="language-plaintext highlighter-rouge">gapminder</code> dataset.</p>
-
-<p>Make a new column in the <code class="language-plaintext highlighter-rouge">gapminder</code> data frame that
-contains population in units of millions of people.
-Check the head or tail of the data frame to make sure
-it worked.</p>
-
-<p>:::::::::::::::  solution</p>
-
+<p>Let’s try this on the <code>pop</code> column of the <code>gapminder</code> dataset.</p>
+<p>Make a new column in the <code>gapminder</code> data frame that contains population in units of millions of people. Check the head or tail of the data frame to make sure it worked.</p>
+<p>::::::::::::::: solution</p>
 <h2 id="solution-to-challenge-1">Solution to challenge 1</h2>
-
-<p>Let’s try this on the <code class="language-plaintext highlighter-rouge">pop</code> column of the <code class="language-plaintext highlighter-rouge">gapminder</code> dataset.</p>
-
-<p>Make a new column in the <code class="language-plaintext highlighter-rouge">gapminder</code> data frame that
-contains population in units of millions of people.
-Check the head or tail of the data frame to make sure
-it worked.</p>
-
-<pre><code class="language-{r}">gapminder$pop_millions &lt;- gapminder$pop / 1e6
-head(gapminder)
-</code></pre>
-
+<p>Let’s try this on the <code>pop</code> column of the <code>gapminder</code> dataset.</p>
+<p>Make a new column in the <code>gapminder</code> data frame that contains population in units of millions of people. Check the head or tail of the data frame to make sure it worked.</p>
+<pre class="{r}"><code>gapminder$pop_millions &lt;- gapminder$pop / 1e6
+head(gapminder)</code></pre>
 <p>:::::::::::::::::::::::::</p>
-
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-
-<p>:::::::::::::::::::::::::::::::::::::::  challenge</p>
-
+<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
 <h2 id="challenge-2">Challenge 2</h2>
-
-<p>On a single graph, plot population, in
-millions, against year, for all countries. Do not worry about
-identifying which country is which.</p>
-
-<p>Repeat the exercise, graphing only for China, India, and
-Indonesia. Again, do not worry about which is which.</p>
-
-<p>:::::::::::::::  solution</p>
-
+<p>On a single graph, plot population, in millions, against year, for all countries. Do not worry about identifying which country is which.</p>
+<p>Repeat the exercise, graphing only for China, India, and Indonesia. Again, do not worry about which is which.</p>
+<p>::::::::::::::: solution</p>
 <h2 id="solution-to-challenge-2">Solution to challenge 2</h2>
-
 <p>Refresh your plotting skills by plotting population in millions against year.</p>
-
-<p>```{r ch2-sol, fig.alt=”Scatter plot showing populations in the millions against the year for China, India, and Indonesia, countries are not labeled.”}
-ggplot(gapminder, aes(x = year, y = pop_millions)) +
- geom_point()
-countryset &lt;- c(“China”,”India”,”Indonesia”)
-ggplot(gapminder[gapminder$country %in% countryset,],
-       aes(x = year, y = pop_millions)) +
-  geom_point()</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-:::::::::::::::::::::::::
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
-
-Comparison operators, logical operators, and many functions are also
-vectorized:
-
-**Comparison operators**
-
-```{r}
-x &gt; 2
-</code></pre></div></div>
-
+<p><code>{r ch2-sol, fig.alt=&quot;Scatter plot showing populations in the millions against the year for China, India, and Indonesia, countries are not labeled.&quot;} ggplot(gapminder, aes(x = year, y = pop_millions)) +  geom_point() countryset &lt;- c(&quot;China&quot;,&quot;India&quot;,&quot;Indonesia&quot;) ggplot(gapminder[gapminder$country %in% countryset,],        aes(x = year, y = pop_millions)) +   geom_point()</code></p>
+<p>:::::::::::::::::::::::::</p>
+<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+<p>Comparison operators, logical operators, and many functions are also vectorized:</p>
+<p><strong>Comparison operators</strong></p>
+<pre class="{r}"><code>x &gt; 2</code></pre>
 <p><strong>Logical operators</strong></p>
-
-<pre><code class="language-{r}">a &lt;- x &gt; 3  # or, for clarity, a &lt;- (x &gt; 3)
-a
-</code></pre>
-
-<p>:::::::::::::::::::::::::::::::::::::::::  callout</p>
-
+<pre class="{r}"><code>a &lt;- x &gt; 3  # or, for clarity, a &lt;- (x &gt; 3)
+a</code></pre>
+<p>::::::::::::::::::::::::::::::::::::::::: callout</p>
 <h2 id="tip-some-useful-functions-for-logical-vectors">Tip: some useful functions for logical vectors</h2>
-
-<p><code class="language-plaintext highlighter-rouge">any()</code> will return <code class="language-plaintext highlighter-rouge">TRUE</code> if <em>any</em> element of a vector is <code class="language-plaintext highlighter-rouge">TRUE</code>.<br />
-<code class="language-plaintext highlighter-rouge">all()</code> will return <code class="language-plaintext highlighter-rouge">TRUE</code> if <em>all</em> elements of a vector are <code class="language-plaintext highlighter-rouge">TRUE</code>.</p>
-
+<p><code>any()</code> will return <code>TRUE</code> if <em>any</em> element of a vector is <code>TRUE</code>.<br />
+<code>all()</code> will return <code>TRUE</code> if <em>all</em> elements of a vector are <code>TRUE</code>.</p>
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-
 <p>Most functions also operate element-wise on vectors:</p>
-
 <p><strong>Functions</strong></p>
-
-<pre><code class="language-{r}">x &lt;- 1:4
-log(x)
-</code></pre>
-
+<pre class="{r}"><code>x &lt;- 1:4
+log(x)</code></pre>
 <p>Vectorized operations work element-wise on matrices:</p>
-
-<pre><code class="language-{r}">m &lt;- matrix(1:12, nrow=3, ncol=4)
-m * -1
-</code></pre>
-
-<p>:::::::::::::::::::::::::::::::::::::::::  callout</p>
-
-<h2 id="tip-element-wise-vs-matrix-multiplication">Tip: element-wise vs. matrix multiplication</h2>
-
-<p>Very important: the operator <code class="language-plaintext highlighter-rouge">*</code> gives you element-wise multiplication!
-To do matrix multiplication, we need to use the <code class="language-plaintext highlighter-rouge">%*%</code> operator:</p>
-
-<pre><code class="language-{r}">m %*% matrix(1, nrow=4, ncol=1)
-matrix(1:4, nrow=1) %*% matrix(1:4, ncol=1)
-</code></pre>
-
-<p>For more on matrix algebra, see the <a href="https://www.statmethods.net/advstats/matrix.html">Quick-R reference
-guide</a></p>
-
+<pre class="{r}"><code>m &lt;- matrix(1:12, nrow=3, ncol=4)
+m * -1</code></pre>
+<p>::::::::::::::::::::::::::::::::::::::::: callout</p>
+<h2 id="tip-element-wise-vs.matrix-multiplication">Tip: element-wise vs. matrix multiplication</h2>
+<p>Very important: the operator <code>*</code> gives you element-wise multiplication! To do matrix multiplication, we need to use the <code>%*%</code> operator:</p>
+<pre class="{r}"><code>m %*% matrix(1, nrow=4, ncol=1)
+matrix(1:4, nrow=1) %*% matrix(1:4, ncol=1)</code></pre>
+<p>For more on matrix algebra, see the <a href="https://www.statmethods.net/advstats/matrix.html">Quick-R reference guide</a></p>
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-
-<p>:::::::::::::::::::::::::::::::::::::::  challenge</p>
-
+<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
 <h2 id="challenge-3">Challenge 3</h2>
-
 <p>Given the following matrix:</p>
-
-<pre><code class="language-{r}">m &lt;- matrix(1:12, nrow=3, ncol=4)
-m
-</code></pre>
-
+<pre class="{r}"><code>m &lt;- matrix(1:12, nrow=3, ncol=4)
+m</code></pre>
 <p>Write down what you think will happen when you run:</p>
-
-<ol>
-  <li><code class="language-plaintext highlighter-rouge">m ^ -1</code></li>
-  <li><code class="language-plaintext highlighter-rouge">m * c(1, 0, -1)</code></li>
-  <li><code class="language-plaintext highlighter-rouge">m &gt; c(0, 20)</code></li>
-  <li><code class="language-plaintext highlighter-rouge">m * c(1, 0, -1, 2)</code></li>
+<ol style="list-style-type: decimal">
+<li><code>m ^ -1</code></li>
+<li><code>m * c(1, 0, -1)</code></li>
+<li><code>m &gt; c(0, 20)</code></li>
+<li><code>m * c(1, 0, -1, 2)</code></li>
 </ol>
-
 <p>Did you get the output you expected? If not, ask a helper!</p>
-
-<p>:::::::::::::::  solution</p>
-
+<p>::::::::::::::: solution</p>
 <h2 id="solution-to-challenge-3">Solution to challenge 3</h2>
-
 <p>Given the following matrix:</p>
-
-<pre><code class="language-{r}">m &lt;- matrix(1:12, nrow=3, ncol=4)
-m
-</code></pre>
-
+<pre class="{r}"><code>m &lt;- matrix(1:12, nrow=3, ncol=4)
+m</code></pre>
 <p>Write down what you think will happen when you run:</p>
-
-<ol>
-  <li><code class="language-plaintext highlighter-rouge">m ^ -1</code></li>
+<ol style="list-style-type: decimal">
+<li><code>m ^ -1</code></li>
 </ol>
-
-<p>```{r, echo=FALSE}
-m ^ -1</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-2. `m * c(1, 0, -1)`
-
-```{r, echo=FALSE}
-m * c(1, 0, -1)
-</code></pre></div></div>
-
-<ol>
-  <li><code class="language-plaintext highlighter-rouge">m &gt; c(0, 20)</code></li>
+<p><code>{r, echo=FALSE} m ^ -1</code></p>
+<ol start="2" style="list-style-type: decimal">
+<li><code>m * c(1, 0, -1)</code></li>
 </ol>
-
-<p>```{r, echo=FALSE}
-m &gt; c(0, 20)</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-:::::::::::::::::::::::::
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
-
-:::::::::::::::::::::::::::::::::::::::  challenge
-
-## Challenge 4
-
-We're interested in looking at the sum of the
-following sequence of fractions:
-
-```{r, eval=FALSE}
- x = 1/(1^2) + 1/(2^2) + 1/(3^2) + ... + 1/(n^2)
-</code></pre></div></div>
-
-<p>This would be tedious to type out, and impossible for high values of
-n.  Use vectorisation to compute x when n=100. What is the sum when
-n=10,000?</p>
-
-<p>:::::::::::::::  solution</p>
-
+<p><code>{r, echo=FALSE} m * c(1, 0, -1)</code></p>
+<ol start="3" style="list-style-type: decimal">
+<li><code>m &gt; c(0, 20)</code></li>
+</ol>
+<p><code>{r, echo=FALSE} m &gt; c(0, 20)</code></p>
+<p>:::::::::::::::::::::::::</p>
+<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
 <h2 id="challenge-4">Challenge 4</h2>
-
-<p>We’re interested in looking at the sum of the
-following sequence of fractions:</p>
-
-<p>```{r, eval=FALSE}
- x = 1/(1^2) + 1/(2^2) + 1/(3^2) + … + 1/(n^2)</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-This would be tedious to type out, and impossible for
-high values of n.
-Can you use vectorisation to compute x, when n=100?
-How about when n=10,000?
-
-```{r}
-sum(1/(1:100)^2)
+<p>We’re interested in looking at the sum of the following sequence of fractions:</p>
+<p><code>{r, eval=FALSE}  x = 1/(1^2) + 1/(2^2) + 1/(3^2) + ... + 1/(n^2)</code></p>
+<p>This would be tedious to type out, and impossible for high values of n. Use vectorisation to compute x when n=100. What is the sum when n=10,000?</p>
+<p>::::::::::::::: solution</p>
+<h2 id="challenge-4-1">Challenge 4</h2>
+<p>We’re interested in looking at the sum of the following sequence of fractions:</p>
+<p><code>{r, eval=FALSE}  x = 1/(1^2) + 1/(2^2) + 1/(3^2) + ... + 1/(n^2)</code></p>
+<p>This would be tedious to type out, and impossible for high values of n. Can you use vectorisation to compute x, when n=100? How about when n=10,000?</p>
+<pre class="{r}"><code>sum(1/(1:100)^2)
 sum(1/(1:1e04)^2)
 n &lt;- 10000
-sum(1/(1:n)^2)
-</code></pre></div></div>
-
+sum(1/(1:n)^2)</code></pre>
 <p>We can also obtain the same results using a function:</p>
-
-<pre><code class="language-{r}">inverse_sum_of_squares &lt;- function(n) {
+<pre class="{r}"><code>inverse_sum_of_squares &lt;- function(n) {
   sum(1/(1:n)^2)
 }
 inverse_sum_of_squares(100)
 inverse_sum_of_squares(10000)
 n &lt;- 10000
-inverse_sum_of_squares(n)
-</code></pre>
-
+inverse_sum_of_squares(n)</code></pre>
 <p>:::::::::::::::::::::::::</p>
-
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-
-<p>:::::::::::::::::::::::::::::::::::::::::  callout</p>
-
+<p>::::::::::::::::::::::::::::::::::::::::: callout</p>
 <h2 id="tip-operations-on-vectors-of-unequal-length">Tip: Operations on vectors of unequal length</h2>
-
-<p>Operations can also be performed on vectors of unequal length, through
-a process known as <em>recycling</em>. This process automatically repeats the smaller vector
-until it matches the length of the larger vector. R will provide a warning
-if the larger vector is not a multiple of the smaller vector.</p>
-
-<pre><code class="language-{r}">x &lt;- c(1, 2, 3)
+<p>Operations can also be performed on vectors of unequal length, through a process known as <em>recycling</em>. This process automatically repeats the smaller vector until it matches the length of the larger vector. R will provide a warning if the larger vector is not a multiple of the smaller vector.</p>
+<pre class="{r}"><code>x &lt;- c(1, 2, 3)
 y &lt;- c(1, 2, 3, 4, 5, 6, 7)
-x + y
-</code></pre>
-
-<p>Vector <code class="language-plaintext highlighter-rouge">x</code> was recycled to match the length of vector <code class="language-plaintext highlighter-rouge">y</code></p>
-
-<p><code class="language-plaintext highlighter-rouge">{r, eval=FALSE}
-x:  1  2  3  1  2  3  1
-    +  +  +  +  +  +  +
-y:  1  2  3  4  5  6  7
------------------------
-    2  4  6  5  7  9  8
-</code></p>
-
+x + y</code></pre>
+<p>Vector <code>x</code> was recycled to match the length of vector <code>y</code></p>
+<p><code>{r, eval=FALSE} x:  1  2  3  1  2  3  1     +  +  +  +  +  +  + y:  1  2  3  4  5  6  7 -----------------------     2  4  6  5  7  9  8</code></p>
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-
 <p>:::::::::::::::::::::::::::::::::::::::: keypoints</p>
-
 <ul>
-  <li>Use vectorized operations instead of loops.</li>
+<li>Use vectorized operations instead of loops.</li>
 </ul>
-
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-
+        </div>
+      </div>
+      </article>
+      <div class="footer">
+        <a class="label swc-blue-bg" href="mailto:s.fernandez_valverde@unsw.edu.au">Contact</a>
+        <a class="label swc-blue-bg" href="LICENSE.html">License</a>
+      </div>
+    </div>
+    <!-- Javascript placed at the end of the document so the pages load faster -->
+    <script src="http://software-carpentry.org/v5/js/jquery-1.9.1.min.js"></script>
+    <script src="css/bootstrap/bootstrap-js/bootstrap.js"></script>
+    <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+  </body>
+</html>

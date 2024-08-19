@@ -1,829 +1,413 @@
-<p>::::::::::::::::::::::::::::::::::::::: objectives</p>
-
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="generator" content="pandoc">
+    <title>Subsetting Data</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" href="css/swc.css" />
+    <link rel="alternate" type="application/rss+xml" title="Bioinformatics Honours 2024" href="https://github.com/liz-fernandez/UNSW_Honours_Bioinfo_2024/"/>
+    <meta charset="UTF-8" />
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body class="lesson">
+    <div class="container card">
+      <div class="banner">
+        <a href="https://liz-fernandez.github.io/Honours_Bioinfo_2024/" title="Honours Bioinformatics Course 2024">
+          <img alt="Logo UNSW" src="img/unsw_logo.jpg" />
+        </a>
+      </div>
+      <article>
+      <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+                    <h1 class="title">Subsetting Data</h1>
+          <p>::::::::::::::::::::::::::::::::::::::: objectives</p>
 <ul>
-  <li>To be able to subset vectors, factors, matrices, lists, and data frames</li>
-  <li>To be able to extract individual and multiple elements: by index, by name, using comparison operations</li>
-  <li>To be able to skip and remove elements from various data structures.</li>
+<li>To be able to subset vectors, factors, matrices, lists, and data frames</li>
+<li>To be able to extract individual and multiple elements: by index, by name, using comparison operations</li>
+<li>To be able to skip and remove elements from various data structures.</li>
 </ul>
-
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-
 <p>:::::::::::::::::::::::::::::::::::::::: questions</p>
-
 <ul>
-  <li>How can I work with subsets of data in R?</li>
+<li>How can I work with subsets of data in R?</li>
 </ul>
-
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-
-<p>```{r, include=FALSE}
-gapminder &lt;- read.csv(“data/gapminder_data.csv”, header = TRUE)</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-R has many powerful subset operators. Mastering them will allow you to
-easily perform complex operations on any kind of dataset.
-
-There are six different ways we can subset any kind of object, and three
-different subsetting operators for the different data structures.
-
-Let's start with the workhorse of R: a simple numeric vector.
-
-```{r}
-x &lt;- c(5.4, 6.2, 7.1, 4.8, 7.5)
-names(x) &lt;- c('a', 'b', 'c', 'd', 'e')
-x
-</code></pre></div></div>
-
-<p>:::::::::::::::::::::::::::::::::::::::::  callout</p>
-
+<p><code>{r, include=FALSE} gapminder &lt;- read.csv(&quot;data/gapminder_data.csv&quot;, header = TRUE)</code></p>
+<p>R has many powerful subset operators. Mastering them will allow you to easily perform complex operations on any kind of dataset.</p>
+<p>There are six different ways we can subset any kind of object, and three different subsetting operators for the different data structures.</p>
+<p>Let’s start with the workhorse of R: a simple numeric vector.</p>
+<pre class="{r}"><code>x &lt;- c(5.4, 6.2, 7.1, 4.8, 7.5)
+names(x) &lt;- c(&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;)
+x</code></pre>
+<p>::::::::::::::::::::::::::::::::::::::::: callout</p>
 <h2 id="atomic-vectors">Atomic vectors</h2>
-
 <p>In R, simple vectors containing character strings, numbers, or logical values are called <em>atomic</em> vectors because they can’t be further simplified.</p>
-
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-
-<p>So now that we’ve created a dummy vector to play with, how do we get at its
-contents?</p>
-
+<p>So now that we’ve created a dummy vector to play with, how do we get at its contents?</p>
 <h2 id="accessing-elements-using-their-indices">Accessing elements using their indices</h2>
-
-<p>To extract elements of a vector we can give their corresponding index, starting
-from one:</p>
-
-<pre><code class="language-{r}">x[1]
-</code></pre>
-
-<pre><code class="language-{r}">x[4]
-</code></pre>
-
-<p>It may look different, but the square brackets operator is a function. For vectors
-(and matrices), it means “get me the nth element”.</p>
-
+<p>To extract elements of a vector we can give their corresponding index, starting from one:</p>
+<pre class="{r}"><code>x[1]</code></pre>
+<pre class="{r}"><code>x[4]</code></pre>
+<p>It may look different, but the square brackets operator is a function. For vectors (and matrices), it means “get me the nth element”.</p>
 <p>We can ask for multiple elements at once:</p>
-
-<pre><code class="language-{r}">x[c(1, 3)]
-</code></pre>
-
+<pre class="{r}"><code>x[c(1, 3)]</code></pre>
 <p>Or slices of the vector:</p>
-
-<pre><code class="language-{r}">x[1:4]
-</code></pre>
-
-<p>the <code class="language-plaintext highlighter-rouge">:</code> operator creates a sequence of numbers from the left element to the right.</p>
-
-<pre><code class="language-{r}">1:4
-c(1, 2, 3, 4)
-</code></pre>
-
+<pre class="{r}"><code>x[1:4]</code></pre>
+<p>the <code>:</code> operator creates a sequence of numbers from the left element to the right.</p>
+<pre class="{r}"><code>1:4
+c(1, 2, 3, 4)</code></pre>
 <p>We can ask for the same element multiple times:</p>
-
-<pre><code class="language-{r}">x[c(1,1,3)]
-</code></pre>
-
+<pre class="{r}"><code>x[c(1,1,3)]</code></pre>
 <p>If we ask for an index beyond the length of the vector, R will return a missing value:</p>
-
-<pre><code class="language-{r}">x[6]
-</code></pre>
-
-<p>This is a vector of length one containing an <code class="language-plaintext highlighter-rouge">NA</code>, whose name is also <code class="language-plaintext highlighter-rouge">NA</code>.</p>
-
+<pre class="{r}"><code>x[6]</code></pre>
+<p>This is a vector of length one containing an <code>NA</code>, whose name is also <code>NA</code>.</p>
 <p>If we ask for the 0th element, we get an empty vector:</p>
-
-<pre><code class="language-{r}">x[0]
-</code></pre>
-
-<p>:::::::::::::::::::::::::::::::::::::::::  callout</p>
-
+<pre class="{r}"><code>x[0]</code></pre>
+<p>::::::::::::::::::::::::::::::::::::::::: callout</p>
 <h2 id="vector-numbering-in-r-starts-at-1">Vector numbering in R starts at 1</h2>
-
-<p>In many programming languages (C and Python, for example), the first
-element of a vector has an index of 0. In R, the first element is 1.</p>
-
+<p>In many programming languages (C and Python, for example), the first element of a vector has an index of 0. In R, the first element is 1.</p>
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-
 <h2 id="skipping-and-removing-elements">Skipping and removing elements</h2>
-
-<p>If we use a negative number as the index of a vector, R will return
-every element <em>except</em> for the one specified:</p>
-
-<pre><code class="language-{r}">x[-2]
-</code></pre>
-
+<p>If we use a negative number as the index of a vector, R will return every element <em>except</em> for the one specified:</p>
+<pre class="{r}"><code>x[-2]</code></pre>
 <p>We can skip multiple elements:</p>
-
-<pre><code class="language-{r}">x[c(-1, -5)]  # or x[-c(1,5)]
-</code></pre>
-
-<p>:::::::::::::::::::::::::::::::::::::::::  callout</p>
-
+<pre class="{r}"><code>x[c(-1, -5)]  # or x[-c(1,5)]</code></pre>
+<p>::::::::::::::::::::::::::::::::::::::::: callout</p>
 <h2 id="tip-order-of-operations">Tip: Order of operations</h2>
-
-<p>A common trip up for novices occurs when trying to skip
-slices of a vector. It’s natural to try to negate a
-sequence like so:</p>
-
-<p>```{r, error=TRUE, eval=FALSE}
-x[-1:3]</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-This gives a somewhat cryptic error:
-
-```{r, error=TRUE, echo=FALSE}
-x[-1:3]
-</code></pre></div></div>
-
-<p>But remember the order of operations. <code class="language-plaintext highlighter-rouge">:</code> is really a function.
-It takes its first argument as -1, and its second as 3,
-so generates the sequence of numbers: <code class="language-plaintext highlighter-rouge">c(-1, 0, 1, 2, 3)</code>.</p>
-
-<p>The correct solution is to wrap that function call in brackets, so
-that the <code class="language-plaintext highlighter-rouge">-</code> operator applies to the result:</p>
-
-<pre><code class="language-{r}">x[-(1:3)]
-</code></pre>
-
+<p>A common trip up for novices occurs when trying to skip slices of a vector. It’s natural to try to negate a sequence like so:</p>
+<p><code>{r, error=TRUE, eval=FALSE} x[-1:3]</code></p>
+<p>This gives a somewhat cryptic error:</p>
+<p><code>{r, error=TRUE, echo=FALSE} x[-1:3]</code></p>
+<p>But remember the order of operations. <code>:</code> is really a function. It takes its first argument as -1, and its second as 3, so generates the sequence of numbers: <code>c(-1, 0, 1, 2, 3)</code>.</p>
+<p>The correct solution is to wrap that function call in brackets, so that the <code>-</code> operator applies to the result:</p>
+<pre class="{r}"><code>x[-(1:3)]</code></pre>
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-
-<p>To remove elements from a vector, we need to assign the result back
-into the variable:</p>
-
-<pre><code class="language-{r}">x &lt;- x[-4]
-x
-</code></pre>
-
-<p>:::::::::::::::::::::::::::::::::::::::  challenge</p>
-
+<p>To remove elements from a vector, we need to assign the result back into the variable:</p>
+<pre class="{r}"><code>x &lt;- x[-4]
+x</code></pre>
+<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
 <h2 id="challenge-1">Challenge 1</h2>
-
 <p>Given the following code:</p>
-
-<pre><code class="language-{r}">x &lt;- c(5.4, 6.2, 7.1, 4.8, 7.5)
-names(x) &lt;- c('a', 'b', 'c', 'd', 'e')
-print(x)
-</code></pre>
-
+<pre class="{r}"><code>x &lt;- c(5.4, 6.2, 7.1, 4.8, 7.5)
+names(x) &lt;- c(&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;)
+print(x)</code></pre>
 <p>Come up with at least 2 different commands that will produce the following output:</p>
-
-<p>```{r, echo=FALSE}
-x[2:4]</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-After you find 2 different commands, compare notes with your neighbour. Did you have different strategies?
-
-:::::::::::::::  solution
-
-## Solution to challenge 1
-
-```{r}
-x[2:4]
-</code></pre></div></div>
-
-<pre><code class="language-{r}">x[-c(1,5)]
-</code></pre>
-
-<pre><code class="language-{r}">x[c(2,3,4)]
-</code></pre>
-
+<p><code>{r, echo=FALSE} x[2:4]</code></p>
+<p>After you find 2 different commands, compare notes with your neighbour. Did you have different strategies?</p>
+<p>::::::::::::::: solution</p>
+<h2 id="solution-to-challenge-1">Solution to challenge 1</h2>
+<pre class="{r}"><code>x[2:4]</code></pre>
+<pre class="{r}"><code>x[-c(1,5)]</code></pre>
+<pre class="{r}"><code>x[c(2,3,4)]</code></pre>
 <p>:::::::::::::::::::::::::</p>
-
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-
 <h2 id="subsetting-by-name">Subsetting by name</h2>
-
 <p>We can extract elements by using their name, instead of extracting by index:</p>
-
-<pre><code class="language-{r}">x &lt;- c(a=5.4, b=6.2, c=7.1, d=4.8, e=7.5) # we can name a vector 'on the fly'
-x[c("a", "c")]
-</code></pre>
-
-<p>This is usually a much more reliable way to subset objects: the
-position of various elements can often change when chaining together
-subsetting operations, but the names will always remain the same!</p>
-
+<pre class="{r}"><code>x &lt;- c(a=5.4, b=6.2, c=7.1, d=4.8, e=7.5) # we can name a vector &#39;on the fly&#39;
+x[c(&quot;a&quot;, &quot;c&quot;)]</code></pre>
+<p>This is usually a much more reliable way to subset objects: the position of various elements can often change when chaining together subsetting operations, but the names will always remain the same!</p>
 <h2 id="logical-operations">Subsetting through other logical operations</h2>
-
 <p>We can also use any logical vector to subset:</p>
-
-<pre><code class="language-{r}">x[c(FALSE, FALSE, TRUE, FALSE, TRUE)]
-</code></pre>
-
-<p>Since comparison operators (e.g. <code class="language-plaintext highlighter-rouge">&gt;</code>, <code class="language-plaintext highlighter-rouge">&lt;</code>, <code class="language-plaintext highlighter-rouge">==</code>) evaluate to logical vectors, we can also
-use them to succinctly subset vectors: the following statement gives
-the same result as the previous one.</p>
-
-<pre><code class="language-{r}">x[x &gt; 7]
-</code></pre>
-
-<p>Breaking it down, this statement first evaluates <code class="language-plaintext highlighter-rouge">x&gt;7</code>, generating
-a logical vector <code class="language-plaintext highlighter-rouge">c(FALSE, FALSE, TRUE, FALSE, TRUE)</code>, and then
-selects the elements of <code class="language-plaintext highlighter-rouge">x</code> corresponding to the <code class="language-plaintext highlighter-rouge">TRUE</code> values.</p>
-
-<p>We can use <code class="language-plaintext highlighter-rouge">==</code> to mimic the previous method of indexing by name
-(remember you have to use <code class="language-plaintext highlighter-rouge">==</code> rather than <code class="language-plaintext highlighter-rouge">=</code> for comparisons):</p>
-
-<pre><code class="language-{r}">x[names(x) == "a"]
-</code></pre>
-
-<p>:::::::::::::::::::::::::::::::::::::::::  callout</p>
-
+<pre class="{r}"><code>x[c(FALSE, FALSE, TRUE, FALSE, TRUE)]</code></pre>
+<p>Since comparison operators (e.g. <code>&gt;</code>, <code>&lt;</code>, <code>==</code>) evaluate to logical vectors, we can also use them to succinctly subset vectors: the following statement gives the same result as the previous one.</p>
+<pre class="{r}"><code>x[x &gt; 7]</code></pre>
+<p>Breaking it down, this statement first evaluates <code>x&gt;7</code>, generating a logical vector <code>c(FALSE, FALSE, TRUE, FALSE, TRUE)</code>, and then selects the elements of <code>x</code> corresponding to the <code>TRUE</code> values.</p>
+<p>We can use <code>==</code> to mimic the previous method of indexing by name (remember you have to use <code>==</code> rather than <code>=</code> for comparisons):</p>
+<pre class="{r}"><code>x[names(x) == &quot;a&quot;]</code></pre>
+<p>::::::::::::::::::::::::::::::::::::::::: callout</p>
 <h2 id="tip-combining-logical-conditions">Tip: Combining logical conditions</h2>
-
-<p>We often want to combine multiple logical
-criteria. For example, we might want to find all the countries that are
-located in Asia <strong>or</strong> Europe <strong>and</strong> have life expectancies within a certain
-range. Several operations for combining logical vectors exist in R:</p>
-
+<p>We often want to combine multiple logical criteria. For example, we might want to find all the countries that are located in Asia <strong>or</strong> Europe <strong>and</strong> have life expectancies within a certain range. Several operations for combining logical vectors exist in R:</p>
 <ul>
-  <li><code class="language-plaintext highlighter-rouge">&amp;</code>, the “logical AND” operator: returns <code class="language-plaintext highlighter-rouge">TRUE</code> if both the left and right
-are <code class="language-plaintext highlighter-rouge">TRUE</code>.</li>
-  <li><code class="language-plaintext highlighter-rouge">|</code>, the “logical OR” operator: returns <code class="language-plaintext highlighter-rouge">TRUE</code>, if either the left or right
-(or both) are <code class="language-plaintext highlighter-rouge">TRUE</code>.</li>
+<li><code>&amp;</code>, the “logical AND” operator: returns <code>TRUE</code> if both the left and right are <code>TRUE</code>.</li>
+<li><code>|</code>, the “logical OR” operator: returns <code>TRUE</code>, if either the left or right (or both) are <code>TRUE</code>.</li>
 </ul>
-
-<p>You may sometimes see <code class="language-plaintext highlighter-rouge">&amp;&amp;</code> and <code class="language-plaintext highlighter-rouge">||</code> instead of <code class="language-plaintext highlighter-rouge">&amp;</code> and <code class="language-plaintext highlighter-rouge">|</code>. These two-character operators
-only look at the first element of each vector and ignore the
-remaining elements. In general you should not use the two-character
-operators in data analysis; save them
-for programming, i.e. deciding whether to execute a statement.</p>
-
+<p>You may sometimes see <code>&amp;&amp;</code> and <code>||</code> instead of <code>&amp;</code> and <code>|</code>. These two-character operators only look at the first element of each vector and ignore the remaining elements. In general you should not use the two-character operators in data analysis; save them for programming, i.e. deciding whether to execute a statement.</p>
 <ul>
-  <li><code class="language-plaintext highlighter-rouge">!</code>, the “logical NOT” operator: converts <code class="language-plaintext highlighter-rouge">TRUE</code> to <code class="language-plaintext highlighter-rouge">FALSE</code> and <code class="language-plaintext highlighter-rouge">FALSE</code> to
-<code class="language-plaintext highlighter-rouge">TRUE</code>. It can negate a single logical condition (eg <code class="language-plaintext highlighter-rouge">!TRUE</code> becomes
-<code class="language-plaintext highlighter-rouge">FALSE</code>), or a whole vector of conditions(eg <code class="language-plaintext highlighter-rouge">!c(TRUE, FALSE)</code> becomes
-<code class="language-plaintext highlighter-rouge">c(FALSE, TRUE)</code>).</li>
+<li><code>!</code>, the “logical NOT” operator: converts <code>TRUE</code> to <code>FALSE</code> and <code>FALSE</code> to <code>TRUE</code>. It can negate a single logical condition (eg <code>!TRUE</code> becomes <code>FALSE</code>), or a whole vector of conditions(eg <code>!c(TRUE, FALSE)</code> becomes <code>c(FALSE, TRUE)</code>).</li>
 </ul>
-
-<p>Additionally, you can compare the elements within a single vector using the
-<code class="language-plaintext highlighter-rouge">all</code> function (which returns <code class="language-plaintext highlighter-rouge">TRUE</code> if every element of the vector is <code class="language-plaintext highlighter-rouge">TRUE</code>)
-and the <code class="language-plaintext highlighter-rouge">any</code> function (which returns <code class="language-plaintext highlighter-rouge">TRUE</code> if one or more elements of the
-vector are <code class="language-plaintext highlighter-rouge">TRUE</code>).</p>
-
+<p>Additionally, you can compare the elements within a single vector using the <code>all</code> function (which returns <code>TRUE</code> if every element of the vector is <code>TRUE</code>) and the <code>any</code> function (which returns <code>TRUE</code> if one or more elements of the vector are <code>TRUE</code>).</p>
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-
-<p>:::::::::::::::::::::::::::::::::::::::  challenge</p>
-
+<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
 <h2 id="challenge-2">Challenge 2</h2>
-
 <p>Given the following code:</p>
-
-<pre><code class="language-{r}">x &lt;- c(5.4, 6.2, 7.1, 4.8, 7.5)
-names(x) &lt;- c('a', 'b', 'c', 'd', 'e')
-print(x)
-</code></pre>
-
+<pre class="{r}"><code>x &lt;- c(5.4, 6.2, 7.1, 4.8, 7.5)
+names(x) &lt;- c(&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;)
+print(x)</code></pre>
 <p>Write a subsetting command to return the values in x that are greater than 4 and less than 7.</p>
-
-<p>:::::::::::::::  solution</p>
-
+<p>::::::::::::::: solution</p>
 <h2 id="solution-to-challenge-2">Solution to challenge 2</h2>
-
-<pre><code class="language-{r}">x_subset &lt;- x[x&lt;7 &amp; x&gt;4]
-print(x_subset)
-</code></pre>
-
+<pre class="{r}"><code>x_subset &lt;- x[x&lt;7 &amp; x&gt;4]
+print(x_subset)</code></pre>
 <p>:::::::::::::::::::::::::</p>
-
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-
-<p>:::::::::::::::::::::::::::::::::::::::::  callout</p>
-
+<p>::::::::::::::::::::::::::::::::::::::::: callout</p>
 <h2 id="tip-non-unique-names">Tip: Non-unique names</h2>
-
-<p>You should be aware that it is possible for multiple elements in a
-vector to have the same name. (For a data frame, columns can have
-the same name — although R tries to avoid this — but row names
-must be unique.) Consider these examples:</p>
-
-<pre><code class="language-{r}">x &lt;- 1:3
+<p>You should be aware that it is possible for multiple elements in a vector to have the same name. (For a data frame, columns can have the same name — although R tries to avoid this — but row names must be unique.) Consider these examples:</p>
+<pre class="{r}"><code>x &lt;- 1:3
 x
-names(x) &lt;- c('a', 'a', 'a')
+names(x) &lt;- c(&#39;a&#39;, &#39;a&#39;, &#39;a&#39;)
 x
-x['a']  # only returns first value
-x[names(x) == 'a']  # returns all three values
-</code></pre>
-
+x[&#39;a&#39;]  # only returns first value
+x[names(x) == &#39;a&#39;]  # returns all three values</code></pre>
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-
-<p>:::::::::::::::::::::::::::::::::::::::::  callout</p>
-
+<p>::::::::::::::::::::::::::::::::::::::::: callout</p>
 <h2 id="tip-getting-help-for-operators">Tip: Getting help for operators</h2>
-
-<p>Remember you can search for help on operators by wrapping them in quotes:
-<code class="language-plaintext highlighter-rouge">help("%in%")</code> or <code class="language-plaintext highlighter-rouge">?"%in%"</code>.</p>
-
+<p>Remember you can search for help on operators by wrapping them in quotes: <code>help(&quot;%in%&quot;)</code> or <code>?&quot;%in%&quot;</code>.</p>
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-
 <h2 id="skipping-named-elements">Skipping named elements</h2>
-
 <p>Skipping or removing named elements is a little harder. If we try to skip one named element by negating the string, R complains (slightly obscurely) that it doesn’t know how to take the negative of a string:</p>
-
-<pre><code class="language-{r}">x &lt;- c(a=5.4, b=6.2, c=7.1, d=4.8, e=7.5) # we start again by naming a vector 'on the fly'
-x[-"a"]
-</code></pre>
-
-<p>However, we can use the <code class="language-plaintext highlighter-rouge">!=</code> (not-equals) operator to construct a logical vector that will do what we want:</p>
-
-<pre><code class="language-{r}">x[names(x) != "a"]
-</code></pre>
-
-<p>Skipping multiple named indices is a little bit harder still. Suppose we want to drop the <code class="language-plaintext highlighter-rouge">"a"</code> and <code class="language-plaintext highlighter-rouge">"c"</code> elements, so we try this:</p>
-
-<pre><code class="language-{r}">x[names(x)!=c("a","c")]
-</code></pre>
-
-<p>R did <em>something</em>, but it gave us a warning that we ought to pay attention to - and it apparently <em>gave us the wrong answer</em> (the <code class="language-plaintext highlighter-rouge">"c"</code> element is still included in the vector)!</p>
-
-<p>So what does <code class="language-plaintext highlighter-rouge">!=</code> actually do in this case? That’s an excellent question.</p>
-
+<pre class="{r}"><code>x &lt;- c(a=5.4, b=6.2, c=7.1, d=4.8, e=7.5) # we start again by naming a vector &#39;on the fly&#39;
+x[-&quot;a&quot;]</code></pre>
+<p>However, we can use the <code>!=</code> (not-equals) operator to construct a logical vector that will do what we want:</p>
+<pre class="{r}"><code>x[names(x) != &quot;a&quot;]</code></pre>
+<p>Skipping multiple named indices is a little bit harder still. Suppose we want to drop the <code>&quot;a&quot;</code> and <code>&quot;c&quot;</code> elements, so we try this:</p>
+<pre class="{r}"><code>x[names(x)!=c(&quot;a&quot;,&quot;c&quot;)]</code></pre>
+<p>R did <em>something</em>, but it gave us a warning that we ought to pay attention to - and it apparently <em>gave us the wrong answer</em> (the <code>&quot;c&quot;</code> element is still included in the vector)!</p>
+<p>So what does <code>!=</code> actually do in this case? That’s an excellent question.</p>
 <h3 id="recycling">Recycling</h3>
-
 <p>Let’s take a look at the comparison component of this code:</p>
+<pre class="{r}"><code>names(x) != c(&quot;a&quot;, &quot;c&quot;)</code></pre>
+<p>Why does R give <code>TRUE</code> as the third element of this vector, when <code>names(x)[3] != &quot;c&quot;</code> is obviously false? When you use <code>!=</code>, R tries to compare each element of the left argument with the corresponding element of its right argument. What happens when you compare vectors of different lengths?</p>
+<div class="figure">
+<img src="fig/06-rmd-inequality.1.png" alt="Inequality testing" />
 
-<pre><code class="language-{r}">names(x) != c("a", "c")
-</code></pre>
-
-<p>Why does R give <code class="language-plaintext highlighter-rouge">TRUE</code> as the third element of this vector, when <code class="language-plaintext highlighter-rouge">names(x)[3] != "c"</code> is obviously false?
-When you use <code class="language-plaintext highlighter-rouge">!=</code>, R tries to compare each element
-of the left argument with the corresponding element of its right
-argument. What happens when you compare vectors of different lengths?</p>
-
-<p><img src="fig/06-rmd-inequality.1.png" alt="" />{alt=’Inequality testing’}</p>
-
+</div>
 <p>When one vector is shorter than the other, it gets <em>recycled</em>:</p>
+<div class="figure">
+<img src="fig/06-rmd-inequality.2.png" alt="Inequality testing: results of recycling" />
 
-<p><img src="fig/06-rmd-inequality.2.png" alt="" />{alt=’Inequality testing: results of recycling’}</p>
-
-<p>In this case R <strong>repeats</strong> <code class="language-plaintext highlighter-rouge">c("a", "c")</code> as many times as necessary to match <code class="language-plaintext highlighter-rouge">names(x)</code>, i.e. we get <code class="language-plaintext highlighter-rouge">c("a","c","a","c","a")</code>. Since the recycled <code class="language-plaintext highlighter-rouge">"a"</code>
-doesn’t match the third element of <code class="language-plaintext highlighter-rouge">names(x)</code>, the value of <code class="language-plaintext highlighter-rouge">!=</code> is <code class="language-plaintext highlighter-rouge">TRUE</code>.
-Because in this case the longer vector length (5) isn’t a multiple of the shorter vector length (2), R printed a warning message. If we had been unlucky and <code class="language-plaintext highlighter-rouge">names(x)</code> had contained six elements, R would <em>silently</em> have done the wrong thing (i.e., not what we intended it to do). This recycling rule can can introduce hard-to-find and subtle bugs!</p>
-
-<p>The way to get R to do what we really want (match <em>each</em> element of the left argument with <em>all</em> of the elements of the right argument) it to use the <code class="language-plaintext highlighter-rouge">%in%</code> operator. The <code class="language-plaintext highlighter-rouge">%in%</code> operator goes through each element of its left argument, in this case the names of <code class="language-plaintext highlighter-rouge">x</code>, and asks, “Does this element occur in the second argument?”. Here, since we want to <em>exclude</em> values, we also need a <code class="language-plaintext highlighter-rouge">!</code> operator to change “in” to “not in”:</p>
-
-<pre><code class="language-{r}">x[! names(x) %in% c("a","c") ]
-</code></pre>
-
-<p>:::::::::::::::::::::::::::::::::::::::  challenge</p>
-
+</div>
+<p>In this case R <strong>repeats</strong> <code>c(&quot;a&quot;, &quot;c&quot;)</code> as many times as necessary to match <code>names(x)</code>, i.e. we get <code>c(&quot;a&quot;,&quot;c&quot;,&quot;a&quot;,&quot;c&quot;,&quot;a&quot;)</code>. Since the recycled <code>&quot;a&quot;</code> doesn’t match the third element of <code>names(x)</code>, the value of <code>!=</code> is <code>TRUE</code>. Because in this case the longer vector length (5) isn’t a multiple of the shorter vector length (2), R printed a warning message. If we had been unlucky and <code>names(x)</code> had contained six elements, R would <em>silently</em> have done the wrong thing (i.e., not what we intended it to do). This recycling rule can can introduce hard-to-find and subtle bugs!</p>
+<p>The way to get R to do what we really want (match <em>each</em> element of the left argument with <em>all</em> of the elements of the right argument) it to use the <code>%in%</code> operator. The <code>%in%</code> operator goes through each element of its left argument, in this case the names of <code>x</code>, and asks, “Does this element occur in the second argument?”. Here, since we want to <em>exclude</em> values, we also need a <code>!</code> operator to change “in” to “not in”:</p>
+<pre class="{r}"><code>x[! names(x) %in% c(&quot;a&quot;,&quot;c&quot;) ]</code></pre>
+<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
 <h2 id="challenge-3">Challenge 3</h2>
-
-<p>Selecting elements of a vector that match any of a list of components
-is a very common data analysis task. For example, the gapminder data set
-contains <code class="language-plaintext highlighter-rouge">country</code> and <code class="language-plaintext highlighter-rouge">continent</code> variables, but no information between
-these two scales. Suppose we want to pull out information from southeast
-Asia: how do we set up an operation to produce a logical vector that
-is <code class="language-plaintext highlighter-rouge">TRUE</code> for all of the countries in southeast Asia and <code class="language-plaintext highlighter-rouge">FALSE</code> otherwise?</p>
-
+<p>Selecting elements of a vector that match any of a list of components is a very common data analysis task. For example, the gapminder data set contains <code>country</code> and <code>continent</code> variables, but no information between these two scales. Suppose we want to pull out information from southeast Asia: how do we set up an operation to produce a logical vector that is <code>TRUE</code> for all of the countries in southeast Asia and <code>FALSE</code> otherwise?</p>
 <p>Suppose you have these data:</p>
-
-<pre><code class="language-{r}">seAsia &lt;- c("Myanmar","Thailand","Cambodia","Vietnam","Laos")
+<pre class="{r}"><code>seAsia &lt;- c(&quot;Myanmar&quot;,&quot;Thailand&quot;,&quot;Cambodia&quot;,&quot;Vietnam&quot;,&quot;Laos&quot;)
 ## read in the gapminder data that we downloaded in episode 2
-gapminder &lt;- read.csv("data/gapminder_data.csv", header=TRUE)
-## extract the `country` column from a data frame (we'll see this later);
+gapminder &lt;- read.csv(&quot;data/gapminder_data.csv&quot;, header=TRUE)
+## extract the `country` column from a data frame (we&#39;ll see this later);
 ## convert from a factor to a character;
 ## and get just the non-repeated elements
-countries &lt;- unique(as.character(gapminder$country))
-</code></pre>
-
-<p>There’s a wrong way (using only <code class="language-plaintext highlighter-rouge">==</code>), which will give you a warning;
-a clunky way (using the logical operators <code class="language-plaintext highlighter-rouge">==</code> and <code class="language-plaintext highlighter-rouge">|</code>); and
-an elegant way (using <code class="language-plaintext highlighter-rouge">%in%</code>). See whether you can come up with all three
-and explain how they (don’t) work.</p>
-
-<p>:::::::::::::::  solution</p>
-
+countries &lt;- unique(as.character(gapminder$country))</code></pre>
+<p>There’s a wrong way (using only <code>==</code>), which will give you a warning; a clunky way (using the logical operators <code>==</code> and <code>|</code>); and an elegant way (using <code>%in%</code>). See whether you can come up with all three and explain how they (don’t) work.</p>
+<p>::::::::::::::: solution</p>
 <h2 id="solution-to-challenge-3">Solution to challenge 3</h2>
-
 <ul>
-  <li>The <strong>wrong</strong> way to do this problem is <code class="language-plaintext highlighter-rouge">countries==seAsia</code>. This
-gives a warning (<code class="language-plaintext highlighter-rouge">"In countries == seAsia : longer object length is not a multiple of shorter object length"</code>) and the wrong answer (a vector of all
-<code class="language-plaintext highlighter-rouge">FALSE</code> values), because none of the recycled values of <code class="language-plaintext highlighter-rouge">seAsia</code> happen
-to line up correctly with matching values in <code class="language-plaintext highlighter-rouge">country</code>.</li>
-  <li>The <strong>clunky</strong> (but technically correct) way to do this problem is</li>
+<li>The <strong>wrong</strong> way to do this problem is <code>countries==seAsia</code>. This gives a warning (<code>&quot;In countries == seAsia : longer object length is not a multiple of shorter object length&quot;</code>) and the wrong answer (a vector of all <code>FALSE</code> values), because none of the recycled values of <code>seAsia</code> happen to line up correctly with matching values in <code>country</code>.</li>
+<li>The <strong>clunky</strong> (but technically correct) way to do this problem is</li>
 </ul>
-
-<p>```{r, results=”hide”}
- (countries==”Myanmar” | countries==”Thailand” |
- countries==”Cambodia” | countries == “Vietnam” | countries==”Laos”)</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-(or `countries==seAsia[1] | countries==seAsia[2] | ...`). This
-gives the correct values, but hopefully you can see how awkward it
-is (what if we wanted to select countries from a much longer list?).
-
-- The best way to do this problem is `countries %in% seAsia`, which
-  is both correct and easy to type (and read).
-  
-  
-
-:::::::::::::::::::::::::
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
-
-## Handling special values
-
-At some point you will encounter functions in R that cannot handle missing, infinite,
-or undefined data.
-
-There are a number of special functions you can use to filter out this data:
-
-- `is.na` will return all positions in a vector, matrix, or data.frame
-  containing `NA` (or `NaN`)
-- likewise, `is.nan`, and `is.infinite` will do the same for `NaN` and `Inf`.
-- `is.finite` will return all positions in a vector, matrix, or data.frame
-  that do not contain `NA`, `NaN` or `Inf`.
-- `na.omit` will filter out all missing values from a vector
-
-## Factor subsetting
-
-Now that we've explored the different ways to subset vectors, how
-do we subset the other data structures?
-
-Factor subsetting works the same way as vector subsetting.
-
-```{r}
-f &lt;- factor(c("a", "a", "b", "c", "c", "d"))
-f[f == "a"]
-f[f %in% c("b", "c")]
-f[1:3]
-</code></pre></div></div>
-
-<p>Skipping elements will not remove the level
-even if no more of that category exists in the factor:</p>
-
-<pre><code class="language-{r}">f[-3]
-</code></pre>
-
+<p><code>{r, results=&quot;hide&quot;}  (countries==&quot;Myanmar&quot; | countries==&quot;Thailand&quot; |  countries==&quot;Cambodia&quot; | countries == &quot;Vietnam&quot; | countries==&quot;Laos&quot;)</code></p>
+<p>(or <code>countries==seAsia[1] | countries==seAsia[2] | ...</code>). This gives the correct values, but hopefully you can see how awkward it is (what if we wanted to select countries from a much longer list?).</p>
+<ul>
+<li>The best way to do this problem is <code>countries %in% seAsia</code>, which is both correct and easy to type (and read).</li>
+</ul>
+<p>:::::::::::::::::::::::::</p>
+<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+<h2 id="handling-special-values">Handling special values</h2>
+<p>At some point you will encounter functions in R that cannot handle missing, infinite, or undefined data.</p>
+<p>There are a number of special functions you can use to filter out this data:</p>
+<ul>
+<li><code>is.na</code> will return all positions in a vector, matrix, or data.frame containing <code>NA</code> (or <code>NaN</code>)</li>
+<li>likewise, <code>is.nan</code>, and <code>is.infinite</code> will do the same for <code>NaN</code> and <code>Inf</code>.</li>
+<li><code>is.finite</code> will return all positions in a vector, matrix, or data.frame that do not contain <code>NA</code>, <code>NaN</code> or <code>Inf</code>.</li>
+<li><code>na.omit</code> will filter out all missing values from a vector</li>
+</ul>
+<h2 id="factor-subsetting">Factor subsetting</h2>
+<p>Now that we’ve explored the different ways to subset vectors, how do we subset the other data structures?</p>
+<p>Factor subsetting works the same way as vector subsetting.</p>
+<pre class="{r}"><code>f &lt;- factor(c(&quot;a&quot;, &quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;c&quot;, &quot;d&quot;))
+f[f == &quot;a&quot;]
+f[f %in% c(&quot;b&quot;, &quot;c&quot;)]
+f[1:3]</code></pre>
+<p>Skipping elements will not remove the level even if no more of that category exists in the factor:</p>
+<pre class="{r}"><code>f[-3]</code></pre>
 <h2 id="matrix-subsetting">Matrix subsetting</h2>
-
-<p>Matrices are also subsetted using the <code class="language-plaintext highlighter-rouge">[</code> function. In this case
-it takes two arguments: the first applying to the rows, the second
-to its columns:</p>
-
-<pre><code class="language-{r}">set.seed(1)
+<p>Matrices are also subsetted using the <code>[</code> function. In this case it takes two arguments: the first applying to the rows, the second to its columns:</p>
+<pre class="{r}"><code>set.seed(1)
 m &lt;- matrix(rnorm(6*4), ncol=4, nrow=6)
-m[3:4, c(3,1)]
-</code></pre>
-
-<p>You can leave the first or second arguments blank to retrieve all the
-rows or columns respectively:</p>
-
-<pre><code class="language-{r}">m[, c(3,4)]
-</code></pre>
-
-<p>If we only access one row or column, R will automatically convert the result
-to a vector:</p>
-
-<pre><code class="language-{r}">m[3,]
-</code></pre>
-
-<p>If you want to keep the output as a matrix, you need to specify a <em>third</em> argument;
-<code class="language-plaintext highlighter-rouge">drop = FALSE</code>:</p>
-
-<pre><code class="language-{r}">m[3, , drop=FALSE]
-</code></pre>
-
-<p>Unlike vectors, if we try to access a row or column outside of the matrix,
-R will throw an error:</p>
-
-<p>```{r, error=TRUE}
-m[, c(3,6)]</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-:::::::::::::::::::::::::::::::::::::::::  callout
-
-## Tip: Higher dimensional arrays
-
-when dealing with multi-dimensional arrays, each argument to `[`
-corresponds to a dimension. For example, a 3D array, the first three
-arguments correspond to the rows, columns, and depth dimension.
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
-
-Because matrices are vectors, we can
-also subset using only one argument:
-
-```{r}
-m[5]
-</code></pre></div></div>
-
-<p>This usually isn’t useful, and often confusing to read. However it is useful to note that matrices
-are laid out in <em>column-major format</em> by default. That is the elements of the
-vector are arranged column-wise:</p>
-
-<pre><code class="language-{r}">matrix(1:6, nrow=2, ncol=3)
-</code></pre>
-
-<p>If you wish to populate the matrix by row, use <code class="language-plaintext highlighter-rouge">byrow=TRUE</code>:</p>
-
-<pre><code class="language-{r}">matrix(1:6, nrow=2, ncol=3, byrow=TRUE)
-</code></pre>
-
-<p>Matrices can also be subsetted using their rownames and column names
-instead of their row and column indices.</p>
-
-<p>:::::::::::::::::::::::::::::::::::::::  challenge</p>
-
+m[3:4, c(3,1)]</code></pre>
+<p>You can leave the first or second arguments blank to retrieve all the rows or columns respectively:</p>
+<pre class="{r}"><code>m[, c(3,4)]</code></pre>
+<p>If we only access one row or column, R will automatically convert the result to a vector:</p>
+<pre class="{r}"><code>m[3,]</code></pre>
+<p>If you want to keep the output as a matrix, you need to specify a <em>third</em> argument; <code>drop = FALSE</code>:</p>
+<pre class="{r}"><code>m[3, , drop=FALSE]</code></pre>
+<p>Unlike vectors, if we try to access a row or column outside of the matrix, R will throw an error:</p>
+<p><code>{r, error=TRUE} m[, c(3,6)]</code></p>
+<p>::::::::::::::::::::::::::::::::::::::::: callout</p>
+<h2 id="tip-higher-dimensional-arrays">Tip: Higher dimensional arrays</h2>
+<p>when dealing with multi-dimensional arrays, each argument to <code>[</code> corresponds to a dimension. For example, a 3D array, the first three arguments correspond to the rows, columns, and depth dimension.</p>
+<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+<p>Because matrices are vectors, we can also subset using only one argument:</p>
+<pre class="{r}"><code>m[5]</code></pre>
+<p>This usually isn’t useful, and often confusing to read. However it is useful to note that matrices are laid out in <em>column-major format</em> by default. That is the elements of the vector are arranged column-wise:</p>
+<pre class="{r}"><code>matrix(1:6, nrow=2, ncol=3)</code></pre>
+<p>If you wish to populate the matrix by row, use <code>byrow=TRUE</code>:</p>
+<pre class="{r}"><code>matrix(1:6, nrow=2, ncol=3, byrow=TRUE)</code></pre>
+<p>Matrices can also be subsetted using their rownames and column names instead of their row and column indices.</p>
+<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
 <h2 id="challenge-4">Challenge 4</h2>
-
 <p>Given the following code:</p>
-
-<pre><code class="language-{r}">m &lt;- matrix(1:18, nrow=3, ncol=6)
-print(m)
-</code></pre>
-
-<ol>
-  <li>Which of the following commands will extract the values 11 and 14?</li>
+<pre class="{r}"><code>m &lt;- matrix(1:18, nrow=3, ncol=6)
+print(m)</code></pre>
+<ol style="list-style-type: decimal">
+<li>Which of the following commands will extract the values 11 and 14?</li>
 </ol>
-
-<p>A. <code class="language-plaintext highlighter-rouge">m[2,4,2,5]</code></p>
-
-<p>B. <code class="language-plaintext highlighter-rouge">m[2:5]</code></p>
-
-<p>C. <code class="language-plaintext highlighter-rouge">m[4:5,2]</code></p>
-
-<p>D. <code class="language-plaintext highlighter-rouge">m[2,c(4,5)]</code></p>
-
-<p>:::::::::::::::  solution</p>
-
+<p>A. <code>m[2,4,2,5]</code></p>
+<p>B. <code>m[2:5]</code></p>
+<p>C. <code>m[4:5,2]</code></p>
+<p>D. <code>m[2,c(4,5)]</code></p>
+<p>::::::::::::::: solution</p>
 <h2 id="solution-to-challenge-4">Solution to challenge 4</h2>
-
 <p>D</p>
-
 <p>:::::::::::::::::::::::::</p>
-
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-
 <h2 id="list-subsetting">List subsetting</h2>
-
-<p>Now we’ll introduce some new subsetting operators. There are three functions
-used to subset lists. We’ve already seen these when learning about atomic vectors and matrices:  <code class="language-plaintext highlighter-rouge">[</code>, <code class="language-plaintext highlighter-rouge">[[</code>, and <code class="language-plaintext highlighter-rouge">$</code>.</p>
-
-<p>Using <code class="language-plaintext highlighter-rouge">[</code> will always return a list. If you want to <em>subset</em> a list, but not
-<em>extract</em> an element, then you will likely use <code class="language-plaintext highlighter-rouge">[</code>.</p>
-
-<pre><code class="language-{r}">xlist &lt;- list(a = "Software Carpentry", b = 1:10, data = head(mtcars))
-xlist[1]
-</code></pre>
-
+<p>Now we’ll introduce some new subsetting operators. There are three functions used to subset lists. We’ve already seen these when learning about atomic vectors and matrices: <code>[</code>, <code>[[</code>, and <code>$</code>.</p>
+<p>Using <code>[</code> will always return a list. If you want to <em>subset</em> a list, but not <em>extract</em> an element, then you will likely use <code>[</code>.</p>
+<pre class="{r}"><code>xlist &lt;- list(a = &quot;Software Carpentry&quot;, b = 1:10, data = head(mtcars))
+xlist[1]</code></pre>
 <p>This returns a <em>list with one element</em>.</p>
-
-<p>We can subset elements of a list exactly the same way as atomic
-vectors using <code class="language-plaintext highlighter-rouge">[</code>. Comparison operations however won’t work as
-they’re not recursive, they will try to condition on the data structures
-in each element of the list, not the individual elements within those
-data structures.</p>
-
-<pre><code class="language-{r}">xlist[1:2]
-</code></pre>
-
-<p>To extract individual elements of a list, you need to use the double-square
-bracket function: <code class="language-plaintext highlighter-rouge">[[</code>.</p>
-
-<pre><code class="language-{r}">xlist[[1]]
-</code></pre>
-
+<p>We can subset elements of a list exactly the same way as atomic vectors using <code>[</code>. Comparison operations however won’t work as they’re not recursive, they will try to condition on the data structures in each element of the list, not the individual elements within those data structures.</p>
+<pre class="{r}"><code>xlist[1:2]</code></pre>
+<p>To extract individual elements of a list, you need to use the double-square bracket function: <code>[[</code>.</p>
+<pre class="{r}"><code>xlist[[1]]</code></pre>
 <p>Notice that now the result is a vector, not a list.</p>
-
 <p>You can’t extract more than one element at once:</p>
-
-<p>```{r, error=TRUE}
-xlist[[1:2]]</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-Nor use it to skip elements:
-
-```{r, error=TRUE}
-xlist[[-1]]
-</code></pre></div></div>
-
+<p><code>{r, error=TRUE} xlist[[1:2]]</code></p>
+<p>Nor use it to skip elements:</p>
+<p><code>{r, error=TRUE} xlist[[-1]]</code></p>
 <p>But you can use names to both subset and extract elements:</p>
-
-<pre><code class="language-{r}">xlist[["a"]]
-</code></pre>
-
-<p>The <code class="language-plaintext highlighter-rouge">$</code> function is a shorthand way for extracting elements by name:</p>
-
-<pre><code class="language-{r}">xlist$data
-</code></pre>
-
-<p>:::::::::::::::::::::::::::::::::::::::  challenge</p>
-
+<pre class="{r}"><code>xlist[[&quot;a&quot;]]</code></pre>
+<p>The <code>$</code> function is a shorthand way for extracting elements by name:</p>
+<pre class="{r}"><code>xlist$data</code></pre>
+<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
 <h2 id="challenge-5">Challenge 5</h2>
-
 <p>Given the following list:</p>
-
-<p>```{r, eval=FALSE}
-xlist &lt;- list(a = “Software Carpentry”, b = 1:10, data = head(mtcars))</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-Using your knowledge of both list and vector subsetting, extract the number 2 from xlist.
-Hint: the number 2 is contained within the "b" item in the list.
-
-:::::::::::::::  solution
-
-## Solution to challenge 5
-
-```{r}
-xlist$b[2]
-</code></pre></div></div>
-
-<pre><code class="language-{r}">xlist[[2]][2]
-</code></pre>
-
-<pre><code class="language-{r}">xlist[["b"]][2]
-</code></pre>
-
+<p><code>{r, eval=FALSE} xlist &lt;- list(a = &quot;Software Carpentry&quot;, b = 1:10, data = head(mtcars))</code></p>
+<p>Using your knowledge of both list and vector subsetting, extract the number 2 from xlist. Hint: the number 2 is contained within the “b” item in the list.</p>
+<p>::::::::::::::: solution</p>
+<h2 id="solution-to-challenge-5">Solution to challenge 5</h2>
+<pre class="{r}"><code>xlist$b[2]</code></pre>
+<pre class="{r}"><code>xlist[[2]][2]</code></pre>
+<pre class="{r}"><code>xlist[[&quot;b&quot;]][2]</code></pre>
 <p>:::::::::::::::::::::::::</p>
-
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-
-<p>:::::::::::::::::::::::::::::::::::::::  challenge</p>
-
+<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
 <h2 id="challenge-6">Challenge 6</h2>
-
 <p>Given a linear model:</p>
-
-<p>```{r, eval=FALSE}
-mod &lt;- aov(pop ~ lifeExp, data=gapminder)</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-Extract the residual degrees of freedom (hint: `attributes()` will help you)
-
-:::::::::::::::  solution
-
-## Solution to challenge 6
-
-```{r, eval=FALSE}
-attributes(mod) ## `df.residual` is one of the names of `mod`
-</code></pre></div></div>
-
-<p>```{r, eval=FALSE}
-mod$df.residual</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-:::::::::::::::::::::::::
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
-
-## Data frames
-
-Remember the data frames are lists underneath the hood, so similar rules
-apply. However they are also two dimensional objects:
-
-`[` with one argument will act the same way as for lists, where each list
-element corresponds to a column. The resulting object will be a data frame:
-
-```{r}
-head(gapminder[3])
-</code></pre></div></div>
-
-<p>Similarly, <code class="language-plaintext highlighter-rouge">[[</code> will act to extract <em>a single column</em>:</p>
-
-<pre><code class="language-{r}">head(gapminder[["lifeExp"]])
-</code></pre>
-
-<p>And <code class="language-plaintext highlighter-rouge">$</code> provides a convenient shorthand to extract columns by name:</p>
-
-<pre><code class="language-{r}">head(gapminder$year)
-</code></pre>
-
-<p>With two arguments, <code class="language-plaintext highlighter-rouge">[</code> behaves the same way as for matrices:</p>
-
-<pre><code class="language-{r}">gapminder[1:3,]
-</code></pre>
-
-<p>If we subset a single row, the result will be a data frame (because
-the elements are mixed types):</p>
-
-<pre><code class="language-{r}">gapminder[3,]
-</code></pre>
-
-<p>But for a single column the result will be a vector (this can
-be changed with the third argument, <code class="language-plaintext highlighter-rouge">drop = FALSE</code>).</p>
-
-<p>:::::::::::::::::::::::::::::::::::::::  challenge</p>
-
+<p><code>{r, eval=FALSE} mod &lt;- aov(pop ~ lifeExp, data=gapminder)</code></p>
+<p>Extract the residual degrees of freedom (hint: <code>attributes()</code> will help you)</p>
+<p>::::::::::::::: solution</p>
+<h2 id="solution-to-challenge-6">Solution to challenge 6</h2>
+<p><code>{r, eval=FALSE} attributes(mod) ## `df.residual` is one of the names of `mod`</code></p>
+<p><code>{r, eval=FALSE} mod$df.residual</code></p>
+<p>:::::::::::::::::::::::::</p>
+<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+<h2 id="data-frames">Data frames</h2>
+<p>Remember the data frames are lists underneath the hood, so similar rules apply. However they are also two dimensional objects:</p>
+<p><code>[</code> with one argument will act the same way as for lists, where each list element corresponds to a column. The resulting object will be a data frame:</p>
+<pre class="{r}"><code>head(gapminder[3])</code></pre>
+<p>Similarly, <code>[[</code> will act to extract <em>a single column</em>:</p>
+<pre class="{r}"><code>head(gapminder[[&quot;lifeExp&quot;]])</code></pre>
+<p>And <code>$</code> provides a convenient shorthand to extract columns by name:</p>
+<pre class="{r}"><code>head(gapminder$year)</code></pre>
+<p>With two arguments, <code>[</code> behaves the same way as for matrices:</p>
+<pre class="{r}"><code>gapminder[1:3,]</code></pre>
+<p>If we subset a single row, the result will be a data frame (because the elements are mixed types):</p>
+<pre class="{r}"><code>gapminder[3,]</code></pre>
+<p>But for a single column the result will be a vector (this can be changed with the third argument, <code>drop = FALSE</code>).</p>
+<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
 <h2 id="challenge-7">Challenge 7</h2>
-
 <p>Fix each of the following common data frame subsetting errors:</p>
-
-<ol>
-  <li>Extract observations collected for the year 1957</li>
+<ol style="list-style-type: decimal">
+<li>Extract observations collected for the year 1957</li>
 </ol>
-
-<p>```{r, eval=FALSE}
-  gapminder[gapminder$year = 1957,]</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-2. Extract all columns except 1 through to 4
-  
-  ```{r, eval=FALSE}
-  gapminder[,-1:4]
-</code></pre></div></div>
-
-<ol>
-  <li>Extract the rows where the life expectancy is longer the 80 years</li>
+<p><code>{r, eval=FALSE}   gapminder[gapminder$year = 1957,]</code></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Extract all columns except 1 through to 4</li>
 </ol>
-
-<p>```{r, eval=FALSE}
-  gapminder[gapminder$lifeExp &gt; 80]</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-4. Extract the first row, and the fourth and fifth columns
-  (`continent` and `lifeExp`).
-  
-  ```{r, eval=FALSE}
-  gapminder[1, 4, 5]
-</code></pre></div></div>
-
-<ol>
-  <li>Advanced: extract rows that contain information for the years 2002
-  and 2007</li>
+<p><code>{r, eval=FALSE}   gapminder[,-1:4]</code></p>
+<ol start="3" style="list-style-type: decimal">
+<li>Extract the rows where the life expectancy is longer the 80 years</li>
 </ol>
-
-<p>```{r, eval=FALSE}
-  gapminder[gapminder$year == 2002 | 2007,]</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-:::::::::::::::  solution
-
-## Solution to challenge 7
-
-Fix each of the following common data frame subsetting errors:
-
-1. Extract observations collected for the year 1957
-  
-  ```{r, eval=FALSE}
-  # gapminder[gapminder$year = 1957,]
-  gapminder[gapminder$year == 1957,]
-</code></pre></div></div>
-
-<ol>
-  <li>Extract all columns except 1 through to 4</li>
+<p><code>{r, eval=FALSE}   gapminder[gapminder$lifeExp &gt; 80]</code></p>
+<ol start="4" style="list-style-type: decimal">
+<li>Extract the first row, and the fourth and fifth columns (<code>continent</code> and <code>lifeExp</code>).</li>
 </ol>
-
-<p>```{r, eval=FALSE}
-  # gapminder[,-1:4]
-  gapminder[,-c(1:4)]</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-3. Extract the rows where the life expectancy is longer than 80 years
-  
-  ```{r, eval=FALSE}
-  # gapminder[gapminder$lifeExp &gt; 80]
-  gapminder[gapminder$lifeExp &gt; 80,]
-</code></pre></div></div>
-
-<ol>
-  <li>Extract the first row, and the fourth and fifth columns
-  (<code class="language-plaintext highlighter-rouge">continent</code> and <code class="language-plaintext highlighter-rouge">lifeExp</code>).</li>
+<p><code>{r, eval=FALSE}   gapminder[1, 4, 5]</code></p>
+<ol start="5" style="list-style-type: decimal">
+<li>Advanced: extract rows that contain information for the years 2002 and 2007</li>
 </ol>
-
-<p>```{r, eval=FALSE}
-  # gapminder[1, 4, 5]
-  gapminder[1, c(4, 5)]</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-5. Advanced: extract rows that contain information for the years 2002
-  and 2007
-  
-  ```{r, eval=FALSE}
-  # gapminder[gapminder$year == 2002 | 2007,]
-  gapminder[gapminder$year == 2002 | gapminder$year == 2007,]
-  gapminder[gapminder$year %in% c(2002, 2007),]
-</code></pre></div></div>
-
+<p><code>{r, eval=FALSE}   gapminder[gapminder$year == 2002 | 2007,]</code></p>
+<p>::::::::::::::: solution</p>
+<h2 id="solution-to-challenge-7">Solution to challenge 7</h2>
+<p>Fix each of the following common data frame subsetting errors:</p>
+<ol style="list-style-type: decimal">
+<li>Extract observations collected for the year 1957</li>
+</ol>
+<p><code>{r, eval=FALSE}   # gapminder[gapminder$year = 1957,]   gapminder[gapminder$year == 1957,]</code></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Extract all columns except 1 through to 4</li>
+</ol>
+<p><code>{r, eval=FALSE}   # gapminder[,-1:4]   gapminder[,-c(1:4)]</code></p>
+<ol start="3" style="list-style-type: decimal">
+<li>Extract the rows where the life expectancy is longer than 80 years</li>
+</ol>
+<p><code>{r, eval=FALSE}   # gapminder[gapminder$lifeExp &gt; 80]   gapminder[gapminder$lifeExp &gt; 80,]</code></p>
+<ol start="4" style="list-style-type: decimal">
+<li>Extract the first row, and the fourth and fifth columns (<code>continent</code> and <code>lifeExp</code>).</li>
+</ol>
+<p><code>{r, eval=FALSE}   # gapminder[1, 4, 5]   gapminder[1, c(4, 5)]</code></p>
+<ol start="5" style="list-style-type: decimal">
+<li>Advanced: extract rows that contain information for the years 2002 and 2007</li>
+</ol>
+<p><code>{r, eval=FALSE}   # gapminder[gapminder$year == 2002 | 2007,]   gapminder[gapminder$year == 2002 | gapminder$year == 2007,]   gapminder[gapminder$year %in% c(2002, 2007),]</code></p>
 <p>:::::::::::::::::::::::::</p>
-
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-
-<p>:::::::::::::::::::::::::::::::::::::::  challenge</p>
-
+<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
 <h2 id="challenge-8">Challenge 8</h2>
-
-<ol>
-  <li>
-    <p>Why does <code class="language-plaintext highlighter-rouge">gapminder[1:20]</code> return an error? How does it differ from <code class="language-plaintext highlighter-rouge">gapminder[1:20, ]</code>?</p>
-  </li>
-  <li>
-    <p>Create a new <code class="language-plaintext highlighter-rouge">data.frame</code> called <code class="language-plaintext highlighter-rouge">gapminder_small</code> that only contains rows 1 through 9
-  and 19 through 23. You can do this in one or two steps.</p>
-  </li>
+<ol style="list-style-type: decimal">
+<li><p>Why does <code>gapminder[1:20]</code> return an error? How does it differ from <code>gapminder[1:20, ]</code>?</p></li>
+<li><p>Create a new <code>data.frame</code> called <code>gapminder_small</code> that only contains rows 1 through 9 and 19 through 23. You can do this in one or two steps.</p></li>
 </ol>
-
-<p>:::::::::::::::  solution</p>
-
+<p>::::::::::::::: solution</p>
 <h2 id="solution-to-challenge-8">Solution to challenge 8</h2>
-
-<ol>
-  <li>
-    <p><code class="language-plaintext highlighter-rouge">gapminder</code> is a data.frame so needs to be subsetted on two dimensions. <code class="language-plaintext highlighter-rouge">gapminder[1:20, ]</code> subsets the data to give the first 20 rows and all columns.</p>
-  </li>
-  <li>
-    <pre><code class="language-{r}">gapminder_small &lt;- gapminder[c(1:9, 19:23),]
-</code></pre>
-  </li>
+<ol style="list-style-type: decimal">
+<li><p><code>gapminder</code> is a data.frame so needs to be subsetted on two dimensions. <code>gapminder[1:20, ]</code> subsets the data to give the first 20 rows and all columns.</p></li>
+<li><pre class="{r}"><code>gapminder_small &lt;- gapminder[c(1:9, 19:23),]</code></pre></li>
 </ol>
-
 <p>:::::::::::::::::::::::::</p>
-
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-
 <p>:::::::::::::::::::::::::::::::::::::::: keypoints</p>
-
 <ul>
-  <li>Indexing in R starts at 1, not 0.</li>
-  <li>Access individual values by location using <code class="language-plaintext highlighter-rouge">[]</code>.</li>
-  <li>Access slices of data using <code class="language-plaintext highlighter-rouge">[low:high]</code>.</li>
-  <li>Access arbitrary sets of data using <code class="language-plaintext highlighter-rouge">[c(...)]</code>.</li>
-  <li>Use logical operations and logical vectors to access subsets of data.</li>
+<li>Indexing in R starts at 1, not 0.</li>
+<li>Access individual values by location using <code>[]</code>.</li>
+<li>Access slices of data using <code>[low:high]</code>.</li>
+<li>Access arbitrary sets of data using <code>[c(...)]</code>.</li>
+<li>Use logical operations and logical vectors to access subsets of data.</li>
 </ul>
-
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-
+        </div>
+      </div>
+      </article>
+      <div class="footer">
+        <a class="label swc-blue-bg" href="mailto:s.fernandez_valverde@unsw.edu.au">Contact</a>
+        <a class="label swc-blue-bg" href="LICENSE.html">License</a>
+      </div>
+    </div>
+    <!-- Javascript placed at the end of the document so the pages load faster -->
+    <script src="http://software-carpentry.org/v5/js/jquery-1.9.1.min.js"></script>
+    <script src="css/bootstrap/bootstrap-js/bootstrap.js"></script>
+    <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+  </body>
+</html>
