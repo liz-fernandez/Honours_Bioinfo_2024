@@ -80,13 +80,13 @@ These lessons will start you on a path towards using these resources effectively
 3.  [Visualising Tabular Data](03-matplotlib_Python.html)
 4.  [Storing Multiple Values in Lists](04-lists_Python.html)
 5.  [Repeating Actions with Loops](05-loop_Python.html)
-6.  [Analyzing Data from Multiple Files]()
-7.  [Making Choices]()
-8.  [Creating Functions]()
-9.  [Errors and Exceptions]()
-10. [Defensive Programming]()
-11. [Debugging]()
-12. [Command-Line Programs]()
+6.  [Analyzing Data from Multiple Files](06-files_Python.html)
+7.  [Making Choices](07-cond_Python.html)
+8.  [Creating Functions](08-func_Python.html)
+9.  [Errors and Exceptions](09-errors_Python.html)
+10. [Defensive Programming](10-defensive_Python.html)
+11. [Debugging](11-debugging_Python.html)
+12. [Command-Line Programs](12-chtmlline_Python.html)
 
 ### Week 3 - Introduction to R
 
