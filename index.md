@@ -75,11 +75,11 @@ These lessons will start you on a path towards using these resources effectively
 
 [Python setup](00-setup_Python.html)
 
-1.  [Python fundamentals]()
-2.  [Analyzing Patient Data]()
+1.  [Python fundamentals](01-intro_Python.html)
+2.  [Analyzing Patient Data](02-numpy_Python.html)
 3.  [Visualising Tabular Data](03-matplotlib_Python.html)
-4.  [Storing Multiple Values in Lists]()
-5.  [Repeating Actions with Loops]()
+4.  [Storing Multiple Values in Lists](04-lists_Python.html)
+5.  [Repeating Actions with Loops](05-loop_Python.html)
 6.  [Analyzing Data from Multiple Files]()
 7.  [Making Choices]()
 8.  [Creating Functions]()
