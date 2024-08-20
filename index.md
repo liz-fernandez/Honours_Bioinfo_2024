@@ -77,7 +77,7 @@ These lessons will start you on a path towards using these resources effectively
 
 1.  [Python fundamentals]()
 2.  [Analyzing Patient Data]()
-3.  [Visualising Tabular Data]()
+3.  [Visualising Tabular Data](03-matplotlib_Python.html)
 4.  [Storing Multiple Values in Lists]()
 5.  [Repeating Actions with Loops]()
 6.  [Analyzing Data from Multiple Files]()
