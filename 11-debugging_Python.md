@@ -300,5 +300,5 @@ not more.
 > * Make it fail fast.
 > * Change one thing at a time, and for a reason.
 > * Keep track of what you've done.
-> * Be humble.
+> * Don't be afraid to ask for help.
 
