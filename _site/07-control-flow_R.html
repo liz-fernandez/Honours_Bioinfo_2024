@@ -1,153 +1,285 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="generator" content="pandoc">
-    <title>Control Flow</title>
-    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css" />
-    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap-theme.css" />
-    <link rel="stylesheet" type="text/css" href="css/swc.css" />
-    <link rel="alternate" type="application/rss+xml" title="Bioinformatics Honours 2024" href="https://github.com/liz-fernandez/UNSW_Honours_Bioinfo_2024/"/>
-    <meta charset="UTF-8" />
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-  </head>
-  <body class="lesson">
-    <div class="container card">
-      <div class="banner">
-        <a href="https://liz-fernandez.github.io/Honours_Bioinfo_2024/" title="Honours Bioinformatics Course 2024">
-          <img alt="Logo UNSW" src="img/unsw_logo.jpg" />
-        </a>
-      </div>
-      <article>
-      <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-                    <h1 class="title">Control Flow</h1>
-          <p>::::::::::::::::::::::::::::::::::::::: objectives</p>
-<ul>
-<li>Write conditional statements with <code>if...else</code> statements and <code>ifelse()</code>.</li>
-<li>Write and understand <code>for()</code> loops.</li>
-</ul>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>:::::::::::::::::::::::::::::::::::::::: questions</p>
-<ul>
-<li>How can I make data-dependent choices in R?</li>
-<li>How can I repeat operations in R?</li>
-</ul>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p><code>{r, include=FALSE} gapminder &lt;- read.csv(&quot;data/gapminder_data.csv&quot;, header = TRUE) set.seed(10)</code></p>
-<p>Often when we’re coding we want to control the flow of our actions. This can be done by setting actions to occur only if a condition or a set of conditions are met. Alternatively, we can also set an action to occur a particular number of times.</p>
-<p>There are several ways you can control flow in R. For conditional statements, the most commonly used approaches are the constructs:</p>
-<p>```{r, eval=FALSE} # if if (condition is true) { perform action }</p>
-<h1 id="if-else">if … else</h1>
-<p>if (condition is true) { perform action } else { # that is, if the condition is false, perform alternative action } ```</p>
-<p>Say, for example, that we want R to print a message if a variable <code>x</code> has a particular value:</p>
-<pre class="{r}"><code>x &lt;- 8
+<h2 id="learning-objectives-objectives">Learning Objectives {.objectives}</h2>
+<p>::::::::::::::::::::::::::::::::::::::: objectives</p>
 
-if (x &gt;= 10) {
-  print(&quot;x is greater than or equal to 10&quot;)
+<ul>
+  <li>Write conditional statements with <code class="language-plaintext highlighter-rouge">if...else</code> statements and <code class="language-plaintext highlighter-rouge">ifelse()</code>.</li>
+  <li>Write and understand <code class="language-plaintext highlighter-rouge">for()</code> loops.</li>
+</ul>
+
+<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+
+<p>:::::::::::::::::::::::::::::::::::::::: questions</p>
+
+<ul>
+  <li>How can I make data-dependent choices in R?</li>
+  <li>How can I repeat operations in R?</li>
+</ul>
+
+<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+
+<p>```{r, include=FALSE}
+gapminder &lt;- read.csv(“data/gapminder_data.csv”, header = TRUE)
+set.seed(10)</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+Often when we're coding we want to control the flow of our actions. This can be done
+by setting actions to occur only if a condition or a set of conditions are met.
+Alternatively, we can also set an action to occur a particular number of times.
+
+There are several ways you can control flow in R.
+For conditional statements, the most commonly used approaches are the constructs:
+
+```{r, eval=FALSE}
+# if
+if (condition is true) {
+  perform action
 }
 
-x</code></pre>
-<p>The print statement does not appear in the console because x is not greater than 10. To print a different message for numbers less than 10, we can add an <code>else</code> statement.</p>
-<pre class="{r}"><code>x &lt;- 8
+# if ... else
+if (condition is true) {
+  perform action
+} else {  # that is, if the condition is false,
+  perform alternative action
+}
+</code></pre></div></div>
+
+<p>Say, for example, that we want R to print a message if a variable <code class="language-plaintext highlighter-rouge">x</code> has a particular value:</p>
+
+<pre><code class="language-{r}">x &lt;- 8
 
 if (x &gt;= 10) {
-  print(&quot;x is greater than or equal to 10&quot;)
-} else {
-  print(&quot;x is less than 10&quot;)
-}</code></pre>
-<p>You can also test multiple conditions by using <code>else if</code>.</p>
-<pre class="{r}"><code>x &lt;- 8
+  print("x is greater than or equal to 10")
+}
 
-if (x &gt;= 10) {
-  print(&quot;x is greater than or equal to 10&quot;)
-} else if (x &gt; 5) {
-  print(&quot;x is greater than 5, but less than 10&quot;)
-} else {
-  print(&quot;x is less than 5&quot;)
-}</code></pre>
-<p><strong>Important:</strong> when R evaluates the condition inside <code>if()</code> statements, it is looking for a logical element, i.e., <code>TRUE</code> or <code>FALSE</code>. This can cause some headaches for beginners. For example:</p>
-<pre class="{r}"><code>x  &lt;-  4 == 3
-if (x) {
-  &quot;4 equals 3&quot;
-} else {
-  &quot;4 does not equal 3&quot;
-}</code></pre>
-<p>As we can see, the not equal message was printed because the vector x is <code>FALSE</code></p>
-<pre class="{r}"><code>x &lt;- 4 == 3
-x</code></pre>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
-<h2 id="challenge-1">Challenge 1</h2>
-<p>Use an <code>if()</code> statement to print a suitable message reporting whether there are any records from 2002 in the <code>gapminder</code> dataset. Now do the same for 2012.</p>
-<p>::::::::::::::: solution</p>
-<h2 id="solution-to-challenge-1">Solution to Challenge 1</h2>
-<p>We will first see a solution to Challenge 1 which does not use the <code>any()</code> function. We first obtain a logical vector describing which element of <code>gapminder$year</code> is equal to <code>2002</code>:</p>
-<p><code>{r ch10pt1-sol, eval=FALSE} gapminder[(gapminder$year == 2002),]</code></p>
-<p>Then, we count the number of rows of the data.frame <code>gapminder</code> that correspond to the 2002:</p>
-<p><code>{r ch10pt2-sol, eval=FALSE} rows2002_number &lt;- nrow(gapminder[(gapminder$year == 2002),])</code></p>
-<p>The presence of any record for the year 2002 is equivalent to the request that <code>rows2002_number</code> is one or more:</p>
-<p><code>{r ch10pt3-sol, eval=FALSE} rows2002_number &gt;= 1</code></p>
-<p>Putting all together, we obtain:</p>
-<p><code>{r ch10pt4-sol, eval=FALSE} if(nrow(gapminder[(gapminder$year == 2002),]) &gt;= 1){    print(&quot;Record(s) for the year 2002 found.&quot;) }</code></p>
-<p>All this can be done more quickly with <code>any()</code>. The logical condition can be expressed as:</p>
-<p><code>{r ch10pt5-sol, eval=FALSE} if(any(gapminder$year == 2002)){    print(&quot;Record(s) for the year 2002 found.&quot;) }</code></p>
-<p>:::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>Did anyone get a warning message like this?</p>
-<p><code>{r, echo=FALSE} if (gapminder$year == 2012) {}</code></p>
-<p>The <code>if()</code> function only accepts singular (of length 1) inputs, and therefore returns an error when you use it with a vector. The <code>if()</code> function will still run, but will only evaluate the condition in the first element of the vector. Therefore, to use the <code>if()</code> function, you need to make sure your input is singular (of length 1).</p>
-<p>::::::::::::::::::::::::::::::::::::::::: callout</p>
-<h2 id="tip-built-in-ifelse-function">Tip: Built in <code>ifelse()</code> function</h2>
-<p><code>R</code> accepts both <code>if()</code> and <code>else if()</code> statements structured as outlined above, but also statements using <code>R</code>’s built-in <code>ifelse()</code> function. This function accepts both singular and vector inputs and is structured as follows:</p>
-<p>```{r, eval=FALSE} # ifelse function ifelse(condition is true, perform action, perform alternative action)</p>
-<p>```</p>
-<p>where the first argument is the condition or a set of conditions to be met, the second argument is the statement that is evaluated when the condition is <code>TRUE</code>, and the third statement is the statement that is evaluated when the condition is <code>FALSE</code>.</p>
-<pre class="{r}"><code>y &lt;- -3
-ifelse(y &lt; 0, &quot;y is a negative number&quot;, &quot;y is either positive or zero&quot;)
+x
 </code></pre>
+
+<p>The print statement does not appear in the console because x is not greater than 10. To print a different message for numbers less than 10, we can add an <code class="language-plaintext highlighter-rouge">else</code> statement.</p>
+
+<pre><code class="language-{r}">x &lt;- 8
+
+if (x &gt;= 10) {
+  print("x is greater than or equal to 10")
+} else {
+  print("x is less than 10")
+}
+</code></pre>
+
+<p>You can also test multiple conditions by using <code class="language-plaintext highlighter-rouge">else if</code>.</p>
+
+<pre><code class="language-{r}">x &lt;- 8
+
+if (x &gt;= 10) {
+  print("x is greater than or equal to 10")
+} else if (x &gt; 5) {
+  print("x is greater than 5, but less than 10")
+} else {
+  print("x is less than 5")
+}
+</code></pre>
+
+<p><strong>Important:</strong> when R evaluates the condition inside <code class="language-plaintext highlighter-rouge">if()</code> statements, it is
+looking for a logical element, i.e., <code class="language-plaintext highlighter-rouge">TRUE</code> or <code class="language-plaintext highlighter-rouge">FALSE</code>. This can cause some
+headaches for beginners. For example:</p>
+
+<pre><code class="language-{r}">x  &lt;-  4 == 3
+if (x) {
+  "4 equals 3"
+} else {
+  "4 does not equal 3"
+}
+</code></pre>
+
+<p>As we can see, the not equal message was printed because the vector x is <code class="language-plaintext highlighter-rouge">FALSE</code></p>
+
+<pre><code class="language-{r}">x &lt;- 4 == 3
+x
+</code></pre>
+
+<p>:::::::::::::::::::::::::::::::::::::::  challenge</p>
+
+<h2 id="challenge-1">Challenge 1</h2>
+
+<p>Use an <code class="language-plaintext highlighter-rouge">if()</code> statement to print a suitable message
+reporting whether there are any records from 2002 in
+the <code class="language-plaintext highlighter-rouge">gapminder</code> dataset.
+Now do the same for 2012.</p>
+
+<p>:::::::::::::::  solution</p>
+
+<h2 id="solution-to-challenge-1">Solution to Challenge 1</h2>
+
+<p>We will first see a solution to Challenge 1 which does not use the <code class="language-plaintext highlighter-rouge">any()</code> function.
+We first obtain a logical vector describing which element of <code class="language-plaintext highlighter-rouge">gapminder$year</code> is equal to <code class="language-plaintext highlighter-rouge">2002</code>:</p>
+
+<p>```{r ch10pt1-sol, eval=FALSE}
+gapminder[(gapminder$year == 2002),]</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+Then, we count the number of rows of the data.frame `gapminder` that correspond to the 2002:
+
+```{r ch10pt2-sol, eval=FALSE}
+rows2002_number &lt;- nrow(gapminder[(gapminder$year == 2002),])
+</code></pre></div></div>
+
+<p>The presence of any record for the year 2002 is equivalent to the request that <code class="language-plaintext highlighter-rouge">rows2002_number</code> is one or more:</p>
+
+<p>```{r ch10pt3-sol, eval=FALSE}
+rows2002_number &gt;= 1</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+Putting all together, we obtain:
+
+```{r ch10pt4-sol, eval=FALSE}
+if(nrow(gapminder[(gapminder$year == 2002),]) &gt;= 1){
+   print("Record(s) for the year 2002 found.")
+}
+</code></pre></div></div>
+
+<p>All this can be done more quickly with <code class="language-plaintext highlighter-rouge">any()</code>. The logical condition can be expressed as:</p>
+
+<p>```{r ch10pt5-sol, eval=FALSE}
+if(any(gapminder$year == 2002)){
+   print(“Record(s) for the year 2002 found.”)
+}</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+:::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+Did anyone get a warning message like this?
+
+```{r, echo=FALSE}
+if (gapminder$year == 2012) {}
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">if()</code> function only accepts singular (of length 1) inputs, and therefore
+returns an error when you use it with a vector. The <code class="language-plaintext highlighter-rouge">if()</code> function will still
+run, but will only evaluate the condition in the first element of the vector.
+Therefore, to use the <code class="language-plaintext highlighter-rouge">if()</code> function, you need to make sure your input is
+singular (of length 1).</p>
+
+<p>:::::::::::::::::::::::::::::::::::::::::  callout</p>
+
+<h2 id="tip-built-in-ifelse-function">Tip: Built in <code class="language-plaintext highlighter-rouge">ifelse()</code> function</h2>
+
+<p><code class="language-plaintext highlighter-rouge">R</code> accepts both <code class="language-plaintext highlighter-rouge">if()</code> and <code class="language-plaintext highlighter-rouge">else if()</code> statements structured as outlined above,
+but also statements using <code class="language-plaintext highlighter-rouge">R</code>’s built-in <code class="language-plaintext highlighter-rouge">ifelse()</code> function. This
+function accepts both singular and vector inputs and is structured as
+follows:</p>
+
+<p>```{r, eval=FALSE}</p>
+<h1 id="ifelse-function">ifelse function</h1>
+<p>ifelse(condition is true, perform action, perform alternative action)</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+where the first argument is the condition or a set of conditions to be met, the
+second argument is the statement that is evaluated when the condition is `TRUE`,
+and the third statement  is the statement that is evaluated when the condition
+is `FALSE`.
+
+```{r}
+y &lt;- -3
+ifelse(y &lt; 0, "y is a negative number", "y is either positive or zero")
+
+</code></pre></div></div>
+
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::::: callout</p>
-<h2 id="tip-any-and-all">Tip: <code>any()</code> and <code>all()</code></h2>
-<p>The <code>any()</code> function will return <code>TRUE</code> if at least one <code>TRUE</code> value is found within a vector, otherwise it will return <code>FALSE</code>. This can be used in a similar way to the <code>%in%</code> operator. The function <code>all()</code>, as the name suggests, will only return <code>TRUE</code> if all values in the vector are <code>TRUE</code>.</p>
+
+<p>:::::::::::::::::::::::::::::::::::::::::  callout</p>
+
+<h2 id="tip-any-and-all">Tip: <code class="language-plaintext highlighter-rouge">any()</code> and <code class="language-plaintext highlighter-rouge">all()</code></h2>
+
+<p>The <code class="language-plaintext highlighter-rouge">any()</code> function will return <code class="language-plaintext highlighter-rouge">TRUE</code> if at least one
+<code class="language-plaintext highlighter-rouge">TRUE</code> value is found within a vector, otherwise it will return <code class="language-plaintext highlighter-rouge">FALSE</code>.
+This can be used in a similar way to the <code class="language-plaintext highlighter-rouge">%in%</code> operator.
+The function <code class="language-plaintext highlighter-rouge">all()</code>, as the name suggests, will only return <code class="language-plaintext highlighter-rouge">TRUE</code> if all values in
+the vector are <code class="language-plaintext highlighter-rouge">TRUE</code>.</p>
+
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+
 <h2 id="repeating-operations">Repeating operations</h2>
-<p>If you want to iterate over a set of values, when the order of iteration is important, and perform the same operation on each, a <code>for()</code> loop will do the job. We saw <code>for()</code> loops in the <a href="https://swcarpentry.github.io/shell-novice/05-loop.html">shell lessons earlier</a>. This is the most flexible of looping operations, but therefore also the hardest to use correctly. In general, the advice of many <code>R</code> users would be to learn about <code>for()</code> loops, but to avoid using <code>for()</code> loops unless the order of iteration is important: i.e. the calculation at each iteration depends on the results of previous iterations. If the order of iteration is not important, then you should learn about vectorized alternatives, such as the <code>purrr</code> package, as they pay off in computational efficiency.</p>
-<p>The basic structure of a <code>for()</code> loop is:</p>
-<p><code>{r, eval=FALSE} for (iterator in set of values) {   do a thing }</code></p>
-<p>For example:</p>
-<pre class="{r}"><code>for (i in 1:10) {
+
+<p>If you want to iterate over
+a set of values, when the order of iteration is important, and perform the
+same operation on each, a <code class="language-plaintext highlighter-rouge">for()</code> loop will do the job.
+We saw <code class="language-plaintext highlighter-rouge">for()</code> loops in the <a href="https://swcarpentry.github.io/shell-novice/05-loop.html">shell lessons earlier</a>. This is the most
+flexible of looping operations, but therefore also the hardest to use
+correctly. In general, the advice of many <code class="language-plaintext highlighter-rouge">R</code> users would be to learn about
+<code class="language-plaintext highlighter-rouge">for()</code> loops, but to avoid using <code class="language-plaintext highlighter-rouge">for()</code> loops unless the order of iteration is
+important: i.e. the calculation at each iteration depends on the results of
+previous iterations. If the order of iteration is not important, then you
+should learn about vectorized alternatives, such as the <code class="language-plaintext highlighter-rouge">purrr</code> package, as they
+pay off in computational efficiency.</p>
+
+<p>The basic structure of a <code class="language-plaintext highlighter-rouge">for()</code> loop is:</p>
+
+<p>```{r, eval=FALSE}
+for (iterator in set of values) {
+  do a thing
+}</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+For example:
+
+```{r}
+for (i in 1:10) {
   print(i)
-}</code></pre>
-<p>The <code>1:10</code> bit creates a vector on the fly; you can iterate over any other vector as well.</p>
-<p>We can use a <code>for()</code> loop nested within another <code>for()</code> loop to iterate over two things at once.</p>
-<pre class="{r}"><code>for (i in 1:5) {
-  for (j in c(&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;)) {
+}
+</code></pre></div></div>
+
+<p>The <code class="language-plaintext highlighter-rouge">1:10</code> bit creates a vector on the fly; you can iterate
+over any other vector as well.</p>
+
+<p>We can use a <code class="language-plaintext highlighter-rouge">for()</code> loop nested within another <code class="language-plaintext highlighter-rouge">for()</code> loop to iterate over two things at
+once.</p>
+
+<pre><code class="language-{r}">for (i in 1:5) {
+  for (j in c('a', 'b', 'c', 'd', 'e')) {
     print(paste(i,j))
   }
-}</code></pre>
-<p>We notice in the output that when the first index (<code>i</code>) is set to 1, the second index (<code>j</code>) iterates through its full set of indices. Once the indices of <code>j</code> have been iterated through, then <code>i</code> is incremented. This process continues until the last index has been used for each <code>for()</code> loop.</p>
+}
+</code></pre>
+
+<p>We notice in the output that when the first index (<code class="language-plaintext highlighter-rouge">i</code>) is set to 1, the second
+index (<code class="language-plaintext highlighter-rouge">j</code>) iterates through its full set of indices. Once the indices of <code class="language-plaintext highlighter-rouge">j</code>
+have been iterated through, then <code class="language-plaintext highlighter-rouge">i</code> is incremented. This process continues
+until the last index has been used for each <code class="language-plaintext highlighter-rouge">for()</code> loop.</p>
+
 <p>Rather than printing the results, we could write the loop output to a new object.</p>
-<pre class="{r}"><code>output_vector &lt;- c()
+
+<pre><code class="language-{r}">output_vector &lt;- c()
 for (i in 1:5) {
-  for (j in c(&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;)) {
+  for (j in c('a', 'b', 'c', 'd', 'e')) {
     temp_output &lt;- paste(i, j)
     output_vector &lt;- c(output_vector, temp_output)
   }
 }
-output_vector</code></pre>
-<p>This approach can be useful, but ‘growing your results’ (building the result object incrementally) is computationally inefficient, so avoid it when you are iterating through a lot of values.</p>
-<p>::::::::::::::::::::::::::::::::::::::::: callout</p>
+output_vector
+</code></pre>
+
+<p>This approach can be useful, but ‘growing your results’ (building
+the result object incrementally) is computationally inefficient, so avoid
+it when you are iterating through a lot of values.</p>
+
+<p>:::::::::::::::::::::::::::::::::::::::::  callout</p>
+
 <h2 id="tip-dont-grow-your-results">Tip: don’t grow your results</h2>
-<p>One of the biggest things that trips up novices and experienced R users alike, is building a results object (vector, list, matrix, data frame) as your for loop progresses. Computers are very bad at handling this, so your calculations can very quickly slow to a crawl. It’s much better to define an empty results object before hand of appropriate dimensions, rather than initializing an empty object without dimensions. So if you know the end result will be stored in a matrix like above, create an empty matrix with 5 row and 5 columns, then at each iteration store the results in the appropriate location.</p>
+
+<p>One of the biggest things that trips up novices and
+experienced R users alike, is building a results object
+(vector, list, matrix, data frame) as your for loop progresses.
+Computers are very bad at handling this, so your calculations
+can very quickly slow to a crawl. It’s much better to define
+an empty results object before hand of appropriate dimensions, rather
+than initializing an empty object without dimensions.
+So if you know the end result will be stored in a matrix like above,
+create an empty matrix with 5 row and 5 columns, then at each iteration
+store the results in the appropriate location.</p>
+
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>A better way is to define your (empty) output object before filling in the values. For this example, it looks more involved, but is still more efficient.</p>
-<pre class="{r}"><code>output_matrix &lt;- matrix(nrow = 5, ncol = 5)
-j_vector &lt;- c(&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;d&#39;, &#39;e&#39;)
+
+<p>A better way is to define your (empty) output object before filling in the values.
+For this example, it looks more involved, but is still more efficient.</p>
+
+<pre><code class="language-{r}">output_matrix &lt;- matrix(nrow = 5, ncol = 5)
+j_vector &lt;- c('a', 'b', 'c', 'd', 'e')
 for (i in 1:5) {
   for (j in 1:5) {
     temp_j_value &lt;- j_vector[j]
@@ -156,127 +288,258 @@ for (i in 1:5) {
   }
 }
 output_vector2 &lt;- as.vector(output_matrix)
-output_vector2</code></pre>
-<p>::::::::::::::::::::::::::::::::::::::::: callout</p>
+output_vector2
+</code></pre>
+
+<p>:::::::::::::::::::::::::::::::::::::::::  callout</p>
+
 <h2 id="tip-while-loops">Tip: While loops</h2>
-<p>Sometimes you will find yourself needing to repeat an operation as long as a certain condition is met. You can do this with a <code>while()</code> loop.</p>
-<p><code>{r, eval=FALSE} while(this condition is true){   do a thing }</code></p>
-<p>R will interpret a condition being met as “TRUE”.</p>
-<p>As an example, here’s a while loop that generates random numbers from a uniform distribution (the <code>runif()</code> function) between 0 and 1 until it gets one that’s less than 0.1.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">z &lt;-<span class="st"> </span><span class="dv">1</span>
-while(z &gt;<span class="st"> </span><span class="fl">0.1</span>){
-  z &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>)
-  <span class="kw">cat</span>(z, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>)
-}</code></pre></div>
-<p><code>while()</code> loops will not always be appropriate. You have to be particularly careful that you don’t end up stuck in an infinite loop because your condition is always met and hence the while statement never terminates.</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
-<h2 id="challenge-2">Challenge 2</h2>
-<p>Compare the objects <code>output_vector</code> and <code>output_vector2</code>. Are they the same? If not, why not? How would you change the last block of code to make <code>output_vector2</code> the same as <code>output_vector</code>?</p>
-<p>::::::::::::::: solution</p>
-<h2 id="solution-to-challenge-2">Solution to Challenge 2</h2>
-<p>We can check whether the two vectors are identical using the <code>all()</code> function:</p>
-<p><code>{r ch10pt6-sol, eval=FALSE} all(output_vector == output_vector2)</code></p>
-<p>However, all the elements of <code>output_vector</code> can be found in <code>output_vector2</code>:</p>
-<p><code>{r ch10pt7-sol, eval=FALSE} all(output_vector %in% output_vector2)</code></p>
-<p>and vice versa:</p>
-<p><code>{r ch10pt8-sol, eval=FALSE} all(output_vector2 %in% output_vector)</code></p>
-<p>therefore, the element in <code>output_vector</code> and <code>output_vector2</code> are just sorted in a different order. This is because <code>as.vector()</code> outputs the elements of an input matrix going over its column. Taking a look at <code>output_matrix</code>, we can notice that we want its elements by rows. The solution is to transpose the <code>output_matrix</code>. We can do it either by calling the transpose function <code>t()</code> or by inputting the elements in the right order. The first solution requires to change the original</p>
-<p><code>{r ch10pt9-sol, eval=FALSE} output_vector2 &lt;- as.vector(output_matrix)</code></p>
-<p>into</p>
-<p><code>{r ch10pt10-sol, eval=FALSE} output_vector2 &lt;- as.vector(t(output_matrix))</code></p>
-<p>The second solution requires to change</p>
-<p><code>{r ch10pt11-sol, eval=FALSE} output_matrix[i, j] &lt;- temp_output</code></p>
-<p>into</p>
-<p><code>{r ch10pt12-sol, eval=FALSE} output_matrix[j, i] &lt;- temp_output</code></p>
-<p>:::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
-<h2 id="challenge-3">Challenge 3</h2>
-<p>Write a script that loops through the <code>gapminder</code> data by continent and prints out whether the mean life expectancy is smaller or larger than 50 years.</p>
-<p>::::::::::::::: solution</p>
-<h2 id="solution-to-challenge-3">Solution to Challenge 3</h2>
-<p><strong>Step 1</strong>: We want to make sure we can extract all the unique values of the continent vector</p>
-<p><code>{r 07-chall-03-sol-a, eval=FALSE} gapminder &lt;- read.csv(&quot;data/gapminder_data.csv&quot;) unique(gapminder$continent)</code></p>
-<p><strong>Step 2</strong>: We also need to loop over each of these continents and calculate the average life expectancy for each <code>subset</code> of data. We can do that as follows:</p>
-<ol style="list-style-type: decimal">
-<li>Loop over each of the unique values of ‘continent’</li>
-<li>For each value of continent, create a temporary variable storing that subset</li>
-<li>Return the calculated life expectancy to the user by printing the output:</li>
-</ol>
-<p><code>{r 07-chall-03-sol-b, eval=FALSE} for (iContinent in unique(gapminder$continent)) {   tmp &lt;- gapminder[gapminder$continent == iContinent, ]   cat(iContinent, mean(tmp$lifeExp, na.rm = TRUE), &quot;\n&quot;)   rm(tmp) }</code></p>
-<p><strong>Step 3</strong>: The exercise only wants the output printed if the average life expectancy is less than 50 or greater than 50. So we need to add an <code>if()</code> condition before printing, which evaluates whether the calculated average life expectancy is above or below a threshold, and prints an output conditional on the result. We need to amend (3) from above:</p>
-<p>3a. If the calculated life expectancy is less than some threshold (50 years), return the continent and a statement that life expectancy is less than threshold, otherwise return the continent and a statement that life expectancy is greater than threshold:</p>
-<p>```{r 07-chall-03-sol-c, eval=FALSE} thresholdValue &lt;- 50</p>
-<p>for (iContinent in unique(gapminder<span class="math inline">\(continent)) {  tmp &lt;- mean(gapminder[gapminder\)</span>continent == iContinent, “lifeExp”])</p>
-<p>if (tmp &lt; thresholdValue){ cat(“Average Life Expectancy in”, iContinent, “is less than”, thresholdValue, “”) } else { cat(“Average Life Expectancy in”, iContinent, “is greater than”, thresholdValue, “”) } # end if else condition rm(tmp) } # end for loop</p>
-<p>```</p>
-<p>:::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
-<h2 id="challenge-4">Challenge 4</h2>
-<p>Modify the script from Challenge 3 to loop over each country. This time print out whether the life expectancy is smaller than 50, between 50 and 70, or greater than 70.</p>
-<p>::::::::::::::: solution</p>
-<h2 id="solution-to-challenge-4">Solution to Challenge 4</h2>
-<p>We modify our solution to Challenge 3 by now adding two thresholds, <code>lowerThreshold</code> and <code>upperThreshold</code> and extending our if-else statements:</p>
-<p>```{r 07-chall-04-sol, eval=FALSE} lowerThreshold &lt;- 50 upperThreshold &lt;- 70</p>
-<p>for (iCountry in unique(gapminder<span class="math inline">\(country)) {  tmp &lt;- mean(gapminder[gapminder\)</span>country == iCountry, “lifeExp”])</p>
-<pre><code>if(tmp &lt; lowerThreshold) {
-    cat(&quot;Average Life Expectancy in&quot;, iCountry, &quot;is less than&quot;, lowerThreshold, &quot;\n&quot;)
-} else if(tmp &gt; lowerThreshold &amp;&amp; tmp &lt; upperThreshold) {
-    cat(&quot;Average Life Expectancy in&quot;, iCountry, &quot;is between&quot;, lowerThreshold, &quot;and&quot;, upperThreshold, &quot;\n&quot;)
-} else {
-    cat(&quot;Average Life Expectancy in&quot;, iCountry, &quot;is greater than&quot;, upperThreshold, &quot;\n&quot;)
+
+<p>Sometimes you will find yourself needing to repeat an operation as long as a certain
+condition is met. You can do this with a <code class="language-plaintext highlighter-rouge">while()</code> loop.</p>
+
+<p>```{r, eval=FALSE}
+while(this condition is true){
+  do a thing
+}</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+R will interpret a condition being met as "TRUE".
+
+As an example, here's a while loop
+that generates random numbers from a uniform distribution (the `runif()` function)
+between 0 and 1 until it gets one that's less than 0.1.
+
+```r
+z &lt;- 1
+while(z &gt; 0.1){
+  z &lt;- runif(1)
+  cat(z, "\n")
 }
-rm(tmp)</code></pre>
-<p>} ```</p>
-<p>:::::::::::::::::::::::::</p>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">while()</code> loops will not always be appropriate. You have to be particularly careful
+that you don’t end up stuck in an infinite loop because your condition is always met and hence the while statement never terminates.</p>
+
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
+
+<p>:::::::::::::::::::::::::::::::::::::::  challenge</p>
+
+<h2 id="challenge-2">Challenge 2</h2>
+
+<p>Compare the objects <code class="language-plaintext highlighter-rouge">output_vector</code> and
+<code class="language-plaintext highlighter-rouge">output_vector2</code>. Are they the same? If not, why not?
+How would you change the last block of code to make <code class="language-plaintext highlighter-rouge">output_vector2</code>
+the same as <code class="language-plaintext highlighter-rouge">output_vector</code>?</p>
+
+<p>:::::::::::::::  solution</p>
+
+<h2 id="solution-to-challenge-2">Solution to Challenge 2</h2>
+
+<p>We can check whether the two vectors are identical using the <code class="language-plaintext highlighter-rouge">all()</code> function:</p>
+
+<p>```{r ch10pt6-sol, eval=FALSE}
+all(output_vector == output_vector2)</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+However, all the elements of `output_vector` can be found in `output_vector2`:
+
+```{r ch10pt7-sol, eval=FALSE}
+all(output_vector %in% output_vector2)
+</code></pre></div></div>
+
+<p>and vice versa:</p>
+
+<p>```{r ch10pt8-sol, eval=FALSE}
+all(output_vector2 %in% output_vector)</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+therefore, the element in `output_vector` and `output_vector2` are just sorted in a different order.
+This is because `as.vector()` outputs the elements of an input matrix going over its column.
+Taking a look at `output_matrix`, we can notice that we want its elements by rows.
+The solution is to transpose the `output_matrix`. We can do it either by calling the transpose function
+`t()` or by inputting the elements in the right order.
+The first solution requires to change the original
+
+```{r ch10pt9-sol, eval=FALSE}
+output_vector2 &lt;- as.vector(output_matrix)
+</code></pre></div></div>
+
+<p>into</p>
+
+<p>```{r ch10pt10-sol, eval=FALSE}
+output_vector2 &lt;- as.vector(t(output_matrix))</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+The second solution requires to change
+
+```{r ch10pt11-sol, eval=FALSE}
+output_matrix[i, j] &lt;- temp_output
+</code></pre></div></div>
+
+<p>into</p>
+
+<p>```{r ch10pt12-sol, eval=FALSE}
+output_matrix[j, i] &lt;- temp_output</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+:::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## Challenge 3
+
+Write a script that loops through the `gapminder` data by continent and prints out
+whether the mean life expectancy is smaller or larger than 50
+years.
+
+:::::::::::::::  solution
+
+## Solution to Challenge 3
+
+**Step 1**:  We want to make sure we can extract all the unique values of the continent vector
+
+```{r 07-chall-03-sol-a, eval=FALSE}
+gapminder &lt;- read.csv("data/gapminder_data.csv")
+unique(gapminder$continent)
+</code></pre></div></div>
+
+<p><strong>Step 2</strong>: We also need to loop over each of these continents and calculate the average life expectancy for each <code class="language-plaintext highlighter-rouge">subset</code> of data.
+We can do that as follows:</p>
+
+<ol>
+  <li>Loop over each of the unique values of ‘continent’</li>
+  <li>For each value of continent, create a temporary variable storing that subset</li>
+  <li>Return the calculated life expectancy to the user by printing the output:</li>
+</ol>
+
+<p>```{r 07-chall-03-sol-b, eval=FALSE}
+for (iContinent in unique(gapminder$continent)) {
+  tmp &lt;- gapminder[gapminder$continent == iContinent, ]
+  cat(iContinent, mean(tmp$lifeExp, na.rm = TRUE), “\n”)
+  rm(tmp)
+}</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+**Step 3**: The exercise only wants the output printed if the average life expectancy is less than 50 or greater than 50.
+So we need to add an `if()` condition before printing, which evaluates whether the calculated average life expectancy is above or below a threshold, and prints an output conditional on the result.
+We need to amend (3) from above:
+
+3a. If the calculated life expectancy is less than some threshold (50 years), return the continent and a statement that life expectancy is less than threshold, otherwise return the continent and a statement that life expectancy is greater than threshold:
+
+```{r 07-chall-03-sol-c, eval=FALSE}
+thresholdValue &lt;- 50
+
+for (iContinent in unique(gapminder$continent)) {
+   tmp &lt;- mean(gapminder[gapminder$continent == iContinent, "lifeExp"])
+
+   if (tmp &lt; thresholdValue){
+       cat("Average Life Expectancy in", iContinent, "is less than", thresholdValue, "\n")
+   } else {
+       cat("Average Life Expectancy in", iContinent, "is greater than", thresholdValue, "\n")
+   } # end if else condition
+   rm(tmp)
+} # end for loop
+
+</code></pre></div></div>
+
+<p>:::::::::::::::::::::::::</p>
+
+<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+
+<p>:::::::::::::::::::::::::::::::::::::::  challenge</p>
+
+<h2 id="challenge-4">Challenge 4</h2>
+
+<p>Modify the script from Challenge 3 to loop over each
+country. This time print out whether the life expectancy is
+smaller than 50, between 50 and 70, or greater than 70.</p>
+
+<p>:::::::::::::::  solution</p>
+
+<h2 id="solution-to-challenge-4">Solution to Challenge 4</h2>
+
+<p>We modify our solution to Challenge 3 by now adding two thresholds, <code class="language-plaintext highlighter-rouge">lowerThreshold</code> and <code class="language-plaintext highlighter-rouge">upperThreshold</code> and extending our if-else statements:</p>
+
+<p>```{r 07-chall-04-sol, eval=FALSE}
+ lowerThreshold &lt;- 50
+ upperThreshold &lt;- 70</p>
+
+<p>for (iCountry in unique(gapminder$country)) {
+    tmp &lt;- mean(gapminder[gapminder$country == iCountry, “lifeExp”])</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if(tmp &lt; lowerThreshold) {
+    cat("Average Life Expectancy in", iCountry, "is less than", lowerThreshold, "\n")
+} else if(tmp &gt; lowerThreshold &amp;&amp; tmp &lt; upperThreshold) {
+    cat("Average Life Expectancy in", iCountry, "is between", lowerThreshold, "and", upperThreshold, "\n")
+} else {
+    cat("Average Life Expectancy in", iCountry, "is greater than", upperThreshold, "\n")
+}
+rm(tmp) } ```
+</code></pre></div></div>
+
+<p>:::::::::::::::::::::::::</p>
+
+<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+
+<p>:::::::::::::::::::::::::::::::::::::::  challenge</p>
+
 <h2 id="challenge-5---advanced">Challenge 5 - Advanced</h2>
-<p>Write a script that loops over each country in the <code>gapminder</code> dataset, tests whether the country starts with a ‘B’, and graphs life expectancy against time as a line graph if the mean life expectancy is under 50 years.</p>
-<p>::::::::::::::: solution</p>
+
+<p>Write a script that loops over each country in the <code class="language-plaintext highlighter-rouge">gapminder</code> dataset,
+tests whether the country starts with a ‘B’, and graphs life expectancy
+against time as a line graph if the mean life expectancy is under 50 years.</p>
+
+<p>:::::::::::::::  solution</p>
+
 <h2 id="solution-for-challenge-5">Solution for Challenge 5</h2>
-<p>We will use the <code>grep()</code> command that was introduced in the <a href="https://swcarpentry.github.io/shell-novice/07-find.html">Unix Shell lesson</a> to find countries that start with “B.” Lets understand how to do this first. Following from the Unix shell section we may be tempted to try the following</p>
-<p><code>{r 07-chall-05-sol-a, eval=FALSE} grep(&quot;^B&quot;, unique(gapminder$country))</code></p>
-<p>But when we evaluate this command it returns the indices of the factor variable <code>country</code> that start with “B.” To get the values, we must add the <code>value=TRUE</code> option to the <code>grep()</code> command:</p>
-<p><code>{r 07-chall-05-sol-b, eval=FALSE} grep(&quot;^B&quot;, unique(gapminder$country), value = TRUE)</code></p>
-<p>We will now store these countries in a variable called candidateCountries, and then loop over each entry in the variable. Inside the loop, we evaluate the average life expectancy for each country, and if the average life expectancy is less than 50 we use base-plot to plot the evolution of average life expectancy using <code>with()</code> and <code>subset()</code>:</p>
-<p>```{r 07-chall-05-sol-c, eval=FALSE} thresholdValue &lt;- 50 candidateCountries &lt;- grep(“^B”, unique(gapminder$country), value = TRUE)</p>
-<p>for (iCountry in candidateCountries) { tmp &lt;- mean(gapminder[gapminder$country == iCountry, “lifeExp”])</p>
-<pre><code>if (tmp &lt; thresholdValue) {
-    cat(&quot;Average Life Expectancy in&quot;, iCountry, &quot;is less than&quot;, thresholdValue, &quot;plotting life expectancy graph... \n&quot;)
+
+<p>We will use the <code class="language-plaintext highlighter-rouge">grep()</code> command that was introduced in the <a href="https://swcarpentry.github.io/shell-novice/07-find.html">Unix Shell lesson</a> 
+to find countries that start with “B.”
+Lets understand how to do this first.
+Following from the Unix shell section we may be tempted to try the following</p>
+
+<p>```{r 07-chall-05-sol-a, eval=FALSE}
+grep(“^B”, unique(gapminder$country))</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+But when we evaluate this command it returns the indices of the factor variable `country` that start with "B."
+To get the values, we must add the `value=TRUE` option to the `grep()` command:
+
+```{r 07-chall-05-sol-b, eval=FALSE}
+grep("^B", unique(gapminder$country), value = TRUE)
+</code></pre></div></div>
+
+<p>We will now store these countries in a variable called candidateCountries, and then loop over each entry in the variable.
+Inside the loop, we evaluate the average life expectancy for each country, and if the average life expectancy is less than 50 we use base-plot to plot the evolution of average life expectancy using <code class="language-plaintext highlighter-rouge">with()</code> and <code class="language-plaintext highlighter-rouge">subset()</code>:</p>
+
+<p>```{r 07-chall-05-sol-c, eval=FALSE}
+thresholdValue &lt;- 50
+candidateCountries &lt;- grep(“^B”, unique(gapminder$country), value = TRUE)</p>
+
+<p>for (iCountry in candidateCountries) {
+    tmp &lt;- mean(gapminder[gapminder$country == iCountry, “lifeExp”])</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>if (tmp &lt; thresholdValue) {
+    cat("Average Life Expectancy in", iCountry, "is less than", thresholdValue, "plotting life expectancy graph... \n")
 
     with(subset(gapminder, country == iCountry),
             plot(year, lifeExp,
-                 type = &quot;o&quot;,
-                 main = paste(&quot;Life Expectancy in&quot;, iCountry, &quot;over time&quot;),
-                 ylab = &quot;Life Expectancy&quot;,
-                 xlab = &quot;Year&quot;
+                 type = "o",
+                 main = paste("Life Expectancy in", iCountry, "over time"),
+                 ylab = "Life Expectancy",
+                 xlab = "Year"
                  ) # end plot
          ) # end with
 } # end if
-rm(tmp)</code></pre>
-<p>} # end for loop ```</p>
+rm(tmp) } # end for loop ```
+</code></pre></div></div>
+
 <p>:::::::::::::::::::::::::</p>
+
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+
 <p>:::::::::::::::::::::::::::::::::::::::: keypoints</p>
+
 <ul>
-<li>Use <code>if</code> and <code>else</code> to make choices.</li>
-<li>Use <code>for</code> to repeat operations.</li>
+  <li>Use <code class="language-plaintext highlighter-rouge">if</code> and <code class="language-plaintext highlighter-rouge">else</code> to make choices.</li>
+  <li>Use <code class="language-plaintext highlighter-rouge">for</code> to repeat operations.</li>
 </ul>
+
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-        </div>
-      </div>
-      </article>
-      <div class="footer">
-        <a class="label swc-blue-bg" href="mailto:s.fernandez_valverde@unsw.edu.au">Contact</a>
-        <a class="label swc-blue-bg" href="LICENSE.html">License</a>
-      </div>
-    </div>
-    <!-- Javascript placed at the end of the document so the pages load faster -->
-    <script src="http://software-carpentry.org/v5/js/jquery-1.9.1.min.js"></script>
-    <script src="css/bootstrap/bootstrap-js/bootstrap.js"></script>
-    <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
-  </body>
-</html>
+

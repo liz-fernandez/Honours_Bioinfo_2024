@@ -27,24 +27,28 @@
       <div class="row">
         <div class="col-md-10 col-md-offset-1">
                     <h1 class="title">Seeking Help</h1>
-          <p>::::::::::::::::::::::::::::::::::::::: objectives</p>
+          <section class="objectives panel panel-warning">
+<div class="panel-heading">
+<h2 id="learning-objectives"><span class="glyphicon glyphicon-certificate"></span>Learning Objectives</h2>
+</div>
+<div class="panel-body">
 <ul>
 <li>To be able to read R help files for functions and special operators.</li>
 <li>To be able to use CRAN task views to identify packages to solve a problem.</li>
 <li>To be able to seek help from your peers.</li>
 </ul>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>:::::::::::::::::::::::::::::::::::::::: questions</p>
+<h5 id="questions" class="questions">Questions</h5>
 <ul>
 <li>How can I get help in R?</li>
 </ul>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p><code>{r, include=FALSE}</code></p>
+</div>
+</section>
 <h2 id="reading-help-files">Reading Help Files</h2>
 <p>R, and every package, provide help files for functions. The general syntax to search for help on any function, “function_name”, from a specific function that is in a package loaded into your namespace (your interactive R session) is:</p>
-<p><code>{r, eval=FALSE} ?function_name help(function_name)</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?function_name
+<span class="kw">help</span>(function_name)</code></pre></div>
 <p>For example take a look at the help file for <code>write.table()</code>, we will be using a similar function in an upcoming episode.</p>
-<p><code>{r, eval=FALSE} ?write.table()</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?<span class="kw">write.table</span>()</code></pre></div>
 <p>This will load up a help page in RStudio (or as plain text in R itself).</p>
 <p>Each help page is broken down into sections:</p>
 <ul>
@@ -58,82 +62,130 @@
 </ul>
 <p>Different functions might have different sections, but these are the main ones you should be aware of.</p>
 <p>Notice how related functions might call for the same help file:</p>
-<p><code>{r, eval=FALSE} ?write.table() ?write.csv()</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?<span class="kw">write.table</span>()
+?<span class="kw">write.csv</span>()</code></pre></div>
 <p>This is because these functions have very similar applicability and often share the same arguments as inputs to the function, so package authors often choose to document them together in a single help file.</p>
-<p>::::::::::::::::::::::::::::::::::::::::: callout</p>
-<h2 id="tip-running-examples">Tip: Running Examples</h2>
+<aside class="callout panel panel-info">
+<div class="panel-heading">
+<h2 id="tip-running-examples"><span class="glyphicon glyphicon-pushpin"></span>Tip: Running Examples</h2>
+</div>
+<div class="panel-body">
 <p>From within the function help page, you can highlight code in the Examples and hit <kbd>Ctrl</kbd>+<kbd>Return</kbd> to run it in RStudio console. This gives you a quick way to get a feel for how a function works.</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::::: callout</p>
-<h2 id="tip-reading-help-files">Tip: Reading Help Files</h2>
+</div>
+</aside>
+<aside class="callout panel panel-info">
+<div class="panel-heading">
+<h2 id="tip-reading-help-files"><span class="glyphicon glyphicon-pushpin"></span>Tip: Reading Help Files</h2>
+</div>
+<div class="panel-body">
 <p>One of the most daunting aspects of R is the large number of functions available. It would be prohibitive, if not impossible to remember the correct usage for every function you use. Luckily, using the help files means you don’t have to remember that!</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+</div>
+</aside>
 <h2 id="special-operators">Special Operators</h2>
 <p>To seek help on special operators, use quotes or backticks:</p>
-<p><code>{r, eval=FALSE} ?&quot;&lt;-&quot; ?`&lt;-`</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?<span class="st">&quot;&lt;-&quot;</span>
+?<span class="st">`</span><span class="dt">&lt;-</span><span class="st">`</span></code></pre></div>
 <h2 id="getting-help-with-packages">Getting Help with Packages</h2>
 <p>Many packages come with “vignettes”: tutorials and extended example documentation. Without any arguments, <code>vignette()</code> will list all vignettes for all installed packages; <code>vignette(package=&quot;package-name&quot;)</code> will list all available vignettes for <code>package-name</code>, and <code>vignette(&quot;vignette-name&quot;)</code> will open the specified vignette.</p>
 <p>If a package doesn’t have any vignettes, you can usually find help by typing <code>help(&quot;package-name&quot;)</code>.</p>
 <p>RStudio also has a set of excellent <a href="https://rstudio.com/resources/cheatsheets/">cheatsheets</a> for many packages.</p>
 <h2 id="when-you-remember-part-of-the-function-name">When You Remember Part of the Function Name</h2>
 <p>If you’re not sure what package a function is in or how it’s specifically spelled, you can do a fuzzy search:</p>
-<p><code>{r, eval=FALSE} ??function_name</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">??function_name</code></pre></div>
 <p>A fuzzy search is when you search for an approximate string match. For example, you may remember that the function to set your working directory includes “set” in its name. You can do a fuzzy search to help you identify the function:</p>
-<p><code>{r, eval=FALSE} ??set</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">??set</code></pre></div>
 <h2 id="when-you-have-no-idea-where-to-begin">When You Have No Idea Where to Begin</h2>
 <p>If you don’t know what function or package you need to use <a href="https://cran.at.r-project.org/web/views">CRAN Task Views</a> is a specially maintained list of packages grouped into fields. This can be a good starting point.</p>
 <h2 id="when-your-code-doesnt-work-seeking-help-from-your-peers">When Your Code Doesn’t Work: Seeking Help from Your Peers</h2>
 <p>If you’re having trouble using a function, 9 times out of 10, the answers you seek have already been answered on <a href="https://stackoverflow.com/">Stack Overflow</a>. You can search using the <code>[r]</code> tag. Please make sure to see their page on <a href="https://stackoverflow.com/help/how-to-ask">how to ask a good question.</a></p>
 <p>If you can’t find the answer, there are a few useful functions to help you ask your peers:</p>
-<p><code>{r, eval=FALSE} ?dput</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">?dput</code></pre></div>
 <p>Will dump the data you’re working with into a format that can be copied and pasted by others into their own R session.</p>
-<pre class="{r}"><code>sessionInfo()</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">sessionInfo</span>()</code></pre></div>
+<pre class="output"><code>R version 4.4.0 (2024-04-24)
+Platform: x86_64-pc-linux-gnu
+Running under: Rocky Linux 8.10 (Green Obsidian)
+
+Matrix products: default
+BLAS/LAPACK: /apps/z_install_tree/linux-rocky8-ivybridge/gcc-12.2.0/intel-oneapi-mkl-2022.2.1-mbdgclv5pa6o7p62mgo5v4xxwu2pa2k5/mkl/2022.2.1/lib/intel64/libmkl_gf_lp64.so.2;  LAPACK version 3.10.1
+
+locale:
+ [1] LC_CTYPE=en_AU.UTF-8       LC_NUMERIC=C
+ [3] LC_TIME=en_AU.UTF-8        LC_COLLATE=en_AU.UTF-8
+ [5] LC_MONETARY=en_AU.UTF-8    LC_MESSAGES=en_AU.UTF-8
+ [7] LC_PAPER=en_AU.UTF-8       LC_NAME=C
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C
+[11] LC_MEASUREMENT=en_AU.UTF-8 LC_IDENTIFICATION=C
+
+time zone: Australia/Sydney
+tzcode source: system (glibc)
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods
+[7] base
+
+loaded via a namespace (and not attached):
+[1] compiler_4.4.0 tools_4.4.0</code></pre>
 <p>Will print out your current version of R, as well as any packages you have loaded. This can be useful for others to help reproduce and debug your issue.</p>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
-<h2 id="challenge-1">Challenge 1</h2>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h2 id="challenge-1"><span class="glyphicon glyphicon-pencil"></span>Challenge 1</h2>
+</div>
+<div class="panel-body">
 <p>Look at the help page for the <code>c</code> function. What kind of vector do you expect will be created if you evaluate the following:</p>
-<p><code>{r, eval=FALSE} c(1, 2, 3) c('d', 'e', 'f') c(1, 2, 'f')</code></p>
-<p>::::::::::::::: solution</p>
-<h2 id="solution-to-challenge-1">Solution to Challenge 1</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>)
+<span class="kw">c</span>(<span class="st">&#39;d&#39;</span>, <span class="st">&#39;e&#39;</span>, <span class="st">&#39;f&#39;</span>)
+<span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="st">&#39;f&#39;</span>)</code></pre></div>
+<h5 id="solution">Solution</h5>
 <p>The <code>c()</code> function creates a vector, in which all elements are of the same type. In the first case, the elements are numeric, in the second, they are characters, and in the third they are also characters: the numeric values are “coerced” to be characters.</p>
-<p>:::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
-<h2 id="challenge-2">Challenge 2</h2>
+</div>
+</section>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h2 id="challenge-2"><span class="glyphicon glyphicon-pencil"></span>Challenge 2</h2>
+</div>
+<div class="panel-body">
 <p>Look at the help for the <code>paste</code> function. You will need to use it later. What’s the difference between the <code>sep</code> and <code>collapse</code> arguments?</p>
-<p>::::::::::::::: solution</p>
-<h2 id="solution-to-challenge-2">Solution to Challenge 2</h2>
+<h5 id="solution-1">Solution</h5>
 <p>To look at the help for the <code>paste()</code> function, use:</p>
-<p><code>{r, eval=FALSE} help(&quot;paste&quot;) ?paste</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">help</span>(<span class="st">&quot;paste&quot;</span>)
+?paste</code></pre></div>
 <p>The difference between <code>sep</code> and <code>collapse</code> is a little tricky. The <code>paste</code> function accepts any number of arguments, each of which can be a vector of any length. The <code>sep</code> argument specifies the string used between concatenated terms — by default, a space. The result is a vector as long as the longest argument supplied to <code>paste</code>. In contrast, <code>collapse</code> specifies that after concatenation the elements are <em>collapsed</em> together using the given separator, the result being a single string.</p>
 <p>It is important to call the arguments explicitly by typing out the argument name e.g <code>sep = &quot;,&quot;</code> so the function understands to use the “,” as a separator and not a term to concatenate. e.g.</p>
-<pre class="{r}"><code>paste(c(&quot;a&quot;,&quot;b&quot;), &quot;c&quot;)
-paste(c(&quot;a&quot;,&quot;b&quot;), &quot;c&quot;, &quot;,&quot;)
-paste(c(&quot;a&quot;,&quot;b&quot;), &quot;c&quot;, sep = &quot;,&quot;)
-paste(c(&quot;a&quot;,&quot;b&quot;), &quot;c&quot;, collapse = &quot;|&quot;)
-paste(c(&quot;a&quot;,&quot;b&quot;), &quot;c&quot;, sep = &quot;,&quot;, collapse = &quot;|&quot;)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">paste</span>(<span class="kw">c</span>(<span class="st">&quot;a&quot;</span>,<span class="st">&quot;b&quot;</span>), <span class="st">&quot;c&quot;</span>)
+<span class="kw">paste</span>(<span class="kw">c</span>(<span class="st">&quot;a&quot;</span>,<span class="st">&quot;b&quot;</span>), <span class="st">&quot;c&quot;</span>, <span class="st">&quot;,&quot;</span>)
+<span class="kw">paste</span>(<span class="kw">c</span>(<span class="st">&quot;a&quot;</span>,<span class="st">&quot;b&quot;</span>), <span class="st">&quot;c&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>)
+<span class="kw">paste</span>(<span class="kw">c</span>(<span class="st">&quot;a&quot;</span>,<span class="st">&quot;b&quot;</span>), <span class="st">&quot;c&quot;</span>, <span class="dt">collapse =</span> <span class="st">&quot;|&quot;</span>)
+<span class="kw">paste</span>(<span class="kw">c</span>(<span class="st">&quot;a&quot;</span>,<span class="st">&quot;b&quot;</span>), <span class="st">&quot;c&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;,&quot;</span>, <span class="dt">collapse =</span> <span class="st">&quot;|&quot;</span>)</code></pre></div>
 <p>(For more information, scroll to the bottom of the <code>?paste</code> help page and look at the examples, or try <code>example('paste')</code>.)</p>
-<p>:::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
-<h2 id="challenge-3">Challenge 3</h2>
+</div>
+</section>
+<section class="challenge panel panel-success">
+<div class="panel-heading">
+<h2 id="challenge-3"><span class="glyphicon glyphicon-pencil"></span>Challenge 3</h2>
+</div>
+<div class="panel-body">
 <p>Use help to find a function (and its associated parameters) that you could use to load data from a tabular file in which columns are delimited with “\t” (tab) and the decimal point is a “.” (period). This check for decimal separator is important, especially if you are working with international colleagues, because different countries have different conventions for the decimal point (i.e. comma vs period). Hint: use <code>??&quot;read table&quot;</code> to look up functions related to reading in tabular data.</p>
-<p>::::::::::::::: solution</p>
-<h2 id="solution-to-challenge-3">Solution to Challenge 3</h2>
+<h5 id="solution-2">Solution</h5>
 <p>The standard R function for reading tab-delimited files with a period decimal separator is read.delim(). You can also do this with <code>read.table(file, sep=&quot;\t&quot;)</code> (the period is the <em>default</em> decimal separator for <code>read.table()</code>), although you may have to change the <code>comment.char</code> argument as well if your data file contains hash (#) characters.</p>
-<p>:::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+</div>
+</section>
 <h2 id="other-resources">Other Resources</h2>
 <ul>
 <li><a href="https://www.statmethods.net/">Quick R</a></li>
 <li><a href="https://www.rstudio.com/resources/cheatsheets/">RStudio cheat sheets</a></li>
 <li><a href="https://www.cookbook-r.com/">Cookbook for R</a></li>
 </ul>
-<p>:::::::::::::::::::::::::::::::::::::::: keypoints</p>
+<section class="objectives panel panel-warning">
+<div class="panel-heading">
+<h2 id="keypoints"><span class="glyphicon glyphicon-certificate"></span>Keypoints</h2>
+</div>
+<div class="panel-body">
 <ul>
 <li>Use <code>help()</code> to get online help in R.</li>
 </ul>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+</div>
+</section>
         </div>
       </div>
       </article>

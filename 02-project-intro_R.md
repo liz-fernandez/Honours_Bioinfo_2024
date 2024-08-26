@@ -5,20 +5,13 @@ exercises: 10
 source: Rmd
 ---
 
-::::::::::::::::::::::::::::::::::::::: objectives
+## Learning Objectives {.objectives}
 
-- Create self-contained projects in RStudio
+* Create self-contained projects in RStudio
 
-::::::::::::::::::::::::::::::::::::::::::::::::::
+##### Questions {.questions}
 
-:::::::::::::::::::::::::::::::::::::::: questions
-
-- How can I manage my projects in R?
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
-
-```{r, include=FALSE}
-```
+* How can I manage my projects in R?
 
 ## Introduction
 
@@ -59,20 +52,18 @@ One of the most powerful and useful aspects of RStudio is its project management
 functionality. We'll be using this today to create a self-contained, reproducible
 project.
 
-:::::::::::::::::::::::::::::::::::::::  challenge
 
-## Challenge 1: Creating a self-contained project
+> ## Challenge 1: Creating a self-contained project {.challenge}
+> 
+> We're going to create a new project in RStudio:
+> 
+> 1. Click the "File" menu button, then "New Project".
+> 2. Click "New Directory".
+> 3. Click "New Project".
+> 4. Type in the name of the directory to store your project, e.g. "my\_project".
+> 5. If available, select the checkbox for "Create a git repository."
+> 6. Click the "Create Project" button.
 
-We're going to create a new project in RStudio:
-
-1. Click the "File" menu button, then "New Project".
-2. Click "New Directory".
-3. Click "New Project".
-4. Type in the name of the directory to store your project, e.g. "my\_project".
-5. If available, select the checkbox for "Create a git repository."
-6. Click the "Create Project" button.
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
 
 The simplest way to open an RStudio project once it has been created is to click
 through your file system to get to the directory where it was saved and double
@@ -83,15 +74,13 @@ allowing you to open multiple projects at the same time each open to its own
 project directory. This allows you to keep multiple projects open without them
 interfering with each other.
 
-:::::::::::::::::::::::::::::::::::::::  challenge
 
-## Challenge 2: Opening an RStudio project through the file system
+> ## Challenge 2: Opening an RStudio project through the file system {.challenge}
+> 
+> 1. Exit RStudio.
+> 2. Navigate to the directory where you created a project in Challenge 1.
+> 3. Double click on the `.Rproj` file in that directory.
 
-1. Exit RStudio.
-2. Navigate to the directory where you created a project in Challenge 1.
-3. Double click on the `.Rproj` file in that directory.
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Best practices for project organization
 
@@ -124,19 +113,17 @@ with different sub-directories for each separate analysis makes it easier later.
 Since many analyses are exploratory and don't end up being used in the final
 project, and some of the analyses get shared between projects.
 
-:::::::::::::::::::::::::::::::::::::::::  callout
 
-## Tip: Good Enough Practices for Scientific Computing
+> ## Tip: Good Enough Practices for Scientific Computing {.callout}
+> 
+> [Good Enough Practices for Scientific Computing](https://github.com/swcarpentry/good-enough-practices-in-scientific-computing/blob/gh-pages/good-enough-practices-for-scientific-computing.pdf) gives the following recommendations for project organization:
+> 
+> 1. Put each project in its own directory, which is named after the project.
+> 2. Put text documents associated with the project in the `doc` directory.
+> 3. Put raw data and metadata in the `data` directory, and files generated during cleanup and analysis in a `results` directory.
+> 4. Put source for the project's scripts and programs in the `src` directory, and programs brought in from elsewhere or compiled locally in the `bin` directory.
+> 5. Name all files to reflect their content or function.
 
-[Good Enough Practices for Scientific Computing](https://github.com/swcarpentry/good-enough-practices-in-scientific-computing/blob/gh-pages/good-enough-practices-for-scientific-computing.pdf) gives the following recommendations for project organization:
-
-1. Put each project in its own directory, which is named after the project.
-2. Put text documents associated with the project in the `doc` directory.
-3. Put raw data and metadata in the `data` directory, and files generated during cleanup and analysis in a `results` directory.
-4. Put source for the project's scripts and programs in the `src` directory, and programs brought in from elsewhere or compiled locally in the `bin` directory.
-5. Name all files to reflect their content or function.
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ### Separate function definition and application
 
@@ -152,67 +139,23 @@ one to store the analysis scripts.
 
 Now we have a good directory structure we will now place/save the data file in the `data/` directory.
 
-:::::::::::::::::::::::::::::::::::::::  challenge
 
-## Challenge 3
+> ## Challenge 3 {.challenge}
+> 
+> Download the gapminder data from [this link to a csv file](data/gapminder_data.csv).
+> 
+> 1. Download the file (right mouse click on the link above -> "Save link as" / "Save file as", or click on the link and after the page loads, press <kbd>Ctrl</kbd>\+<kbd>S</kbd> or choose File -> "Save page as")
+> 2. Make sure it's saved under the name `gapminder_data.csv`
+> 3. Save the file in the `data/` folder within your project.
+> 
+> We will load and inspect these data later.
 
-Download the gapminder data from [this link to a csv file](data/gapminder_data.csv).
 
-1. Download the file (right mouse click on the link above -> "Save link as" / "Save file as", or click on the link and after the page loads, press <kbd>Ctrl</kbd>\+<kbd>S</kbd> or choose File -> "Save page as")
-2. Make sure it's saved under the name `gapminder_data.csv`
-3. Save the file in the `data/` folder within your project.
+> ## Tip: command line in RStudio {.callout}
+> 
+> The Terminal tab in the console pane provides a convenient place directly
+> within RStudio to interact directly with the command line.
 
-We will load and inspect these data later.
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
-
-:::::::::::::::::::::::::::::::::::::::  challenge
-
-## Challenge 4
-
-It is useful to get some general idea about the dataset, directly from the
-command line, before loading it into R. Understanding the dataset better
-will come in handy when making decisions on how to load it in R. Use the command-line
-shell to answer the following questions:
-
-1. What is the size of the file?
-2. How many rows of data does it contain?
-3. What kinds of values are stored in this file?
-
-:::::::::::::::  solution
-
-## Solution to Challenge 4
-
-By running these commands in the shell:
-
-```{r ch2a-sol, engine="sh"}
-ls -lh data/gapminder_data.csv
-```
-
-The file size is 80K.
-
-```{r ch2b-sol, engine="sh"}
-wc -l data/gapminder_data.csv
-```
-
-There are 1705 lines. The data looks like:
-
-```{r ch2c-sol, engine="sh"}
-head data/gapminder_data.csv
-```
-
-:::::::::::::::::::::::::
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
-
-:::::::::::::::::::::::::::::::::::::::::  callout
-
-## Tip: command line in RStudio
-
-The Terminal tab in the console pane provides a convenient place directly
-within RStudio to interact directly with the command line.
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ### Working directory
 
@@ -220,42 +163,35 @@ Knowing R's current working directory is important because when you need to acce
 
 Each time you create a new RStudio Project, it will create a new directory for that project. When you open an existing `.Rproj` file, it will open that project and set R's working directory to the folder that file is in.
 
-:::::::::::::::::::::::::::::::::::::::  challenge
 
-## Challenge 5
+> ## Challenge 4 {.challenge}
+> 
+> You can check the current working directory with the `getwd()` command, or by using the menus in RStudio.
+> 
+> 1. In the console, type `getwd()` ("wd" is short for "working directory") and hit Enter.
+> 2. In the Files pane, double click on the `data` folder to open it (or navigate to any other folder you wish). To get the Files pane back to the current working directory, click "More" and then select "Go To Working Directory".
+> 
+> You can change the working directory with `setwd()`, or by using RStudio menus.
+> 
+> 1. In the console, type `setwd("data")` and hit Enter. Type `getwd()` and hit Enter to see the new working directory.
+> 2. In the menus at the top of the RStudio window, click the "Session" menu button, and then select "Set Working Directory" and then "Choose Directory". Next, in the windows navigator that opens, navigate back to the project directory, and click "Open". Note that a `setwd` command will automatically appear in the console.
 
-You can check the current working directory with the `getwd()` command, or by using the menus in RStudio.
 
-1. In the console, type `getwd()` ("wd" is short for "working directory") and hit Enter.
-2. In the Files pane, double click on the `data` folder to open it (or navigate to any other folder you wish). To get the Files pane back to the current working directory, click "More" and then select "Go To Working Directory".
+> ## Tip: File does not exist errors {.callout}
+> 
+> When you're attempting to reference a file in your R code and you're getting errors saying the file doesn't exist, it's a good idea to check your working directory.
+> You need to either provide an absolute path to the file, or you need to make sure the file is saved in the working directory (or a subfolder of the working directory) and provide a relative path.
 
-You can change the working directory with `setwd()`, or by using RStudio menus.
-
-1. In the console, type `setwd("data")` and hit Enter. Type `getwd()` and hit Enter to see the new working directory.
-2. In the menus at the top of the RStudio window, click the "Session" menu button, and then select "Set Working Directory" and then "Choose Directory". Next, in the windows navigator that opens, navigate back to the project directory, and click "Open". Note that a `setwd` command will automatically appear in the console.
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
-
-:::::::::::::::::::::::::::::::::::::::::  callout
-
-## Tip: File does not exist errors
-
-When you're attempting to reference a file in your R code and you're getting errors saying the file doesn't exist, it's a good idea to check your working directory.
-You need to either provide an absolute path to the file, or you need to make sure the file is saved in the working directory (or a subfolder of the working directory) and provide a relative path.
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ### Version Control
 
 It is important to use version control with projects.  Go [here for a good lesson which describes using Git with RStudio](https://swcarpentry.github.io/git-novice/14-supplemental-rstudio.html).
 
-:::::::::::::::::::::::::::::::::::::::: keypoints
 
-- Use RStudio to create and manage projects with consistent layout.
-- Treat raw data as read-only.
-- Treat generated output as disposable.
-- Separate function definition and application.
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
-
+> ## Keypoints {.objectives}
+> 
+> * Use RStudio to create and manage projects with consistent layout.
+> * Treat raw data as read-only.
+> * Treat generated output as disposable.
+> * Separate function definition and application.
 

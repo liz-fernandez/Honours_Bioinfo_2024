@@ -5,6 +5,7 @@ exercises: 10
 source: Rmd
 ---
 
+## Learning Objectives {.objectives}
 ::::::::::::::::::::::::::::::::::::::: objectives
 
 - To be able to write out plots and data from R.

@@ -5,6 +5,7 @@ exercises: 20
 source: Rmd
 ---
 
+## Learning Objectives {.objectives}
 ::::::::::::::::::::::::::::::::::::::: objectives
 
 - Write conditional statements with `if...else` statements and `ifelse()`.

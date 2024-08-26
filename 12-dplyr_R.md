@@ -5,6 +5,7 @@ exercises: 15
 source: Rmd
 ---
 
+## Learning Objectives {.objectives}
 ::::::::::::::::::::::::::::::::::::::: objectives
 
 - To be able to use the six main data frame manipulation 'verbs' with pipes in  `dplyr`.

@@ -5,6 +5,7 @@ exercises: 15
 source: Rmd
 ---
 
+## Learning Objectives {.objectives}
 ::::::::::::::::::::::::::::::::::::::: objectives
 
 - Understand the value of writing reproducible reports

@@ -5,6 +5,7 @@ exercises: 15
 source: Rmd
 ---
 
+## Learning Objectives {.objectives}
 ::::::::::::::::::::::::::::::::::::::: objectives
 
 - To understand the concepts of 'longer' and 'wider' data frame formats and be able to convert between them with `tidyr`.

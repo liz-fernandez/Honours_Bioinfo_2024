@@ -5,6 +5,7 @@ exercises: 0
 source: Rmd
 ---
 
+## Learning Objectives {.objectives}
 ::::::::::::::::::::::::::::::::::::::: objectives
 
 - Describe best practices for writing R and explain the justification for each.

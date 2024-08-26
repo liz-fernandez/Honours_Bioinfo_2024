@@ -5,6 +5,7 @@ exercises: 15
 source: Rmd
 ---
 
+## Learning Objectives {.objectives}
 ::::::::::::::::::::::::::::::::::::::: objectives
 
 - To be able to subset vectors, factors, matrices, lists, and data frames

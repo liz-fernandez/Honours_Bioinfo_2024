@@ -5,6 +5,7 @@ exercises: 10
 source: Rmd
 ---
 
+## Learning Objectives {.objectives}
 ::::::::::::::::::::::::::::::::::::::: objectives
 
 - Add and remove rows or columns.

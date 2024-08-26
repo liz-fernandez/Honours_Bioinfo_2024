@@ -5,6 +5,7 @@ exercises: 20
 source: Rmd
 ---
 
+## Learning Objectives {.objectives}
 ::::::::::::::::::::::::::::::::::::::: objectives
 
 - To be able to use ggplot2 to generate publication-quality graphics.

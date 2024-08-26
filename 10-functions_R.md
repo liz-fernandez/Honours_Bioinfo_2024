@@ -5,6 +5,7 @@ exercises: 15
 source: Rmd
 ---
 
+## Learning Objectives {.objectives}
 ::::::::::::::::::::::::::::::::::::::: objectives
 
 - Define a function that takes arguments.

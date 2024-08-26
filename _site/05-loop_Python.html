@@ -1,271 +1,380 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="generator" content="pandoc">
-    <title>Repeating Actions with Loops</title>
-    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css" />
-    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap-theme.css" />
-    <link rel="stylesheet" type="text/css" href="css/swc.css" />
-    <link rel="alternate" type="application/rss+xml" title="Bioinformatics Honours 2024" href="https://github.com/liz-fernandez/UNSW_Honours_Bioinfo_2024/"/>
-    <meta charset="UTF-8" />
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-  </head>
-  <body class="lesson">
-    <div class="container card">
-      <div class="banner">
-        <a href="https://liz-fernandez.github.io/Honours_Bioinfo_2024/" title="Honours Bioinformatics Course 2024">
-          <img alt="Logo UNSW" src="img/unsw_logo.jpg" />
-        </a>
-      </div>
-      <article>
-      <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-                    <h1 class="title">Repeating Actions with Loops</h1>
-          <section class="objectives panel panel-warning">
-<div class="panel-heading">
-<h2 id="learning-objectives"><span class="glyphicon glyphicon-certificate"></span>Learning Objectives</h2>
-</div>
-<div class="panel-body">
-<ul>
-<li>Explain what a <code>for</code> loop does.</li>
-<li>Correctly write <code>for</code> loops to repeat simple calculations.</li>
-<li>Trace changes to a loop variable as the loop runs.</li>
-<li>Trace changes to other variables as they are updated by a <code>for</code> loop.</li>
-</ul>
-<h5 id="questions">Questions</h5>
-<ul>
-<li>How can I do the same operations on many different values?</li>
-</ul>
-</div>
-</section>
-<p>In the episode about visualizing data, we wrote Python code that plots values of interest from our first inflammation dataset (<code>inflammation-01.csv</code>), which revealed some suspicious features in it.</p>
-<div class="figure">
-<img src="fig/03-loop_2_0.png" alt="Line graphs showing average, maximum and minimum inflammation across all patients over a 40-dayperiod." />
+<blockquote>
+  <h2 id="learning-objectives-objectives">Learning Objectives {.objectives}</h2>
 
-</div>
-<p>We have a dozen data sets right now and potentially more on the way if Dr. Maverick can keep up their surprisingly fast clinical trial rate. We want to create plots for all of our data sets with a single statement. To do that, we’ll have to teach the computer how to repeat things.</p>
-<p>An example task that we might want to repeat is accessing numbers in a list, which we will do by printing each number on a line of its own.</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">odds <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>]</code></pre></div>
-<p>In Python, a list is basically an ordered collection of elements, and every element has a unique number associated with it — its index. This means that we can access elements in a list using their indices. For example, we can get the first number in the list <code>odds</code>, by using <code>odds[0]</code>. One way to print each number is to use four <code>print</code> statements:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(odds[<span class="dv">0</span>])
-<span class="bu">print</span>(odds[<span class="dv">1</span>])
-<span class="bu">print</span>(odds[<span class="dv">2</span>])
-<span class="bu">print</span>(odds[<span class="dv">3</span>])</code></pre></div>
-<pre class="output"><code>1
+  <ul>
+    <li>Explain what a <code class="language-plaintext highlighter-rouge">for</code> loop does.</li>
+    <li>Correctly write <code class="language-plaintext highlighter-rouge">for</code> loops to repeat simple calculations.</li>
+    <li>Trace changes to a loop variable as the loop runs.</li>
+    <li>Trace changes to other variables as they are updated by a <code class="language-plaintext highlighter-rouge">for</code> loop.</li>
+  </ul>
+
+  <h5 id="questions">Questions</h5>
+
+  <ul>
+    <li>How can I do the same operations on many different values?</li>
+  </ul>
+</blockquote>
+
+<p>In the episode about visualizing data,
+we wrote Python code that plots values of interest from our first
+inflammation dataset (<code class="language-plaintext highlighter-rouge">inflammation-01.csv</code>), which revealed some suspicious features in it.</p>
+
+<p><img src="fig/03-loop_2_0.png" alt="" />{alt=”Line graphs showing average, maximum and minimum inflammation across all patients over a 40-dayperiod.”}</p>
+
+<p>We have a dozen data sets right now and potentially more on the way if Dr. Maverick
+can keep up their surprisingly fast clinical trial rate. We want to create plots for all of
+our data sets with a single statement. To do that, we’ll have to teach the computer how to
+repeat things.</p>
+
+<p>An example task that we might want to repeat is accessing numbers in a list,
+which we
+will do by printing each number on a line of its own.</p>
+
+<pre><code class="language-{.python}">odds = [1, 3, 5, 7]
+</code></pre>
+
+<p>In Python, a list is basically an ordered collection of elements, and every
+element has a unique number associated with it — its index. This means that
+we can access elements in a list using their indices.
+For example, we can get the first number in the list <code class="language-plaintext highlighter-rouge">odds</code>,
+by using <code class="language-plaintext highlighter-rouge">odds[0]</code>. One way to print each number is to use four <code class="language-plaintext highlighter-rouge">print</code> statements:</p>
+
+<pre><code class="language-{.python}">print(odds[0])
+print(odds[1])
+print(odds[2])
+print(odds[3])
+</code></pre>
+
+<pre><code class="language-{.output}">1
 3
 5
-7</code></pre>
+7
+</code></pre>
+
 <p>This is a bad approach for three reasons:</p>
-<ol style="list-style-type: decimal">
-<li><p><strong>Not scalable</strong>. Imagine you need to print a list that has hundreds of elements. It might be easier to type them in manually.</p></li>
-<li><p><strong>Difficult to maintain</strong>. If we want to decorate each printed element with an asterisk or any other character, we would have to change four lines of code. While this might not be a problem for small lists, it would definitely be a problem for longer ones.</p></li>
-<li><p><strong>Fragile</strong>. If we use it with a list that has more elements than what we initially envisioned, it will only display part of the list’s elements. A shorter list, on the other hand, will cause an error because it will be trying to display elements of the list that do not exist.</p></li>
+
+<ol>
+  <li>
+    <p><strong>Not scalable</strong>. Imagine you need to print a list that has hundreds
+  of elements. It might be easier to type them in manually.</p>
+  </li>
+  <li>
+    <p><strong>Difficult to maintain</strong>. If we want to decorate each printed element with an
+  asterisk or any other character, we would have to change four lines of code. While
+  this might not be a problem for small lists, it would definitely be a problem for
+  longer ones.</p>
+  </li>
+  <li>
+    <p><strong>Fragile</strong>. If we use it with a list that has more elements than what we initially
+  envisioned, it will only display part of the list’s elements. A shorter list, on
+  the other hand, will cause an error because it will be trying to display elements of the
+  list that do not exist.</p>
+  </li>
 </ol>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">odds <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>]
-<span class="bu">print</span>(odds[<span class="dv">0</span>])
-<span class="bu">print</span>(odds[<span class="dv">1</span>])
-<span class="bu">print</span>(odds[<span class="dv">2</span>])
-<span class="bu">print</span>(odds[<span class="dv">3</span>])</code></pre></div>
-<pre class="output"><code>1
+
+<pre><code class="language-{.python}">odds = [1, 3, 5]
+print(odds[0])
+print(odds[1])
+print(odds[2])
+print(odds[3])
+</code></pre>
+
+<pre><code class="language-{.output}">1
 3
-5</code></pre>
-<pre class="error"><code>---------------------------------------------------------------------------
+5
+</code></pre>
+
+<pre><code class="language-error">---------------------------------------------------------------------------
 IndexError                                Traceback (most recent call last)
 &lt;ipython-input-3-7974b6cdaf14&gt; in &lt;module&gt;()
       3 print(odds[1])
       4 print(odds[2])
 ----&gt; 5 print(odds[3])
 
-IndexError: list index out of range</code></pre>
-<p>Here’s a better approach: a <a href="../learners/reference.md#for-loop">for loop</a></p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">odds <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>]
-<span class="cf">for</span> num <span class="op">in</span> odds:
-    <span class="bu">print</span>(num)</code></pre></div>
-<pre class="output"><code>1
-3
-5
-7</code></pre>
-<p>This is shorter — certainly shorter than something that prints every number in a hundred-number list — and more robust as well:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">odds <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">9</span>, <span class="dv">11</span>]
-<span class="cf">for</span> num <span class="op">in</span> odds:
-    <span class="bu">print</span>(num)</code></pre></div>
-<pre class="output"><code>1
-3
-5
-7
-9
-11</code></pre>
-<p>The improved version uses a <a href="../learners/reference.md#for-loop">for loop</a> to repeat an operation — in this case, printing — once for each thing in a sequence. The general form of a loop is:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="cf">for</span> variable <span class="op">in</span> collection:
-    <span class="co"># do things using variable, such as print</span></code></pre></div>
-<p>Using the odds example above, the loop might look like this:</p>
-<div class="figure">
-<img src="fig/05-loops_image_num.png" alt="Loop variable &#39;num&#39; being assigned the value of each element in the list odds in turn andthen being printed" />
+IndexError: list index out of range
+</code></pre>
 
-</div>
-<p>where each number (<code>num</code>) in the variable <code>odds</code> is looped through and printed one number after another. The other numbers in the diagram denote which loop cycle the number was printed in (1 being the first loop cycle, and 6 being the final loop cycle).</p>
-<p>We can call the <a href="../learners/reference.md#loop-variable">loop variable</a> anything we like, but there must be a colon at the end of the line starting the loop, and we must indent anything we want to run inside the loop. Unlike many other languages, there is no command to signify the end of the loop body (e.g. <code>end for</code>); everything indented after the <code>for</code> statement belongs to the loop.</p>
-<aside class="callout panel panel-info">
-<div class="panel-heading">
-<h2 id="whats-in-a-name"><span class="glyphicon glyphicon-pushpin"></span>What’s in a name?</h2>
-</div>
-<div class="panel-body">
-<p>In the example above, the loop variable was given the name <code>num</code> as a mnemonic; it is short for ‘number’. We can choose any name we want for variables. We might just as easily have chosen the name <code>banana</code> for the loop variable, as long as we use the same name when we invoke the variable inside the loop:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">odds <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>, <span class="dv">9</span>, <span class="dv">11</span>]
-<span class="cf">for</span> banana <span class="op">in</span> odds:
-    <span class="bu">print</span>(banana)</code></pre></div>
-<pre class="output"><code>1
+<p>Here’s a better approach: a for loop</p>
+
+<pre><code class="language-{.python}">odds = [1, 3, 5, 7]
+for num in odds:
+    print(num)
+</code></pre>
+
+<pre><code class="language-{.output}">1
+3
+5
+7
+</code></pre>
+
+<p>This is shorter — certainly shorter than something that prints every number in a
+hundred-number list — and more robust as well:</p>
+
+<pre><code class="language-{.python}">odds = [1, 3, 5, 7, 9, 11]
+for num in odds:
+    print(num)
+</code></pre>
+
+<pre><code class="language-{.output}">1
 3
 5
 7
 9
-11</code></pre>
-<p>It is a good idea to choose variable names that are meaningful, otherwise it would be more difficult to understand what the loop is doing.</p>
-</div>
-</aside>
+11
+</code></pre>
+
+<p>The improved version uses a for loop
+to repeat an operation — in this case, printing — once for each thing in a sequence.
+The general form of a loop is:</p>
+
+<pre><code class="language-{.python}">for variable in collection:
+    # do things using variable, such as print
+</code></pre>
+
+<p>Using the odds example above, the loop might look like this:</p>
+
+<p><img src="fig/05-loops_image_num.png" alt="" />{alt=”Loop variable ‘num’ being assigned the value of each element in the list odds in turn andthen being printed”}</p>
+
+<p>where each number (<code class="language-plaintext highlighter-rouge">num</code>) in the variable <code class="language-plaintext highlighter-rouge">odds</code> is looped through and printed one number after
+another. The other numbers in the diagram denote which loop cycle the number was printed in (1
+being the first loop cycle, and 6 being the final loop cycle).</p>
+
+<p>We can call the loop variable anything we like, but
+there must be a colon at the end of the line starting the loop, and we must indent anything we
+want to run inside the loop. Unlike many other languages, there is no command to signify the end
+of the loop body (e.g. <code class="language-plaintext highlighter-rouge">end for</code>); everything indented after the <code class="language-plaintext highlighter-rouge">for</code> statement belongs to the loop.</p>
+
+<blockquote>
+  <h2 id="whats-in-a-name-callout">What’s in a name? {.callout}</h2>
+
+  <p>In the example above, the loop variable was given the name <code class="language-plaintext highlighter-rouge">num</code> as a mnemonic;
+it is short for ‘number’.
+We can choose any name we want for variables. We might just as easily have chosen the name
+<code class="language-plaintext highlighter-rouge">banana</code> for the loop variable, as long as we use the same name when we invoke the variable inside
+the loop:</p>
+
+  <pre><code class="language-{.python}">odds = [1, 3, 5, 7, 9, 11]
+for banana in odds:
+    print(banana)
+</code></pre>
+
+  <pre><code class="language-{.output}">1
+3
+5
+7
+9
+11
+</code></pre>
+
+  <p>It is a good idea to choose variable names that are meaningful, otherwise it would be more
+difficult to understand what the loop is doing.</p>
+</blockquote>
+
 <p>Here’s another loop that repeatedly updates a variable:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">length <span class="op">=</span> <span class="dv">0</span>
-names <span class="op">=</span> [<span class="st">&#39;Curie&#39;</span>, <span class="st">&#39;Darwin&#39;</span>, <span class="st">&#39;Turing&#39;</span>]
-<span class="cf">for</span> value <span class="op">in</span> names:
-    length <span class="op">=</span> length <span class="op">+</span> <span class="dv">1</span>
-<span class="bu">print</span>(<span class="st">&#39;There are&#39;</span>, length, <span class="st">&#39;names in the list.&#39;</span>)</code></pre></div>
-<pre class="output"><code>There are 3 names in the list.</code></pre>
-<p>It’s worth tracing the execution of this little program step by step. Since there are three names in <code>names</code>, the statement on line 4 will be executed three times. The first time around, <code>length</code> is zero (the value assigned to it on line 1) and <code>value</code> is <code>Curie</code>. The statement adds 1 to the old value of <code>length</code>, producing 1, and updates <code>length</code> to refer to that new value. The next time around, <code>value</code> is <code>Darwin</code> and <code>length</code> is 1, so <code>length</code> is updated to be 2. After one more update, <code>length</code> is 3; since there is nothing left in <code>names</code> for Python to process, the loop finishes and the <code>print</code> function on line 5 tells us our final answer.</p>
-<p>Note that a loop variable is a variable that is being used to record progress in a loop. It still exists after the loop is over, and we can re-use variables previously defined as loop variables as well:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">name <span class="op">=</span> <span class="st">&#39;Rosalind&#39;</span>
-<span class="cf">for</span> name <span class="op">in</span> [<span class="st">&#39;Curie&#39;</span>, <span class="st">&#39;Darwin&#39;</span>, <span class="st">&#39;Turing&#39;</span>]:
-    <span class="bu">print</span>(name)
-<span class="bu">print</span>(<span class="st">&#39;after the loop, name is&#39;</span>, name)</code></pre></div>
-<pre class="output"><code>Curie
+
+<pre><code class="language-{.python}">length = 0
+names = ['Curie', 'Darwin', 'Turing']
+for value in names:
+    length = length + 1
+print('There are', length, 'names in the list.')
+</code></pre>
+
+<pre><code class="language-{.output}">There are 3 names in the list.
+</code></pre>
+
+<p>It’s worth tracing the execution of this little program step by step.
+Since there are three names in <code class="language-plaintext highlighter-rouge">names</code>,
+the statement on line 4 will be executed three times.
+The first time around,
+<code class="language-plaintext highlighter-rouge">length</code> is zero (the value assigned to it on line 1)
+and <code class="language-plaintext highlighter-rouge">value</code> is <code class="language-plaintext highlighter-rouge">Curie</code>.
+The statement adds 1 to the old value of <code class="language-plaintext highlighter-rouge">length</code>,
+producing 1,
+and updates <code class="language-plaintext highlighter-rouge">length</code> to refer to that new value.
+The next time around,
+<code class="language-plaintext highlighter-rouge">value</code> is <code class="language-plaintext highlighter-rouge">Darwin</code> and <code class="language-plaintext highlighter-rouge">length</code> is 1,
+so <code class="language-plaintext highlighter-rouge">length</code> is updated to be 2.
+After one more update,
+<code class="language-plaintext highlighter-rouge">length</code> is 3;
+since there is nothing left in <code class="language-plaintext highlighter-rouge">names</code> for Python to process,
+the loop finishes
+and the <code class="language-plaintext highlighter-rouge">print</code> function on line 5 tells us our final answer.</p>
+
+<p>Note that a loop variable is a variable that is being used to record progress in a loop.
+It still exists after the loop is over,
+and we can re-use variables previously defined as loop variables as well:</p>
+
+<pre><code class="language-{.python}">name = 'Rosalind'
+for name in ['Curie', 'Darwin', 'Turing']:
+    print(name)
+print('after the loop, name is', name)
+</code></pre>
+
+<pre><code class="language-{.output}">Curie
 Darwin
 Turing
-after the loop, name is Turing</code></pre>
-<p>Note also that finding the length of an object is such a common operation that Python actually has a built-in function to do it called <code>len</code>:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(<span class="bu">len</span>([<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]))</code></pre></div>
-<pre class="output"><code>4</code></pre>
-<p><code>len</code> is much faster than any function we could write ourselves, and much easier to read than a two-line loop; it will also give us the length of many other things that we haven’t met yet, so we should always use it when we can.</p>
-<section class="challenge panel panel-success">
-<div class="panel-heading">
-<h2 id="from-1-to-n"><span class="glyphicon glyphicon-pencil"></span>From 1 to N</h2>
-</div>
-<div class="panel-body">
-<p>Python has a built-in function called <code>range</code> that generates a sequence of numbers. <code>range</code> can accept 1, 2, or 3 parameters.</p>
-<ul>
-<li>If one parameter is given, <code>range</code> generates a sequence of that length, starting at zero and incrementing by 1. For example, <code>range(3)</code> produces the numbers <code>0, 1, 2</code>.</li>
-<li>If two parameters are given, <code>range</code> starts at the first and ends just before the second, incrementing by one. For example, <code>range(2, 5)</code> produces <code>2, 3, 4</code>.</li>
-<li>If <code>range</code> is given 3 parameters, it starts at the first one, ends just before the second one, and increments by the third one. For example, <code>range(3, 10, 2)</code> produces <code>3, 5, 7, 9</code>.</li>
-</ul>
-<p>Using <code>range</code>, write a loop that prints the first 3 natural numbers:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="dv">1</span>
-<span class="dv">2</span>
-<span class="dv">3</span></code></pre></div>
-<h5 id="solution">Solution</h5>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="cf">for</span> number <span class="op">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">4</span>):
-    <span class="bu">print</span>(number)</code></pre></div>
-</div>
-</section>
-<section class="challenge panel panel-success">
-<div class="panel-heading">
-<h2 id="understanding-the-loops"><span class="glyphicon glyphicon-pencil"></span>Understanding the loops</h2>
-</div>
-<div class="panel-body">
-<p>Given the following loop:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">word <span class="op">=</span> <span class="st">&#39;oxygen&#39;</span>
-<span class="cf">for</span> letter <span class="op">in</span> word:
-    <span class="bu">print</span>(letter)</code></pre></div>
-<p>How many times is the body of the loop executed?</p>
-<ul>
-<li>3 times</li>
-<li>4 times</li>
-<li>5 times</li>
-<li>6 times</li>
-</ul>
-<p>::::::::::::::: solution</p>
-<h5 id="solution-1">Solution</h5>
-<p>The body of the loop is executed 6 times.</p>
-</div>
-</section>
-<section class="challenge panel panel-success">
-<div class="panel-heading">
-<h2 id="computing-powers-with-loops"><span class="glyphicon glyphicon-pencil"></span>Computing Powers With Loops</h2>
-</div>
-<div class="panel-body">
-<p>Exponentiation is built into Python:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(<span class="dv">5</span> <span class="op">**</span> <span class="dv">3</span>)</code></pre></div>
-<pre class="output"><code>125</code></pre>
-<p>Write a loop that calculates the same result as <code>5 ** 3</code> using multiplication (and without exponentiation).</p>
-<h5 id="solution-2">Solution</h5>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">result <span class="op">=</span> <span class="dv">1</span>
-<span class="cf">for</span> number <span class="op">in</span> <span class="bu">range</span>(<span class="dv">0</span>, <span class="dv">3</span>):
-    result <span class="op">=</span> result <span class="op">*</span> <span class="dv">5</span>
-<span class="bu">print</span>(result)</code></pre></div>
-</div>
-</section>
-<section class="challenge panel panel-success">
-<div class="panel-heading">
-<h2 id="summing-a-list"><span class="glyphicon glyphicon-pencil"></span>Summing a list</h2>
-</div>
-<div class="panel-body">
-<p>Write a loop that calculates the sum of elements in a list by adding each element and printing the final value, so <code>[124, 402, 36]</code> prints 562</p>
-<h5 id="solution-3">Solution</h5>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">numbers <span class="op">=</span> [<span class="dv">124</span>, <span class="dv">402</span>, <span class="dv">36</span>]
-summed <span class="op">=</span> <span class="dv">0</span>
-<span class="cf">for</span> num <span class="op">in</span> numbers:
-    summed <span class="op">=</span> summed <span class="op">+</span> num
-<span class="bu">print</span>(summed)</code></pre></div>
-</div>
-</section>
-<section class="challenge panel panel-success">
-<div class="panel-heading">
-<h2 id="computing-the-value-of-a-polynomial"><span class="glyphicon glyphicon-pencil"></span>Computing the Value of a Polynomial</h2>
-</div>
-<div class="panel-body">
-<p>The built-in function <code>enumerate</code> takes a sequence (e.g. a <a href="04-lists.md">list</a>) and generates a new sequence of the same length. Each element of the new sequence is a pair composed of the index (0, 1, 2,…) and the value from the original sequence:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="cf">for</span> idx, val <span class="op">in</span> <span class="bu">enumerate</span>(a_list):
-    <span class="co"># Do something using idx and val</span></code></pre></div>
-<p>The code above loops through <code>a_list</code>, assigning the index to <code>idx</code> and the value to <code>val</code>.</p>
-<p>Suppose you have encoded a polynomial as a list of coefficients in the following way: the first element is the constant term, the second element is the coefficient of the linear term, the third is the coefficient of the quadratic term, etc.</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">x <span class="op">=</span> <span class="dv">5</span>
-coefs <span class="op">=</span> [<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">3</span>]
-y <span class="op">=</span> coefs[<span class="dv">0</span>] <span class="op">*</span> x<span class="op">**</span><span class="dv">0</span> <span class="op">+</span> coefs[<span class="dv">1</span>] <span class="op">*</span> x<span class="op">**</span><span class="dv">1</span> <span class="op">+</span> coefs[<span class="dv">2</span>] <span class="op">*</span> x<span class="op">**</span><span class="dv">2</span>
-<span class="bu">print</span>(y)</code></pre></div>
-<pre class="output"><code>97</code></pre>
-<p>Write a loop using <code>enumerate(coefs)</code> which computes the value <code>y</code> of any polynomial, given <code>x</code> and <code>coefs</code>.</p>
-<h5 id="solution-4">Solution</h5>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">y <span class="op">=</span> <span class="dv">0</span>
-<span class="cf">for</span> idx, coef <span class="op">in</span> <span class="bu">enumerate</span>(coefs):
-    y <span class="op">=</span> y <span class="op">+</span> coef <span class="op">*</span> x<span class="op">**</span>idx</code></pre></div>
-</div>
-</section>
-<section class="objectives panel panel-warning">
-<div class="panel-heading">
-<h2 id="keypoints"><span class="glyphicon glyphicon-certificate"></span>Keypoints</h2>
-</div>
-<div class="panel-body">
-<ul>
-<li>Use <code>for variable in sequence</code> to process the elements of a sequence one at a time.</li>
-<li>The body of a <code>for</code> loop must be indented.</li>
-<li>Use <code>len(thing)</code> to determine the length of something that contains other values.</li>
-</ul>
-</div>
-</section>
-        </div>
-      </div>
-      </article>
-      <div class="footer">
-        <a class="label swc-blue-bg" href="mailto:s.fernandez_valverde@unsw.edu.au">Contact</a>
-        <a class="label swc-blue-bg" href="LICENSE.html">License</a>
-      </div>
-    </div>
-    <!-- Javascript placed at the end of the document so the pages load faster -->
-    <script src="http://software-carpentry.org/v5/js/jquery-1.9.1.min.js"></script>
-    <script src="css/bootstrap/bootstrap-js/bootstrap.js"></script>
-    <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
-  </body>
-</html>
+after the loop, name is Turing
+</code></pre>
+
+<p>Note also that finding the length of an object is such a common operation
+that Python actually has a built-in function to do it called <code class="language-plaintext highlighter-rouge">len</code>:</p>
+
+<pre><code class="language-{.python}">print(len([0, 1, 2, 3]))
+</code></pre>
+
+<pre><code class="language-{.output}">4
+</code></pre>
+
+<p><code class="language-plaintext highlighter-rouge">len</code> is much faster than any function we could write ourselves,
+and much easier to read than a two-line loop;
+it will also give us the length of many other things that we haven’t met yet,
+so we should always use it when we can.</p>
+
+<blockquote>
+  <h2 id="from-1-to-n-challenge">From 1 to N {.challenge}</h2>
+
+  <p>Python has a built-in function called <code class="language-plaintext highlighter-rouge">range</code> that generates a sequence of numbers. <code class="language-plaintext highlighter-rouge">range</code> can
+accept 1, 2, or 3 parameters.</p>
+
+  <ul>
+    <li>If one parameter is given, <code class="language-plaintext highlighter-rouge">range</code> generates a sequence of that length,
+starting at zero and incrementing by 1.
+For example, <code class="language-plaintext highlighter-rouge">range(3)</code> produces the numbers <code class="language-plaintext highlighter-rouge">0, 1, 2</code>.</li>
+    <li>If two parameters are given, <code class="language-plaintext highlighter-rouge">range</code> starts at
+the first and ends just before the second, incrementing by one.
+For example, <code class="language-plaintext highlighter-rouge">range(2, 5)</code> produces <code class="language-plaintext highlighter-rouge">2, 3, 4</code>.</li>
+    <li>If <code class="language-plaintext highlighter-rouge">range</code> is given 3 parameters,
+it starts at the first one, ends just before the second one, and increments by the third one.
+For example, <code class="language-plaintext highlighter-rouge">range(3, 10, 2)</code> produces <code class="language-plaintext highlighter-rouge">3, 5, 7, 9</code>.</li>
+  </ul>
+
+  <p>Using <code class="language-plaintext highlighter-rouge">range</code>,
+write a loop that prints the first 3 natural numbers:</p>
+
+  <pre><code class="language-{.python}">1
+2
+3
+</code></pre>
+
+  <h5 id="solution">Solution</h5>
+
+  <pre><code class="language-{.python}">for number in range(1, 4):
+    print(number)
+</code></pre>
+</blockquote>
+
+<blockquote>
+  <h2 id="understanding-the-loops-challenge">Understanding the loops {.challenge}</h2>
+
+  <p>Given the following loop:</p>
+
+  <pre><code class="language-{.python}">word = 'oxygen'
+for letter in word:
+    print(letter)
+</code></pre>
+
+  <p>How many times is the body of the loop executed?</p>
+
+  <ul>
+    <li>3 times</li>
+    <li>4 times</li>
+    <li>5 times</li>
+    <li>6 times</li>
+  </ul>
+
+  <p>:::::::::::::::  solution</p>
+
+  <h5 id="solution-1">Solution</h5>
+
+  <p>The body of the loop is executed 6 times.</p>
+</blockquote>
+
+<blockquote>
+  <h2 id="computing-powers-with-loops-challenge">Computing Powers With Loops {.challenge}</h2>
+
+  <p>Exponentiation is built into Python:</p>
+
+  <pre><code class="language-{.python}">print(5 ** 3)
+</code></pre>
+
+  <pre><code class="language-{.output}">125
+</code></pre>
+
+  <p>Write a loop that calculates the same result as <code class="language-plaintext highlighter-rouge">5 ** 3</code> using
+multiplication (and without exponentiation).</p>
+
+  <h5 id="solution-2">Solution</h5>
+
+  <pre><code class="language-{.python}">result = 1
+for number in range(0, 3):
+    result = result * 5
+print(result)
+</code></pre>
+</blockquote>
+
+<blockquote>
+  <h2 id="summing-a-list-challenge">Summing a list {.challenge}</h2>
+
+  <p>Write a loop that calculates the sum of elements in a list
+by adding each element and printing the final value,
+so <code class="language-plaintext highlighter-rouge">[124, 402, 36]</code> prints 562</p>
+
+  <h5 id="solution-3">Solution</h5>
+
+  <pre><code class="language-{.python}">numbers = [124, 402, 36]
+summed = 0
+for num in numbers:
+    summed = summed + num
+print(summed)
+</code></pre>
+</blockquote>
+
+<blockquote>
+  <h2 id="computing-the-value-of-a-polynomial-challenge">Computing the Value of a Polynomial {.challenge}</h2>
+
+  <p>The built-in function <code class="language-plaintext highlighter-rouge">enumerate</code> takes a sequence (e.g. a <a href="04-lists.md">list</a>) and
+generates a new sequence of the same length. Each element of the new sequence is a pair composed
+of the index (0, 1, 2,…) and the value from the original sequence:</p>
+
+  <pre><code class="language-{.python}">for idx, val in enumerate(a_list):
+    # Do something using idx and val
+</code></pre>
+
+  <p>The code above loops through <code class="language-plaintext highlighter-rouge">a_list</code>, assigning the index to <code class="language-plaintext highlighter-rouge">idx</code> and the value to <code class="language-plaintext highlighter-rouge">val</code>.</p>
+
+  <p>Suppose you have encoded a polynomial as a list of coefficients in
+the following way: the first element is the constant term, the
+second element is the coefficient of the linear term, the third is the
+coefficient of the quadratic term, etc.</p>
+
+  <pre><code class="language-{.python}">x = 5
+coefs = [2, 4, 3]
+y = coefs[0] * x**0 + coefs[1] * x**1 + coefs[2] * x**2
+print(y)
+</code></pre>
+
+  <pre><code class="language-{.output}">97
+</code></pre>
+
+  <p>Write a loop using <code class="language-plaintext highlighter-rouge">enumerate(coefs)</code> which computes the value <code class="language-plaintext highlighter-rouge">y</code> of any
+polynomial, given <code class="language-plaintext highlighter-rouge">x</code> and <code class="language-plaintext highlighter-rouge">coefs</code>.</p>
+
+  <h5 id="solution-4">Solution</h5>
+
+  <pre><code class="language-{.python}">y = 0
+for idx, coef in enumerate(coefs):
+    y = y + coef * x**idx
+</code></pre>
+
+</blockquote>
+
+<blockquote>
+  <h2 id="keypoints-objectives">Keypoints {.objectives}</h2>
+
+  <ul>
+    <li>Use <code class="language-plaintext highlighter-rouge">for variable in sequence</code> to process the elements of a sequence one at a time.</li>
+    <li>The body of a <code class="language-plaintext highlighter-rouge">for</code> loop must be indented.</li>
+    <li>Use <code class="language-plaintext highlighter-rouge">len(thing)</code> to determine the length of something that contains other values.</li>
+  </ul>
+</blockquote>
+

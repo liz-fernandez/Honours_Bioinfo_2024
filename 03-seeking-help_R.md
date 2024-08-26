@@ -5,22 +5,16 @@ exercises: 10
 source: Rmd
 ---
 
-::::::::::::::::::::::::::::::::::::::: objectives
+> ## Learning Objectives {.objectives}
+> 
+> * To be able to read R help files for functions and special operators.
+> * To be able to use CRAN task views to identify packages to solve a problem.
+> * To be able to seek help from your peers.
+> 
+> ##### Questions {.questions}
+> 
+> * How can I get help in R?
 
-- To be able to read R help files for functions and special operators.
-- To be able to use CRAN task views to identify packages to solve a problem.
-- To be able to seek help from your peers.
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
-
-:::::::::::::::::::::::::::::::::::::::: questions
-
-- How can I get help in R?
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
-
-```{r, include=FALSE}
-```
 
 ## Reading Help Files
 
@@ -28,16 +22,16 @@ R, and every package, provide help files for functions. The general syntax to se
 function, "function\_name", from a specific function that is in a package loaded into your
 namespace (your interactive R session) is:
 
-```{r, eval=FALSE}
+~~~ {.r}
 ?function_name
 help(function_name)
-```
+~~~
 
 For example take a look at the help file for `write.table()`, we will be using a similar function in an upcoming episode.
 
-```{r, eval=FALSE}
+~~~ {.r}
 ?write.table()
-```
+~~~
 
 This will load up a help page in RStudio (or as plain text in R itself).
 
@@ -55,45 +49,38 @@ Different functions might have different sections, but these are the main ones y
 
 Notice how related functions might call for the same help file:
 
-```{r, eval=FALSE}
+~~~ {.r}
 ?write.table()
 ?write.csv()
-```
+~~~
 
 This is because these functions have very similar applicability and often share the same arguments as inputs to the function, so package authors often choose to document them together in a single help file.
 
-:::::::::::::::::::::::::::::::::::::::::  callout
 
-## Tip: Running Examples
-
-From within the function help page, you can highlight code in the
-Examples and hit <kbd>Ctrl</kbd>\+<kbd>Return</kbd> to run it in
-RStudio console. This gives you a quick way to get a feel for
-how a function works.
-
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
-
-:::::::::::::::::::::::::::::::::::::::::  callout
-
-## Tip: Reading Help Files
-
-One of the most daunting aspects of R is the large number of functions
-available. It would be prohibitive, if not impossible to remember the
-correct usage for every function you use. Luckily, using the help files
-means you don't have to remember that!
+> ## Tip: Running Examples {.callout}
+> 
+> From within the function help page, you can highlight code in the
+> Examples and hit <kbd>Ctrl</kbd>\+<kbd>Return</kbd> to run it in
+> RStudio console. This gives you a quick way to get a feel for
+> how a function works.
 
 
-::::::::::::::::::::::::::::::::::::::::::::::::::
+> ## Tip: Reading Help Files {.callout}
+> 
+> One of the most daunting aspects of R is the large number of functions
+> available. It would be prohibitive, if not impossible to remember the
+> correct usage for every function you use. Luckily, using the help files
+> means you don't have to remember that!
+
 
 ## Special Operators
 
 To seek help on special operators, use quotes or backticks:
 
-```{r, eval=FALSE}
+~~~ {.r}
 ?"<-"
 ?`<-`
-```
+~~~
 
 ## Getting Help with Packages
 
@@ -112,16 +99,16 @@ RStudio also has a set of excellent
 
 If you're not sure what package a function is in or how it's specifically spelled, you can do a fuzzy search:
 
-```{r, eval=FALSE}
+~~~ {.r}
 ??function_name
-```
+~~~
 
 A fuzzy search is when you search for an approximate string match. For example, you may remember that the function
 to set your working directory includes "set" in its name. You can do a fuzzy search to help you identify the function:
 
-```{r, eval=FALSE}
+~~~ {.r}
 ??set
-```
+~~~
 
 ## When You Have No Idea Where to Begin
 
@@ -141,126 +128,127 @@ the `[r]` tag. Please make sure to see their page on
 If you can't find the answer, there are a few useful functions to
 help you ask your peers:
 
-```{r, eval=FALSE}
+~~~ {.r}
 ?dput
-```
+~~~
 
 Will dump the data you're working with into a format that can
 be copied and pasted by others into their own R session.
 
-```{r}
+~~~ {.r}
 sessionInfo()
-```
+~~~
+~~~ {.output}
+R version 4.4.0 (2024-04-24)
+Platform: x86_64-pc-linux-gnu
+Running under: Rocky Linux 8.10 (Green Obsidian)
+
+Matrix products: default
+BLAS/LAPACK: /apps/z_install_tree/linux-rocky8-ivybridge/gcc-12.2.0/intel-oneapi-mkl-2022.2.1-mbdgclv5pa6o7p62mgo5v4xxwu2pa2k5/mkl/2022.2.1/lib/intel64/libmkl_gf_lp64.so.2;  LAPACK version 3.10.1
+
+locale:
+ [1] LC_CTYPE=en_AU.UTF-8       LC_NUMERIC=C
+ [3] LC_TIME=en_AU.UTF-8        LC_COLLATE=en_AU.UTF-8
+ [5] LC_MONETARY=en_AU.UTF-8    LC_MESSAGES=en_AU.UTF-8
+ [7] LC_PAPER=en_AU.UTF-8       LC_NAME=C
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C
+[11] LC_MEASUREMENT=en_AU.UTF-8 LC_IDENTIFICATION=C
+
+time zone: Australia/Sydney
+tzcode source: system (glibc)
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods
+[7] base
+
+loaded via a namespace (and not attached):
+[1] compiler_4.4.0 tools_4.4.0
+~~~
 
 Will print out your current version of R, as well as any packages you
 have loaded. This can be useful for others to help reproduce and debug
 your issue.
 
-:::::::::::::::::::::::::::::::::::::::  challenge
 
-## Challenge 1
-
-Look at the help page for the `c` function. What kind of vector do you
-expect will be created if you evaluate the following:
-
-```{r, eval=FALSE}
-c(1, 2, 3)
-c('d', 'e', 'f')
-c(1, 2, 'f')
-```
-
-:::::::::::::::  solution
-
-## Solution to Challenge 1
-
-The `c()` function creates a vector, in which all elements are of the
-same type. In the first case, the elements are numeric, in the
-second, they are characters, and in the third they are also characters:
-the numeric values are "coerced" to be characters.
+> ## Challenge 1 {.challenge} 
+> 
+> Look at the help page for the `c` function. What kind of vector do you
+> expect will be created if you evaluate the following:
+> 
+> ~~~ {.r}
+> c(1, 2, 3)
+> c('d', 'e', 'f')
+> c(1, 2, 'f')
+> ~~~
+> 
+> ##### Solution
+> 
+> The `c()` function creates a vector, in which all elements are of the
+> same type. In the first case, the elements are numeric, in the
+> second, they are characters, and in the third they are also characters:
+> the numeric values are "coerced" to be characters.
 
 
-
-:::::::::::::::::::::::::
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
-
-:::::::::::::::::::::::::::::::::::::::  challenge
-
-## Challenge 2
-
-Look at the help for the `paste` function. You will need to use it later.
-What's the difference between the `sep` and `collapse` arguments?
-
-:::::::::::::::  solution
-
-## Solution to Challenge 2
-
-To look at the help for the `paste()` function, use:
-
-```{r, eval=FALSE}
-help("paste")
-?paste
-```
-
-The difference between `sep` and `collapse` is a little
-tricky. The `paste` function accepts any number of arguments, each of which
-can be a vector of any length. The `sep` argument specifies the string
-used between concatenated terms — by default, a space. The result is a
-vector as long as the longest argument supplied to `paste`. In contrast,
-`collapse` specifies that after concatenation the elements are *collapsed*
-together using the given separator, the result being a single string.
-
-It is important to call the arguments explicitly by typing out the argument
-name e.g `sep = ","` so the function understands to use the "," as a
-separator and not a term to concatenate.
-e.g.
-
-```{r}
-paste(c("a","b"), "c")
-paste(c("a","b"), "c", ",")
-paste(c("a","b"), "c", sep = ",")
-paste(c("a","b"), "c", collapse = "|")
-paste(c("a","b"), "c", sep = ",", collapse = "|")
-```
-
-(For more information,
-scroll to the bottom of the `?paste` help page and look at the
-examples, or try `example('paste')`.)
+> ## Challenge 2 {.challenge}
+> 
+> Look at the help for the `paste` function. You will need to use it later.
+> What's the difference between the `sep` and `collapse` arguments?
+> 
+> ##### Solution
+> 
+> To look at the help for the `paste()` function, use:
+> 
+> ~~~ {.r}
+> help("paste")
+> ?paste
+> ~~~
+> 
+> The difference between `sep` and `collapse` is a little
+> tricky. The `paste` function accepts any number of arguments, each of which
+> can be a vector of any length. The `sep` argument specifies the string
+> used between concatenated terms — by default, a space. The result is a
+> vector as long as the longest argument supplied to `paste`. In contrast,
+> `collapse` specifies that after concatenation the elements are *collapsed*
+> together using the given separator, the result being a single string.
+> 
+> It is important to call the arguments explicitly by typing out the argument
+> name e.g `sep = ","` so the function understands to use the "," as a
+> separator and not a term to concatenate.
+> e.g.
+> 
+> ~~~ {.r}
+> paste(c("a","b"), "c")
+> paste(c("a","b"), "c", ",")
+> paste(c("a","b"), "c", sep = ",")
+> paste(c("a","b"), "c", collapse = "|")
+> paste(c("a","b"), "c", sep = ",", collapse = "|")
+> ~~~
+> 
+> (For more information,
+> scroll to the bottom of the `?paste` help page and look at the
+> examples, or try `example('paste')`.)
+> 
 
 
+> ## Challenge 3 {.challenge}
+> 
+> Use help to find a function (and its associated parameters) that you could
+> use to load data from a tabular file in which columns are delimited with "\\t"
+> (tab) and the decimal point is a "." (period). This check for decimal
+> separator is important, especially if you are working with international
+> colleagues, because different countries have different conventions for the
+> decimal point (i.e. comma vs period).
+> Hint: use `??"read table"` to look up functions related to reading in tabular data.
+> 
+> ##### Solution
+> 
+> The standard R function for reading tab-delimited files with a period
+> decimal separator is read.delim(). You can also do this with
+> `read.table(file, sep="\t")` (the period is the *default* decimal
+> separator for `read.table()`), although you may have to change
+> the `comment.char` argument as well if your data file contains
+> hash (#) characters.
 
-:::::::::::::::::::::::::
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
-
-:::::::::::::::::::::::::::::::::::::::  challenge
-
-## Challenge 3
-
-Use help to find a function (and its associated parameters) that you could
-use to load data from a tabular file in which columns are delimited with "\\t"
-(tab) and the decimal point is a "." (period). This check for decimal
-separator is important, especially if you are working with international
-colleagues, because different countries have different conventions for the
-decimal point (i.e. comma vs period).
-Hint: use `??"read table"` to look up functions related to reading in tabular data.
-
-:::::::::::::::  solution
-
-## Solution to Challenge 3
-
-The standard R function for reading tab-delimited files with a period
-decimal separator is read.delim(). You can also do this with
-`read.table(file, sep="\t")` (the period is the *default* decimal
-separator for `read.table()`), although you may have to change
-the `comment.char` argument as well if your data file contains
-hash (#) characters.
-
-
-
-:::::::::::::::::::::::::
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Other Resources
 
@@ -268,10 +256,7 @@ hash (#) characters.
 - [RStudio cheat sheets](https://www.rstudio.com/resources/cheatsheets/)
 - [Cookbook for R](https://www.cookbook-r.com/)
 
-:::::::::::::::::::::::::::::::::::::::: keypoints
-
-- Use `help()` to get online help in R.
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
-
+> ## Keypoints {.objectives}
+> 
+> * Use `help()` to get online help in R.
 

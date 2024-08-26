@@ -1,81 +1,71 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="generator" content="pandoc">
-    <title>Python Setup on Katana</title>
-    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css" />
-    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap-theme.css" />
-    <link rel="stylesheet" type="text/css" href="css/swc.css" />
-    <link rel="alternate" type="application/rss+xml" title="Bioinformatics Honours 2024" href="https://github.com/liz-fernandez/UNSW_Honours_Bioinfo_2024/"/>
-    <meta charset="UTF-8" />
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-  </head>
-  <body class="lesson">
-    <div class="container card">
-      <div class="banner">
-        <a href="https://liz-fernandez.github.io/Honours_Bioinfo_2024/" title="Honours Bioinformatics Course 2024">
-          <img alt="Logo UNSW" src="img/unsw_logo.jpg" />
-        </a>
-      </div>
-      <article>
-      <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-                    <h1 class="title">Python Setup on Katana</h1>
-          <h2 id="setting-up-your-python-environment">Setting up your Python environment</h2>
-<p>We will again navigate to the <a href="https://kod.restech.unsw.edu.au/pun/sys/dashboard/">Katana OnDemand Dashboard</a>.</p>
+<h2 id="setting-up-your-python-environment">Setting up your Python environment</h2>
+
+<p>We will again navigate to the <a href="https://kod.restech.unsw.edu.au/pun/sys/dashboard/">Katana OnDemand
+Dashboard</a>.</p>
+
 <p>We will click on ‘Jupyter Lab’</p>
+
 <p>You’ll see a menu like this:</p>
-<div class="figure">
-<img src="fig/python-juplabmenu.png" alt="&#39;&#39;" />
 
-</div>
+<p><img src="fig/python-juplabmenu.png" alt="" />{alt=’’}</p>
+
 <p>Click on the blue button that says ‘Launch’.</p>
-<p>The instance will say first ‘Queued’ and then ‘Starting’ in blue, click on the ‘Connect to Jupyter’ button once the status changes to ‘Running’ in green.</p>
-<p>In this ‘Launcher’ screen we will find the submenu ‘Others’ and we will click on ‘Terminal’. This will take us to a terminal very similar to the one we were using last week.</p>
+
+<p>The instance will say first ‘Queued’ and then ‘Starting’ in blue, 
+click on the ‘Connect to Jupyter’ button once the status changes
+to ‘Running’ in green.</p>
+
+<p>In this ‘Launcher’ screen we will find the submenu ‘Others’ and
+we will click on ‘Terminal’. This will take us to a terminal very
+similar to the one we were using last week.</p>
+
 <p>We will execute the following commands one by one:</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">module</span> load python/3.10.8
-<span class="kw">python3</span> -m venv --system-site-packages /home/z3539918/.venvs/jupyter-kernel</code></pre></div>
-<p>In the next command, which will create our ‘kernel’, please change ‘your_zID’ by your own zID:</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">source</span> /home/your_zID/.venvs/jupyter-kernel/bin/activate</code></pre></div>
+
+<pre><code class="language-{.bash}">module load python/3.10.8
+</code></pre>
+
+<p>In the next commands, which will create our ‘kernel’, 
+please change ‘your_zID’ by your own zID:</p>
+
+<pre><code class="language-{.bash}">python3 -m venv --system-site-packages /home/your_zID/.venvs/jupyter-kernel
+source /home/your_zID/.venvs/jupyter-kernel/bin/activate
+</code></pre>
+
 <p>Finally, we will install a couple of packages that will be helpful for our lessons:</p>
-<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="kw">pip</span> install ipykernel
-<span class="kw">install_jupyter_kernels</span>
-<span class="kw">pip</span> install numpy
-<span class="kw">pip</span> install matplotlib</code></pre></div>
-<p>Once this is finished, we will click the ‘+’ button on the top right corner of the Terminal. This will take us once again to the Launcher, where we will click on the Python 3 (ipykernel) we generated above, which should be called:</p>
-<pre class="output"><code>/home/your_zID/.venvs/jupyter-kernel</code></pre>
-<div class="figure">
-<img src="fig/python-launcher.png" alt="&#39;&#39;" />
 
-</div>
+<pre><code class="language-{.bash}">pip install ipykernel
+install_jupyter_kernels
+pip install numpy
+pip install matplotlib
+</code></pre>
+
+<p>Once this is finished, we will click the ‘+’ button on the top right corner of 
+the Terminal. This will take us once again to the Launcher, where we will 
+click on the Python 3 (ipykernel) we generated above, which should be called:</p>
+
+<pre><code class="language-{.output}">/home/your_zID/.venvs/jupyter-kernel
+</code></pre>
+
+<p><img src="fig/python-launcher.png" alt="" />{alt=’’}</p>
+
 <p>Which will open our first Jupyter notebook.</p>
-<div class="figure">
-<img src="fig/python-jupnotebook.png" alt="&#39;&#39;" />
 
-</div>
-<p>Please click with the right click on top of the name and rename the file ‘Python_Prac.ipynb’ as follows:</p>
-<div class="figure">
-<img src="fig/python-juplabrename.png" alt="&#39;&#39;" />
+<p><img src="fig/python-jupnotebook.png" alt="" />{alt=’’}</p>
 
-</div>
+<p>Please click with the right click on top of the name and rename the file ‘Python_Prac.ipynb’
+as follows:</p>
+
+<p><img src="fig/python-juplabrename.png" alt="" />{alt=’’}</p>
+
+<p>Finally, we will go back to our terminal to download some files with the
+following commands:</p>
+
+<pre><code class="language-{.bash}">cd /home/your_zID/ondemand/data/sys/dashboard/batch_connect/db/
+wget https://liz-fernandez.github.io/Honours_Bioinfo_2024/DATA/python-novice-inflammation-data.zip
+unzip python-novice-inflammation-data.zip
+</code></pre>
+
+<p>And finally, click back to our Jupyter notebook.</p>
+
 <p>Now we are ready to start our lessons!</p>
-        </div>
-      </div>
-      </article>
-      <div class="footer">
-        <a class="label swc-blue-bg" href="mailto:s.fernandez_valverde@unsw.edu.au">Contact</a>
-        <a class="label swc-blue-bg" href="LICENSE.html">License</a>
-      </div>
-    </div>
-    <!-- Javascript placed at the end of the document so the pages load faster -->
-    <script src="http://software-carpentry.org/v5/js/jquery-1.9.1.min.js"></script>
-    <script src="css/bootstrap/bootstrap-js/bootstrap.js"></script>
-    <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
-  </body>
-</html>
+

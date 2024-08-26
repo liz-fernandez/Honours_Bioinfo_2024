@@ -1,170 +1,388 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="generator" content="pandoc">
-    <title>Data Structures</title>
-    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css" />
-    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap-theme.css" />
-    <link rel="stylesheet" type="text/css" href="css/swc.css" />
-    <link rel="alternate" type="application/rss+xml" title="Bioinformatics Honours 2024" href="https://github.com/liz-fernandez/UNSW_Honours_Bioinfo_2024/"/>
-    <meta charset="UTF-8" />
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-  </head>
-  <body class="lesson">
-    <div class="container card">
-      <div class="banner">
-        <a href="https://liz-fernandez.github.io/Honours_Bioinfo_2024/" title="Honours Bioinformatics Course 2024">
-          <img alt="Logo UNSW" src="img/unsw_logo.jpg" />
-        </a>
-      </div>
-      <article>
-      <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-                    <h1 class="title">Data Structures</h1>
-          <p>::::::::::::::::::::::::::::::::::::::: objectives</p>
-<ul>
-<li>To be able to identify the 5 main data types.</li>
-<li>To begin exploring data frames, and understand how they are related to vectors and lists.</li>
-<li>To be able to ask questions from R about the type, class, and structure of an object.</li>
-<li>To understand the information of the attributes “names”, “class”, and “dim”.</li>
-</ul>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>:::::::::::::::::::::::::::::::::::::::: questions</p>
-<ul>
-<li>How can I read data in R?</li>
-<li>What are the basic data types in R?</li>
-<li>How do I represent categorical information in R?</li>
-</ul>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p><code>{r, include=FALSE} options(stringsAsFactors = FALSE) cats_orig &lt;- data.frame(coat = c(&quot;calico&quot;, &quot;black&quot;, &quot;tabby&quot;), weight = c(2.1, 5, 3.2), likes_string = c(1, 0, 1), stringsAsFactors = FALSE) cats_bad &lt;- data.frame(coat = c(&quot;calico&quot;, &quot;black&quot;, &quot;tabby&quot;, &quot;tabby&quot;), weight = c(2.1, 5, 3.2, &quot;2.3 or 2.4&quot;), likes_string = c(1, 0, 1, 1), stringsAsFactors = FALSE) cats &lt;- cats_orig</code></p>
-<p>One of R’s most powerful features is its ability to deal with tabular data - such as you may already have in a spreadsheet or a CSV file. Let’s start by making a toy dataset in your <code>data/</code> directory, called <code>feline-data.csv</code>:</p>
-<pre class="{r}"><code>cats &lt;- data.frame(coat = c(&quot;calico&quot;, &quot;black&quot;, &quot;tabby&quot;),
+<blockquote>
+  <h2 id="learning-objectives-objectives">Learning Objectives {.objectives}</h2>
+
+  <ul>
+    <li>To be able to identify the 5 main data types.</li>
+    <li>To begin exploring data frames, and understand how they are related to vectors and lists.</li>
+    <li>To be able to ask questions from R about the type, class, and structure of an object.</li>
+    <li>To understand the information of the attributes “names”, “class”, and “dim”.</li>
+  </ul>
+
+  <h5 id="questions-questions">Questions {.questions}</h5>
+
+  <ul>
+    <li>How can I read data in R?</li>
+    <li>What are the basic data types in R?</li>
+    <li>How do I represent categorical information in R?</li>
+  </ul>
+</blockquote>
+
+<p>One of R’s most powerful features is its ability to deal with tabular data -
+such as you may already have in a spreadsheet or a CSV file. Let’s start by
+making a toy dataset in your <code class="language-plaintext highlighter-rouge">data/</code> directory, called <code class="language-plaintext highlighter-rouge">feline-data.csv</code>:</p>
+
+<pre><code class="language-{.r}">cats &lt;- data.frame(coat = c("calico", "black", "tabby"),
                     weight = c(2.1, 5.0, 3.2),
-                    likes_string = c(1, 0, 1))</code></pre>
-<p>We can now save <code>cats</code> as a CSV file. It is good practice to call the argument names explicitly so the function knows what default values you are changing. Here we are setting <code>row.names = FALSE</code>. Recall you can use <code>?write.csv</code> to pull up the help file to check out the argument names and their default values.</p>
-<pre class="{r}"><code>write.csv(x = cats, file = &quot;data/feline-data.csv&quot;, row.names = FALSE)</code></pre>
-<p>The contents of the new file, <code>feline-data.csv</code>:</p>
-<p><code>{r, eval=FALSE} coat,weight,likes_string calico,2.1,1 black,5.0,0 tabby,3.2,1</code></p>
-<p>::::::::::::::::::::::::::::::::::::::::: callout</p>
-<h3 id="tip-editing-text-files-in-r">Tip: Editing Text files in R</h3>
-<p>Alternatively, you can create <code>data/feline-data.csv</code> using a text editor (Nano), or within RStudio with the <strong>File -&gt; New File -&gt; Text File</strong> menu item.</p>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+                    likes_string = c(1, 0, 1))
+</code></pre>
+
+<p>We can now save <code class="language-plaintext highlighter-rouge">cats</code> as a CSV file. It is good practice to call the argument
+names explicitly so the function knows what default values you are changing. Here we
+are setting <code class="language-plaintext highlighter-rouge">row.names = FALSE</code>. Recall you can use <code class="language-plaintext highlighter-rouge">?write.csv</code> to pull
+up the help file to check out the argument names and their default values.</p>
+
+<pre><code class="language-{.r}">getwd()
+write.csv(x = cats, file = "./Bioinfo_Course/feline-data.csv", row.names = FALSE)
+</code></pre>
+
+<p>The contents of the new file, <code class="language-plaintext highlighter-rouge">feline-data.csv</code>:</p>
+
+<pre><code class="language-{.output}">"coat","weight","likes_string"
+"calico",2.1,1
+"black",5,0
+"tabby",3.2,1
+</code></pre>
+
+<blockquote>
+  <h3 id="tip-editing-text-files-in-r-callout">Tip: Editing Text files in R {.callout}</h3>
+
+  <p>Alternatively, you can create <code class="language-plaintext highlighter-rouge">data/feline-data.csv</code> using a text editor (Nano),
+or within RStudio with the <strong>File -&gt; New File -&gt; Text File</strong> menu item.</p>
+</blockquote>
+
 <p>We can load this into R via the following:</p>
-<pre class="{r}"><code>cats &lt;- read.csv(file = &quot;data/feline-data.csv&quot;)
-cats</code></pre>
-<p>The <code>read.table</code> function is used for reading in tabular data stored in a text file where the columns of data are separated by punctuation characters such as CSV files (csv = comma-separated values). Tabs and commas are the most common punctuation characters used to separate or delimit data points in csv files. For convenience R provides 2 other versions of <code>read.table</code>. These are: <code>read.csv</code> for files where the data are separated with commas and <code>read.delim</code> for files where the data are separated with tabs. Of these three functions <code>read.csv</code> is the most commonly used. If needed it is possible to override the default delimiting punctuation marks for both <code>read.csv</code> and <code>read.delim</code>.</p>
-<p>::::::::::::::::::::::::::::::::::::::::: callout</p>
-<h3 id="check-your-data-for-factors">Check your data for factors</h3>
-<p>In recent times, the default way how R handles textual data has changed. Text data was interpreted by R automatically into a format called “factors”. But there is an easier format that is called “character”. We will hear about factors later, and what to use them for. For now, remember that in most cases, they are not needed and only complicate your life, which is why newer R versions read in text as “character”. Check now if your version of R has automatically created factors and convert them to “character” format:</p>
-<ol style="list-style-type: decimal">
-<li>Check the data types of your input by typing <code>str(cats)</code></li>
-<li>In the output, look at the three-letter codes after the colons: If you see only “num” and “chr”, you can continue with the lesson and skip this box. If you find “fct”, continue to step 3.</li>
-<li>Prevent R from automatically creating “factor” data. That can be done by the following code: <code>options(stringsAsFactors = FALSE)</code>. Then, re-read the cats table for the change to take effect.</li>
-<li>You must set this option every time you restart R. To not forget this, include it in your analysis script before you read in any data, for example in one of the first lines.</li>
-<li>For R versions greater than 4.0.0, text data is no longer converted to factors anymore. So you can install this or a newer version to avoid this problem. If you are working on an institute or company computer, ask your administrator to do it.</li>
-</ol>
-<p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>We can begin exploring our dataset right away, pulling out columns by specifying them using the <code>$</code> operator:</p>
-<pre class="{r}"><code>cats$weight
-cats$coat</code></pre>
+
+<pre><code class="language-{.r}">cats &lt;- read.csv(file = "./Bioinfo_Course/feline-data.csv")
+cats
+</code></pre>
+<pre><code class="language-{.output}">    coat weight likes_string
+1 calico    2.1            1
+2  black    5.0            0
+3  tabby    3.2            1
+</code></pre>
+
+<p>The <code class="language-plaintext highlighter-rouge">read.table</code> function is used for reading in tabular data stored in a text
+file where the columns of data are separated by punctuation characters such as
+CSV files (csv = comma-separated values). Tabs and commas are the most common
+punctuation characters used to separate or delimit data points in csv files.
+For convenience R provides 2 other versions of <code class="language-plaintext highlighter-rouge">read.table</code>. These are: <code class="language-plaintext highlighter-rouge">read.csv</code>
+for files where the data are separated with commas and <code class="language-plaintext highlighter-rouge">read.delim</code> for files
+where the data are separated with tabs. Of these three functions <code class="language-plaintext highlighter-rouge">read.csv</code> is
+the most commonly used.  If needed it is possible to override the default
+delimiting punctuation marks for both <code class="language-plaintext highlighter-rouge">read.csv</code> and <code class="language-plaintext highlighter-rouge">read.delim</code>.</p>
+
+<blockquote>
+  <h3 id="check-your-data-for-factors">Check your data for factors</h3>
+
+  <p>In recent times, the default way how R handles textual data has changed. Text
+data was interpreted by R automatically into a format called “factors”. But
+there is an easier format that is called “character”. We will hear about
+factors later, and what to use them for. For now, remember that in most cases,
+they are not needed and only complicate your life, which is why newer R
+versions read in text as “character”. Check now if your version of R has
+automatically created factors and convert them to “character” format:</p>
+
+  <ol>
+    <li>Check the data types of your input by typing <code class="language-plaintext highlighter-rouge">str(cats)</code></li>
+    <li>In the output, look at the three-letter codes after the colons: If you see
+  only “num” and “chr”, you can continue with the lesson and skip this box.
+  If you find “fct”, continue to step 3.</li>
+    <li>Prevent R from automatically creating “factor” data. That can be done by
+  the following code: <code class="language-plaintext highlighter-rouge">options(stringsAsFactors = FALSE)</code>. Then, re-read
+  the cats table for the change to take effect.</li>
+    <li>You must set this option every time you restart R. To not forget this,
+  include it in your analysis script before you read in any data, for example
+  in one of the first lines.</li>
+    <li>For R versions greater than 4.0.0, text data is no longer converted to
+  factors anymore. So you can install this or a newer version to avoid this
+  problem. If you are working on an institute or company computer, ask your
+  administrator to do it.</li>
+  </ol>
+</blockquote>
+
+<p>We can begin exploring our dataset right away, pulling out columns by specifying
+them using the <code class="language-plaintext highlighter-rouge">$</code> operator:</p>
+
+<pre><code class="language-{.r}">cats$weight
+</code></pre>
+<pre><code class="language-{.output}">[1] 2.1 5.0 3.2
+</code></pre>
+<pre><code class="language-{.r}">cats$coat
+</code></pre>
+<pre><code class="language-{.output}">[1] "calico" "black"  "tabby" 
+</code></pre>
+
 <p>We can do other operations on the columns:</p>
-<pre class="{r}"><code>## Say we discovered that the scale weighs two Kg light:
+
+<pre><code class="language-{.r}">## Say we discovered that the scale weighs two Kg light:
 cats$weight + 2
-paste(&quot;My cat is&quot;, cats$coat)</code></pre>
+</code></pre>
+<pre><code class="language-{.output}">[1] 4.1 7.0 5.2
+</code></pre>
+<pre><code class="language-{.r}">paste("My cat is", cats$coat)
+</code></pre>
+<pre><code class="language-{.output}">[1] "My cat is calico" "My cat is black"  "My cat is tabby"
+</code></pre>
+
 <p>But what about</p>
-<pre class="{r}"><code>cats$weight + cats$coat</code></pre>
+
+<pre><code class="language-{.r}">cats$weight + cats$coat
+</code></pre>
+<pre><code class="language-{.error}">Error in cats$weight + cats$coat: non-numeric argument to binary operator
+</code></pre>
+
 <p>Understanding what happened here is key to successfully analyzing data in R.</p>
+
 <h3 id="data-types">Data Types</h3>
-<p>If you guessed that the last command will return an error because <code>2.1</code> plus <code>&quot;black&quot;</code> is nonsense, you’re right - and you already have some intuition for an important concept in programming called <em>data types</em>. We can ask what type of data something is:</p>
-<pre class="{r}"><code>typeof(cats$weight)</code></pre>
-<p>There are 5 main types: <code>double</code>, <code>integer</code>, <code>complex</code>, <code>logical</code> and <code>character</code>. For historic reasons, <code>double</code> is also called <code>numeric</code>.</p>
-<pre class="{r}"><code>typeof(3.14)
-typeof(1L) # The L suffix forces the number to be an integer, since by default R uses float numbers
-typeof(1+1i)
-typeof(TRUE)
-typeof(&#39;banana&#39;)</code></pre>
-<p>No matter how complicated our analyses become, all data in R is interpreted as one of these basic data types. This strictness has some really important consequences.</p>
-<p>A user has added details of another cat. This information is in the file <code>data/feline-data_v2.csv</code>.</p>
-<p><code>{r, eval=FALSE} file.show(&quot;data/feline-data_v2.csv&quot;)</code></p>
-<p><code>{r, eval=FALSE} coat,weight,likes_string calico,2.1,1 black,5.0,0 tabby,3.2,1 tabby,2.3 or 2.4,1</code></p>
-<p>Load the new cats data like before, and check what type of data we find in the <code>weight</code> column:</p>
-<pre class="{r}"><code>cats &lt;- read.csv(file=&quot;data/feline-data_v2.csv&quot;)
-typeof(cats$weight)</code></pre>
-<p>Oh no, our weights aren’t the double type anymore! If we try to do the same math we did on them before, we run into trouble:</p>
-<pre class="{r}"><code>cats$weight + 2</code></pre>
-<p>What happened? The <code>cats</code> data we are working with is something called a <em>data frame</em>. Data frames are one of the most common and versatile types of <em>data structures</em> we will work with in R. A given column in a data frame cannot be composed of different data types. In this case, R does not read everything in the data frame column <code>weight</code> as a <em>double</em>, therefore the entire column data type changes to something that is suitable for everything in the column.</p>
-<p>When R reads a csv file, it reads it in as a <em>data frame</em>. Thus, when we loaded the <code>cats</code> csv file, it is stored as a data frame. We can recognize data frames by the first row that is written by the <code>str()</code> function:</p>
-<pre class="{r}"><code>str(cats)</code></pre>
-<p><em>Data frames</em> are composed of rows and columns, where each column has the same number of rows. Different columns in a data frame can be made up of different data types (this is what makes them so versatile), but everything in a given column needs to be the same type (e.g., vector, factor, or list).</p>
-<p>Let’s explore more about different data structures and how they behave. For now, let’s remove that extra line from our cats data and reload it, while we investigate this behavior further:</p>
-<p>feline-data.csv:</p>
-<pre><code>coat,weight,likes_string
+
+<p>If you guessed that the last command will return an error because <code class="language-plaintext highlighter-rouge">2.1</code> plus
+<code class="language-plaintext highlighter-rouge">"black"</code> is nonsense, you’re right - and you already have some intuition for an
+important concept in programming called <em>data types</em>. We can ask what type of
+data something is:</p>
+
+<pre><code class="language-{.r}">typeof(cats$weight)
+</code></pre>
+<pre><code class="language-{.output}">[1] "double"
+</code></pre>
+
+<p>There are 5 main types: <code class="language-plaintext highlighter-rouge">double</code>, <code class="language-plaintext highlighter-rouge">integer</code>, <code class="language-plaintext highlighter-rouge">complex</code>, <code class="language-plaintext highlighter-rouge">logical</code> and <code class="language-plaintext highlighter-rouge">character</code>.
+For historic reasons, <code class="language-plaintext highlighter-rouge">double</code> is also called <code class="language-plaintext highlighter-rouge">numeric</code>.</p>
+
+<pre><code class="language-{.r}">typeof(3.14)
+</code></pre>
+<pre><code class="language-{.output}">[1] "double"
+</code></pre>
+
+<pre><code class="language-{.r}">typeof(1L) # The L suffix forces the number to be an integer, since by default R uses float numbers
+</code></pre>
+<pre><code class="language-{.output}">[1] "integer"
+</code></pre>
+
+<pre><code class="language-{.r}">typeof(1+1i)
+</code></pre>
+<pre><code class="language-{.output}">[1] "complex"
+</code></pre>
+
+<pre><code class="language-{.r}">typeof(TRUE)
+</code></pre>
+<pre><code class="language-{.output}">[1] "logical"
+</code></pre>
+
+<pre><code class="language-{.r}">typeof('banana')
+</code></pre>
+<pre><code class="language-{.output}">[1] "character"
+</code></pre>
+
+<p>No matter how
+complicated our analyses become, all data in R is interpreted as one of these
+basic data types. This strictness has some really important consequences.</p>
+
+<p>A user has added details of another cat. This information is in the file
+<code class="language-plaintext highlighter-rouge">data/feline-data_v2.csv</code>.</p>
+
+<pre><code class="language-{.r}">file.show("data/feline-data_v2.csv")
+</code></pre>
+
+<pre><code class="language-{.r}">coat,weight,likes_string
 calico,2.1,1
 black,5.0,0
-tabby,3.2,1</code></pre>
+tabby,3.2,1
+tabby,2.3 or 2.4,1
+</code></pre>
+
+<p>Load the new cats data like before, and check what type of data we find in the
+<code class="language-plaintext highlighter-rouge">weight</code> column:</p>
+
+<pre><code class="language-{.r}">cats &lt;- read.csv(file="data/feline-data_v2.csv")
+typeof(cats$weight)
+</code></pre>
+
+<p>Oh no, our weights aren’t the double type anymore! If we try to do the same math
+we did on them before, we run into trouble:</p>
+
+<pre><code class="language-{.r}">cats$weight + 2
+</code></pre>
+
+<p>What happened?
+The <code class="language-plaintext highlighter-rouge">cats</code> data we are working with is something called a <em>data frame</em>. Data frames
+are one of the most common and versatile types of <em>data structures</em> we will work with in R.
+A given column in a data frame cannot be composed of different data types.
+In this case, R does not read everything in the data frame column <code class="language-plaintext highlighter-rouge">weight</code> as a <em>double</em>, therefore the entire
+column data type changes to something that is suitable for everything in the column.</p>
+
+<p>When R reads a csv file, it reads it in as a <em>data frame</em>. Thus, when we loaded the <code class="language-plaintext highlighter-rouge">cats</code>
+csv file, it is stored as a data frame. We can recognize data frames by the first row that
+is written by the <code class="language-plaintext highlighter-rouge">str()</code> function:</p>
+
+<pre><code class="language-{.r}">str(cats)
+</code></pre>
+
+<p><em>Data frames</em> are composed of rows and columns, where each column has the
+same number of rows. Different columns in a data frame can be made up of different
+data types (this is what makes them so versatile), but everything in a given
+column needs to be the same type (e.g., vector, factor, or list).</p>
+
+<p>Let’s explore more about different data structures and how they behave.
+For now, let’s remove that extra line from our cats data and reload it,
+while we investigate this behavior further:</p>
+
+<p>feline-data.csv:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>coat,weight,likes_string
+calico,2.1,1
+black,5.0,0
+tabby,3.2,1
+</code></pre></div></div>
+
 <p>And back in RStudio:</p>
-<p><code>{r, eval=FALSE} cats &lt;- read.csv(file=&quot;data/feline-data.csv&quot;)</code></p>
-<p><code>{r, include=FALSE} cats &lt;- cats_orig</code></p>
+
+<pre><code class="language-{.r}">cats &lt;- read.csv(file="data/feline-data.csv")
+</code></pre>
+
+<pre><code class="language-{.r}">cats &lt;- cats_orig
+</code></pre>
+
 <h3 id="vectors-and-type-coercion">Vectors and Type Coercion</h3>
-<p>To better understand this behavior, let’s meet another of the data structures: the <em>vector</em>.</p>
-<pre class="{r}"><code>my_vector &lt;- vector(length = 3)
-my_vector</code></pre>
-<p>A vector in R is essentially an ordered list of things, with the special condition that <em>everything in the vector must be the same basic data type</em>. If you don’t choose the datatype, it’ll default to <code>logical</code>; or, you can declare an empty vector of whatever type you like.</p>
-<pre class="{r}"><code>another_vector &lt;- vector(mode=&#39;character&#39;, length=3)
-another_vector</code></pre>
+
+<p>To better understand this behavior, let’s meet another of the data structures:
+the <em>vector</em>.</p>
+
+<pre><code class="language-{.r}">my_vector &lt;- vector(length = 3)
+my_vector
+</code></pre>
+
+<p>A vector in R is essentially an ordered list of things, with the special
+condition that <em>everything in the vector must be the same basic data type</em>. If
+you don’t choose the datatype, it’ll default to <code class="language-plaintext highlighter-rouge">logical</code>; or, you can declare
+an empty vector of whatever type you like.</p>
+
+<pre><code class="language-{.r}">another_vector &lt;- vector(mode='character', length=3)
+another_vector
+</code></pre>
+
 <p>You can check if something is a vector:</p>
-<pre class="{r}"><code>str(another_vector)</code></pre>
-<p>The somewhat cryptic output from this command indicates the basic data type found in this vector - in this case <code>chr</code>, character; an indication of the number of things in the vector - actually, the indexes of the vector, in this case <code>[1:3]</code>; and a few examples of what’s actually in the vector - in this case empty character strings. If we similarly do</p>
-<pre class="{r}"><code>str(cats$weight)</code></pre>
-<p>we see that <code>cats$weight</code> is a vector, too - <em>the columns of data we load into R data.frames are all vectors</em>, and that’s the root of why R forces everything in a column to be the same basic data type.</p>
-<p>:::::::::::::::::::::::::::::::::::::: discussion</p>
+
+<pre><code class="language-{.r}">str(another_vector)
+</code></pre>
+
+<p>The somewhat cryptic output from this command indicates the basic data type
+found in this vector - in this case <code class="language-plaintext highlighter-rouge">chr</code>, character; an indication of the
+number of things in the vector - actually, the indexes of the vector, in this
+case <code class="language-plaintext highlighter-rouge">[1:3]</code>; and a few examples of what’s actually in the vector - in this case
+empty character strings. If we similarly do</p>
+
+<pre><code class="language-{.r}">str(cats$weight)
+</code></pre>
+
+<p>we see that <code class="language-plaintext highlighter-rouge">cats$weight</code> is a vector, too - <em>the columns of data we load into R
+data.frames are all vectors</em>, and that’s the root of why R forces everything in
+a column to be the same basic data type.</p>
+
+<p>::::::::::::::::::::::::::::::::::::::  discussion</p>
+
 <h3 id="discussion-1">Discussion 1</h3>
-<p>Why is R so opinionated about what we put in our columns of data? How does this help us?</p>
-<p>::::::::::::::: solution</p>
+
+<p>Why is R so opinionated about what we put in our columns of data?
+How does this help us?</p>
+
+<p>:::::::::::::::  solution</p>
+
 <h3 id="discussion-1-1">Discussion 1</h3>
-<p>By keeping everything in a column the same, we allow ourselves to make simple assumptions about our data; if you can interpret one entry in the column as a number, then you can interpret <em>all</em> of them as numbers, so we don’t have to check every time. This consistency is what people mean when they talk about <em>clean data</em>; in the long run, strict consistency goes a long way to making our lives easier in R.</p>
+
+<p>By keeping everything in a column the same, we allow ourselves to make simple
+assumptions about our data; if you can interpret one entry in the column as a
+number, then you can interpret <em>all</em> of them as numbers, so we don’t have to
+check every time. This consistency is what people mean when they talk about
+<em>clean data</em>; in the long run, strict consistency goes a long way to making
+our lives easier in R.</p>
+
 <p>:::::::::::::::::::::::::</p>
+
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+
 <h4 id="coercion-by-combining-vectors">Coercion by combining vectors</h4>
+
 <p>You can also make vectors with explicit contents with the combine function:</p>
-<pre class="{r}"><code>combine_vector &lt;- c(2,6,3)
-combine_vector</code></pre>
+
+<pre><code class="language-{.r}">combine_vector &lt;- c(2,6,3)
+combine_vector
+</code></pre>
+
 <p>Given what we’ve learned so far, what do you think the following will produce?</p>
-<pre class="{r}"><code>quiz_vector &lt;- c(2,6,&#39;3&#39;)</code></pre>
-<p>This is something called <em>type coercion</em>, and it is the source of many surprises and the reason why we need to be aware of the basic data types and how R will interpret them. When R encounters a mix of types (here double and character) to be combined into a single vector, it will force them all to be the same type. Consider:</p>
-<pre class="{r}"><code>coercion_vector &lt;- c(&#39;a&#39;, TRUE)
+
+<pre><code class="language-{.r}">quiz_vector &lt;- c(2,6,'3')
+</code></pre>
+
+<p>This is something called <em>type coercion</em>, and it is the source of many surprises
+and the reason why we need to be aware of the basic data types and how R will
+interpret them. When R encounters a mix of types (here double and character) to
+be combined into a single vector, it will force them all to be the same
+type. Consider:</p>
+
+<pre><code class="language-{.r}">coercion_vector &lt;- c('a', TRUE)
 coercion_vector
 another_coercion_vector &lt;- c(0, TRUE)
-another_coercion_vector</code></pre>
+another_coercion_vector
+</code></pre>
+
 <h4 id="the-type-hierarchy">The type hierarchy</h4>
-<p>The coercion rules go: <code>logical</code> -&gt; <code>integer</code> -&gt; <code>double</code> (“<code>numeric</code>”) -&gt; <code>complex</code> -&gt; <code>character</code>, where -&gt; can be read as <em>are transformed into</em>. For example, combining <code>logical</code> and <code>character</code> transforms the result to <code>character</code>:</p>
-<pre class="{r}"><code>c(&#39;a&#39;, TRUE)</code></pre>
-<p>A quick way to recognize <code>character</code> vectors is by the quotes that enclose them when they are printed.</p>
-<p>You can try to force coercion against this flow using the <code>as.</code> functions:</p>
-<pre class="{r}"><code>character_vector_example &lt;- c(&#39;0&#39;,&#39;2&#39;,&#39;4&#39;)
+
+<p>The coercion rules go: <code class="language-plaintext highlighter-rouge">logical</code> -&gt; <code class="language-plaintext highlighter-rouge">integer</code> -&gt; <code class="language-plaintext highlighter-rouge">double</code> (“<code class="language-plaintext highlighter-rouge">numeric</code>”) -&gt;
+<code class="language-plaintext highlighter-rouge">complex</code> -&gt; <code class="language-plaintext highlighter-rouge">character</code>, where -&gt; can be read as <em>are transformed into</em>. For
+example, combining <code class="language-plaintext highlighter-rouge">logical</code> and <code class="language-plaintext highlighter-rouge">character</code> transforms the result to
+<code class="language-plaintext highlighter-rouge">character</code>:</p>
+
+<pre><code class="language-{.r}">c('a', TRUE)
+</code></pre>
+
+<p>A quick way to recognize <code class="language-plaintext highlighter-rouge">character</code> vectors is by the quotes that enclose them
+when they are printed.</p>
+
+<p>You can try to force
+coercion against this flow using the <code class="language-plaintext highlighter-rouge">as.</code> functions:</p>
+
+<pre><code class="language-{.r}">character_vector_example &lt;- c('0','2','4')
 character_vector_example
 character_coerced_to_double &lt;- as.double(character_vector_example)
 character_coerced_to_double
 double_coerced_to_logical &lt;- as.logical(character_coerced_to_double)
-double_coerced_to_logical</code></pre>
-<p>As you can see, some surprising things can happen when R forces one basic data type into another! Nitty-gritty of type coercion aside, the point is: if your data doesn’t look like what you thought it was going to look like, type coercion may well be to blame; make sure everything is the same type in your vectors and your columns of data.frames, or you will get nasty surprises!</p>
-<p>But coercion can also be very useful! For example, in our <code>cats</code> data <code>likes_string</code> is numeric, but we know that the 1s and 0s actually represent <code>TRUE</code> and <code>FALSE</code> (a common way of representing them). We should use the <code>logical</code> datatype here, which has two states: <code>TRUE</code> or <code>FALSE</code>, which is exactly what our data represents. We can ‘coerce’ this column to be <code>logical</code> by using the <code>as.logical</code> function:</p>
-<pre class="{r}"><code>cats$likes_string
+double_coerced_to_logical
+</code></pre>
+
+<p>As you can see, some surprising things can happen when R forces one basic data
+type into another! Nitty-gritty of type coercion aside, the point is: if your
+data doesn’t look like what you thought it was going to look like, type coercion
+may well be to blame; make sure everything is the same type in your vectors and
+your columns of data.frames, or you will get nasty surprises!</p>
+
+<p>But coercion can also be very useful! For example, in our <code class="language-plaintext highlighter-rouge">cats</code> data
+<code class="language-plaintext highlighter-rouge">likes_string</code> is numeric, but we know that the 1s and 0s actually represent
+<code class="language-plaintext highlighter-rouge">TRUE</code> and <code class="language-plaintext highlighter-rouge">FALSE</code> (a common way of representing them). We should use the
+<code class="language-plaintext highlighter-rouge">logical</code> datatype here, which has two states: <code class="language-plaintext highlighter-rouge">TRUE</code> or <code class="language-plaintext highlighter-rouge">FALSE</code>, which is
+exactly what our data represents. We can ‘coerce’ this column to be <code class="language-plaintext highlighter-rouge">logical</code> by
+using the <code class="language-plaintext highlighter-rouge">as.logical</code> function:</p>
+
+<pre><code class="language-{.r}">cats$likes_string
 cats$likes_string &lt;- as.logical(cats$likes_string)
-cats$likes_string</code></pre>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
+cats$likes_string
+</code></pre>
+
+<p>:::::::::::::::::::::::::::::::::::::::  challenge</p>
+
 <h3 id="challenge-1">Challenge 1</h3>
-<p>An important part of every data analysis is cleaning the input data. If you know that the input data is all of the same format, (e.g. numbers), your analysis is much easier! Clean the cat data set from the chapter about type coercion.</p>
+
+<p>An important part of every data analysis is cleaning the input data. If you
+know that the input data is all of the same format, (e.g. numbers), your
+analysis is much easier! Clean the cat data set from the chapter about
+type coercion.</p>
+
 <h4 id="copy-the-code-template">Copy the code template</h4>
-<p>Create a new script in RStudio and copy and paste the following code. Then move on to the tasks below, which help you to fill in the gaps (______).</p>
-<pre><code># Read data
-cats &lt;- read.csv(&quot;data/feline-data_v2.csv&quot;)
+
+<p>Create a new script in RStudio and copy and paste the following code. Then
+move on to the tasks below, which help you to fill in the gaps (______).</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Read data
+cats &lt;- read.csv("data/feline-data_v2.csv")
 
 # 1. Print the data
 _____
@@ -172,7 +390,7 @@ _____
 # 2. Show an overview of the table with all data types
 _____(cats)
 
-# 3. The &quot;weight&quot; column has the incorrect data type __________.
+# 3. The "weight" column has the incorrect data type __________.
 #    The correct data type is: ____________.
 
 # 4. Correct the 4th weight data point with the mean of the two given values
@@ -187,315 +405,670 @@ cats$weight &lt;- ______________(cats$weight)
 mean(cats$weight)
 
 # If you see the correct mean value (and not NA), you did the exercise
-# correctly!</code></pre>
+# correctly!
+</code></pre></div></div>
+
 <h3 id="instructions-for-the-tasks">Instructions for the tasks</h3>
-<h4 id="print-the-data">1. Print the data</h4>
-<p>Execute the first statement (<code>read.csv(...)</code>). Then print the data to the console</p>
-<p>::::::::::::::: solution</p>
-<h3 id="tip-1.1">Tip 1.1</h3>
+
+<h4 id="1-print-the-data">1. Print the data</h4>
+
+<p>Execute the first statement (<code class="language-plaintext highlighter-rouge">read.csv(...)</code>). Then print the data to the
+console</p>
+
+<p>:::::::::::::::  solution</p>
+
+<h3 id="tip-11">Tip 1.1</h3>
+
 <p>Show the content of any variable by typing its name.</p>
-<h3 id="solution-to-challenge-1.1">Solution to Challenge 1.1</h3>
+
+<h6 id="solution-to-challenge-11">Solution to Challenge 1.1</h6>
+
 <p>Two correct solutions:</p>
-<pre><code>cats
-print(cats)</code></pre>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cats
+print(cats)
+</code></pre></div></div>
+
 <p>:::::::::::::::::::::::::</p>
-<h4 id="overview-of-the-data-types">2. Overview of the data types</h4>
-<p>The data type of your data is as important as the data itself. Use a function we saw earlier to print out the data types of all columns of the <code>cats</code> table.</p>
-<p>::::::::::::::: solution</p>
-<h3 id="tip-1.2">Tip 1.2</h3>
-<p>In the chapter “Data types” we saw two functions that can show data types. One printed just a single word, the data type name. The other printed a short form of the data type, and the first few values. We need the second here.</p>
+
+<h4 id="2-overview-of-the-data-types">2. Overview of the data types</h4>
+
+<p>The data type of your data is as important as the data itself. Use a
+function we saw earlier to print out the data types of all columns of the
+<code class="language-plaintext highlighter-rouge">cats</code> table.</p>
+
+<p>:::::::::::::::  solution</p>
+
+<h3 id="tip-12">Tip 1.2</h3>
+
+<p>In the chapter “Data types” we saw two functions that can show data types.
+One printed just a single word, the data type name. The other printed
+a short form of the data type, and the first few values. We need the second
+here.</p>
+
 <p>:::::::::::::::::::::::::</p>
+
 <blockquote>
-<h3 id="solution-to-challenge-1.2">Solution to Challenge 1.2</h3>
-<pre><code>str(cats)</code></pre>
+  <h6 id="solution-to-challenge-12">Solution to Challenge 1.2</h6>
+
+  <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>str(cats)
+</code></pre></div>  </div>
 </blockquote>
-<h4 id="which-data-type-do-we-need">3. Which data type do we need?</h4>
-<p>The shown data type is not the right one for this data (weight of a cat). Which data type do we need?</p>
+
+<h4 id="3-which-data-type-do-we-need">3. Which data type do we need?</h4>
+
+<p>The shown data type is not the right one for this data (weight of
+a cat). Which data type do we need?</p>
+
 <ul>
-<li>Why did the <code>read.csv()</code> function not choose the correct data type?</li>
-<li>Fill in the gap in the comment with the correct data type for cat weight!</li>
+  <li>Why did the <code class="language-plaintext highlighter-rouge">read.csv()</code> function not choose the correct data type?</li>
+  <li>Fill in the gap in the comment with the correct data type for cat weight!</li>
 </ul>
-<p>::::::::::::::: solution</p>
-<h3 id="tip-1.3">Tip 1.3</h3>
-<p>Scroll up to the section about the <a href="#the-type-hierarchy">type hierarchy</a> to review the available data types</p>
+
+<p>:::::::::::::::  solution</p>
+
+<h3 id="tip-13">Tip 1.3</h3>
+
+<p>Scroll up to the section about the <a href="#the-type-hierarchy">type hierarchy</a>
+to review the available data types</p>
+
 <p>:::::::::::::::::::::::::</p>
-<p>::::::::::::::: solution</p>
-<h3 id="solution-to-challenge-1.3">Solution to Challenge 1.3</h3>
+
+<p>:::::::::::::::  solution</p>
+
+<h6 id="solution-to-challenge-13">Solution to Challenge 1.3</h6>
+
 <ul>
-<li>Weight is expressed on a continuous scale (real numbers). The R data type for this is “double” (also known as “numeric”).</li>
-<li>The fourth row has the value “2.3 or 2.4”. That is not a number but two, and an english word. Therefore, the “character” data type is chosen. The whole column is now text, because all values in the same columns have to be the same data type.</li>
+  <li>Weight is expressed on a continuous scale (real numbers). The R
+data type for this is “double” (also known as “numeric”).</li>
+  <li>The fourth row has the value “2.3 or 2.4”. That is not a number
+but two, and an english word. Therefore, the “character” data type
+is chosen. The whole column is now text, because all values in the same
+columns have to be the same data type.</li>
 </ul>
+
 <p>:::::::::::::::::::::::::</p>
-<h4 id="correct-the-problematic-value">4. Correct the problematic value</h4>
-<p>The code to assign a new weight value to the problematic fourth row is given. Think first and then execute it: What will be the data type after assigning a number like in this example? You can check the data type after executing to see if you were right.</p>
-<p>::::::::::::::: solution</p>
-<h3 id="tip-1.4">Tip 1.4</h3>
-<p>Revisit the hierarchy of data types when two different data types are combined.</p>
+
+<h4 id="4-correct-the-problematic-value">4. Correct the problematic value</h4>
+
+<p>The code to assign a new weight value to the problematic fourth row is given.
+Think first and then execute it: What will be the data type after assigning
+a number like in this example?
+You can check the data type after executing to see if you were right.</p>
+
+<p>:::::::::::::::  solution</p>
+
+<h3 id="tip-14">Tip 1.4</h3>
+
+<p>Revisit the hierarchy of data types when two different data types are
+combined.</p>
+
 <p>:::::::::::::::::::::::::</p>
+
 <blockquote>
-<h3 id="solution-to-challenge-1.4">Solution to challenge 1.4</h3>
-<p>The data type of the column “weight” is “character”. The assigned data type is “double”. Combining two data types yields the data type that is higher in the following hierarchy:</p>
-<pre><code>logical &lt; integer &lt; double &lt; complex &lt; character</code></pre>
-<p>Therefore, the column is still of type character! We need to manually convert it to “double”. {: .solution}</p>
+  <h6 id="solution-to-challenge-14">Solution to challenge 1.4</h6>
+
+  <p>The data type of the column “weight” is “character”. The assigned data
+type is “double”. Combining two data types yields the data type that is
+higher in the following hierarchy:</p>
+
+  <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>logical &lt; integer &lt; double &lt; complex &lt; character
+</code></pre></div>  </div>
+
+  <p class="solution">Therefore, the column is still of type character! We need to manually
+convert it to “double”.</p>
 </blockquote>
-<h4 id="convert-the-column-weight-to-the-correct-data-type">5. Convert the column “weight” to the correct data type</h4>
-<p>Cat weight are numbers. But the column does not have this data type yet. Coerce the column to floating point numbers.</p>
-<p>::::::::::::::: solution</p>
-<h3 id="tip-1.5">Tip 1.5</h3>
-<p>The functions to convert data types start with <code>as.</code>. You can look for the function further up in the manuscript or use the RStudio auto-complete function: Type “<code>as.</code>” and then press the TAB key.</p>
+
+<h4 id="5-convert-the-column-weight-to-the-correct-data-type">5. Convert the column “weight” to the correct data type</h4>
+
+<p>Cat weight are numbers. But the column does not have this data type yet.
+Coerce the column to floating point numbers.</p>
+
+<p>:::::::::::::::  solution</p>
+
+<h3 id="tip-15">Tip 1.5</h3>
+
+<p>The functions to convert data types start with <code class="language-plaintext highlighter-rouge">as.</code>. You can look
+for the function further up in the manuscript or use the RStudio
+auto-complete function: Type “<code class="language-plaintext highlighter-rouge">as.</code>” and then press the TAB key.</p>
+
 <p>:::::::::::::::::::::::::</p>
+
 <blockquote>
-<h3 id="solution-to-challenge-1.5">Solution to Challenge 1.5</h3>
-<p>There are two functions that are synonymous for historic reasons:</p>
-<pre><code>cats$weight &lt;- as.double(cats$weight)
-cats$weight &lt;- as.numeric(cats$weight)</code></pre>
+  <h6 id="solution-to-challenge-15">Solution to Challenge 1.5</h6>
+
+  <p>There are two functions that are synonymous for historic reasons:</p>
+
+  <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cats$weight &lt;- as.double(cats$weight)
+cats$weight &lt;- as.numeric(cats$weight)
+</code></pre></div>  </div>
 </blockquote>
+
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+
 <h3 id="some-basic-vector-functions">Some basic vector functions</h3>
-<p>The combine function, <code>c()</code>, will also append things to an existing vector:</p>
-<pre class="{r}"><code>ab_vector &lt;- c(&#39;a&#39;, &#39;b&#39;)
+
+<p>The combine function, <code class="language-plaintext highlighter-rouge">c()</code>, will also append things to an existing vector:</p>
+
+<pre><code class="language-{.r}">ab_vector &lt;- c('a', 'b')
 ab_vector
-combine_example &lt;- c(ab_vector, &#39;SWC&#39;)
-combine_example</code></pre>
+combine_example &lt;- c(ab_vector, 'SWC')
+combine_example
+</code></pre>
+
 <p>You can also make series of numbers:</p>
-<pre class="{r}"><code>mySeries &lt;- 1:10
+
+<pre><code class="language-{.r}">mySeries &lt;- 1:10
 mySeries
 seq(10)
-seq(1,10, by=0.1)</code></pre>
+seq(1,10, by=0.1)
+</code></pre>
+
 <p>We can ask a few questions about vectors:</p>
-<pre class="{r}"><code>sequence_example &lt;- 20:25
+
+<pre><code class="language-{.r}">sequence_example &lt;- 20:25
 head(sequence_example, n=2)
 tail(sequence_example, n=4)
 length(sequence_example)
-typeof(sequence_example)</code></pre>
+typeof(sequence_example)
+</code></pre>
+
 <p>We can get individual elements of a vector by using the bracket notation:</p>
-<pre class="{r}"><code>first_element &lt;- sequence_example[1]
-first_element</code></pre>
+
+<pre><code class="language-{.r}">first_element &lt;- sequence_example[1]
+first_element
+</code></pre>
+
 <p>To change a single element, use the bracket on the other side of the arrow:</p>
-<pre class="{r}"><code>sequence_example[1] &lt;- 30
-sequence_example</code></pre>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
+
+<pre><code class="language-{.r}">sequence_example[1] &lt;- 30
+sequence_example
+</code></pre>
+
+<p>:::::::::::::::::::::::::::::::::::::::  challenge</p>
+
 <h3 id="challenge-2">Challenge 2</h3>
-<p>Start by making a vector with the numbers 1 through 26. Then, multiply the vector by 2.</p>
-<p>::::::::::::::: solution</p>
-<h3 id="solution-to-challenge-2">Solution to Challenge 2</h3>
-<pre class="{r}"><code>x &lt;- 1:26
-x &lt;- x * 2</code></pre>
+
+<p>Start by making a vector with the numbers 1 through 26.
+Then, multiply the vector by 2.</p>
+
+<p>:::::::::::::::  solution</p>
+
+<h6 id="solution-to-challenge-2">Solution to Challenge 2</h6>
+
+<pre><code class="language-{.r}">x &lt;- 1:26
+x &lt;- x * 2
+</code></pre>
+
 <p>:::::::::::::::::::::::::</p>
+
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+
 <h3 id="lists">Lists</h3>
-<p>Another data structure you’ll want in your bag of tricks is the <code>list</code>. A list is simpler in some ways than the other types, because you can put anything you want in it. Remember <em>everything in the vector must be of the same basic data type</em>, but a list can have different data types:</p>
-<pre class="{r}"><code>list_example &lt;- list(1, &quot;a&quot;, TRUE, 1+4i)
-list_example</code></pre>
-<p>When printing the object structure with <code>str()</code>, we see the data types of all elements:</p>
-<pre class="{r}"><code>str(list_example)</code></pre>
-<p>What is the use of lists? They can <strong>organize data of different types</strong>. For example, you can organize different tables that belong together, similar to spreadsheets in Excel. But there are many other uses, too.</p>
+
+<p>Another data structure you’ll want in your bag of tricks is the <code class="language-plaintext highlighter-rouge">list</code>. A list
+is simpler in some ways than the other types, because you can put anything you
+want in it. Remember <em>everything in the vector must be of the same basic data type</em>,
+but a list can have different data types:</p>
+
+<pre><code class="language-{.r}">list_example &lt;- list(1, "a", TRUE, 1+4i)
+list_example
+</code></pre>
+
+<p>When printing the object structure with <code class="language-plaintext highlighter-rouge">str()</code>, we see the data types of all
+elements:</p>
+
+<pre><code class="language-{.r}">str(list_example)
+</code></pre>
+
+<p>What is the use of lists? They can <strong>organize data of different types</strong>. For
+example, you can organize different tables that belong together, similar to
+spreadsheets in Excel. But there are many other uses, too.</p>
+
 <p>We will see another example that will maybe surprise you in the next chapter.</p>
+
 <p>To retrieve one of the elements of a list, use the <strong>double bracket</strong>:</p>
-<pre class="{r}"><code>list_example[[2]]</code></pre>
-<p>The elements of lists also can have <strong>names</strong>, they can be given by prepending them to the values, separated by an equals sign:</p>
-<pre class="{r}"><code>another_list &lt;- list(title = &quot;Numbers&quot;, numbers = 1:10, data = TRUE )
-another_list</code></pre>
-<p>This results in a <strong>named list</strong>. Now we have a new function of our object! We can access single elements by an additional way!</p>
-<pre class="{r}"><code>another_list$title</code></pre>
+
+<pre><code class="language-{.r}">list_example[[2]]
+</code></pre>
+
+<p>The elements of lists also can have <strong>names</strong>, they can be given by prepending
+them to the values, separated by an equals sign:</p>
+
+<pre><code class="language-{.r}">another_list &lt;- list(title = "Numbers", numbers = 1:10, data = TRUE )
+another_list
+</code></pre>
+
+<p>This results in a <strong>named list</strong>. Now we have a new function of our object!
+We can access single elements by an additional way!</p>
+
+<pre><code class="language-{.r}">another_list$title
+</code></pre>
+
 <h2 id="names">Names</h2>
-<p>With names, we can give meaning to elements. It is the first time that we do not only have the <strong>data</strong>, but also explaining information. It is <em>metadata</em> that can be stuck to the object like a label. In R, this is called an <strong>attribute</strong>. Some attributes enable us to do more with our object, for example, like here, accessing an element by a self-defined name.</p>
+
+<p>With names, we can give meaning to elements. It is the first time that we do not
+only have the <strong>data</strong>, but also explaining information. It is <em>metadata</em>
+that can be stuck to the object like a label. In R, this is called an
+<strong>attribute</strong>. Some attributes enable us to do more with our
+object, for example, like here, accessing an element by a self-defined name.</p>
+
 <h3 id="accessing-vectors-and-lists-by-name">Accessing vectors and lists by name</h3>
-<p>We have already seen how to generate a named list. The way to generate a named vector is very similar. You have seen this function before:</p>
-<pre class="{r}"><code>pizza_price &lt;- c( pizzasubito = 5.64, pizzafresh = 6.60, callapizza = 4.50 )</code></pre>
+
+<p>We have already seen how to generate a named list. The way to generate a named
+vector is very similar. You have seen this function before:</p>
+
+<pre><code class="language-{.r}">pizza_price &lt;- c( pizzasubito = 5.64, pizzafresh = 6.60, callapizza = 4.50 )
+</code></pre>
+
 <p>The way to retrieve elements is different, though:</p>
-<pre class="{r}"><code>pizza_price[&quot;pizzasubito&quot;]</code></pre>
+
+<pre><code class="language-{.r}">pizza_price["pizzasubito"]
+</code></pre>
+
 <p>The approach used for the list does not work:</p>
-<pre class="{r}"><code>pizza_price$pizzafresh</code></pre>
-<p>It will pay off if you remember this error message, you will meet it in your own analyses. It means that you have just tried accessing an element like it was in a list, but it is actually in a vector.</p>
+
+<pre><code class="language-{.r}">pizza_price$pizzafresh
+</code></pre>
+
+<p>It will pay off if you remember this error message, you will meet it in your own
+analyses. It means that you have just tried accessing an element like it was in
+a list, but it is actually in a vector.</p>
+
 <h3 id="accessing-and-changing-names">Accessing and changing names</h3>
-<p>If you are only interested in the names, use the <code>names()</code> function:</p>
-<pre class="{r}"><code>names(pizza_price)</code></pre>
-<p>We have seen how to access and change single elements of a vector. The same is possible for names:</p>
-<pre class="{r}"><code>names(pizza_price)[3]
-names(pizza_price)[3] &lt;- &quot;call-a-pizza&quot;
-pizza_price</code></pre>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
+
+<p>If you are only interested in the names, use the <code class="language-plaintext highlighter-rouge">names()</code> function:</p>
+
+<pre><code class="language-{.r}">names(pizza_price)
+</code></pre>
+
+<p>We have seen how to access and change single elements of a vector. The same is
+possible for names:</p>
+
+<pre><code class="language-{.r}">names(pizza_price)[3]
+names(pizza_price)[3] &lt;- "call-a-pizza"
+pizza_price
+</code></pre>
+
+<p>:::::::::::::::::::::::::::::::::::::::  challenge</p>
+
 <h3 id="challenge-3">Challenge 3</h3>
+
 <ul>
-<li>What is the data type of the names of <code>pizza_price</code>? You can find out using the <code>str()</code> or <code>typeof()</code> functions.</li>
+  <li>What is the data type of the names of <code class="language-plaintext highlighter-rouge">pizza_price</code>? You can find out
+using the <code class="language-plaintext highlighter-rouge">str()</code> or <code class="language-plaintext highlighter-rouge">typeof()</code> functions.</li>
 </ul>
-<p>::::::::::::::: solution</p>
-<h3 id="solution-to-challenge-3">Solution to Challenge 3</h3>
-<p>You get the names of an object by wrapping the object name inside <code>names(...)</code>. Similarly, you get the data type of the names by again wrapping the whole code in <code>typeof(...)</code>:</p>
-<pre><code>typeof(names(pizza))</code></pre>
+
+<p>:::::::::::::::  solution</p>
+
+<h6 id="solution-to-challenge-3">Solution to Challenge 3</h6>
+
+<p>You get the names of an object by wrapping the object name inside
+<code class="language-plaintext highlighter-rouge">names(...)</code>. Similarly, you get the data type of the names by again
+wrapping the whole code in <code class="language-plaintext highlighter-rouge">typeof(...)</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>typeof(names(pizza))
+</code></pre></div></div>
+
 <p>alternatively, use a new variable if this is easier for you to read:</p>
-<pre><code>n &lt;- names(pizza)
-typeof(n)</code></pre>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>n &lt;- names(pizza)
+typeof(n)
+</code></pre></div></div>
+
 <p>:::::::::::::::::::::::::</p>
+
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
+
+<p>:::::::::::::::::::::::::::::::::::::::  challenge</p>
+
 <h3 id="challenge-4">Challenge 4</h3>
-<p>Instead of just changing some of the names a vector/list already has, you can also set all names of an object by writing code like (replace ALL CAPS text):</p>
-<pre><code>names( OBJECT ) &lt;-  CHARACTER_VECTOR</code></pre>
+
+<p>Instead of just changing some of the names a vector/list already has, you can
+also set all names of an object by writing code like (replace ALL CAPS text):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>names( OBJECT ) &lt;-  CHARACTER_VECTOR
+</code></pre></div></div>
+
 <p>Create a vector that gives the number for each letter in the alphabet!</p>
-<ol style="list-style-type: decimal">
-<li>Generate a vector called <code>letter_no</code> with the sequence of numbers from 1 to 26!</li>
-<li>R has a built-in object called <code>LETTERS</code>. It is a 26-character vector, from A to Z. Set the names of the number sequence to this 26 letters</li>
-<li>Test yourself by calling <code>letter_no[&quot;B&quot;]</code>, which should give you the number 2!</li>
+
+<ol>
+  <li>Generate a vector called <code class="language-plaintext highlighter-rouge">letter_no</code> with the sequence of numbers from 1
+  to 26!</li>
+  <li>R has a built-in object called <code class="language-plaintext highlighter-rouge">LETTERS</code>. It is a 26-character vector, from
+  A to Z. Set the names of the number sequence to this 26 letters</li>
+  <li>Test yourself by calling <code class="language-plaintext highlighter-rouge">letter_no["B"]</code>, which should give you the number
+  2!</li>
 </ol>
-<p>::::::::::::::: solution</p>
-<h3 id="solution-to-challenge-4">Solution to Challenge 4</h3>
-<pre><code>letter_no &lt;- 1:26   # or seq(1,26)
+
+<p>:::::::::::::::  solution</p>
+
+<h6 id="solution-to-challenge-4">Solution to Challenge 4</h6>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>letter_no &lt;- 1:26   # or seq(1,26)
 names(letter_no) &lt;- LETTERS
-letter_no[&quot;B&quot;]</code></pre>
+letter_no["B"]
+</code></pre></div></div>
+
 <p>:::::::::::::::::::::::::</p>
+
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+
 <h2 id="data-frames">Data frames</h2>
-<p>We have data frames at the very beginning of this lesson, they represent a table of data. We didn’t go much further into detail with our example cat data frame:</p>
-<pre class="{r}"><code>cats</code></pre>
-<p>We can now understand something a bit surprising in our data.frame; what happens if we run:</p>
-<pre class="{r}"><code>typeof(cats)</code></pre>
-<p>We see that data.frames look like lists ‘under the hood’. Think again what we heard about what lists can be used for:</p>
+
+<p>We have data frames at the very beginning of this lesson, they represent
+a table of data. We didn’t go much further into detail with our example cat
+data frame:</p>
+
+<pre><code class="language-{.r}">cats
+</code></pre>
+
+<p>We can now understand something a bit surprising in our data.frame; what happens
+if we run:</p>
+
+<pre><code class="language-{.r}">typeof(cats)
+</code></pre>
+
+<p>We see that data.frames look like lists ‘under the hood’. Think again what we
+heard about what lists can be used for:</p>
+
 <blockquote>
-<p>Lists organize data of different types</p>
+  <p>Lists organize data of different types</p>
 </blockquote>
-<p>Columns of a data frame are vectors of different types, that are organized by belonging to the same table.</p>
-<p>A data.frame is really a list of vectors. It is a special list in which all the vectors must have the same length.</p>
-<p>How is this “special”-ness written into the object, so that R does not treat it like any other list, but as a table?</p>
-<pre class="{r}"><code>class(cats)</code></pre>
-<p>A <strong>class</strong>, just like names, is an attribute attached to the object. It tells us what this object means for humans.</p>
-<p>You might wonder: Why do we need another what-type-of-object-is-this-function? We already have <code>typeof()</code>? That function tells us how the object is <strong>constructed in the computer</strong>. The <code>class</code> is the <strong>meaning of the object for humans</strong>. Consequently, what <code>typeof()</code> returns is <em>fixed</em> in R (mainly the five data types), whereas the output of <code>class()</code> is <em>diverse</em> and <em>extendable</em> by R packages.</p>
-<p>In our <code>cats</code> example, we have an integer, a double and a logical variable. As we have seen already, each column of data.frame is a vector.</p>
-<pre class="{r}"><code>cats$coat
+
+<p>Columns of a data frame are vectors of different types, that are organized
+by belonging to the same table.</p>
+
+<p>A data.frame is really a list of vectors. It is a special list in which all the
+vectors must have the same length.</p>
+
+<p>How is this “special”-ness written into the object, so that R does not treat it
+like any other list, but as a table?</p>
+
+<pre><code class="language-{.r}">class(cats)
+</code></pre>
+
+<p>A <strong>class</strong>, just like names, is an attribute attached to the object. It tells
+us what this object means for humans.</p>
+
+<p>You might wonder: Why do we need another what-type-of-object-is-this-function?
+We already have <code class="language-plaintext highlighter-rouge">typeof()</code>? That function tells us how the object is
+<strong>constructed in the computer</strong>. The <code class="language-plaintext highlighter-rouge">class</code> is the <strong>meaning of the object for
+humans</strong>. Consequently, what <code class="language-plaintext highlighter-rouge">typeof()</code> returns is <em>fixed</em> in R (mainly the
+five data types), whereas the output of <code class="language-plaintext highlighter-rouge">class()</code> is <em>diverse</em> and <em>extendable</em>
+by R packages.</p>
+
+<p>In our <code class="language-plaintext highlighter-rouge">cats</code> example, we have an integer, a double and a logical variable. As
+we have seen already, each column of data.frame is a vector.</p>
+
+<pre><code class="language-{.r}">cats$coat
 cats[,1]
 typeof(cats[,1])
-str(cats[,1])</code></pre>
-<p>Each row is an <em>observation</em> of different variables, itself a data.frame, and thus can be composed of elements of different types.</p>
-<pre class="{r}"><code>cats[1,]
+str(cats[,1])
+</code></pre>
+
+<p>Each row is an <em>observation</em> of different variables, itself a data.frame, and
+thus can be composed of elements of different types.</p>
+
+<pre><code class="language-{.r}">cats[1,]
 typeof(cats[1,])
-str(cats[1,])</code></pre>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
+str(cats[1,])
+</code></pre>
+
+<p>:::::::::::::::::::::::::::::::::::::::  challenge</p>
+
 <h3 id="challenge-5">Challenge 5</h3>
-<p>There are several subtly different ways to call variables, observations and elements from data.frames:</p>
+
+<p>There are several subtly different ways to call variables, observations and
+elements from data.frames:</p>
+
 <ul>
-<li><code>cats[1]</code></li>
-<li><code>cats[[1]]</code></li>
-<li><code>cats$coat</code></li>
-<li><code>cats[&quot;coat&quot;]</code></li>
-<li><code>cats[1, 1]</code></li>
-<li><code>cats[, 1]</code></li>
-<li><code>cats[1, ]</code></li>
+  <li><code class="language-plaintext highlighter-rouge">cats[1]</code></li>
+  <li><code class="language-plaintext highlighter-rouge">cats[[1]]</code></li>
+  <li><code class="language-plaintext highlighter-rouge">cats$coat</code></li>
+  <li><code class="language-plaintext highlighter-rouge">cats["coat"]</code></li>
+  <li><code class="language-plaintext highlighter-rouge">cats[1, 1]</code></li>
+  <li><code class="language-plaintext highlighter-rouge">cats[, 1]</code></li>
+  <li><code class="language-plaintext highlighter-rouge">cats[1, ]</code></li>
 </ul>
+
 <p>Try out these examples and explain what is returned by each one.</p>
-<p><em>Hint:</em> Use the function <code>typeof()</code> to examine what is returned in each case.</p>
-<p>::::::::::::::: solution</p>
-<h3 id="solution-to-challenge-5">Solution to Challenge 5</h3>
-<p><code>{r, eval=TRUE, echo=TRUE} cats[1]</code></p>
-<p>We can think of a data frame as a list of vectors. The single brace <code>[1]</code> returns the first slice of the list, as another list. In this case it is the first column of the data frame.</p>
-<p><code>{r, eval=TRUE, echo=TRUE} cats[[1]]</code></p>
-<p>The double brace <code>[[1]]</code> returns the contents of the list item. In this case it is the contents of the first column, a <em>vector</em> of type <em>character</em>.</p>
-<p><code>{r, eval=TRUE, echo=TRUE} cats$coat</code></p>
-<p>This example uses the <code>$</code> character to address items by name. <em>coat</em> is the first column of the data frame, again a <em>vector</em> of type <em>character</em>.</p>
-<p><code>{r, eval=TRUE, echo=TRUE} cats[&quot;coat&quot;]</code></p>
-<p>Here we are using a single brace <code>[&quot;coat&quot;]</code> replacing the index number with the column name. Like example 1, the returned object is a <em>list</em>.</p>
-<p><code>{r, eval=TRUE, echo=TRUE} cats[1, 1]</code></p>
-<p>This example uses a single brace, but this time we provide row and column coordinates. The returned object is the value in row 1, column 1. The object is a <em>vector</em> of type <em>character</em>.</p>
-<p><code>{r, eval=TRUE, echo=TRUE} cats[, 1]</code></p>
-<p>Like the previous example we use single braces and provide row and column coordinates. The row coordinate is not specified, R interprets this missing value as all the elements in this <em>column</em> and returns them as a <em>vector</em>.</p>
-<p><code>{r, eval=TRUE, echo=TRUE} cats[1, ]</code></p>
-<p>Again we use the single brace with row and column coordinates. The column coordinate is not specified. The return value is a <em>list</em> containing all the values in the first row.</p>
+
+<p><em>Hint:</em> Use the function <code class="language-plaintext highlighter-rouge">typeof()</code> to examine what is returned in each case.</p>
+
+<p>:::::::::::::::  solution</p>
+
+<h6 id="solution-to-challenge-5">Solution to Challenge 5</h6>
+
+<pre><code class="language-{.r}">cats[1]
+</code></pre>
+
+<p>We can think of a data frame as a list of vectors. The single brace <code class="language-plaintext highlighter-rouge">[1]</code>
+returns the first slice of the list, as another list. In this case it is the
+first column of the data frame.</p>
+
+<pre><code class="language-{.r}">cats[[1]]
+</code></pre>
+
+<p>The double brace <code class="language-plaintext highlighter-rouge">[[1]]</code> returns the contents of the list item. In this case
+it is the contents of the first column, a <em>vector</em> of type <em>character</em>.</p>
+
+<pre><code class="language-{.r}">cats$coat
+</code></pre>
+
+<p>This example uses the <code class="language-plaintext highlighter-rouge">$</code> character to address items by name. <em>coat</em> is the
+first column of the data frame, again a <em>vector</em> of type <em>character</em>.</p>
+
+<pre><code class="language-{.r}">cats["coat"]
+</code></pre>
+
+<p>Here we are using a single brace <code class="language-plaintext highlighter-rouge">["coat"]</code> replacing the index number with
+the column name. Like example 1, the returned object is a <em>list</em>.</p>
+
+<pre><code class="language-{.r}">cats[1, 1]
+</code></pre>
+
+<p>This example uses a single brace, but this time we provide row and column
+coordinates. The returned object is the value in row 1, column 1. The object
+is a <em>vector</em> of type <em>character</em>.</p>
+
+<pre><code class="language-{.r}">cats[, 1]
+</code></pre>
+
+<p>Like the previous example we use single braces and provide row and column
+coordinates. The row coordinate is not specified, R interprets this missing
+value as all the elements in this <em>column</em> and returns them as a <em>vector</em>.</p>
+
+<pre><code class="language-{.r}">cats[1, ]
+</code></pre>
+
+<p>Again we use the single brace with row and column coordinates. The column
+coordinate is not specified. The return value is a <em>list</em> containing all the
+values in the first row.</p>
+
 <p>:::::::::::::::::::::::::</p>
+
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::::: callout</p>
-<h3 id="tip-renaming-data-frame-columns">Tip: Renaming data frame columns</h3>
-<p>Data frames have column names, which can be accessed with the <code>names()</code> function.</p>
-<pre class="{r}"><code>names(cats)</code></pre>
-<p>If you want to rename the second column of <code>cats</code>, you can assign a new name to the second element of <code>names(cats)</code>.</p>
-<pre class="{r}"><code>names(cats)[2] &lt;- &quot;weight_kg&quot;
-cats</code></pre>
+
+<p>:::::::::::::::::::::::::::::::::::::::::  callout</p>
+
+<h3 id="tip-renaming-data-frame-columns-callout">Tip: Renaming data frame columns {.callout}</h3>
+
+<p>Data frames have column names, which can be accessed with the <code class="language-plaintext highlighter-rouge">names()</code> function.</p>
+
+<pre><code class="language-{.r}">names(cats)
+</code></pre>
+
+<p>If you want to rename the second column of <code class="language-plaintext highlighter-rouge">cats</code>, you can assign a new name to the second element of <code class="language-plaintext highlighter-rouge">names(cats)</code>.</p>
+
+<pre><code class="language-{.r}">names(cats)[2] &lt;- "weight_kg"
+cats
+</code></pre>
+
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p><code>{r, include=FALSE} # reverting cats back to original version cats &lt;- cats_orig</code></p>
+
+<pre><code class="language-{.r}"># reverting cats back to original version
+cats &lt;- cats_orig
+</code></pre>
+
 <h3 id="matrices">Matrices</h3>
+
 <p>Last but not least is the matrix. We can declare a matrix full of zeros:</p>
-<pre class="{r}"><code>matrix_example &lt;- matrix(0, ncol=6, nrow=3)
-matrix_example</code></pre>
-<p>What makes it special is the <code>dim()</code> attribute:</p>
-<pre class="{r}"><code>dim(matrix_example)</code></pre>
+
+<pre><code class="language-{.r}">matrix_example &lt;- matrix(0, ncol=6, nrow=3)
+matrix_example
+</code></pre>
+
+<p>What makes it special is the <code class="language-plaintext highlighter-rouge">dim()</code> attribute:</p>
+
+<pre><code class="language-{.r}">dim(matrix_example)
+</code></pre>
+
 <p>And similar to other data structures, we can ask things about our matrix:</p>
-<pre class="{r}"><code>typeof(matrix_example)
+
+<pre><code class="language-{.r}">typeof(matrix_example)
 class(matrix_example)
 str(matrix_example)
 nrow(matrix_example)
-ncol(matrix_example)</code></pre>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
+ncol(matrix_example)
+</code></pre>
+
+<p>:::::::::::::::::::::::::::::::::::::::  challenge</p>
+
 <h3 id="challenge-6">Challenge 6</h3>
-<p>What do you think will be the result of <code>length(matrix_example)</code>? Try it. Were you right? Why / why not?</p>
-<p>::::::::::::::: solution</p>
-<h3 id="solution-to-challenge-6">Solution to Challenge 6</h3>
-<p>What do you think will be the result of <code>length(matrix_example)</code>?</p>
-<pre class="{r}"><code>matrix_example &lt;- matrix(0, ncol=6, nrow=3)
-length(matrix_example)</code></pre>
-<p>Because a matrix is a vector with added dimension attributes, <code>length</code> gives you the total number of elements in the matrix.</p>
+
+<p>What do you think will be the result of
+<code class="language-plaintext highlighter-rouge">length(matrix_example)</code>?
+Try it.
+Were you right? Why / why not?</p>
+
+<p>:::::::::::::::  solution</p>
+
+<h6 id="solution-to-challenge-6">Solution to Challenge 6</h6>
+
+<p>What do you think will be the result of
+<code class="language-plaintext highlighter-rouge">length(matrix_example)</code>?</p>
+
+<pre><code class="language-{.r}">matrix_example &lt;- matrix(0, ncol=6, nrow=3)
+length(matrix_example)
+</code></pre>
+
+<p>Because a matrix is a vector with added dimension attributes, <code class="language-plaintext highlighter-rouge">length</code>
+gives you the total number of elements in the matrix.</p>
+
 <p>:::::::::::::::::::::::::</p>
+
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
+
+<p>:::::::::::::::::::::::::::::::::::::::  challenge</p>
+
 <h3 id="challenge-7">Challenge 7</h3>
-<p>Make another matrix, this time containing the numbers 1:50, with 5 columns and 10 rows. Did the <code>matrix</code> function fill your matrix by column, or by row, as its default behaviour? See if you can figure out how to change this. (hint: read the documentation for <code>matrix</code>!)</p>
-<p>::::::::::::::: solution</p>
-<h3 id="solution-to-challenge-7">Solution to Challenge 7</h3>
-<p>Make another matrix, this time containing the numbers 1:50, with 5 columns and 10 rows. Did the <code>matrix</code> function fill your matrix by column, or by row, as its default behaviour? See if you can figure out how to change this. (hint: read the documentation for <code>matrix</code>!)</p>
-<p><code>{r, eval=FALSE} x &lt;- matrix(1:50, ncol=5, nrow=10) x &lt;- matrix(1:50, ncol=5, nrow=10, byrow = TRUE) # to fill by row</code></p>
+
+<p>Make another matrix, this time containing the numbers 1:50,
+with 5 columns and 10 rows.
+Did the <code class="language-plaintext highlighter-rouge">matrix</code> function fill your matrix by column, or by
+row, as its default behaviour?
+See if you can figure out how to change this.
+(hint: read the documentation for <code class="language-plaintext highlighter-rouge">matrix</code>!)</p>
+
+<p>:::::::::::::::  solution</p>
+
+<h6 id="solution-to-challenge-7">Solution to Challenge 7</h6>
+
+<p>Make another matrix, this time containing the numbers 1:50,
+with 5 columns and 10 rows.
+Did the <code class="language-plaintext highlighter-rouge">matrix</code> function fill your matrix by column, or by
+row, as its default behaviour?
+See if you can figure out how to change this.
+(hint: read the documentation for <code class="language-plaintext highlighter-rouge">matrix</code>!)</p>
+
+<pre><code class="language-{.r}">x &lt;- matrix(1:50, ncol=5, nrow=10)
+x &lt;- matrix(1:50, ncol=5, nrow=10, byrow = TRUE) # to fill by row
+</code></pre>
+
 <p>:::::::::::::::::::::::::</p>
+
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
+
+<p>:::::::::::::::::::::::::::::::::::::::  challenge</p>
+
 <h3 id="challenge-8">Challenge 8</h3>
+
 <p>Create a list of length two containing a character vector for each of the sections in this part of the workshop:</p>
+
 <ul>
-<li>Data types</li>
-<li>Data structures</li>
+  <li>Data types</li>
+  <li>Data structures</li>
 </ul>
-<p>Populate each character vector with the names of the data types and data structures we’ve seen so far.</p>
-<p>::::::::::::::: solution</p>
-<h3 id="solution-to-challenge-8">Solution to Challenge 8</h3>
-<pre class="{r}"><code>dataTypes &lt;- c(&#39;double&#39;, &#39;complex&#39;, &#39;integer&#39;, &#39;character&#39;, &#39;logical&#39;)
-dataStructures &lt;- c(&#39;data.frame&#39;, &#39;vector&#39;, &#39;list&#39;, &#39;matrix&#39;)
-answer &lt;- list(dataTypes, dataStructures)</code></pre>
-<p>Note: it’s nice to make a list in big writing on the board or taped to the wall listing all of these types and structures - leave it up for the rest of the workshop to remind people of the importance of these basics.</p>
+
+<p>Populate each character vector with the names of the data types and data
+structures we’ve seen so far.</p>
+
+<p>:::::::::::::::  solution</p>
+
+<h6 id="solution-to-challenge-8">Solution to Challenge 8</h6>
+
+<pre><code class="language-{.r}">dataTypes &lt;- c('double', 'complex', 'integer', 'character', 'logical')
+dataStructures &lt;- c('data.frame', 'vector', 'list', 'matrix')
+answer &lt;- list(dataTypes, dataStructures)
+</code></pre>
+
+<p>Note: it’s nice to make a list in big writing on the board or taped to the wall
+listing all of these types and structures - leave it up for the rest of the workshop
+to remind people of the importance of these basics.</p>
+
 <p>:::::::::::::::::::::::::</p>
+
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-<p>::::::::::::::::::::::::::::::::::::::: challenge</p>
+
+<p>:::::::::::::::::::::::::::::::::::::::  challenge</p>
+
 <h3 id="challenge-9">Challenge 9</h3>
+
 <p>Consider the R output of the matrix below:</p>
-<p><code>{r, echo=FALSE} matrix(c(4, 1, 9, 5, 10, 7), ncol = 2, byrow = TRUE)</code></p>
-<p>What was the correct command used to write this matrix? Examine each command and try to figure out the correct one before typing them. Think about what matrices the other commands will produce.</p>
-<ol style="list-style-type: decimal">
-<li><code>matrix(c(4, 1, 9, 5, 10, 7), nrow = 3)</code></li>
-<li><code>matrix(c(4, 9, 10, 1, 5, 7), ncol = 2, byrow = TRUE)</code></li>
-<li><code>matrix(c(4, 9, 10, 1, 5, 7), nrow = 2)</code></li>
-<li><code>matrix(c(4, 1, 9, 5, 10, 7), ncol = 2, byrow = TRUE)</code></li>
+
+<pre><code class="language-{.r}">matrix(c(4, 1, 9, 5, 10, 7), ncol = 2, byrow = TRUE)
+</code></pre>
+
+<p>What was the correct command used to write this matrix? Examine
+each command and try to figure out the correct one before typing them.
+Think about what matrices the other commands will produce.</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">matrix(c(4, 1, 9, 5, 10, 7), nrow = 3)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">matrix(c(4, 9, 10, 1, 5, 7), ncol = 2, byrow = TRUE)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">matrix(c(4, 9, 10, 1, 5, 7), nrow = 2)</code></li>
+  <li><code class="language-plaintext highlighter-rouge">matrix(c(4, 1, 9, 5, 10, 7), ncol = 2, byrow = TRUE)</code></li>
 </ol>
-<p>::::::::::::::: solution</p>
-<h3 id="solution-to-challenge-9">Solution to Challenge 9</h3>
+
+<p>:::::::::::::::  solution</p>
+
+<h6 id="solution-to-challenge-9">Solution to Challenge 9</h6>
+
 <p>Consider the R output of the matrix below:</p>
-<p><code>{r, echo=FALSE} matrix(c(4, 1, 9, 5, 10, 7), ncol = 2, byrow = TRUE)</code></p>
-<p>What was the correct command used to write this matrix? Examine each command and try to figure out the correct one before typing them. Think about what matrices the other commands will produce.</p>
-<p><code>{r, eval=FALSE} matrix(c(4, 1, 9, 5, 10, 7), ncol = 2, byrow = TRUE)</code></p>
+
+<pre><code class="language-{.r}">matrix(c(4, 1, 9, 5, 10, 7), ncol = 2, byrow = TRUE)
+</code></pre>
+
+<p>What was the correct command used to write this matrix? Examine
+each command and try to figure out the correct one before typing them.
+Think about what matrices the other commands will produce.</p>
+
+<pre><code class="language-{.r}">matrix(c(4, 1, 9, 5, 10, 7), ncol = 2, byrow = TRUE)
+</code></pre>
+
 <p>:::::::::::::::::::::::::</p>
+
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
+
 <p>:::::::::::::::::::::::::::::::::::::::: keypoints</p>
+<h2 id="keypoints-objectives">Keypoints {.objectives}</h2>
+
 <ul>
-<li>Use <code>read.csv</code> to read tabular data in R.</li>
-<li>The basic data types in R are double, integer, complex, logical, and character.</li>
-<li>Data structures such as data frames or matrices are built on top of lists and vectors, with some added attributes.</li>
+  <li>Use <code class="language-plaintext highlighter-rouge">read.csv</code> to read tabular data in R.</li>
+  <li>The basic data types in R are double, integer, complex, logical, and character.</li>
+  <li>Data structures such as data frames or matrices are built on top of lists and vectors, with some added attributes.</li>
 </ul>
+
 <p>::::::::::::::::::::::::::::::::::::::::::::::::::</p>
-        </div>
-      </div>
-      </article>
-      <div class="footer">
-        <a class="label swc-blue-bg" href="mailto:s.fernandez_valverde@unsw.edu.au">Contact</a>
-        <a class="label swc-blue-bg" href="LICENSE.html">License</a>
-      </div>
-    </div>
-    <!-- Javascript placed at the end of the document so the pages load faster -->
-    <script src="http://software-carpentry.org/v5/js/jquery-1.9.1.min.js"></script>
-    <script src="css/bootstrap/bootstrap-js/bootstrap.js"></script>
-    <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
-  </body>
-</html>
+

@@ -1,211 +1,227 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="generator" content="pandoc">
-    <title>Analyzing Data from Multiple Files</title>
-    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.css" />
-    <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap-theme.css" />
-    <link rel="stylesheet" type="text/css" href="css/swc.css" />
-    <link rel="alternate" type="application/rss+xml" title="Bioinformatics Honours 2024" href="https://github.com/liz-fernandez/UNSW_Honours_Bioinfo_2024/"/>
-    <meta charset="UTF-8" />
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-  </head>
-  <body class="lesson">
-    <div class="container card">
-      <div class="banner">
-        <a href="https://liz-fernandez.github.io/Honours_Bioinfo_2024/" title="Honours Bioinformatics Course 2024">
-          <img alt="Logo UNSW" src="img/unsw_logo.jpg" />
-        </a>
-      </div>
-      <article>
-      <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-                    <h1 class="title">Analyzing Data from Multiple Files</h1>
-          <section class="objectives panel panel-warning">
-<div class="panel-heading">
-<h2 id="learning-objectives"><span class="glyphicon glyphicon-certificate"></span>Learning Objectives</h2>
-</div>
-<div class="panel-body">
-<ul>
-<li>Use a library function to get a list of filenames that match a wildcard pattern.</li>
-<li>Write a <code>for</code> loop to process multiple files.</li>
-</ul>
-<h5 id="questions">Questions</h5>
-<ul>
-<li>How can I do the same operations on many different files?</li>
-</ul>
-</div>
-</section>
-<p>As a final piece to processing our inflammation data, we need a way to get a list of all the files in our <code>data</code> directory whose names start with <code>inflammation-</code> and end with <code>.csv</code>. The following library will help us to achieve this:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> glob</code></pre></div>
-<p>The <code>glob</code> library contains a function, also called <code>glob</code>, that finds files and directories whose names match a pattern. We provide those patterns as strings: the character <code>*</code> matches zero or more characters, while <code>?</code> matches any one character. We can use this to get the names of all the CSV files in the current directory:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="bu">print</span>(glob.glob(<span class="st">&#39;inflammation*.csv&#39;</span>))</code></pre></div>
-<pre class="output"><code>[&#39;inflammation-05.csv&#39;, &#39;inflammation-11.csv&#39;, &#39;inflammation-12.csv&#39;, &#39;inflammation-08.csv&#39;,
-&#39;inflammation-03.csv&#39;, &#39;inflammation-06.csv&#39;, &#39;inflammation-09.csv&#39;, &#39;inflammation-07.csv&#39;,
-&#39;inflammation-10.csv&#39;, &#39;inflammation-02.csv&#39;, &#39;inflammation-04.csv&#39;, &#39;inflammation-01.csv&#39;]</code></pre>
-<p>As these examples show, <code>glob.glob</code>’s result is a list of file and directory paths in arbitrary order. This means we can loop over it to do something with each filename in turn. In our case, the “something” we want to do is generate a set of plots for each file in our inflammation dataset.</p>
-<p>If we want to start by analyzing just the first three files in alphabetical order, we can use the <code>sorted</code> built-in function to generate a new sorted list from the <code>glob.glob</code> output:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> glob
-<span class="im">import</span> numpy
-<span class="im">import</span> matplotlib.pyplot
+<blockquote>
+  <h2 id="learning-objectives-objectives">Learning Objectives {.objectives}</h2>
 
-filenames <span class="op">=</span> <span class="bu">sorted</span>(glob.glob(<span class="st">&#39;inflammation*.csv&#39;</span>))
-filenames <span class="op">=</span> filenames[<span class="dv">0</span>:<span class="dv">3</span>]
-<span class="cf">for</span> filename <span class="op">in</span> filenames:
-    <span class="bu">print</span>(filename)
+  <ul>
+    <li>Use a library function to get a list of filenames that match a wildcard pattern.</li>
+    <li>Write a <code class="language-plaintext highlighter-rouge">for</code> loop to process multiple files.</li>
+  </ul>
 
-    data <span class="op">=</span> numpy.loadtxt(fname<span class="op">=</span>filename, delimiter<span class="op">=</span><span class="st">&#39;,&#39;</span>)
+  <h5 id="questions">Questions</h5>
 
-    fig <span class="op">=</span> matplotlib.pyplot.figure(figsize<span class="op">=</span>(<span class="fl">10.0</span>, <span class="fl">3.0</span>))
+  <ul>
+    <li>How can I do the same operations on many different files?</li>
+  </ul>
+</blockquote>
 
-    axes1 <span class="op">=</span> fig.add_subplot(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">1</span>)
-    axes2 <span class="op">=</span> fig.add_subplot(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>)
-    axes3 <span class="op">=</span> fig.add_subplot(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">3</span>)
+<p>As a final piece to processing our inflammation data, we need a way to get a list of all the files
+in our <code class="language-plaintext highlighter-rouge">data</code> directory whose names start with <code class="language-plaintext highlighter-rouge">inflammation-</code> and end with <code class="language-plaintext highlighter-rouge">.csv</code>.
+The following library will help us to achieve this:</p>
 
-    axes1.set_ylabel(<span class="st">&#39;average&#39;</span>)
-    axes1.plot(numpy.mean(data, axis<span class="op">=</span><span class="dv">0</span>))
+<pre><code class="language-{.python}">import glob
+</code></pre>
 
-    axes2.set_ylabel(<span class="st">&#39;max&#39;</span>)
-    axes2.plot(numpy.amax(data, axis<span class="op">=</span><span class="dv">0</span>))
+<p>The <code class="language-plaintext highlighter-rouge">glob</code> library contains a function, also called <code class="language-plaintext highlighter-rouge">glob</code>,
+that finds files and directories whose names match a pattern.
+We provide those patterns as strings:
+the character <code class="language-plaintext highlighter-rouge">*</code> matches zero or more characters,
+while <code class="language-plaintext highlighter-rouge">?</code> matches any one character.
+We can use this to get the names of all the CSV files in the current directory:</p>
 
-    axes3.set_ylabel(<span class="st">&#39;min&#39;</span>)
-    axes3.plot(numpy.amin(data, axis<span class="op">=</span><span class="dv">0</span>))
+<pre><code class="language-{.python}">print(glob.glob('./data/inflammation*.csv'))
+</code></pre>
+
+<pre><code class="language-{.output}">['inflammation-05.csv', 'inflammation-11.csv', 'inflammation-12.csv', 'inflammation-08.csv',
+'inflammation-03.csv', 'inflammation-06.csv', 'inflammation-09.csv', 'inflammation-07.csv',
+'inflammation-10.csv', 'inflammation-02.csv', 'inflammation-04.csv', 'inflammation-01.csv']
+</code></pre>
+
+<p>As these examples show,
+<code class="language-plaintext highlighter-rouge">glob.glob</code>’s result is a list of file and directory paths in arbitrary order.
+This means we can loop over it
+to do something with each filename in turn.
+In our case,
+the “something” we want to do is generate a set of plots for each file in our inflammation dataset.</p>
+
+<p>If we want to start by analyzing just the first three files in alphabetical order, we can use the
+<code class="language-plaintext highlighter-rouge">sorted</code> built-in function to generate a new sorted list from the <code class="language-plaintext highlighter-rouge">glob.glob</code> output:</p>
+
+<pre><code class="language-{.python}">import glob
+import numpy
+import matplotlib.pyplot
+
+filenames = sorted(glob.glob('./data/inflammation*.csv'))
+filenames = filenames[0:3]
+for filename in filenames:
+    print(filename)
+
+    data = numpy.loadtxt(fname=filename, delimiter=',')
+
+    fig = matplotlib.pyplot.figure(figsize=(10.0, 3.0))
+
+    axes1 = fig.add_subplot(1, 3, 1)
+    axes2 = fig.add_subplot(1, 3, 2)
+    axes3 = fig.add_subplot(1, 3, 3)
+
+    axes1.set_ylabel('average')
+    axes1.plot(numpy.mean(data, axis=0))
+
+    axes2.set_ylabel('max')
+    axes2.plot(numpy.amax(data, axis=0))
+
+    axes3.set_ylabel('min')
+    axes3.plot(numpy.amin(data, axis=0))
 
     fig.tight_layout()
-    matplotlib.pyplot.show()</code></pre></div>
-<pre class="output"><code>inflammation-01.csv</code></pre>
-<div class="figure">
-<img src="fig/03-loop_49_1.png" alt="Output from the first iteration of the for loop. Three line graphs showing the daily average, maximum and minimum inflammation over a 40-day period for all patients in the first dataset." />
+    matplotlib.pyplot.show()
+</code></pre>
 
-</div>
-<pre class="output"><code>inflammation-02.csv</code></pre>
-<div class="figure">
-<img src="fig/03-loop_49_3.png" alt="Output from the second iteration of the for loop. Three line graphs showing the daily average, maximum and minimum inflammation over a 40-day period for all patients in the seconddataset." />
+<pre><code class="language-{.output}">inflammation-01.csv
+</code></pre>
 
-</div>
-<pre class="output"><code>inflammation-03.csv</code></pre>
-<div class="figure">
-<img src="fig/03-loop_49_5.png" alt="Output from the third iteration of the for loop. Three line graphs showing the daily average, maximum and minimum inflammation over a 40-day period for all patients in the thirddataset." />
+<p><img src="fig/03-loop_49_1.png" alt="" />{alt=’Output from the first iteration of the for loop. Three line graphs showing the daily average, maximum and minimum inflammation over a 40-day period for all patients in the first dataset.’}</p>
 
-</div>
-<p>The plots generated for the second clinical trial file look very similar to the plots for the first file: their average plots show similar “noisy” rises and falls; their maxima plots show exactly the same linear rise and fall; and their minima plots show similar staircase structures.</p>
-<p>The third dataset shows much noisier average and maxima plots that are far less suspicious than the first two datasets, however the minima plot shows that the third dataset minima is consistently zero across every day of the trial. If we produce a heat map for the third data file we see the following:</p>
-<div class="figure">
-<img src="fig/inflammation-03-imshow.svg" alt="Heat map of the third inflammation dataset. Note that there are sporadic zero values throughoutthe entire dataset, and the last patient only has zero values over the 40 day study." />
+<pre><code class="language-{.output}">inflammation-02.csv
+</code></pre>
 
-</div>
-<p>We can see that there are zero values sporadically distributed across all patients and days of the clinical trial, suggesting that there were potential issues with data collection throughout the trial. In addition, we can see that the last patient in the study didn’t have any inflammation flare-ups at all throughout the trial, suggesting that they may not even suffer from arthritis!</p>
-<section class="challenge panel panel-success">
-<div class="panel-heading">
-<h2 id="plotting-differences"><span class="glyphicon glyphicon-pencil"></span>Plotting Differences</h2>
-</div>
-<div class="panel-body">
-<p>Plot the difference between the average inflammations reported in the first and second datasets (stored in <code>inflammation-01.csv</code> and <code>inflammation-02.csv</code>, correspondingly), i.e., the difference between the leftmost plots of the first two figures.</p>
-<h5 id="solution">Solution</h5>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> glob
-<span class="im">import</span> numpy
-<span class="im">import</span> matplotlib.pyplot
+<p><img src="fig/03-loop_49_3.png" alt="" />{alt=’Output from the second iteration of the for loop. Three line graphs showing the daily average, maximum and minimum inflammation over a 40-day period for all patients in the seconddataset.’}</p>
 
-filenames <span class="op">=</span> <span class="bu">sorted</span>(glob.glob(<span class="st">&#39;inflammation*.csv&#39;</span>))
+<pre><code class="language-{.output}">inflammation-03.csv
+</code></pre>
 
-data0 <span class="op">=</span> numpy.loadtxt(fname<span class="op">=</span>filenames[<span class="dv">0</span>], delimiter<span class="op">=</span><span class="st">&#39;,&#39;</span>)
-data1 <span class="op">=</span> numpy.loadtxt(fname<span class="op">=</span>filenames[<span class="dv">1</span>], delimiter<span class="op">=</span><span class="st">&#39;,&#39;</span>)
+<p><img src="fig/03-loop_49_5.png" alt="" />{alt=’Output from the third iteration of the for loop. Three line graphs showing the daily average, maximum and minimum inflammation over a 40-day period for all patients in the thirddataset.’}</p>
 
-fig <span class="op">=</span> matplotlib.pyplot.figure(figsize<span class="op">=</span>(<span class="fl">10.0</span>, <span class="fl">3.0</span>))
+<p>The plots generated for the second clinical trial file look very similar to the plots for
+the first file: their average plots show similar “noisy” rises and falls; their maxima plots
+show exactly the same linear rise and fall; and their minima plots show similar staircase
+structures.</p>
 
-matplotlib.pyplot.ylabel(<span class="st">&#39;Difference in average&#39;</span>)
-matplotlib.pyplot.plot(numpy.mean(data0, axis<span class="op">=</span><span class="dv">0</span>) <span class="op">-</span> numpy.mean(data1, axis<span class="op">=</span><span class="dv">0</span>))
+<p>The third dataset shows much noisier average and maxima plots that are far less suspicious than
+the first two datasets, however the minima plot shows that the third dataset minima is
+consistently zero across every day of the trial. If we produce a heat map for the third data file
+we see the following:</p>
 
-fig.tight_layout()
-matplotlib.pyplot.show()</code></pre></div>
-</div>
-</section>
-<section class="challenge panel panel-success">
-<div class="panel-heading">
-<h2 id="generate-composite-statistics"><span class="glyphicon glyphicon-pencil"></span>Generate Composite Statistics</h2>
-</div>
-<div class="panel-body">
-<p>Use each of the files once to generate a dataset containing values averaged over all patients by completing the code inside the loop given below:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python">filenames <span class="op">=</span> glob.glob(<span class="st">&#39;inflammation*.csv&#39;</span>)
-composite_data <span class="op">=</span> numpy.zeros((<span class="dv">60</span>, <span class="dv">40</span>))
-<span class="cf">for</span> filename <span class="op">in</span> filenames:
-    <span class="co"># sum each new file&#39;s data into composite_data as it&#39;s read</span>
-    <span class="co">#</span>
-<span class="co"># and then divide the composite_data by number of samples</span>
-composite_data <span class="op">=</span> composite_data <span class="op">/</span> <span class="bu">len</span>(filenames)</code></pre></div>
-<p>Then use pyplot to generate average, max, and min for all patients.</p>
-<h5 id="solution-1">Solution</h5>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="im">import</span> glob
-<span class="im">import</span> numpy
-<span class="im">import</span> matplotlib.pyplot
+<p><img src="fig/inflammation-03-imshow.svg" alt="" />{alt=’Heat map of the third inflammation dataset. Note that there are sporadic zero values throughoutthe entire dataset, and the last patient only has zero values over the 40 day study.’}</p>
 
-filenames <span class="op">=</span> glob.glob(<span class="st">&#39;inflammation*.csv&#39;</span>)
-composite_data <span class="op">=</span> numpy.zeros((<span class="dv">60</span>, <span class="dv">40</span>))
+<p>We can see that there are zero values sporadically distributed across all patients and days of the
+clinical trial, suggesting that there were potential issues with data collection throughout the
+trial. In addition, we can see that the last patient in the study didn’t have any inflammation
+flare-ups at all throughout the trial, suggesting that they may not even suffer from arthritis!</p>
 
-<span class="cf">for</span> filename <span class="op">in</span> filenames:
-    data <span class="op">=</span> numpy.loadtxt(fname <span class="op">=</span> filename, delimiter<span class="op">=</span><span class="st">&#39;,&#39;</span>)
-    composite_data <span class="op">=</span> composite_data <span class="op">+</span> data
+<blockquote>
+  <h2 id="plotting-differences-challenge">Plotting Differences {.challenge}</h2>
 
-composite_data <span class="op">=</span> composite_data <span class="op">/</span> <span class="bu">len</span>(filenames)
+  <p>Plot the difference between the average inflammations reported in the first and second datasets
+(stored in <code class="language-plaintext highlighter-rouge">inflammation-01.csv</code> and <code class="language-plaintext highlighter-rouge">inflammation-02.csv</code>, correspondingly),
+i.e., the difference between the leftmost plots of the first two figures.</p>
 
-fig <span class="op">=</span> matplotlib.pyplot.figure(figsize<span class="op">=</span>(<span class="fl">10.0</span>, <span class="fl">3.0</span>))
+  <h5 id="solution">Solution</h5>
 
-axes1 <span class="op">=</span> fig.add_subplot(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">1</span>)
-axes2 <span class="op">=</span> fig.add_subplot(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">2</span>)
-axes3 <span class="op">=</span> fig.add_subplot(<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">3</span>)
+  <pre><code class="language-{.python}">import glob
+import numpy
+import matplotlib.pyplot
 
-axes1.set_ylabel(<span class="st">&#39;average&#39;</span>)
-axes1.plot(numpy.mean(composite_data, axis<span class="op">=</span><span class="dv">0</span>))
+filenames = sorted(glob.glob('inflammation*.csv'))
 
-axes2.set_ylabel(<span class="st">&#39;max&#39;</span>)
-axes2.plot(numpy.amax(composite_data, axis<span class="op">=</span><span class="dv">0</span>))
+data0 = numpy.loadtxt(fname=filenames[0], delimiter=',')
+data1 = numpy.loadtxt(fname=filenames[1], delimiter=',')
 
-axes3.set_ylabel(<span class="st">&#39;min&#39;</span>)
-axes3.plot(numpy.amin(composite_data, axis<span class="op">=</span><span class="dv">0</span>))
+fig = matplotlib.pyplot.figure(figsize=(10.0, 3.0))
+
+matplotlib.pyplot.ylabel('Difference in average')
+matplotlib.pyplot.plot(numpy.mean(data0, axis=0) - numpy.mean(data1, axis=0))
 
 fig.tight_layout()
+matplotlib.pyplot.show()
+</code></pre>
 
-matplotlib.pyplot.show()</code></pre></div>
-</div>
-</section>
-<p>After spending some time investigating the heat map and statistical plots, as well as doing the above exercises to plot differences between datasets and to generate composite patient statistics, we gain some insight into the twelve clinical trial datasets.</p>
+</blockquote>
+
+<blockquote>
+  <h2 id="generate-composite-statistics-challenge">Generate Composite Statistics {.challenge}</h2>
+
+  <p>Use each of the files once to generate a dataset containing values averaged over all patients by completing the code inside the loop given below:</p>
+
+  <pre><code class="language-{.python}">filenames = glob.glob('inflammation*.csv')
+composite_data = numpy.zeros((60, 40))
+for filename in filenames:
+    # sum each new file's data into composite_data as it's read
+    #
+# and then divide the composite_data by number of samples
+composite_data = composite_data / len(filenames)
+</code></pre>
+
+  <p>Then use pyplot to generate average, max, and min for all patients.</p>
+
+  <h5 id="solution-1">Solution</h5>
+
+  <pre><code class="language-{.python}">import glob
+import numpy
+import matplotlib.pyplot
+
+filenames = glob.glob('inflammation*.csv')
+composite_data = numpy.zeros((60, 40))
+
+for filename in filenames:
+    data = numpy.loadtxt(fname = filename, delimiter=',')
+    composite_data = composite_data + data
+
+composite_data = composite_data / len(filenames)
+
+fig = matplotlib.pyplot.figure(figsize=(10.0, 3.0))
+
+axes1 = fig.add_subplot(1, 3, 1)
+axes2 = fig.add_subplot(1, 3, 2)
+axes3 = fig.add_subplot(1, 3, 3)
+
+axes1.set_ylabel('average')
+axes1.plot(numpy.mean(composite_data, axis=0))
+
+axes2.set_ylabel('max')
+axes2.plot(numpy.amax(composite_data, axis=0))
+
+axes3.set_ylabel('min')
+axes3.plot(numpy.amin(composite_data, axis=0))
+
+fig.tight_layout()
+
+matplotlib.pyplot.show()
+</code></pre>
+</blockquote>
+
+<p>After spending some time investigating the heat map and statistical plots, as well as
+doing the above exercises to plot differences between datasets and to generate composite
+patient statistics, we gain some insight into the twelve clinical trial datasets.</p>
+
 <p>The datasets appear to fall into two categories:</p>
+
 <ul>
-<li>seemingly “ideal” datasets that agree excellently with Dr. Maverick’s claims, but display suspicious maxima and minima (such as <code>inflammation-01.csv</code> and <code>inflammation-02.csv</code>)</li>
-<li>“noisy” datasets that somewhat agree with Dr. Maverick’s claims, but show concerning data collection issues such as sporadic missing values and even an unsuitable candidate making it into the clinical trial.</li>
+  <li>seemingly “ideal” datasets that agree excellently with Dr. Maverick’s claims,
+but display suspicious maxima and minima (such as <code class="language-plaintext highlighter-rouge">inflammation-01.csv</code> and <code class="language-plaintext highlighter-rouge">inflammation-02.csv</code>)</li>
+  <li>“noisy” datasets that somewhat agree with Dr. Maverick’s claims, but show concerning
+data collection issues such as sporadic missing values and even an unsuitable candidate
+making it into the clinical trial.</li>
 </ul>
-<p>In fact, it appears that all three of the “noisy” datasets (<code>inflammation-03.csv</code>, <code>inflammation-08.csv</code>, and <code>inflammation-11.csv</code>) are identical down to the last value. Armed with this information, we confront Dr. Maverick about the suspicious data and duplicated files.</p>
-<p>Dr. Maverick has admitted to fabricating the clinical data for their drug trial. They did this after discovering that the initial trial had several issues, including unreliable data recording and poor participant selection. In order to prove the efficacy of their drug, they created fake data. When asked for additional data, they attempted to generate more fake datasets, and also included the original poor-quality dataset several times in order to make the trials seem more realistic.</p>
-<p>Congratulations! We’ve investigated the inflammation data and proven that the datasets have been synthetically generated.</p>
-<p>But it would be a shame to throw away the synthetic datasets that have taught us so much already, so we’ll forgive the imaginary Dr. Maverick and continue to use the data to learn how to program.</p>
-<section class="objectives panel panel-warning">
-<div class="panel-heading">
-<h2 id="keypoints"><span class="glyphicon glyphicon-certificate"></span>Keypoints</h2>
-</div>
-<div class="panel-body">
-<ul>
-<li>Use <code>glob.glob(pattern)</code> to create a list of files whose names match a pattern.</li>
-<li>Use <code>*</code> in a pattern to match zero or more characters, and <code>?</code> to match any single character.</li>
-</ul>
-</div>
-</section>
-        </div>
-      </div>
-      </article>
-      <div class="footer">
-        <a class="label swc-blue-bg" href="mailto:s.fernandez_valverde@unsw.edu.au">Contact</a>
-        <a class="label swc-blue-bg" href="LICENSE.html">License</a>
-      </div>
-    </div>
-    <!-- Javascript placed at the end of the document so the pages load faster -->
-    <script src="http://software-carpentry.org/v5/js/jquery-1.9.1.min.js"></script>
-    <script src="css/bootstrap/bootstrap-js/bootstrap.js"></script>
-    <script src='https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
-  </body>
-</html>
+
+<p>In fact, it appears that all three of the “noisy” datasets (<code class="language-plaintext highlighter-rouge">inflammation-03.csv</code>,
+<code class="language-plaintext highlighter-rouge">inflammation-08.csv</code>, and <code class="language-plaintext highlighter-rouge">inflammation-11.csv</code>) are identical down to the last value.
+Armed with this information, we confront Dr. Maverick about the suspicious data and
+duplicated files.</p>
+
+<p>Dr. Maverick has admitted to fabricating the clinical data for their drug trial. They did this after discovering that the initial trial had several issues, including unreliable data recording and poor participant selection. In order to prove the efficacy of their drug, they created fake data. When asked for additional data, they attempted to generate more fake datasets, and also included the original poor-quality dataset several times in order to make the trials seem more realistic.</p>
+
+<p>Congratulations! We’ve investigated the inflammation data and proven that the datasets have been
+synthetically generated.</p>
+
+<p>But it would be a shame to throw away the synthetic datasets that have taught us so much
+already, so we’ll forgive the imaginary Dr. Maverick and continue to use the data to learn
+how to program.</p>
+
+<blockquote>
+  <h2 id="keypoints-objectives">Keypoints {.objectives}</h2>
+
+  <ul>
+    <li>Use <code class="language-plaintext highlighter-rouge">glob.glob(pattern)</code> to create a list of files whose names match a pattern.</li>
+    <li>Use <code class="language-plaintext highlighter-rouge">*</code> in a pattern to match zero or more characters, and <code class="language-plaintext highlighter-rouge">?</code> to match any single character.</li>
+  </ul>
+</blockquote>
+
