@@ -29,6 +29,9 @@ concise, easy to read, and less error prone.
 x <- 1:4
 x * 2
 ~~~
+~~~ {.output}
+[1] 2 4 6 8
+~~~
 
 The multiplication happened to each element of the vector.
 
@@ -37,6 +40,9 @@ We can also add two vectors together:
 ~~~ {.r}
 y <- 6:9
 x + y
+~~~
+~~~ {.output}
+[1]  7  9 11 13
 ~~~
 
 Each element of `x` was added to its corresponding element of `y`:
@@ -57,8 +63,9 @@ for (i in 1:4) {
   output_vector[i] <- x[i] + y[i]
 }
 output_vector
-
-
+~~~
+~~~ {.output}
+[1]  7  9 11 13
 ~~~
 
 Compare this to the output using vectorised operations.
@@ -66,6 +73,9 @@ Compare this to the output using vectorised operations.
 ~~~ {.r}
 sum_xy <- x + y
 sum_xy
+~~~
+~~~ {.output}
+[1]  7  9 11 13
 ~~~
 
 
@@ -110,7 +120,7 @@ sum_xy
 > 
 > Refresh your plotting skills by plotting population in millions against year.
 > 
-> ~~~{r ch2-sol, fig.alt="Scatter plot showing populations in the millions against the year for China, India, and Indonesia, countries are not labeled."}
+> ~~~{.r}
 > ggplot(gapminder, aes(x = year, y = pop_millions)) +
 >  geom_point()
 > countryset <- c("China","India","Indonesia")
@@ -118,7 +128,6 @@ sum_xy
 >        aes(x = year, y = pop_millions)) +
 >   geom_point()
 > ~~~
-
 
 
 Comparison operators, logical operators, and many functions are also
@@ -129,12 +138,19 @@ vectorized:
 ~~~ {.r}
 x > 2
 ~~~
+~~~ {.output}
+[1] FALSE FALSE  TRUE  TRUE
+~~~
+
 
 **Logical operators**
 
 ~~~ {.r}
 a <- x > 3  # or, for clarity, a <- (x > 3)
 a
+~~~
+~~~ {.output}
+[1] FALSE FALSE FALSE  TRUE
 ~~~
 
 
@@ -153,12 +169,21 @@ Most functions also operate element-wise on vectors:
 x <- 1:4
 log(x)
 ~~~
+~~~ {.output}
+[1] 0.0000000 0.6931472 1.0986123 1.3862944
+~~~
 
 Vectorized operations work element-wise on matrices:
 
 ~~~ {.r}
 m <- matrix(1:12, nrow=3, ncol=4)
 m * -1
+~~~
+~~~ {.output}
+     [,1] [,2] [,3] [,4]
+[1,]   -1   -4   -7  -10
+[2,]   -2   -5   -8  -11
+[3,]   -3   -6   -9  -12
 ~~~
 
 

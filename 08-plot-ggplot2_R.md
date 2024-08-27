@@ -19,10 +19,6 @@ source: Rmd
 > * How can I create publication-quality graphics in R?
 
 
-~~~ {.r}
-gapminder <- read.csv("data/gapminder_data.csv", header = TRUE)
-~~~
-
 Plotting our data is one of the best ways to
 quickly explore it and the various relationships
 between variables.
@@ -60,6 +56,7 @@ function are the *global* options for the plot: they apply to all
 layers on the plot.
 
 ~~~ {.r}
+install.packages("ggplot2")
 library("ggplot2")
 ggplot(data = gapminder)
 ~~~

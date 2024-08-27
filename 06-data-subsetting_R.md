@@ -520,7 +520,7 @@ x[! names(x) %in% c("a","c") ]
 >   to line up correctly with matching values in `country`.
 > - The **clunky** (but technically correct) way to do this problem is
 > 
-> ~~~{r, results="hide"}
+> ~~~{.r}
 >  (countries=="Myanmar" | countries=="Thailand" |
 >  countries=="Cambodia" | countries == "Vietnam" | countries=="Laos")
 > ~~~

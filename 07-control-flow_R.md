@@ -54,6 +54,9 @@ if (x >= 10) {
 
 x
 ~~~
+~~~ {.output}
+[1] 8
+~~~
 
 The print statement does not appear in the console because x is not greater than 10. To print a different message for numbers less than 10, we can add an `else` statement.
 
@@ -65,6 +68,9 @@ if (x >= 10) {
 } else {
   print("x is less than 10")
 }
+~~~
+~~~ {.output}
+[1] "x is less than 10"
 ~~~
 
 You can also test multiple conditions by using `else if`.
@@ -80,6 +86,9 @@ if (x >= 10) {
   print("x is less than 5")
 }
 ~~~
+~~~ {.error}
+Error: unexpected assignment in "<-"
+~~~
 
 **Important:** when R evaluates the condition inside `if()` statements, it is
 looking for a logical element, i.e., `TRUE` or `FALSE`. This can cause some
@@ -93,12 +102,18 @@ if (x) {
   "4 does not equal 3"
 }
 ~~~
+~~~ {.output}
+[1] "4 does not equal 3"
+~~~
 
 As we can see, the not equal message was printed because the vector x is `FALSE`
 
 ~~~ {.r}
 x <- 4 == 3
 x
+~~~
+~~~ {.output}
+[1] FALSE
 ~~~
 
 
@@ -153,6 +168,9 @@ Did anyone get a warning message like this?
 
 ~~~ {.r}
 if (gapminder$year == 2012) {}
+~~~
+~~~ {.error}
+Error in if (gapminder$year == 2012) { : the condition has length > 1
 ~~~
 
 The `if()` function only accepts singular (of length 1) inputs, and therefore
@@ -227,6 +245,18 @@ for (i in 1:10) {
   print(i)
 }
 ~~~
+~~~ {.output}
+[1] 1
+[1] 2
+[1] 3
+[1] 4
+[1] 5
+[1] 6
+[1] 7
+[1] 8
+[1] 9
+[1] 10
+~~~
 
 The `1:10` bit creates a vector on the fly; you can iterate
 over any other vector as well.
@@ -240,6 +270,33 @@ for (i in 1:5) {
     print(paste(i,j))
   }
 }
+~~~
+~~~ {.output}
+[1] "1 a"
+[1] "1 b"
+[1] "1 c"
+[1] "1 d"
+[1] "1 e"
+[1] "2 a"
+[1] "2 b"
+[1] "2 c"
+[1] "2 d"
+[1] "2 e"
+[1] "3 a"
+[1] "3 b"
+[1] "3 c"
+[1] "3 d"
+[1] "3 e"
+[1] "4 a"
+[1] "4 b"
+[1] "4 c"
+[1] "4 d"
+[1] "4 e"
+[1] "5 a"
+[1] "5 b"
+[1] "5 c"
+[1] "5 d"
+[1] "5 e"
 ~~~
 
 We notice in the output that when the first index (`i`) is set to 1, the second
@@ -258,6 +315,12 @@ for (i in 1:5) {
   }
 }
 output_vector
+~~~
+~~~ {.output}
+ [1] "1 a" "1 b" "1 c" "1 d" "1 e" "2 a" "2 b" "2 c"
+ [9] "2 d" "2 e" "3 a" "3 b" "3 c" "3 d" "3 e" "4 a"
+[17] "4 b" "4 c" "4 d" "4 e" "5 a" "5 b" "5 c" "5 d"
+[25] "5 e"
 ~~~
 
 This approach can be useful, but 'growing your results' (building
@@ -295,6 +358,12 @@ for (i in 1:5) {
 }
 output_vector2 <- as.vector(output_matrix)
 output_vector2
+~~~
+~~~ {.output}
+ [1] "1 a" "2 a" "3 a" "4 a" "5 a" "1 b" "2 b" "3 b"
+ [9] "4 b" "5 b" "1 c" "2 c" "3 c" "4 c" "5 c" "1 d"
+[17] "2 d" "3 d" "4 d" "5 d" "1 e" "2 e" "3 e" "4 e"
+[25] "5 e"
 ~~~
 
 
@@ -474,9 +543,8 @@ output_vector2
 > }
 > ~~~
 > 
-> 
-> 
-> 
+
+
 > ## Challenge 5 - Advanced {.challenge}
 > 
 > Write a script that loops over each country in the `gapminder` dataset,

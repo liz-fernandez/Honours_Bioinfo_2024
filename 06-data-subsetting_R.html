@@ -263,7 +263,8 @@ countries &lt;-<span class="st"> </span><span class="kw">unique</span>(<span cla
 <li>The <strong>wrong</strong> way to do this problem is <code>countries==seAsia</code>. This gives a warning (<code>&quot;In countries == seAsia : longer object length is not a multiple of shorter object length&quot;</code>) and the wrong answer (a vector of all <code>FALSE</code> values), because none of the recycled values of <code>seAsia</code> happen to line up correctly with matching values in <code>country</code>.</li>
 <li>The <strong>clunky</strong> (but technically correct) way to do this problem is</li>
 </ul>
-<p><sub><del>{r, results=“hide”} (countries==“Myanmar” | countries==“Thailand” | countries==“Cambodia” | countries == “Vietnam” | countries==“Laos”)</del></sub></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"> (countries==<span class="st">&quot;Myanmar&quot;</span> |<span class="st"> </span>countries==<span class="st">&quot;Thailand&quot;</span> |
+<span class="st"> </span>countries==<span class="st">&quot;Cambodia&quot;</span> |<span class="st"> </span>countries ==<span class="st"> &quot;Vietnam&quot;</span> |<span class="st"> </span>countries==<span class="st">&quot;Laos&quot;</span>)</code></pre></div>
 <p>(or <code>countries==seAsia[1] | countries==seAsia[2] | ...</code>). This gives the correct values, but hopefully you can see how awkward it is (what if we wanted to select countries from a much longer list?).</p>
 <ul>
 <li>The best way to do this problem is <code>countries %in% seAsia</code>, which is both correct and easy to type (and read).</li>

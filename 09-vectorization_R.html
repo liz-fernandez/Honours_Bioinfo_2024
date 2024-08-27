@@ -46,10 +46,12 @@
 <p>Most of R’s functions are vectorized, meaning that the function will operate on all elements of a vector without needing to loop through and act on each element one at a time. This makes writing code more concise, easy to read, and less error prone.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">4</span>
 x *<span class="st"> </span><span class="dv">2</span></code></pre></div>
+<pre class="output"><code>[1] 2 4 6 8</code></pre>
 <p>The multiplication happened to each element of the vector.</p>
 <p>We can also add two vectors together:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">y &lt;-<span class="st"> </span><span class="dv">6</span>:<span class="dv">9</span>
 x +<span class="st"> </span>y</code></pre></div>
+<pre class="output"><code>[1]  7  9 11 13</code></pre>
 <p>Each element of <code>x</code> was added to its corresponding element of <code>y</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x:<span class="st">  </span><span class="dv">1</span>  <span class="dv">2</span>  <span class="dv">3</span>  <span class="dv">4</span>
     +<span class="st">  </span>+<span class="st">  </span>+<span class="st">  </span>+
@@ -61,11 +63,12 @@ y:<span class="st">  </span><span class="dv">6</span>  <span class="dv">7</span>
 for (i in <span class="dv">1</span>:<span class="dv">4</span>) {
   output_vector[i] &lt;-<span class="st"> </span>x[i] +<span class="st"> </span>y[i]
 }
-output_vector
-</code></pre></div>
+output_vector</code></pre></div>
+<pre class="output"><code>[1]  7  9 11 13</code></pre>
 <p>Compare this to the output using vectorised operations.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sum_xy &lt;-<span class="st"> </span>x +<span class="st"> </span>y
 sum_xy</code></pre></div>
+<pre class="output"><code>[1]  7  9 11 13</code></pre>
 <section class="challenge panel panel-success">
 <div class="panel-heading">
 <h2 id="challenge-1"><span class="glyphicon glyphicon-pencil"></span>Challenge 1</h2>
@@ -89,15 +92,22 @@ sum_xy</code></pre></div>
 <p>Repeat the exercise, graphing only for China, India, and Indonesia. Again, do not worry about which is which.</p>
 <h5 id="solution-1">Solution</h5>
 <p>Refresh your plotting skills by plotting population in millions against year.</p>
-<p><sub><del>{r ch2-sol, fig.alt=“Scatter plot showing populations in the millions against the year for China, India, and Indonesia, countries are not labeled.”} ggplot(gapminder, aes(x = year, y = pop_millions)) + geom_point() countryset &lt;- c(“China”,“India”,“Indonesia”) ggplot(gapminder[gapminder$country %in% countryset,], aes(x = year, y = pop_millions)) + geom_point()</del></sub></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(gapminder, <span class="kw">aes</span>(<span class="dt">x =</span> year, <span class="dt">y =</span> pop_millions)) +
+<span class="st"> </span><span class="kw">geom_point</span>()
+countryset &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;China&quot;</span>,<span class="st">&quot;India&quot;</span>,<span class="st">&quot;Indonesia&quot;</span>)
+<span class="kw">ggplot</span>(gapminder[gapminder$country %in%<span class="st"> </span>countryset,],
+       <span class="kw">aes</span>(<span class="dt">x =</span> year, <span class="dt">y =</span> pop_millions)) +
+<span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
 </div>
 </section>
 <p>Comparison operators, logical operators, and many functions are also vectorized:</p>
 <p><strong>Comparison operators</strong></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &gt;<span class="st"> </span><span class="dv">2</span></code></pre></div>
+<pre class="output"><code>[1] FALSE FALSE  TRUE  TRUE</code></pre>
 <p><strong>Logical operators</strong></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">a &lt;-<span class="st"> </span>x &gt;<span class="st"> </span><span class="dv">3</span>  <span class="co"># or, for clarity, a &lt;- (x &gt; 3)</span>
 a</code></pre></div>
+<pre class="output"><code>[1] FALSE FALSE FALSE  TRUE</code></pre>
 <aside class="callout panel panel-info">
 <div class="panel-heading">
 <h2 id="tip-some-useful-functions-for-logical-vectors"><span class="glyphicon glyphicon-pushpin"></span>Tip: some useful functions for logical vectors</h2>
@@ -111,9 +121,14 @@ a</code></pre></div>
 <p><strong>Functions</strong></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="dv">1</span>:<span class="dv">4</span>
 <span class="kw">log</span>(x)</code></pre></div>
+<pre class="output"><code>[1] 0.0000000 0.6931472 1.0986123 1.3862944</code></pre>
 <p>Vectorized operations work element-wise on matrices:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">m &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="dv">1</span>:<span class="dv">12</span>, <span class="dt">nrow=</span><span class="dv">3</span>, <span class="dt">ncol=</span><span class="dv">4</span>)
 m *<span class="st"> </span>-<span class="dv">1</span></code></pre></div>
+<pre class="output"><code>     [,1] [,2] [,3] [,4]
+[1,]   -1   -4   -7  -10
+[2,]   -2   -5   -8  -11
+[3,]   -3   -6   -9  -12</code></pre>
 <aside class="callout panel panel-info">
 <div class="panel-heading">
 <h2 id="tip-element-wise-vs.matrix-multiplication"><span class="glyphicon glyphicon-pushpin"></span>Tip: element-wise vs. matrix multiplication</h2>
