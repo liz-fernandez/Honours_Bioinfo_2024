@@ -60,12 +60,12 @@ cats</code></pre></div>
 2  black    5.0            0   3
 3  tabby    3.2            1   5</code></pre>
 <p>Note that if we tried to add a vector of ages with a different number of entries than the number of rows in the data frame, it would fail:</p>
-<pre class="{r}"><code>age &lt;- c(2, 3, 5, 12)
-cbind(cats, age)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">age &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">12</span>)
+<span class="kw">cbind</span>(cats, age)</code></pre></div>
 <pre class="error"><code>Error in data.frame(..., check.names = FALSE) : 
   arguments imply differing number of rows: 3, 4</code></pre>
-<pre class="{r}"><code>age &lt;- c(2, 3)
-cbind(cats, age)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">age &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">3</span>)
+<span class="kw">cbind</span>(cats, age)</code></pre></div>
 <pre class="output"><code>Error in data.frame(..., check.names = FALSE) :
   arguments imply differing number of rows: 3, 2</code></pre>
 <p>Why didn’t this work? Of course, R wants to see one element in our new column for every row in the table:</p>
@@ -261,9 +261,10 @@ gapminder &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span c
 <p>Run the script using the <code>source</code> function, using the file path as its argument (or by pressing the “source” button in RStudio).</p>
 <h5 id="solution-2">Solution</h5>
 <p>The <code>source</code> function can be used to use a script within a script. Assume you would like to load the same type of file over and over again and therefore you need to specify the arguments to fit the needs of your file. Instead of writing the necessary argument again and again you could just write it once and save it as a script. Then, you can use <code>source(&quot;Your_Script_containing_the_load_function&quot;)</code> in a new script to use the function of that script without writing everything again. Check out <code>?source</code> to find out more.</p>
-<p><sub><del>{r, eval=FALSE} download.file(“https://raw.githubusercontent.com/swcarpentry/r-novice-gapminder/main/episodes/data/gapminder_data.csv”, destfile = “data/gapminder_data.csv”) gapminder &lt;- read.csv(file = “data/gapminder_data.csv”)</del></sub></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">download.file</span>(<span class="st">&quot;https://raw.githubusercontent.com/swcarpentry/r-novice-gapminder/main/episodes/data/gapminder_data.csv&quot;</span>, <span class="dt">destfile =</span> <span class="st">&quot;data/gapminder_data.csv&quot;</span>)
+gapminder &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> <span class="st">&quot;data/gapminder_data.csv&quot;</span>)</code></pre></div>
 <p>To run the script and load the data into the <code>gapminder</code> variable:</p>
-<p><sub><del>{r, eval=FALSE} source(file = “scripts/load-gapminder.R”)</del></sub></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">source</span>(<span class="dt">file =</span> <span class="st">&quot;scripts/load-gapminder.R&quot;</span>)</code></pre></div>
 </div>
 </section>
 <section class="challenge panel panel-success">

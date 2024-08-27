@@ -617,7 +617,7 @@ xlist$data
 > 
 > Given the following list:
 > 
-> ~~~{r, eval=FALSE}
+> ~~~{.r}
 > xlist <- list(a = "Software Carpentry", b = 1:10, data = head(mtcars))
 > ~~~
 > 
@@ -646,7 +646,7 @@ xlist$data
 > 
 > Given a linear model:
 > 
-> ~~~{r, eval=FALSE}
+> ~~~{.r}
 > mod <- aov(pop ~ lifeExp, data=gapminder)
 > ~~~
 > 
@@ -655,11 +655,11 @@ xlist$data
 > 
 > ##### Solution
 > 
-> ~~~{r, eval=FALSE}
+> ~~~{.r}
 > attributes(mod) ## `df.residual` is one of the names of `mod`
 > ~~~
 > 
-> ~~~{r, eval=FALSE}
+> ~~~{.r}
 > mod$df.residual
 > ~~~
 
@@ -712,33 +712,33 @@ be changed with the third argument, `drop = FALSE`).
 > 
 > 1. Extract observations collected for the year 1957
 >   
->   ~~~{r, eval=FALSE}
+>   ~~~{.r}
 >   gapminder[gapminder$year = 1957,]
 >   ~~~
 > 
 > 2. Extract all columns except 1 through to 4
 >   
->   ~~~{r, eval=FALSE}
+>   ~~~{.r}
 >   gapminder[,-1:4]
 >   ~~~
 > 
 > 3. Extract the rows where the life expectancy is longer the 80 years
 >   
->   ~~~{r, eval=FALSE}
+>   ~~~{.r}
 >   gapminder[gapminder$lifeExp > 80]
 >   ~~~
 > 
 > 4. Extract the first row, and the fourth and fifth columns
 >   (`continent` and `lifeExp`).
 >   
->   ~~~{r, eval=FALSE}
+>   ~~~{.r}
 >   gapminder[1, 4, 5]
 >   ~~~
 > 
 > 5. Advanced: extract rows that contain information for the years 2002
 >   and 2007
 >   
->   ~~~{r, eval=FALSE}
+>   ~~~{.r}
 >   gapminder[gapminder$year == 2002 | 2007,]
 >   ~~~
 > 
@@ -749,21 +749,21 @@ be changed with the third argument, `drop = FALSE`).
 > 
 > 1. Extract observations collected for the year 1957
 >   
->   ~~~{r, eval=FALSE}
+>   ~~~{.r}
 >   # gapminder[gapminder$year = 1957,]
 >   gapminder[gapminder$year == 1957,]
 >   ~~~
 > 
 > 2. Extract all columns except 1 through to 4
 >   
->   ~~~{r, eval=FALSE}
+>   ~~~{.r}
 >   # gapminder[,-1:4]
 >   gapminder[,-c(1:4)]
 >   ~~~
 > 
 > 3. Extract the rows where the life expectancy is longer than 80 years
 >   
->   ~~~{r, eval=FALSE}
+>   ~~~{.r}
 >   # gapminder[gapminder$lifeExp > 80]
 >   gapminder[gapminder$lifeExp > 80,]
 >   ~~~
@@ -771,7 +771,7 @@ be changed with the third argument, `drop = FALSE`).
 > 4. Extract the first row, and the fourth and fifth columns
 >   (`continent` and `lifeExp`).
 >   
->   ~~~{r, eval=FALSE}
+>   ~~~{.r}
 >   # gapminder[1, 4, 5]
 >   gapminder[1, c(4, 5)]
 >   ~~~
@@ -779,7 +779,7 @@ be changed with the third argument, `drop = FALSE`).
 > 5. Advanced: extract rows that contain information for the years 2002
 >   and 2007
 >   
->   ~~~{r, eval=FALSE}
+>   ~~~{.r}
 >   # gapminder[gapminder$year == 2002 | 2007,]
 >   gapminder[gapminder$year == 2002 | gapminder$year == 2007,]
 >   gapminder[gapminder$year %in% c(2002, 2007),]

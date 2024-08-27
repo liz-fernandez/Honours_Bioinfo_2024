@@ -294,7 +294,7 @@ xlist[<span class="dv">1</span>]</code></pre></div>
 </div>
 <div class="panel-body">
 <p>Given the following list:</p>
-<p><sub><del>{r, eval=FALSE} xlist &lt;- list(a = “Software Carpentry”, b = 1:10, data = head(mtcars))</del></sub></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">xlist &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">a =</span> <span class="st">&quot;Software Carpentry&quot;</span>, <span class="dt">b =</span> <span class="dv">1</span>:<span class="dv">10</span>, <span class="dt">data =</span> <span class="kw">head</span>(mtcars))</code></pre></div>
 <p>Using your knowledge of both list and vector subsetting, extract the number 2 from xlist. Hint: the number 2 is contained within the “b” item in the list.</p>
 <h5 id="solution-4">Solution</h5>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">xlist$b[<span class="dv">2</span>]</code></pre></div>
@@ -308,11 +308,11 @@ xlist[<span class="dv">1</span>]</code></pre></div>
 </div>
 <div class="panel-body">
 <p>Given a linear model:</p>
-<p><sub><del>{r, eval=FALSE} mod &lt;- aov(pop ~ lifeExp, data=gapminder)</del></sub></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod &lt;-<span class="st"> </span><span class="kw">aov</span>(pop ~<span class="st"> </span>lifeExp, <span class="dt">data=</span>gapminder)</code></pre></div>
 <p>Extract the residual degrees of freedom (hint: <code>attributes()</code> will help you)</p>
 <h5 id="solution-5">Solution</h5>
-<p><sub><del>{r, eval=FALSE} attributes(mod) ## <code>df.residual</code> is one of the names of <code>mod</code></del></sub></p>
-<p><sub><del>{r, eval=FALSE} mod$df.residual</del></sub></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">attributes</span>(mod) ## `df.residual` is one of the names of `mod`</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod$df.residual</code></pre></div>
 </div>
 </section>
 <h2 id="data-frames">Data frames</h2>
@@ -337,45 +337,45 @@ xlist[<span class="dv">1</span>]</code></pre></div>
 <ol style="list-style-type: decimal">
 <li>Extract observations collected for the year 1957</li>
 </ol>
-<p><sub><del>{r, eval=FALSE} gapminder[gapminder$year = 1957,]</del></sub></p>
+<p><sub><del>{.r} gapminder[gapminder$year = 1957,]</del></sub></p>
 <ol start="2" style="list-style-type: decimal">
 <li>Extract all columns except 1 through to 4</li>
 </ol>
-<p><sub><del>{r, eval=FALSE} gapminder[,-1:4]</del></sub></p>
+<p><sub><del>{.r} gapminder[,-1:4]</del></sub></p>
 <ol start="3" style="list-style-type: decimal">
 <li>Extract the rows where the life expectancy is longer the 80 years</li>
 </ol>
-<p><sub><del>{r, eval=FALSE} gapminder[gapminder$lifeExp &gt; 80]</del></sub></p>
+<p><sub><del>{.r} gapminder[gapminder$lifeExp &gt; 80]</del></sub></p>
 <ol start="4" style="list-style-type: decimal">
 <li>Extract the first row, and the fourth and fifth columns (<code>continent</code> and <code>lifeExp</code>).</li>
 </ol>
-<p><sub><del>{r, eval=FALSE} gapminder[1, 4, 5]</del></sub></p>
+<p><sub><del>{.r} gapminder[1, 4, 5]</del></sub></p>
 <ol start="5" style="list-style-type: decimal">
 <li>Advanced: extract rows that contain information for the years 2002 and 2007</li>
 </ol>
-<p><sub><del>{r, eval=FALSE} gapminder[gapminder$year == 2002 | 2007,]</del></sub></p>
+<p><sub><del>{.r} gapminder[gapminder$year == 2002 | 2007,]</del></sub></p>
 <h5 id="solution-6">Solution</h5>
 <p>Fix each of the following common data frame subsetting errors:</p>
 <ol style="list-style-type: decimal">
 <li>Extract observations collected for the year 1957</li>
 </ol>
-<p><sub><del>{r, eval=FALSE} # gapminder[gapminder$year = 1957,] gapminder[gapminder$year == 1957,]</del></sub></p>
+<p><sub><del>{.r} # gapminder[gapminder$year = 1957,] gapminder[gapminder$year == 1957,]</del></sub></p>
 <ol start="2" style="list-style-type: decimal">
 <li>Extract all columns except 1 through to 4</li>
 </ol>
-<p><sub><del>{r, eval=FALSE} # gapminder[,-1:4] gapminder[,-c(1:4)]</del></sub></p>
+<p><sub><del>{.r} # gapminder[,-1:4] gapminder[,-c(1:4)]</del></sub></p>
 <ol start="3" style="list-style-type: decimal">
 <li>Extract the rows where the life expectancy is longer than 80 years</li>
 </ol>
-<p><sub><del>{r, eval=FALSE} # gapminder[gapminder$lifeExp &gt; 80] gapminder[gapminder$lifeExp &gt; 80,]</del></sub></p>
+<p><sub><del>{.r} # gapminder[gapminder$lifeExp &gt; 80] gapminder[gapminder$lifeExp &gt; 80,]</del></sub></p>
 <ol start="4" style="list-style-type: decimal">
 <li>Extract the first row, and the fourth and fifth columns (<code>continent</code> and <code>lifeExp</code>).</li>
 </ol>
-<p><sub><del>{r, eval=FALSE} # gapminder[1, 4, 5] gapminder[1, c(4, 5)]</del></sub></p>
+<p><sub><del>{.r} # gapminder[1, 4, 5] gapminder[1, c(4, 5)]</del></sub></p>
 <ol start="5" style="list-style-type: decimal">
 <li>Advanced: extract rows that contain information for the years 2002 and 2007</li>
 </ol>
-<p><sub><del>{r, eval=FALSE} # gapminder[gapminder$year == 2002 | 2007,] gapminder[gapminder<span class="math inline">\(year == 2002 | gapminder\)</span>year == 2007,] gapminder[gapminder$year %in% c(2002, 2007),]</del></sub></p>
+<p><sub><del>{.r} # gapminder[gapminder$year == 2002 | 2007,] gapminder[gapminder<span class="math inline">\(year == 2002 | gapminder\)</span>year == 2007,] gapminder[gapminder$year %in% c(2002, 2007),]</del></sub></p>
 </div>
 </section>
 <section class="challenge panel panel-success">

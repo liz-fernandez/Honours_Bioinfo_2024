@@ -57,7 +57,7 @@ cbind(cats, age)
 
 Note that if we tried to add a vector of ages with a different number of entries than the number of rows in the data frame, it would fail:
 
-~~~{r}
+~~~{.r}
 age <- c(2, 3, 5, 12)
 cbind(cats, age)
 ~~~
@@ -66,7 +66,7 @@ Error in data.frame(..., check.names = FALSE) :
   arguments imply differing number of rows: 3, 4
 ~~~
 
-~~~{r}
+~~~{.r}
 age <- c(2, 3)
 cbind(cats, age)
 ~~~
@@ -461,14 +461,14 @@ into a script file so we can come back to it later.
 > script to use the function of that script without writing everything again.
 > Check out `?source` to find out more.
 > 
-> ~~~{r, eval=FALSE}
+> ~~~{.r}
 > download.file("https://raw.githubusercontent.com/swcarpentry/r-novice-gapminder/main/episodes/data/gapminder_data.csv", destfile = "data/gapminder_data.csv")
 > gapminder <- read.csv(file = "data/gapminder_data.csv")
 > ~~~
 > 
 > To run the script and load the data into the `gapminder` variable:
 > 
-> ~~~{r, eval=FALSE}
+> ~~~{.r}
 > source(file = "scripts/load-gapminder.R")
 > ~~~
 
