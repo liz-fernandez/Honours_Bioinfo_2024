@@ -102,13 +102,6 @@ These lessons will start you on a path towards using these resources effectively
 10. [Functions Explained](10-functions_R.html)
 11. [Writing Data](11-writing-data_R.html)
 
-### Extra R lessons
-
-12. [Data Frame Manipulation with dplyr]()
-13. [Data Frame Manipulation with tidyr]()
-14. [Producing Reports With knitr]()
-15. [Writing Good Software]()
-
 ## Other Resources
 
 *   [Motivation](motivation.html)
